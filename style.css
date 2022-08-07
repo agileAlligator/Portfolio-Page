@@ -1,0 +1,83 @@
+#about {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100vh;
+
+	font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+		"Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+.gradient {
+	background-color: #000;
+	background-image: linear-gradient(55deg, rgb(255, 153, 0) 0%, #7411d8 100%);
+	color: white;
+}
+
+#heading {
+	text-shadow: 5px 5px black;
+	font-weight: 900;
+	font-size: 5rem;
+}
+.nav-link {
+	color: white;
+	font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+		"Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+.navbar-brand {
+	color: white;
+	font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+		"Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+#descriptor {
+	font-style: italic;
+	font-weight: 700;
+	font-size: 1.5rem;
+	text-shadow: 1px 1px black;
+}
+
+#work {
+	padding: 5vh 5vh 5vh 5vh;
+	text-align: center;
+	background-color: #000;
+	background-image: linear-gradient(55deg, black 0%, rgb(44, 44, 44) 100%);
+	color: white;
+	font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+		"Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+.card {
+	color: white;
+	background: linear-gradient(to top, #09203f 0%, #537895 100%);
+	margin: 1em 1em 1em 1em;
+	font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+		"Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+.card-img-top {
+	padding: 1em 1em 1em 1em;
+	width: 300px;
+	height: 300px;
+
+	object-fit: fill;
+}
+
+#contact {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100vh;
+	color: white;
+	background-color: #000;
+	font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+		"Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+.contact-details {
+	color: white;
+}
