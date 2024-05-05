@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seinfeld Excuse Rolodex</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+<style>
+    body {
+        background: linear-gradient(to right, #7F8068, #D1DE1F);
+        font-family: 'Comic Sans MS', cursive, sans-serif;
+    }
+    .excuse-card {
+        opacity: 0;
+        animation: flyIn 1s forwards;
+    }
+    .excuse-container {
+        width: 80%;
+        max-width: 500px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #f3f4f6;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        animation: slideIn 1s forwards;
+    }
+    @keyframes bounceIn {
+        from {
+            opacity: 0;
+            transform: scale(0.5);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+    @keyframes flyIn {
+        from {
+            opacity: 0;
+            transform: translateX(-100%);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateX(-100%);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+</style>
+
+</head>
+<body class="flex justify-center items-center h-screen">
+    <div id="rolodex" class="bg-gray-200 rounded-lg shadow-lg p-8 text-center">
+        <h1 class="text-4xl font-bold mb-6 text-yellow-600">Seinfeld Excuse Rolodex</h1>
+        <div class="excuse-container" id="excuse-container">
+            <div id="excuse" class="excuse-card text-lg mb-3"></div>
+        </div>
+        <div class="flex justify-center gap-4 mb-8">
+            <button onclick="generateExcuse('Monday')" class="px-6 py-3 bg-gradient-to-r from-yellow-400 to-yellow-500 text-white rounded-full hover:from-yellow-500 hover:to-yellow-600 hover:shadow-md transition duration-300 ease-in-out">Monday</button>
+            <button onclick="generateExcuse('Tuesday')" class="px-6 py-3 bg-gradient-to-r from-yellow-400 to-yellow-500 text-white rounded-full hover:from-yellow-500 hover:to-yellow-600 hover:shadow-md transition duration-300 ease-in-out">Tuesday</button>
+            <button onclick="generateExcuse('Wednesday')" class="px-6 py-3 bg-gradient-to-r from-yellow-400 to-yellow-500 text-white rounded-full hover:from-yellow-500 hover:to-yellow-600 hover:shadow-md transition duration-300 ease-in-out">Wednesday</button>
+            <button onclick="generateExcuse('Thursday')" class="px-6 py-3 bg-gradient-to-r from-yellow-400 to-yellow-500 text-white rounded-full hover:from-yellow-500 hover:to-yellow-600 hover:shadow-md transition duration-300 ease-in-out">Thursday</button>
+            <button onclick="generateExcuse('Friday')" class="px-6 py-3 bg-gradient-to-r from-yellow-400 to-yellow-500 text-white rounded-full hover:from-yellow-500 hover:to-yellow-600 hover:shadow-md transition duration-300 ease-in-out">Friday</button>
+        </div>
+    </div>
+
+    <script>
+        // Excuse database
+        const excuses = {
+            "Monday": [
+                "I’m attending a workshop on sustainable living; it’s a one-time event I can’t miss.",
+                "My neighbor needs help setting up their new home security system, and I promised to lend a hand.",
+                "I’ve scheduled a deep cleaning service for my apartment; it’s been overdue for months.",
+                "I’m volunteering at the local animal shelter; they’re short-staffed and need extra help.",
+                "I have a dentist appointment; they had an opening, and I can’t delay it any longer."
+            ],
+            "Tuesday": [
+                "I’m helping my friend prepare for their citizenship test; it’s a big day for them.",
+                "I’ve got a parent-teacher conference; my kid’s been struggling in math, and we need to sort it out.",
+                "I’m attending a neighborhood council meeting; we’re discussing the new park renovations.",
+                "I’ve committed to a book club discussion; we’re reviewing a novel I suggested.",
+                "I’m taking a night class on personal finance; it’s essential for my long-term planning."
+            ],
+            "Wednesday": [
+                "I’m mentoring a group of students for a science fair; they’re counting on my expertise.",
+                "I’ve got tickets to an author’s book signing event; it’s a rare opportunity to meet my favorite writer.",
+                "I’m participating in a local food drive; we’re aiming to feed 200 families this month.",
+                "I’m leading a community yoga session; it’s part of a wellness initiative I started.",
+                "I have an appointment with a career counselor; I’m considering a job change."
+            ],
+            "Thursday": [
+                "I’m attending a seminar on urban gardening; I’m hoping to start a rooftop garden.",
+                "I’m assisting at the community theater; we’re setting up for the upcoming play.",
+                "I’m taking part in a neighborhood clean-up; it’s important to keep our streets tidy.",
+                "I’m meeting with a financial advisor; I need to review my investment portfolio.",
+                "I’m going to a networking event for local entrepreneurs; it’s a chance to grow my business."
+            ],
+            "Friday": [
+                "I’m hosting a game night for my colleagues; it’s a team-building exercise.",
+                "I’m attending a cooking class; I’ve always wanted to learn how to make sushi.",
+                "I’m going on a stargazing trip; there’s a meteor shower that won’t happen again for years.",
+                "I’m taking my car in for maintenance; it’s been making some strange noises lately.",
+                "I’m visiting an art exhibit opening; a friend of mine is showcasing their work."
+            ]
+        };
+
+        // Function to generate an excuse for the selected day
+        function generateExcuse(day) {
+            const excuseContainer = document.getElementById('excuse-container');
+            excuseContainer.classList.remove('excuse-card');
+            void excuseContainer.offsetWidth; // Trigger reflow to restart animation
+            excuseContainer.classList.add('excuse-card');
+
+            const excuseElement = document.getElementById('excuse');
+            const randomIndex = Math.floor(Math.random() * excuses[day].length);
+            excuseElement.textContent = excuses[day][randomIndex];
+        }
+    </script>
+</body>
+
+</html>
