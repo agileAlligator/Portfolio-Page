@@ -33,6 +33,22 @@ plugins:
 feed:
   path: /feed.xml
 
+# ── Keep non-page assets OUT of sitemap.xml ─────────────────────────────────
+# The sitemap should list indexable *content pages* only (home, /blog, posts).
+# The entries below are downloadable/one-off files — PDFs and a standalone HTML
+# toy — not pages we want Google to index or crawl as part of the site's page
+# inventory. jekyll-sitemap honours `sitemap: false`; static files (no front
+# matter of their own) get it via these path-scoped defaults.
+# 👉 If you add another PDF or standalone asset, add a matching entry here or it
+#    will silently reappear in the sitemap.
+defaults:
+  - scope: { path: "resume.pdf" }
+    values: { sitemap: false }
+  - scope: { path: "research-draft2024.pdf" }
+    values: { sitemap: false }
+  - scope: { path: "seinfeld-rolodex.html" }
+    values: { sitemap: false }
+
 markdown: kramdown
 highlighter: rouge
 kramdown:
