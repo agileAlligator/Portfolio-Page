@@ -84,18 +84,19 @@
 			<div class="term" data-reveal aria-hidden="true">
 				<div class="term-bar">
 					<span class="dot"></span><span class="dot"></span><span class="dot"></span>
-					<span class="term-title">mcp-inspect · client-prod</span>
+					<span class="term-title">read_file.py — before / after</span>
 				</div>
-				<pre class="term-body"><span class="c-dim">$</span> mcp-inspect --harden client-prod
+				<pre class="term-body"><span class="c-dim"># hardening an MCP tool the model can call</span>
 
-<span class="c-key">▶ tool_call</span> read_file(<span class="c-str">"~/.ssh/id_rsa"</span>)
-  <span class="c-bad">✗ DENIED</span> <span class="c-dim">path outside scoped root</span>
-<span class="c-key">▶ tool_call</span> fetch(<span class="c-str">"http://169.254.169.254/…"</span>)
-  <span class="c-bad">✗ DENIED</span> <span class="c-dim">egress not allowlisted</span>
-<span class="c-key">▶ injection</span> <span class="c-str">"ignore previous instructions…"</span>
-  <span class="c-bad">✗ NEUTRALIZED</span> <span class="c-dim">untrusted content sandboxed</span>
+<span class="c-bad">- def read_file(path):</span>
+<span class="c-bad">-     return open(path).read()</span>
+<span class="c-dim">  # path traversal + unscanned secret leak</span>
 
-<span class="c-ok">✓ 0 escapes · 3 blocked · server hardened</span>
+<span class="c-ok">+ def read_file(path):</span>
+<span class="c-ok">+     p = safe_join(WORKSPACE, path)</span>
+<span class="c-ok">+     enforce_allowlist("read_file")</span>
+<span class="c-ok">+     return dlp_scan(open(p).read())</span>
+<span class="c-dim">  # sandboxed · allowlisted · DLP-scanned</span>
 <span class="c-dim">$</span> <span class="cursor">▋</span></pre>
 			</div>
 		</section>
@@ -185,35 +186,35 @@
 				<article class="card card-feature" data-reveal>
 					<div class="card-top">
 						<span class="card-idx">01</span>
-						<span class="card-tags">MCP · agentic-security · Python</span>
+						<span class="card-tags">agent-safety · provenance · Python</span>
 					</div>
-					<h3 class="card-title">mcploitable</h3>
+					<h3 class="card-title">d2c-analyst</h3>
 					<p class="card-desc">
-						The “Metasploitable” of the Model Context Protocol — a deliberately
-						vulnerable MCP server for agentic-security training, mapped to the
-						<strong>OWASP Top 10 for Agentic Applications (2026)</strong>. One
-						isolated Docker server per vulnerability, an insecure/hardened toggle to
-						diff exploit vs. mitigation, and a CTF-style flag scoreboard.
+						A working AI analyst plus an autonomous <strong>Margin Watch</strong>
+						agent for D2C brands. Every number in an answer is server-side validated
+						against a provenance model before it reaches the user; a gpt-4o-mini →
+						gpt-4o router escalates on complexity, all over row-level-secure
+						multi-tenant data. Built, tested, and documented end to end.
 					</p>
 					<div class="card-links">
-						<a href="https://github.com/agileAlligator/mcploitable" target="_blank" rel="noopener">github ↗</a>
+						<a href="https://github.com/agileAlligator/d2c-analyst" target="_blank" rel="noopener">github ↗</a>
 					</div>
 				</article>
 
 				<article class="card" data-reveal>
 					<div class="card-top">
 						<span class="card-idx">02</span>
-						<span class="card-tags">agent-safety · provenance · Python</span>
+						<span class="card-tags">agentic-security · research · WIP</span>
 					</div>
-					<h3 class="card-title">d2c-analyst</h3>
+					<h3 class="card-title">mcploitable</h3>
 					<p class="card-desc">
-						An AI analyst plus an autonomous <strong>Margin Watch</strong> agent for
-						D2C brands. Every number in an answer is server-side validated against a
-						provenance model before the user sees it; a gpt-4o-mini → gpt-4o router
-						escalates on complexity, all on row-level-secure multi-tenant data.
+						A work-in-progress agentic-security training lab — a deliberately
+						vulnerable MCP server (“the Metasploitable of MCP”) that maps the OWASP
+						Top 10 for Agentic Applications to hands-on scenarios with an
+						insecure/hardened toggle. <strong>Early and actively in development.</strong>
 					</p>
 					<div class="card-links">
-						<a href="https://github.com/agileAlligator/d2c-analyst" target="_blank" rel="noopener">github ↗</a>
+						<a href="https://github.com/agileAlligator/mcploitable" target="_blank" rel="noopener">github ↗</a>
 					</div>
 				</article>
 
