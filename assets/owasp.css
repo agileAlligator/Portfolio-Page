@@ -19,12 +19,17 @@
 .owasp-hint { font-family: var(--mono); font-size: 0.8rem; color: var(--ink-faint); }
 
 /* grid */
+/* widen the content column on this page only (default is 760px) so 3 cards fit */
+.content { max-width: 1080px; }
+
 .asi-grid {
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+	grid-template-columns: repeat(3, 1fr);
 	gap: 1.1rem;
 	margin: 2.5rem 0 1rem;
 }
+@media (max-width: 860px) { .asi-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .asi-grid { grid-template-columns: 1fr; } }
 
 /* card = a button so it's keyboard-operable */
 .asi-card {
@@ -112,9 +117,8 @@
 .asi-back .asi-defense { color: var(--ink-dim); font-size: 0.86rem; line-height: 1.5; }
 .asi-back .asi-code { margin-bottom: 0.2rem; }
 
-@media (max-width: 480px) {
-	.asi-grid { grid-template-columns: 1fr; }
-	.asi-card { height: 300px; }
+@media (max-width: 560px) {
+	.asi-card { height: 290px; }
 }
 
 /* motion-safe: instant flip for reduced-motion users */
