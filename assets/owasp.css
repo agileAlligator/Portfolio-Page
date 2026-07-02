@@ -59,12 +59,14 @@
 	-webkit-user-select: none;
 	user-select: none;                           /* no text-selection on tap */
 	touch-action: manipulation;                  /* no double-tap zoom delay */
-	/* entrance */
+}
+/* entrance — only hide when JS is present, else cards stay visible */
+.js .asi-card {
 	opacity: 0;
 	transform: translateY(18px);
 	transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
 }
-.asi-card.in { opacity: 1; transform: none; }
+.js .asi-card.in { opacity: 1; transform: none; }
 
 /* left/right rotation affordance */
 .asi-card::before,
