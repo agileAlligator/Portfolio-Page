@@ -1,0 +1,36 @@
+---
+layout: default
+title: Writing
+description: >-
+  Field notes on building secure MCP servers — the pitfalls, the guardrails,
+  and the attack surface — from shipping them for clients.
+permalink: /blog/
+---
+<section class="blog-index">
+	<p class="section-label">// writing</p>
+	<h1 class="blog-title">Writing</h1>
+	<p class="blog-intro">
+		Field notes on building secure MCP servers — the pitfalls that cost me a day,
+		the guardrails the model can't be trusted to enforce itself, and the attack
+		surface underneath it all. Written from shipping them for clients, not reading
+		about them.
+	</p>
+
+	{% if site.posts.size > 0 %}
+	<ul class="post-list">
+		{% for post in site.posts %}
+		<li class="post-list-item">
+			<a href="{{ post.url }}">
+				<span class="pli-main">
+					<span class="pli-title">{{ post.title }}</span>
+					{% if post.subtitle %}<span class="pli-sub">{{ post.subtitle }}</span>{% endif %}
+				</span>
+				<time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %Y" }}</time>
+			</a>
+		</li>
+		{% endfor %}
+	</ul>
+	{% else %}
+	<p class="blog-empty">First post landing shortly.</p>
+	{% endif %}
+</section>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: 'en' }}">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		{% seo %}
+		{% feed_meta %}
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="/style.css" />
+		<link rel="stylesheet" href="/assets/blog.css" />
+		<link rel="stylesheet" href="/assets/syntax.css" />
+	</head>
+	<body>
+		<div class="grain" aria-hidden="true"></div>
+
+		<header class="nav">
+			<a class="nav-brand" href="/"><span class="prompt">&gt;</span> avneesh<span class="blink">_</span></a>
+			<nav class="nav-links" aria-label="Primary">
+				<a href="/#about">about</a>
+				<a href="/#experience">experience</a>
+				<a href="/#work">work</a>
+				<a href="/blog/">writing</a>
+				<a href="/#contact">contact</a>
+			</nav>
+			<a class="nav-resume" href="/resume.pdf" target="_blank" rel="noopener">résumé ↗</a>
+		</header>
+
+		<main class="content">
+			{{ content }}
+		</main>
+
+		<footer class="footer site-footer">
+			<span><span class="prompt">&gt;</span> built by Avneesh Kasture</span>
+			<span class="site-footer-links">
+				<a href="/feed.xml">RSS</a>
+				<a href="https://github.com/agileAlligator" target="_blank" rel="noopener">github</a>
+				<a href="https://www.linkedin.com/in/avneesh-kasture-491b651b6/" target="_blank" rel="noopener">linkedin</a>
+			</span>
+		</footer>
+	</body>
+</html>
