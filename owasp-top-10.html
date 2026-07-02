@@ -1,204 +1,255 @@
 ---
 layout: default
-title: "The OWASP Agentic Top 10 — and the control that stops each"
+title: "The OWASP Agentic Top 10 — attack, control, and detection"
 description: >-
-  The OWASP Top 10 for Agentic Applications (2026), mapped to the server-side
-  control that answers each risk — goal hijack, tool misuse, privilege abuse,
-  supply chain, code execution, memory poisoning, and more. An interactive
-  MCP attack-surface map.
+  The OWASP Top 10 for Agentic Applications (2026) as an interactive prism:
+  each risk, the server-side control that prevents it, and how you'd detect it
+  if the control fails. Goal hijack, tool misuse, privilege abuse, supply
+  chain, code execution, memory poisoning, rogue agents, and more.
 permalink: /owasp-top-10/
 extra_css: /assets/owasp.css
 ---
 <section class="owasp-intro">
 	<p class="section-label">// mcp attack surface</p>
-	<h1 class="owasp-title">The OWASP Agentic Top 10, and the control that stops each</h1>
+	<h1 class="owasp-title">The OWASP Agentic Top 10 — attack, control, detection</h1>
 	<p class="owasp-lede">Give a model tools and autonomy and you inherit a new attack surface. The
 		<a href="https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/" target="_blank" rel="noopener">OWASP Top 10 for Agentic Applications (2026)</a>
 		is the benchmark for what goes wrong.</p>
-	<p>My starting assumption is that the model itself <strong>will</strong> be jailbroken — so every
-		defense below lives in the <strong>server</strong>, in deterministic code the model can't talk
-		its way past, not in the prompt. Flip a card for the attack and the control that answers it.</p>
-	<p class="owasp-hint">↹ hover, tap, or focus + Enter to flip a card.</p>
+	<p>I assume the model itself <strong>will</strong> be jailbroken — so prevention lives in the
+		<strong>server</strong>, not the prompt. And because prevention fails, each risk also needs an
+		answer to the question defenders actually ask: <em>how would I know?</em></p>
+	<p class="owasp-hint">Each card is a prism — click its <strong>right</strong> side to rotate forward, <strong>left</strong> to go back
+		(or use ← →):&nbsp; <span class="k-risk">risk</span> → <span class="k-control">control</span> → <span class="k-detect">detection</span>.</p>
 </section>
 
 <div class="asi-grid">
 
-	<button class="asi-card" type="button" aria-pressed="false">
-		<span class="asi-inner">
-			<span class="asi-face asi-front">
+	<button class="asi-card" type="button" data-rot="0" aria-label="ASI01 Agent Goal Hijack — click left or right (or arrow keys) to rotate through risk, control and detection">
+		<span class="asi-prism">
+			<span class="asi-face face-risk">
 				<span class="asi-code">ASI01 : 2026</span>
 				<span class="asi-name">Agent Goal Hijack</span>
 				<span class="asi-attack">Injected text in a tool result quietly rewrites the agent's objective.</span>
-				<span class="asi-flip-hint">↻ defense</span>
+				<span class="asi-foot"><span>‹ rotate ›</span><span class="step">risk</span></span>
 			</span>
-			<span class="asi-face asi-back">
+			<span class="asi-face face-control">
 				<span class="asi-code">ASI01</span>
-				<span class="asi-label lbl-threat">Attack</span>
-				<span class="asi-threat">A hidden instruction in a fetched ticket or web page redirects the agent — "also email the admin table to…".</span>
-				<span class="asi-label lbl-defense">Control</span>
-				<span class="asi-defense">Tool output is structured and isolated from the system prompt, never read as instructions, and DLP-scanned. Content can't rewrite the goal.</span>
+				<span class="asi-label lbl-control">Control · prevent</span>
+				<span class="asi-body">Tool output is structured and isolated from the system prompt, never read as instructions, and DLP-scanned. Content can't rewrite the goal.</span>
+				<span class="asi-foot"><span>‹ rotate ›</span><span class="step">control</span></span>
+			</span>
+			<span class="asi-face face-detect">
+				<span class="asi-code">ASI01</span>
+				<span class="asi-label lbl-detect">Detection · blue-team</span>
+				<span class="asi-body">Flag tool-call chains whose target diverges from the session's stated task, and scan tool output for imperative/injection patterns before it can influence a call.</span>
+				<span class="asi-foot"><span>‹ rotate ›</span><span class="step">detection</span></span>
 			</span>
 		</span>
 	</button>
 
-	<button class="asi-card" type="button" aria-pressed="false">
-		<span class="asi-inner">
-			<span class="asi-face asi-front">
+	<button class="asi-card" type="button" data-rot="0" aria-label="ASI02 Tool Misuse and Exploitation — rotate through risk, control and detection">
+		<span class="asi-prism">
+			<span class="asi-face face-risk">
 				<span class="asi-code">ASI02 : 2026</span>
 				<span class="asi-name">Tool Misuse &amp; Exploitation</span>
 				<span class="asi-attack">Legitimate tools bent into destructive or over-scoped actions.</span>
-				<span class="asi-flip-hint">↻ defense</span>
+				<span class="asi-foot"><span>‹ rotate ›</span><span class="step">risk</span></span>
 			</span>
-			<span class="asi-face asi-back">
+			<span class="asi-face face-control">
 				<span class="asi-code">ASI02</span>
-				<span class="asi-label lbl-threat">Attack</span>
-				<span class="asi-threat">The agent is coerced into chaining tools — an over-scoped query, then an email — to exfiltrate data, or into bulk/destructive calls.</span>
-				<span class="asi-label lbl-defense">Control</span>
-				<span class="asi-defense">Runtime endpoint allowlist (least privilege), per-argument validation, and per-tool rate limits. Non-approved calls are rejected in code.</span>
+				<span class="asi-label lbl-control">Control · prevent</span>
+				<span class="asi-body">Runtime endpoint allowlist (least privilege), per-argument validation, and per-tool rate limits. Non-approved calls are rejected in code.</span>
+				<span class="asi-foot"><span>‹ rotate ›</span><span class="step">control</span></span>
+			</span>
+			<span class="asi-face face-detect">
+				<span class="asi-code">ASI02</span>
+				<span class="asi-label lbl-detect">Detection · blue-team</span>
+				<span class="asi-body">Alert on exfil-shaped sequences — a read-heavy query immediately followed by an external send — and on any user crossing N× their tool-call baseline.</span>
+				<span class="asi-foot"><span>‹ rotate ›</span><span class="step">detection</span></span>
 			</span>
 		</span>
 	</button>
 
-	<button class="asi-card" type="button" aria-pressed="false">
-		<span class="asi-inner">
-			<span class="asi-face asi-front">
+	<button class="asi-card" type="button" data-rot="0" aria-label="ASI03 Identity and Privilege Abuse — rotate through risk, control and detection">
+		<span class="asi-prism">
+			<span class="asi-face face-risk">
 				<span class="asi-code">ASI03 : 2026</span>
 				<span class="asi-name">Identity &amp; Privilege Abuse</span>
 				<span class="asi-attack">Over-broad or leaked credentials let the agent act beyond its scope.</span>
-				<span class="asi-flip-hint">↻ defense</span>
+				<span class="asi-foot"><span>‹ rotate ›</span><span class="step">risk</span></span>
 			</span>
-			<span class="asi-face asi-back">
+			<span class="asi-face face-control">
 				<span class="asi-code">ASI03</span>
-				<span class="asi-label lbl-threat">Attack</span>
-				<span class="asi-threat">A confused-deputy chain or a leaked token lets the agent reach resources it was never meant to touch.</span>
-				<span class="asi-label lbl-defense">Control</span>
-				<span class="asi-defense">OAuth 2.1 + PKCE, JWT verified on every call (iss/aud/exp/sub), least-privilege scopes, and a separate token per downstream — no ambient authority.</span>
+				<span class="asi-label lbl-control">Control · prevent</span>
+				<span class="asi-body">OAuth 2.1 + PKCE, JWT verified on every call (iss/aud/exp/sub), least-privilege scopes, and a separate token per downstream — no ambient authority.</span>
+				<span class="asi-foot"><span>‹ rotate ›</span><span class="step">control</span></span>
+			</span>
+			<span class="asi-face face-detect">
+				<span class="asi-code">ASI03</span>
+				<span class="asi-label lbl-detect">Detection · blue-team</span>
+				<span class="asi-body">Alert when a token is used for endpoints or scopes outside its grant, or when one identity suddenly reaches resources it never touches.</span>
+				<span class="asi-foot"><span>‹ rotate ›</span><span class="step">detection</span></span>
 			</span>
 		</span>
 	</button>
 
-	<button class="asi-card" type="button" aria-pressed="false">
-		<span class="asi-inner">
-			<span class="asi-face asi-front">
+	<button class="asi-card" type="button" data-rot="0" aria-label="ASI04 Agentic Supply Chain — rotate through risk, control and detection">
+		<span class="asi-prism">
+			<span class="asi-face face-risk">
 				<span class="asi-code">ASI04 : 2026</span>
 				<span class="asi-name">Agentic Supply Chain</span>
 				<span class="asi-attack">A poisoned tool, registry, or dependency subverts the agent.</span>
-				<span class="asi-flip-hint">↻ defense</span>
+				<span class="asi-foot"><span>‹ rotate ›</span><span class="step">risk</span></span>
 			</span>
-			<span class="asi-face asi-back">
+			<span class="asi-face face-control">
 				<span class="asi-code">ASI04</span>
-				<span class="asi-label lbl-threat">Attack</span>
-				<span class="asi-threat">Tool-descriptor poisoning or a malicious MCP server ships behavior and instructions you never reviewed.</span>
-				<span class="asi-label lbl-defense">Control</span>
-				<span class="asi-defense">Pinned, verified dependencies; vetted MCP servers and tool descriptors; secret scanning in CI; no silent tool installation.</span>
+				<span class="asi-label lbl-control">Control · prevent</span>
+				<span class="asi-body">Pinned, verified dependencies; vetted MCP servers and tool descriptors; secret scanning in CI; no silent tool installation.</span>
+				<span class="asi-foot"><span>‹ rotate ›</span><span class="step">control</span></span>
+			</span>
+			<span class="asi-face face-detect">
+				<span class="asi-code">ASI04</span>
+				<span class="asi-label lbl-detect">Detection · blue-team</span>
+				<span class="asi-body">Alert when a tool descriptor's hash changes after approval, when an unrecognized MCP server registers, or on dependency-lockfile drift.</span>
+				<span class="asi-foot"><span>‹ rotate ›</span><span class="step">detection</span></span>
 			</span>
 		</span>
 	</button>
 
-	<button class="asi-card" type="button" aria-pressed="false">
-		<span class="asi-inner">
-			<span class="asi-face asi-front">
+	<button class="asi-card" type="button" data-rot="0" aria-label="ASI05 Unexpected Code Execution — rotate through risk, control and detection">
+		<span class="asi-prism">
+			<span class="asi-face face-risk">
 				<span class="asi-code">ASI05 : 2026</span>
 				<span class="asi-name">Unexpected Code Execution</span>
 				<span class="asi-attack">Untrusted input reaches eval/exec — remote code execution.</span>
-				<span class="asi-flip-hint">↻ defense</span>
+				<span class="asi-foot"><span>‹ rotate ›</span><span class="step">risk</span></span>
 			</span>
-			<span class="asi-face asi-back">
+			<span class="asi-face face-control">
 				<span class="asi-code">ASI05</span>
-				<span class="asi-label lbl-threat">Attack</span>
-				<span class="asi-threat">A tool that evaluates model-influenced input runs attacker-chosen code on the host.</span>
-				<span class="asi-label lbl-defense">Control</span>
-				<span class="asi-defense">No eval/exec on model-influenced input; strict input schemas; sandboxed, capability-scoped execution — arbitrary-code tools are denied.</span>
+				<span class="asi-label lbl-control">Control · prevent</span>
+				<span class="asi-body">No eval/exec on model-influenced input; strict input schemas; sandboxed, capability-scoped execution — arbitrary-code tools are denied.</span>
+				<span class="asi-foot"><span>‹ rotate ›</span><span class="step">control</span></span>
+			</span>
+			<span class="asi-face face-detect">
+				<span class="asi-code">ASI05</span>
+				<span class="asi-label lbl-detect">Detection · blue-team</span>
+				<span class="asi-body">Alert when eval/exec paths fire, on unexpected child-process spawns from the MCP process, or when code-shaped input reaches an executor.</span>
+				<span class="asi-foot"><span>‹ rotate ›</span><span class="step">detection</span></span>
 			</span>
 		</span>
 	</button>
 
-	<button class="asi-card" type="button" aria-pressed="false">
-		<span class="asi-inner">
-			<span class="asi-face asi-front">
+	<button class="asi-card" type="button" data-rot="0" aria-label="ASI06 Memory and Context Poisoning — rotate through risk, control and detection">
+		<span class="asi-prism">
+			<span class="asi-face face-risk">
 				<span class="asi-code">ASI06 : 2026</span>
 				<span class="asi-name">Memory &amp; Context Poisoning</span>
 				<span class="asi-attack">Adversarial data persisted into memory poisons future decisions.</span>
-				<span class="asi-flip-hint">↻ defense</span>
+				<span class="asi-foot"><span>‹ rotate ›</span><span class="step">risk</span></span>
 			</span>
-			<span class="asi-face asi-back">
+			<span class="asi-face face-control">
 				<span class="asi-code">ASI06</span>
-				<span class="asi-label lbl-threat">Attack</span>
-				<span class="asi-threat">Malicious content written to the agent's memory or RAG store steers later, unrelated tasks.</span>
-				<span class="asi-label lbl-defense">Control</span>
-				<span class="asi-defense">Memory writes are untrusted input: validated and provenance-tracked on ingest, scoped per tenant/session, and sanitized before reuse.</span>
+				<span class="asi-label lbl-control">Control · prevent</span>
+				<span class="asi-body">Memory writes are untrusted input: validated and provenance-tracked on ingest, scoped per tenant/session, and sanitized before reuse.</span>
+				<span class="asi-foot"><span>‹ rotate ›</span><span class="step">control</span></span>
+			</span>
+			<span class="asi-face face-detect">
+				<span class="asi-code">ASI06</span>
+				<span class="asi-label lbl-detect">Detection · blue-team</span>
+				<span class="asi-body">Flag memory/RAG writes from low-trust sources, and retrieval of freshly-written context that then steers a sensitive action (provenance gaps).</span>
+				<span class="asi-foot"><span>‹ rotate ›</span><span class="step">detection</span></span>
 			</span>
 		</span>
 	</button>
 
-	<button class="asi-card" type="button" aria-pressed="false">
-		<span class="asi-inner">
-			<span class="asi-face asi-front">
+	<button class="asi-card" type="button" data-rot="0" aria-label="ASI07 Insecure Inter-Agent Communication — rotate through risk, control and detection">
+		<span class="asi-prism">
+			<span class="asi-face face-risk">
 				<span class="asi-code">ASI07 : 2026</span>
 				<span class="asi-name">Insecure Inter-Agent Comms</span>
 				<span class="asi-attack">Agent-to-agent / MCP messages tampered, spoofed, or injected.</span>
-				<span class="asi-flip-hint">↻ defense</span>
+				<span class="asi-foot"><span>‹ rotate ›</span><span class="step">risk</span></span>
 			</span>
-			<span class="asi-face asi-back">
+			<span class="asi-face face-control">
 				<span class="asi-code">ASI07</span>
-				<span class="asi-label lbl-threat">Attack</span>
-				<span class="asi-threat">One agent trusts another's output as instructions; a spoofed peer injects a malicious step into the chain.</span>
-				<span class="asi-label lbl-defense">Control</span>
-				<span class="asi-defense">Authenticated, structured channels (mTLS / scoped tokens); every message validated; peer output treated as data, never commands.</span>
+				<span class="asi-label lbl-control">Control · prevent</span>
+				<span class="asi-body">Authenticated, structured channels (mTLS / scoped tokens); every message validated; peer output treated as data, never commands.</span>
+				<span class="asi-foot"><span>‹ rotate ›</span><span class="step">control</span></span>
+			</span>
+			<span class="asi-face face-detect">
+				<span class="asi-code">ASI07</span>
+				<span class="asi-label lbl-detect">Detection · blue-team</span>
+				<span class="asi-body">Alert on failed-auth or unauthenticated peer messages, on messages failing schema/claims validation, and on sudden inter-agent volume spikes.</span>
+				<span class="asi-foot"><span>‹ rotate ›</span><span class="step">detection</span></span>
 			</span>
 		</span>
 	</button>
 
-	<button class="asi-card" type="button" aria-pressed="false">
-		<span class="asi-inner">
-			<span class="asi-face asi-front">
+	<button class="asi-card" type="button" data-rot="0" aria-label="ASI08 Cascading Agent Failures — rotate through risk, control and detection">
+		<span class="asi-prism">
+			<span class="asi-face face-risk">
 				<span class="asi-code">ASI08 : 2026</span>
 				<span class="asi-name">Cascading Agent Failures</span>
 				<span class="asi-attack">One compromised or failing agent cascades across the system.</span>
-				<span class="asi-flip-hint">↻ defense</span>
+				<span class="asi-foot"><span>‹ rotate ›</span><span class="step">risk</span></span>
 			</span>
-			<span class="asi-face asi-back">
+			<span class="asi-face face-control">
 				<span class="asi-code">ASI08</span>
-				<span class="asi-label lbl-threat">Attack</span>
-				<span class="asi-threat">An error or compromise in one agent propagates, amplifying blast radius across a multi-agent workflow.</span>
-				<span class="asi-label lbl-defense">Control</span>
-				<span class="asi-defense">Blast-radius limits, circuit breakers, per-agent least privilege and rate limits, and a kill-switch backed by full audit.</span>
+				<span class="asi-label lbl-control">Control · prevent</span>
+				<span class="asi-body">Blast-radius limits, circuit breakers, per-agent least privilege and rate limits, and a kill-switch backed by full audit.</span>
+				<span class="asi-foot"><span>‹ rotate ›</span><span class="step">control</span></span>
+			</span>
+			<span class="asi-face face-detect">
+				<span class="asi-code">ASI08</span>
+				<span class="asi-label lbl-detect">Detection · blue-team</span>
+				<span class="asi-body">Watch for error-rate propagation across agents, retry storms, and circuit-breaker trips correlated within a short window.</span>
+				<span class="asi-foot"><span>‹ rotate ›</span><span class="step">detection</span></span>
 			</span>
 		</span>
 	</button>
 
-	<button class="asi-card" type="button" aria-pressed="false">
-		<span class="asi-inner">
-			<span class="asi-face asi-front">
+	<button class="asi-card" type="button" data-rot="0" aria-label="ASI09 Human-Agent Trust Exploitation — rotate through risk, control and detection">
+		<span class="asi-prism">
+			<span class="asi-face face-risk">
 				<span class="asi-code">ASI09 : 2026</span>
 				<span class="asi-name">Human-Agent Trust Exploitation</span>
 				<span class="asi-attack">The agent is used to manipulate the human in the loop.</span>
-				<span class="asi-flip-hint">↻ defense</span>
+				<span class="asi-foot"><span>‹ rotate ›</span><span class="step">risk</span></span>
 			</span>
-			<span class="asi-face asi-back">
+			<span class="asi-face face-control">
 				<span class="asi-code">ASI09</span>
-				<span class="asi-label lbl-threat">Attack</span>
-				<span class="asi-threat">Confident, unattributed output nudges a human into approving a harmful action — or an agent-driven phishing step.</span>
-				<span class="asi-label lbl-defense">Control</span>
-				<span class="asi-defense">Provenance and citations on every output, human-approval gates on high-impact actions, and no unattended privileged operations.</span>
+				<span class="asi-label lbl-control">Control · prevent</span>
+				<span class="asi-body">Provenance and citations on every output, human-approval gates on high-impact actions, and no unattended privileged operations.</span>
+				<span class="asi-foot"><span>‹ rotate ›</span><span class="step">control</span></span>
+			</span>
+			<span class="asi-face face-detect">
+				<span class="asi-code">ASI09</span>
+				<span class="asi-label lbl-detect">Detection · blue-team</span>
+				<span class="asi-body">Flag high-impact actions approved with abnormally low latency (rubber-stamping) and outputs lacking provenance that precede an approval.</span>
+				<span class="asi-foot"><span>‹ rotate ›</span><span class="step">detection</span></span>
 			</span>
 		</span>
 	</button>
 
-	<button class="asi-card" type="button" aria-pressed="false">
-		<span class="asi-inner">
-			<span class="asi-face asi-front">
+	<button class="asi-card" type="button" data-rot="0" aria-label="ASI10 Rogue Agents — rotate through risk, control and detection">
+		<span class="asi-prism">
+			<span class="asi-face face-risk">
 				<span class="asi-code">ASI10 : 2026</span>
 				<span class="asi-name">Rogue Agents</span>
 				<span class="asi-attack">An agent operating outside policy, undetected.</span>
-				<span class="asi-flip-hint">↻ defense</span>
+				<span class="asi-foot"><span>‹ rotate ›</span><span class="step">risk</span></span>
 			</span>
-			<span class="asi-face asi-back">
+			<span class="asi-face face-control">
 				<span class="asi-code">ASI10</span>
-				<span class="asi-label lbl-threat">Attack</span>
-				<span class="asi-threat">Goal drift or a subverted agent acts beyond its mandate with no one watching.</span>
-				<span class="asi-label lbl-defense">Control</span>
-				<span class="asi-defense">Every action audited and traceable to the prompt that caused it, anomaly monitoring and alerts, least privilege, and a kill-switch.</span>
+				<span class="asi-label lbl-control">Control · prevent</span>
+				<span class="asi-body">Every action audited and traceable to the prompt that caused it, anomaly monitoring and alerts, least privilege, and a kill-switch.</span>
+				<span class="asi-foot"><span>‹ rotate ›</span><span class="step">control</span></span>
+			</span>
+			<span class="asi-face face-detect">
+				<span class="asi-code">ASI10</span>
+				<span class="asi-label lbl-detect">Detection · blue-team</span>
+				<span class="asi-body">Alert on any action with no matching originating-prompt hash, activity outside authorized windows, or deviation from the agent's behavioral baseline.</span>
+				<span class="asi-foot"><span>‹ rotate ›</span><span class="step">detection</span></span>
 			</span>
 		</span>
 	</button>
@@ -211,10 +262,51 @@ extra_css: /assets/owasp.css
 </p>
 
 <script>
-	document.querySelectorAll(".asi-card").forEach(function (card) {
-		card.addEventListener("click", function () {
-			var open = card.getAttribute("aria-pressed") === "true";
-			card.setAttribute("aria-pressed", String(!open));
+	(function () {
+		var cards = document.querySelectorAll(".asi-card");
+
+		cards.forEach(function (card) {
+			var prism = card.querySelector(".asi-prism");
+
+			function rotate(dir) {                        // dir: +1 forward (right), -1 back (left)
+				var rot = parseInt(card.dataset.rot || "0", 10) - dir * 120;
+				card.dataset.rot = rot;
+				prism.style.transform = "translateZ(-86.6px) rotateY(" + rot + "deg)";
+				card.classList.remove("spin");
+				void card.offsetWidth;                    // restart the pulse animation
+				card.classList.add("spin");
+			}
+
+			card.addEventListener("click", function (e) {
+				if (e.detail === 0) { rotate(1); return; }   // keyboard Enter/Space → forward
+				var rect = card.getBoundingClientRect();
+				rotate((e.clientX - rect.left) > rect.width / 2 ? 1 : -1);
+			});
+			card.addEventListener("keydown", function (e) {
+				if (e.key === "ArrowRight") { e.preventDefault(); rotate(1); }
+				else if (e.key === "ArrowLeft") { e.preventDefault(); rotate(-1); }
+			});
+
+			card.addEventListener("mousemove", function (e) {   // cursor-tracking spotlight
+				var rect = card.getBoundingClientRect();
+				card.style.setProperty("--mx", ((e.clientX - rect.left) / rect.width * 100) + "%");
+				card.style.setProperty("--my", ((e.clientY - rect.top) / rect.height * 100) + "%");
+			});
 		});
-	});
+
+		if ("IntersectionObserver" in window) {              // staggered entrance
+			var io = new IntersectionObserver(function (entries) {
+				entries.forEach(function (en, i) {
+					if (en.isIntersecting) {
+						en.target.style.transitionDelay = Math.min(i * 55, 300) + "ms";
+						en.target.classList.add("in");
+						io.unobserve(en.target);
+					}
+				});
+			}, { threshold: 0.15 });
+			cards.forEach(function (c) { io.observe(c); });
+		} else {
+			cards.forEach(function (c) { c.classList.add("in"); });
+		}
+	})();
 </script>
