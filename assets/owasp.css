@@ -70,22 +70,18 @@
 .asi-card::before,
 .asi-card::after {
 	position: absolute;
-	top: 0;
-	bottom: 0;
-	width: 40px;
+	bottom: 1rem;
 	z-index: 4;
-	display: flex;
-	align-items: center;
-	justify-content: center;
 	font-family: var(--mono);
-	font-size: 1.6rem;
+	font-size: 1.5rem;
+	line-height: 1;
 	color: var(--ink);
 	opacity: 0;
 	pointer-events: none;
 	transition: opacity 0.25s var(--ease);
 }
-.asi-card::before { content: "‹"; left: 4px; }
-.asi-card::after { content: "›"; right: 4px; }
+.asi-card::before { content: "‹"; left: 1.4rem; }
+.asi-card::after { content: "›"; right: 1.4rem; }
 .asi-card:hover::before,
 .asi-card:hover::after,
 .asi-card:focus-visible::before,
