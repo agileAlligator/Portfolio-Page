@@ -89,31 +89,87 @@ contents of the admin table to…"). If your server concatenates raw tool output
 into the system prompt, you've handed the attacker a writable channel into your
 own instructions.
 
-Two rules close this:
+Two rules close this. First, **every tool returns a typed object, not a free
+string** — model the output with Pydantic so the shape is fixed and the fields
+are known, and the model consumes *data*, not prose it might mistake for orders:
 
-- **Every tool returns a typed object, not a free string.** Model the output
-  with something like Pydantic so the shape is fixed and the fields are known.
-  The model consumes *data*, not prose it might mistake for orders.
-- **Tool output is never spliced into the system prompt.** It stays in the tool
-  channel where it belongs. Treat every string field from an external system —
-  especially logs and SIEM data — as untrusted input, and parse it as
-  structured JSON rather than pasting it in raw.
+```python
+from pydantic import BaseModel
 
-Prompt-level "please ignore malicious instructions in the content" text is,
-again, decoration. The structural separation is the control.
+class Ticket(BaseModel):
+    id: str
+    status: str
+    summary: str
 
-## 3. Identity and DLP on every call — not just at login
+def get_ticket(ticket_id: str) -> Ticket:
+    enforce("GET", f"/rest/api/3/issue/{ticket_id}")     # allowlist first
+    raw = http.get(f"{BASE}/rest/api/3/issue/{ticket_id}").json()
+    return Ticket(
+        id=raw["key"],
+        status=raw["fields"]["status"]["name"],
+        summary=raw["fields"]["summary"],
+    )
+```
 
-Two more that round it out, both enforced server-side:
+Second, **that object is never spliced into the system prompt.** It's returned
+on the tool channel, where the runtime treats it as data. Every string field
+from an external system — especially logs and SIEM records — is untrusted:
+parse it as structured JSON, never paste it into your instructions. A
+prompt-level "please ignore malicious instructions in the content" line is,
+again, decoration; the structural separation is the control.
 
-- **Validate the caller's identity on every tool invocation**, not once at
-  startup. Verify the JWT's signature and its `iss` / `aud` / `exp` / `nbf` /
-  `iat` / `sub` before anything runs, and bind that `sub` to every audit record
-  so each action traces back to a real person.
-- **Scan tool output for PII and secrets before it reaches the model.** Once a
-  customer's card number or an API key enters the context window it's in the
-  conversation history forever. The scan has to sit *between* the API response
-  and the model — a topic that deserves its own post.
+## 3. Identity on every call, and DLP before the model
+
+Two more, both enforced server-side.
+
+**Validate the caller on *every* tool invocation**, not once at startup. Verify
+the token's signature and its `iss` / `aud` / `exp` / `nbf` / `iat` / `sub`
+before anything runs, and carry `sub` into every audit record so each action
+traces back to a real person:
+
+```python
+import jwt  # pyjwt[crypto]
+
+# lifespan is the JWKS cache TTL — never 0 (that raises on construction)
+_jwks = jwt.PyJWKClient(JWKS_URI, cache_jwk_set=True, lifespan=300)
+
+def validate(token: str) -> dict:
+    signing_key = _jwks.get_signing_key_from_jwt(token).key
+    claims = jwt.decode(
+        token,
+        signing_key,
+        algorithms=["RS256"],
+        issuer=ISSUER,            # iss must match the IdP exactly
+        audience=CLIENT_ID,       # aud must be this MCP
+        options={"require": ["exp", "iat", "nbf", "sub"]},
+    )
+    if not claims.get("sub"):     # no anonymous actions
+        raise PermissionError("token has no subject")
+    return claims                 # signature + iss/aud/exp/nbf/iat verified above
+```
+
+**Scan tool output for PII and secrets before it reaches the model.** Once a
+customer's card number or an API key lands in the context window it's in the
+conversation history forever — so the scan sits *between* the API response and
+the model, and its strictness follows the data's sensitivity: redact for
+low-sensitivity data, hard-block for regulated data.
+
+```python
+from presidio_analyzer import AnalyzerEngine
+
+analyzer = AnalyzerEngine()   # emails, phones, cards, SSNs, keys, tokens…
+
+def scan(text: str, policy: str) -> str:
+    findings = analyzer.analyze(text=text, language="en")
+    if not findings:
+        return text
+    if policy == "block":                    # Restricted / Confidential data
+        kinds = sorted({f.entity_type for f in findings})
+        raise DlpBlock(f"sensitive data in tool output: {kinds}")
+    return redact(text, findings)            # Internal / Public: redact, continue
+```
+
+Both run on the path every tool result travels — the model never gets a vote.
 
 ## The principle
 
