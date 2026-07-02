@@ -16,22 +16,26 @@
 		<link rel="stylesheet" href="/assets/syntax.css" />
 	</head>
 	<body>
+		<a class="skip-link" href="#main">Skip to content</a>
 		<div class="grain" aria-hidden="true"></div>
 
-		<header class="nav">
+		<header class="nav" id="top">
 			<a class="nav-brand" href="/"><span class="prompt">&gt;</span> avneesh<span class="blink">_</span></a>
-			<nav class="nav-links" aria-label="Primary">
+			<nav class="nav-links" id="primary-nav" aria-label="Primary">
 				<a href="/#about">about</a>
 				<a href="/#experience">experience</a>
 				<a href="/#work">work</a>
 				<a href="/#skills">skills</a>
 				<a href="/#contact">contact</a>
-				<a href="/blog/" class="nav-out" aria-current="page">blog ↗</a>
+				<a href="/blog/" class="nav-out" aria-current="page">blog <span aria-hidden="true">↗</span></a>
+				<a class="nav-resume" href="/resume.pdf" target="_blank" rel="noopener">résumé <span aria-hidden="true">↗</span></a>
 			</nav>
-			<a class="nav-resume" href="/resume.pdf" target="_blank" rel="noopener">résumé ↗</a>
+			<button class="nav-toggle" type="button" aria-label="Toggle menu" aria-controls="primary-nav" aria-expanded="false">
+				<span></span><span></span><span></span>
+			</button>
 		</header>
 
-		<main class="content">
+		<main class="content" id="main">
 			{{ content }}
 		</main>
 
@@ -43,5 +47,7 @@
 				<a href="https://www.linkedin.com/in/avneesh-kasture-491b651b6/" target="_blank" rel="noopener">linkedin</a>
 			</span>
 		</footer>
+
+		<script src="/assets/nav.js"></script>
 	</body>
 </html>
