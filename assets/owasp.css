@@ -1,5 +1,7 @@
 /* ══════════════════════════════════════════════════════════════════
-   OWASP Agentic Top 10 — 3D flip-card grid (inherits tokens from style.css)
+   OWASP Agentic Top 10 — triangular-prism cards.
+   3 faces (risk → control → detection); click right half = rotate
+   forward, left half = back. Inherits tokens from style.css.
    ══════════════════════════════════════════════════════════════════ */
 
 .owasp-intro { max-width: 68ch; }
@@ -17,30 +19,26 @@
 .owasp-intro a { color: var(--acc); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--line); }
 .owasp-intro a:hover { text-decoration-color: var(--acc); }
 .owasp-hint { font-family: var(--mono); font-size: 0.8rem; color: var(--ink-faint); }
+.owasp-hint .k-risk { color: var(--ink-dim); }
+.owasp-hint .k-control { color: var(--acc); }
+.owasp-hint .k-detect { color: var(--acc-2); }
 
-/* grid */
-/* Intro text stays in the site's default 760px centered column; only the card
-   grid breaks out wider (up to 1080px), centered on the page, so 3 fit. */
+/* grid: intro stays in the 760px column; the card row breaks out wider, centered */
 .asi-grid {
-	display: grid;
-	grid-template-columns: repeat(3, 1fr);
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
 	gap: 1.1rem;
-	width: min(1080px, 92vw);
+	width: min(960px, 92vw);
 	margin: 2.5rem 0 1rem;
 	margin-left: 50%;
 	transform: translateX(-50%);
 }
-@media (max-width: 860px) {
-	.asi-grid {
-		grid-template-columns: repeat(2, 1fr);
-		width: 100%;
-		margin-left: 0;
-		transform: none;
-	}
+@media (max-width: 680px) {
+	.asi-grid { width: 100%; margin-left: 0; transform: none; }
 }
-@media (max-width: 560px) { .asi-grid { grid-template-columns: 1fr; } }
 
-/* card = a button so it's keyboard-operable */
+/* card = a keyboard-operable button holding the 3D prism */
 .asi-card {
 	appearance: none;
 	background: none;
@@ -49,27 +47,53 @@
 	margin: 0;
 	font: inherit;
 	text-align: left;
-	height: 320px;
-	perspective: 1400px;
+	position: relative;
+	width: 300px;
+	height: 352px;
+	max-width: 100%;
+	perspective: 1200px;
 	cursor: pointer;
 }
-.asi-inner {
-	display: block;
+
+/* left/right rotation affordance (chevrons fade in on hover/focus) */
+.asi-card::before,
+.asi-card::after {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	width: 40px;
+	z-index: 4;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-family: var(--mono);
+	font-size: 1.6rem;
+	color: var(--ink);
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 0.25s var(--ease);
+}
+.asi-card::before { content: "‹"; left: 4px; }
+.asi-card::after { content: "›"; right: 4px; }
+.asi-card:hover::before,
+.asi-card:hover::after,
+.asi-card:focus-visible::before,
+.asi-card:focus-visible::after { opacity: 0.5; }
+
+.asi-prism {
 	position: relative;
 	width: 100%;
 	height: 100%;
 	transform-style: preserve-3d;
-	transition: transform 0.6s var(--ease);
+	transition: transform 0.7s var(--ease);
+	transform: translateZ(-86.6px) rotateY(0deg);
 }
-.asi-card:hover .asi-inner,
-.asi-card:focus-visible .asi-inner,
-.asi-card[aria-pressed="true"] .asi-inner { transform: rotateY(180deg); }
 
 .asi-face {
 	position: absolute;
 	inset: 0;
-	backface-visibility: hidden;
 	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
 	border: 1px solid var(--line-soft);
 	border-radius: 12px;
 	padding: 1.4rem;
@@ -78,59 +102,89 @@
 	overflow: hidden;
 	transition: border-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
 }
-.asi-front { background: var(--panel); }
-.asi-back {
-	background: linear-gradient(150deg, var(--panel-2) 0%, var(--bg-2) 100%);
-	transform: rotateY(180deg);
-}
+/* three faces of the prism, 120° apart, pushed out by the apothem (300/2 ÷ tan60 ≈ 86.6px) */
+.face-risk    { transform: rotateY(0deg)   translateZ(86.6px); background: var(--panel); }
+.face-control { transform: rotateY(120deg) translateZ(86.6px); background: linear-gradient(150deg, var(--panel-2) 0%, var(--bg-2) 100%); }
+.face-detect  { transform: rotateY(240deg) translateZ(86.6px); background: linear-gradient(150deg, #0c1a22 0%, var(--bg-2) 100%); }
 
-/* glow on interaction */
 .asi-card:hover .asi-face,
-.asi-card:focus-visible .asi-face,
-.asi-card[aria-pressed="true"] .asi-face {
+.asi-card:focus-visible .asi-face {
 	border-color: var(--acc);
-	box-shadow: 0 0 0 1px rgba(79, 227, 161, 0.25), 0 22px 55px -34px rgba(0, 0, 0, 0.9);
+	box-shadow: 0 0 0 1px rgba(79, 227, 161, 0.22), 0 22px 55px -34px rgba(0, 0, 0, 0.9);
 }
 
 .asi-code { font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.06em; color: var(--acc); }
 .asi-name {
 	font-family: var(--mono);
 	font-weight: 600;
-	font-size: 1.18rem;
+	font-size: 1.14rem;
 	letter-spacing: -0.02em;
-	margin: 0.55rem 0 0.8rem;
+	margin: 0.55rem 0 0.85rem;
 	color: var(--ink);
 }
 .asi-attack { color: var(--ink-dim); font-size: 0.95rem; line-height: 1.5; }
-.asi-flip-hint {
-	margin-top: auto;
-	font-family: var(--mono);
-	font-size: 0.72rem;
-	color: var(--ink-faint);
-	display: flex;
-	align-items: center;
-	gap: 0.4rem;
-}
 
-/* back faces */
-.asi-back .asi-label {
+.asi-label {
 	font-family: var(--mono);
 	font-size: 0.68rem;
 	text-transform: uppercase;
 	letter-spacing: 0.09em;
-	margin-bottom: 0.3rem;
+	margin-bottom: 0.45rem;
 }
-.asi-back .lbl-threat { color: var(--bad); }
-.asi-back .lbl-defense { color: var(--acc); margin-top: 0.9rem; }
-.asi-back .asi-threat { color: var(--ink); font-size: 0.86rem; line-height: 1.5; }
-.asi-back .asi-defense { color: var(--ink-dim); font-size: 0.86rem; line-height: 1.5; }
-.asi-back .asi-code { margin-bottom: 0.2rem; }
+.lbl-control { color: var(--acc); }
+.lbl-detect { color: var(--acc-2); }
+.asi-body { color: var(--ink-dim); font-size: 0.88rem; line-height: 1.55; }
+.asi-body strong { color: var(--ink); font-weight: 600; }
 
-@media (max-width: 560px) {
-	.asi-card { height: 290px; }
+.asi-foot {
+	margin-top: auto;
+	padding-top: 0.9rem;
+	font-family: var(--mono);
+	font-size: 0.7rem;
+	letter-spacing: 0.04em;
+	color: var(--ink-faint);
+	display: flex;
+	justify-content: space-between;
 }
+.asi-foot .step { color: var(--acc); }
 
-/* motion-safe: instant flip for reduced-motion users */
+/* ── VFX ─────────────────────────────────────────────────────────── */
+
+/* cursor-tracking accent spotlight on the visible face */
+.asi-face::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	border-radius: inherit;
+	background: radial-gradient(240px circle at var(--mx, 50%) var(--my, 50%), rgba(79, 227, 161, 0.13), transparent 62%);
+	opacity: 0;
+	transition: opacity 0.35s var(--ease);
+	pointer-events: none;
+}
+.face-detect::after {
+	background: radial-gradient(240px circle at var(--mx, 50%) var(--my, 50%), rgba(76, 201, 240, 0.16), transparent 62%);
+}
+.asi-card:hover .asi-face::after,
+.asi-card:focus-visible .asi-face::after { opacity: 1; }
+
+/* staggered entrance */
+.asi-card {
+	opacity: 0;
+	transform: translateY(18px);
+	transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+}
+.asi-card.in { opacity: 1; transform: none; }
+
+/* accent pulse on each rotation */
+@keyframes asi-pulse {
+	0%   { box-shadow: 0 0 0 1px rgba(79, 227, 161, 0.55), 0 0 30px -2px rgba(79, 227, 161, 0.5); }
+	100% { box-shadow: 0 0 0 1px rgba(79, 227, 161, 0),    0 0 30px -2px rgba(79, 227, 161, 0); }
+}
+.asi-card.spin .asi-face { animation: asi-pulse 0.65s var(--ease); }
+
 @media (prefers-reduced-motion: reduce) {
-	.asi-inner { transition: none; }
+	.asi-prism { transition: none; }
+	.asi-card { opacity: 1; transform: none; transition: none; }
+	.asi-face::after { display: none; }
+	.asi-card.spin .asi-face { animation: none; }
 }
