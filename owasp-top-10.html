@@ -279,7 +279,7 @@ extra_css: /assets/owasp.css
 			var prism = card.querySelector(".asi-prism");
 
 			function rotate(dir) {                        // dir: +1 forward (right), -1 back (left)
-				var rot = parseInt(card.dataset.rot || "0", 10) + dir * 120;   // right → detection → control
+				var rot = parseInt(card.dataset.rot || "0", 10) - dir * 120;   // right → detection → control (turns rightward)
 				card.dataset.rot = rot;
 				prism.style.transform = "translateZ(-86.6px) rotateY(" + rot + "deg)";
 				card.classList.remove("spin");

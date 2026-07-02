@@ -116,8 +116,8 @@
 }
 /* three faces of the prism, 120° apart, pushed out by the apothem (≈86.6px), each colour-keyed */
 .face-risk    { --glow: 255, 107, 107; transform: rotateY(0deg)   translateZ(86.6px); background: linear-gradient(150deg, rgba(255, 107, 107, 0.07) 0%, var(--panel) 55%); }
-.face-control { --glow: 76, 201, 240;  transform: rotateY(120deg) translateZ(86.6px); background: linear-gradient(150deg, rgba(76, 201, 240, 0.08) 0%, var(--bg-2) 55%); }
-.face-detect  { --glow: 245, 181, 68;  transform: rotateY(240deg) translateZ(86.6px); background: linear-gradient(150deg, rgba(245, 181, 68, 0.08) 0%, var(--bg-2) 55%); }
+.face-detect  { --glow: 245, 181, 68;  transform: rotateY(120deg) translateZ(86.6px); background: linear-gradient(150deg, rgba(245, 181, 68, 0.08) 0%, var(--bg-2) 55%); }
+.face-control { --glow: 76, 201, 240;  transform: rotateY(240deg) translateZ(86.6px); background: linear-gradient(150deg, rgba(76, 201, 240, 0.08) 0%, var(--bg-2) 55%); }
 
 .asi-card:hover .asi-face,
 .asi-card:focus-visible .asi-face {
