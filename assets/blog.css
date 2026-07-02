@@ -40,10 +40,25 @@
 	align-items: baseline;
 	justify-content: space-between;
 	gap: 1.5rem;
-	padding: 1.4rem 0.5rem;
-	transition: padding-left 0.25s var(--ease), background 0.25s var(--ease);
+	padding: 1.4rem 0.85rem;
+	position: relative;
+	transition: color 0.2s var(--ease);
 }
-.post-list-item a:hover { padding-left: 1rem; background: rgba(79, 227, 161, 0.03); }
+/* left accent bar grows in place on hover — no layout shift, no bg wash */
+.post-list-item a::before {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 0.6rem;
+	bottom: 0.6rem;
+	width: 2px;
+	background: var(--acc);
+	transform: scaleY(0);
+	transform-origin: center;
+	transition: transform 0.25s var(--ease);
+}
+.post-list-item a:hover::before,
+.post-list-item a:focus-visible::before { transform: scaleY(1); }
 .pli-main { display: flex; flex-direction: column; gap: 0.3rem; }
 .pli-title {
 	font-family: var(--mono);
