@@ -361,6 +361,9 @@ a { color: inherit; text-decoration: none; }
 }
 .approach-step h3 { font-size: 1.12rem; font-weight: 600; margin-bottom: 0.35rem; }
 .approach-step p { color: var(--ink-dim); max-width: 64ch; }
+.approach-more { margin-top: 1.75rem; font-family: var(--mono); font-size: 0.92rem; }
+.approach-more a { color: var(--acc); text-decoration: none; transition: opacity 0.2s var(--ease); }
+.approach-more a:hover { text-decoration: underline; text-underline-offset: 3px; }
 
 /* case study */
 .cs { max-width: 62rem; }
