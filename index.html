@@ -126,9 +126,52 @@
 			</div>
 		</section>
 
+		<!-- ─────────────────────────── HOW I WORK ─────────────────────────── -->
+		<section class="section" id="approach">
+			<p class="section-label" data-reveal>// 02 · how i work</p>
+			<h2 class="section-title" data-reveal>How I harden an MCP server</h2>
+			<ol class="approach">
+				<li class="approach-step" data-reveal>
+					<span class="approach-num">01</span>
+					<div>
+						<h3>Threat-model the agentic layer first</h3>
+						<p>Before any tool code: map what the model could be coerced into — prompt injection via tool results, tool misuse, privilege escalation, data exfiltration — and design controls against that, not against the happy path.</p>
+					</div>
+				</li>
+				<li class="approach-step" data-reveal>
+					<span class="approach-num">02</span>
+					<div>
+						<h3>Least privilege, enforced in code</h3>
+						<p>Scope the server to the minimum endpoints the use cases need, and reject everything else at runtime with a real allowlist — not a note in the prompt the model can be talked out of.</p>
+					</div>
+				</li>
+				<li class="approach-step" data-reveal>
+					<span class="approach-num">03</span>
+					<div>
+						<h3>Identity on every call</h3>
+						<p>Verify the caller's token — signature and claims — on every tool invocation, and bind that identity to every action so nothing runs anonymously.</p>
+					</div>
+				</li>
+				<li class="approach-step" data-reveal>
+					<span class="approach-num">04</span>
+					<div>
+						<h3>Untrusted output, scanned before the model sees it</h3>
+						<p>Tool output is structured, isolated from the system prompt, and DLP-scanned so PII and secrets never enter the conversation history.</p>
+					</div>
+				</li>
+				<li class="approach-step" data-reveal>
+					<span class="approach-num">05</span>
+					<div>
+						<h3>Audit every action to its cause</h3>
+						<p>Each tool call is a structured record — who, what, which endpoint, and a hash of the prompt that triggered it — so an incident can be reconstructed, not guessed at.</p>
+					</div>
+				</li>
+			</ol>
+		</section>
+
 		<!-- ─────────────────────────── EXPERIENCE ─────────────────────────── -->
 		<section class="section" id="experience">
-			<p class="section-label" data-reveal>// 02 · experience</p>
+			<p class="section-label" data-reveal>// 03 · experience</p>
 			<h2 class="section-title" data-reveal>Where I've worked</h2>
 
 			<ol class="timeline">
@@ -179,7 +222,7 @@
 
 		<!-- ────────────────────────────── WORK ────────────────────────────── -->
 		<section class="section" id="work">
-			<p class="section-label" data-reveal>// 03 · selected work</p>
+			<p class="section-label" data-reveal>// 04 · selected work</p>
 			<h2 class="section-title" data-reveal>Things I've built</h2>
 
 			<div class="cards">
@@ -286,7 +329,7 @@
 
 		<!-- ───────────────────────────── SKILLS ───────────────────────────── -->
 		<section class="section" id="skills">
-			<p class="section-label" data-reveal>// 04 · skills</p>
+			<p class="section-label" data-reveal>// 05 · skills</p>
 			<h2 class="section-title" data-reveal>Toolkit</h2>
 
 			<div class="skills-grid">
@@ -360,7 +403,7 @@
 
 		<!-- ──────────────────────────── CONTACT ──────────────────────────── -->
 		<section class="section section-contact" id="contact">
-			<p class="section-label" data-reveal>// 05 · contact</p>
+			<p class="section-label" data-reveal>// 06 · contact</p>
 			<h2 class="contact-title" data-reveal>Let's build something secure.</h2>
 			<div class="contact-links" data-reveal>
 				<a href="mailto:apkasture02@gmail.com">apkasture02@gmail.com</a>
