@@ -9,6 +9,7 @@ description: >-
   API. With the allowlist bug that quietly re-opens the doors you closed.
 date: 2026-07-02
 permalink: /blog/guardrails-belong-in-the-server/
+image: /assets/og/guardrails-belong-in-the-server.png
 tags: [mcp, security]
 reading_time: "6 min read"
 ---

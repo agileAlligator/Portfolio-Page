@@ -8,6 +8,7 @@
 		<link rel="stylesheet" href="/style.css" />
 		<link rel="stylesheet" href="/assets/blog.css" />
 		<link rel="stylesheet" href="/assets/syntax.css" />
+		{% if page.extra_css %}<link rel="stylesheet" href="{{ page.extra_css }}" />{% endif %}
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<!-- Fonts load async so they never block first paint; fallbacks render instantly, then swap -->

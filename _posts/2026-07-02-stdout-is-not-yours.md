@@ -9,6 +9,7 @@ description: >-
   structlog fix.
 date: 2026-07-02
 permalink: /blog/stdout-is-not-yours/
+image: /assets/og/stdout-is-not-yours.png
 tags: [mcp, debugging]
 reading_time: "4 min read"
 ---
