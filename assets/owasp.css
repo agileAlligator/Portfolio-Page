@@ -130,9 +130,12 @@
 	font-family: var(--mono);
 	font-weight: 600;
 	font-size: 1.14rem;
+	line-height: 1.25;
 	letter-spacing: -0.02em;
 	margin: 0.55rem 0;
 	color: var(--ink);
+	/* reserve two lines so the label + body align across all cards */
+	min-height: 2.5em;
 }
 .asi-label {
 	font-family: var(--mono);
