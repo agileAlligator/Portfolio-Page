@@ -156,6 +156,9 @@ a { color: inherit; text-decoration: none; }
 	background: var(--line);
 }
 .nav-links .nav-out:hover { color: #6bf0b4; }
+/* no hover underline on the blog link — it has its own divider + accent treatment,
+   and the underline would run under the padding gap to the left of the word */
+.nav-links .nav-out::after { display: none; }
 
 .nav-resume {
 	font-family: var(--mono);
