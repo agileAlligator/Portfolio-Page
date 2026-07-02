@@ -1,0 +1,47 @@
+title: Avneesh Kasture
+tagline: Secure MCP Engineer / Professional Services
+description: >-
+  Building secure MCP servers for clients — hardening the agentic layer against
+  prompt injection, tool misuse, and privilege abuse. Field notes on MCP
+  security, agentic safety, and shipping AI platforms.
+url: "https://avneeshk.me"
+lang: en
+
+author:
+  name: Avneesh Kasture
+  email: apkasture02@gmail.com
+
+# Stable, dateless blog URLs (e.g. /blog/stdout-is-not-yours/).
+# Individual posts may override this with a shorter slug in their front matter.
+permalink: /blog/:title/
+
+# Social / SEO (consumed by jekyll-seo-tag)
+twitter:
+  card: summary
+social:
+  name: Avneesh Kasture
+  links:
+    - https://github.com/agileAlligator
+    - https://www.linkedin.com/in/avneesh-kasture-491b651b6/
+
+# GitHub Pages builds these natively — no Actions, no Gemfile needed.
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+feed:
+  path: /feed.xml
+
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  syntax_highlighter: rouge
+
+# Don't process/publish these
+exclude:
+  - "*.skill"
+  - dns-records-avneeshk.me.txt
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor
