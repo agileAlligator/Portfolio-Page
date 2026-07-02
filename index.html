@@ -169,9 +169,28 @@
 			</ol>
 		</section>
 
+		<!-- ─────────────────────────── CASE STUDY ─────────────────────────── -->
+		<section class="section" id="case-study">
+			<p class="section-label" data-reveal>// 03 · case study</p>
+			<h2 class="section-title" data-reveal>A secure-by-default MCP framework, built for a client</h2>
+			<div class="cs" data-reveal>
+				<p class="cs-lede">The threat model starts from an uncomfortable premise: <strong>the model will be jailbroken.</strong> Researchers like <a href="https://pliny.gg" target="_blank" rel="noopener">Pliny the Liberator</a> break new frontier models within hours of release — so if a customer’s data is protected only by the model choosing to behave, it isn’t protected at all.</p>
+				<p>A client needed to connect internal AI agents to enterprise systems over MCP without betting company data on model compliance. I built them a <strong>secure-MCP development framework and a tested Python scaffold</strong> that makes the secure path the default one — driving every build through intake → auth design → endpoint governance → an auto-generated threat model → code from a hardened scaffold → a security-readiness gate before delivery.</p>
+				<p class="cs-sub">Threats it designs against, and the control that answers each:</p>
+				<ul class="cs-map">
+				<li><span class="cs-threat">Prompt injection via tool results</span><span class="cs-ctrl">structured returns, output isolated from the system prompt, DLP-scanned</span></li>
+				<li><span class="cs-threat">Tool misuse / scope creep</span><span class="cs-ctrl">runtime endpoint allowlist; non-approved calls rejected in code</span></li>
+				<li><span class="cs-threat">Secret leakage</span><span class="cs-ctrl">OS keychain / vault only — never in .env or on disk</span></li>
+				<li><span class="cs-threat">Identity spoofing</span><span class="cs-ctrl">OAuth 2.1 + PKCE; JWT signature + claims verified on every call</span></li>
+				<li><span class="cs-threat">Untraceable actions</span><span class="cs-ctrl">structured audit log tying every action to a hash of the prompt that caused it</span></li>
+				</ul>
+				<p class="cs-outcome"><strong>Outcome:</strong> every MCP the framework produces ships with the same non-negotiable controls and must pass a security-readiness checklist before delivery — a repeatable, auditable process instead of per-project guesswork. <span class="cs-note">(Engagement anonymized; the framework is a client deliverable.)</span></p>
+			</div>
+		</section>
+
 		<!-- ─────────────────────────── EXPERIENCE ─────────────────────────── -->
 		<section class="section" id="experience">
-			<p class="section-label" data-reveal>// 03 · experience</p>
+			<p class="section-label" data-reveal>// 04 · experience</p>
 			<h2 class="section-title" data-reveal>Where I've worked</h2>
 
 			<ol class="timeline">
@@ -222,7 +241,7 @@
 
 		<!-- ────────────────────────────── WORK ────────────────────────────── -->
 		<section class="section" id="work">
-			<p class="section-label" data-reveal>// 04 · selected work</p>
+			<p class="section-label" data-reveal>// 05 · selected work</p>
 			<h2 class="section-title" data-reveal>Things I've built</h2>
 
 			<div class="cards">
@@ -329,7 +348,7 @@
 
 		<!-- ───────────────────────────── SKILLS ───────────────────────────── -->
 		<section class="section" id="skills">
-			<p class="section-label" data-reveal>// 05 · skills</p>
+			<p class="section-label" data-reveal>// 06 · skills</p>
 			<h2 class="section-title" data-reveal>Toolkit</h2>
 
 			<div class="skills-grid">
@@ -403,7 +422,7 @@
 
 		<!-- ──────────────────────────── CONTACT ──────────────────────────── -->
 		<section class="section section-contact" id="contact">
-			<p class="section-label" data-reveal>// 06 · contact</p>
+			<p class="section-label" data-reveal>// 07 · contact</p>
 			<h2 class="contact-title" data-reveal>Let's build something secure.</h2>
 			<div class="contact-links" data-reveal>
 				<a href="mailto:apkasture02@gmail.com">apkasture02@gmail.com</a>
