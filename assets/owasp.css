@@ -19,16 +19,25 @@
 .owasp-hint { font-family: var(--mono); font-size: 0.8rem; color: var(--ink-faint); }
 
 /* grid */
-/* widen the content column on this page only (default is 760px) so 3 cards fit */
-.content { max-width: 1080px; }
-
+/* Intro text stays in the site's default 760px centered column; only the card
+   grid breaks out wider (up to 1080px), centered on the page, so 3 fit. */
 .asi-grid {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
 	gap: 1.1rem;
+	width: min(1080px, 92vw);
 	margin: 2.5rem 0 1rem;
+	margin-left: 50%;
+	transform: translateX(-50%);
 }
-@media (max-width: 860px) { .asi-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 860px) {
+	.asi-grid {
+		grid-template-columns: repeat(2, 1fr);
+		width: 100%;
+		margin-left: 0;
+		transform: none;
+	}
+}
 @media (max-width: 560px) { .asi-grid { grid-template-columns: 1fr; } }
 
 /* card = a button so it's keyboard-operable */
