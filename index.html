@@ -2,151 +2,374 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Avneesh Kasture's portfolio</title>
+		<title>Avneesh Kasture — Secure MCP Engineer / Professional Services</title>
+		<meta
+			name="description"
+			content="Avneesh Kasture — professional-services engineer building secure MCP servers for clients, plus internal LLM-powered apps. Agentic security, prompt-injection defense, and AI automation."
+		/>
+		<!-- Open Graph / social -->
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content="Avneesh Kasture — Secure MCP Engineer / Professional Services" />
+		<meta
+			property="og:description"
+			content="Building secure MCP servers for clients — hardening the agentic layer against prompt injection, tool misuse, and privilege abuse. Plus internal LLM-powered apps."
+		/>
+		<meta property="og:url" content="https://agilealligator.github.io/Portfolio-Page/" />
+		<meta name="twitter:card" content="summary" />
+		<meta name="twitter:title" content="Avneesh Kasture — Secure MCP Engineer / Professional Services" />
+		<meta
+			name="twitter:description"
+			content="Building secure MCP servers for clients — agentic security, prompt-injection defense, and AI automation."
+		/>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
-			href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+			href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap"
 			rel="stylesheet"
-			integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
-			crossorigin="anonymous"
 		/>
 		<link rel="stylesheet" href="style.css" />
-		<link
-			rel="stylesheet"
-			href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
-			integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
-			crossorigin="anonymous"
-		/>
-		<link
-			rel="stylesheet"
-			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-		/>
 	</head>
 	<body>
-		<script
-			src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
-			integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
-			crossorigin="anonymous"
-		></script>
-		<nav class="navbar navbar-expand-lg sticky-top bg-dark">
-			<div class="container-fluid">
-				<a class="navbar-brand" href="#">Portfolio</a>
-				<button
-					class="navbar-toggler"
-					type="button"
-					data-bs-toggle="collapse"
-					data-bs-target="#navbarNavAltMarkup"
-					aria-controls="navbarNavAltMarkup"
-					aria-expanded="false"
-					aria-label="Toggle navigation"
-				>
-					<span class="navbar-toggler-icon"></span>
-				</button>
-				<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-					<div class="navbar-nav">
-						<a class="nav-link" href="#about">About</a>
-						<a class="nav-link" href="#work">Work</a>
-						<a class="nav-link" href="#contact">Contact</a>
-					</div>
+		<div class="grain" aria-hidden="true"></div>
+
+		<header class="nav" id="top">
+			<a class="nav-brand" href="#top">
+				<span class="prompt">&gt;</span> avneesh<span class="blink">_</span>
+			</a>
+			<nav class="nav-links" aria-label="Primary">
+				<a href="#about">about</a>
+				<a href="#experience">experience</a>
+				<a href="#work">work</a>
+				<a href="#skills">skills</a>
+				<a href="#contact">contact</a>
+			</nav>
+			<a class="nav-resume" href="resume.pdf" target="_blank" rel="noopener">résumé ↗</a>
+			<button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+				<span></span><span></span><span></span>
+			</button>
+		</header>
+
+		<!-- ───────────────────────────── HERO ───────────────────────────── -->
+		<section class="hero" id="hero">
+			<div class="hero-glow" aria-hidden="true"></div>
+			<div class="hero-inner">
+				<p class="hero-kicker" data-reveal>
+					<span class="prompt">$</span> whoami
+				</p>
+				<h1 class="hero-title" data-reveal>
+					Avneesh<br />Kasture
+				</h1>
+				<p class="hero-role" data-reveal>
+					<span class="tag">secure-mcp engineer</span>
+					<span class="slash">/</span>
+					<span class="tag">professional services</span>
+				</p>
+				<p class="hero-blurb" data-reveal>
+					I work in professional services, building <strong>secure MCP servers</strong>
+					for clients — hardening the agentic layer against prompt injection, tool
+					misuse, and privilege abuse. Alongside that I ship the
+					<strong>internal apps</strong> that take friction out of my company's
+					day-to-day.
+				</p>
+				<div class="hero-cta" data-reveal>
+					<a class="btn btn-primary" href="#work">selected work</a>
+					<a class="btn" href="#contact">get in touch</a>
 				</div>
 			</div>
-		</nav>
-		<section id="about" class="gradient">
-			<h1 id="heading">Hey I am Avneesh</h1>
-			<p id="descriptor">an aspiring software developer</p>
+
+			<div class="term" data-reveal aria-hidden="true">
+				<div class="term-bar">
+					<span class="dot"></span><span class="dot"></span><span class="dot"></span>
+					<span class="term-title">mcp-inspect · client-prod</span>
+				</div>
+				<pre class="term-body"><span class="c-dim">$</span> mcp-inspect --harden client-prod
+
+<span class="c-key">▶ tool_call</span> read_file(<span class="c-str">"~/.ssh/id_rsa"</span>)
+  <span class="c-bad">✗ DENIED</span> <span class="c-dim">path outside scoped root</span>
+<span class="c-key">▶ tool_call</span> fetch(<span class="c-str">"http://169.254.169.254/…"</span>)
+  <span class="c-bad">✗ DENIED</span> <span class="c-dim">egress not allowlisted</span>
+<span class="c-key">▶ injection</span> <span class="c-str">"ignore previous instructions…"</span>
+  <span class="c-bad">✗ NEUTRALIZED</span> <span class="c-dim">untrusted content sandboxed</span>
+
+<span class="c-ok">✓ 0 escapes · 3 blocked · server hardened</span>
+<span class="c-dim">$</span> <span class="cursor">▋</span></pre>
+			</div>
 		</section>
-		<section id="work">
-			<h1>Work</h1>
-			<div class="container">
-				<div class="row">
-					<div class="col-md-6 col-lg-4 col-xl-3 py-2">
-						<div class="card h-100">
-							<img
-								class="card-img-top img-fluid"
-								src="assets/images/decentoken.png"
-								alt="Card image cap"
-							/>
-							<div class="card-block">
-								<h4 class="card-title">Decentoken app</h4>
-								<p class="card-text">
-									Mints NFTs on the Polygon blockchain and
-									also stores them on decentralized Crust
-									database
-								</p>
-								<p class="card-text"></p>
-								<a
-									href="https://github.com/kiranraaj19/decentoken"
-									class="btn btn-primary"
-									>link to github</a
-								>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-6 col-lg-4 col-xl-3 py-2">
-						<div class="card h-100">
-							<img
-								class="card-img-top img-fluid"
-								src="https://y.yarn.co/c8f8e218-5628-4be8-bbb0-fb84bf293378_text.gif"
-								alt="Card image cap"
-							/>
-							<div class="card-block">
-								<h4 class="card-title">Seinfeld Excuse Rolodex</h4>
-								<p class="card-text">
-									generate excuses for days of the week
-								</p>
-								<p class="card-text"></p>
-								<a href="https://agilealligator.github.io/Portfolio-Page/seinfeld-rolodex" class="btn btn-primary"
-									>Click here</a
-								>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-6 col-lg-4 col-xl-3 py-2">
-						<div class="card h-100">
-							<img
-								class="card-img-top img-fluid"
-								src="https://www.johndcook.com/white_noise.png"
-								alt="Card image cap"
-							/>
-							<div class="card-block">
-								<h4 class="card-title">Research Paper Draft</h4>
-								<p class="card-text">
-									Comparative analysis of Randomness Testing suites
-								</p>
-								<p class="card-text"></p>
-								<a href="https://docs.google.com/viewer?url=https://raw.githubusercontent.com/agileAlligator/Portfolio-Page/19324bc83aa40a580d7799b5f6cd51a46224a9d7/research-draft2024.pdf" class="btn btn-primary"
-									>Click here</a
-								>
-							</div>
-						</div>
-					</div>
+
+		<!-- ───────────────────────────── ABOUT ───────────────────────────── -->
+		<section class="section" id="about">
+			<p class="section-label" data-reveal>// 01 · about</p>
+			<div class="about-grid">
+				<h2 class="section-title" data-reveal>
+					I make the agentic layer safe to ship.
+				</h2>
+				<div class="about-body" data-reveal>
+					<p>
+						I'm a professional-services engineer focused on
+						<strong>building secure MCP servers for clients</strong> — scoping
+						tools tightly, defending against prompt injection and privilege abuse,
+						and delivering agentic integrations they can actually run in production.
+					</p>
+					<p>
+						Alongside client work I build the <strong>internal apps</strong> that
+						remove friction inside my own company — LLM-powered document generation,
+						pricing, and analytics tooling designed so every output is fast,
+						governed, and traceable back to its source. Security-trained,
+						detection-minded, product-focused.
+					</p>
 				</div>
 			</div>
 		</section>
-		<section id="contact">
-			<div class="contact-section-header">
-				<h2>Let's work together...</h2>
-			</div>
-			<div class="contact-links">
-				<a
-					id="profile-link"
-					href="https://github.com/agileAlligator"
-					target="_blank"
-					class="btn contact-details"
-					><i class="fab fa-github"></i> GitHub</a
-				>
-				<a
-					href="mailto: apkasture02@gmail.com"
-					class="btn contact-details"
-					><i class="fas fa-at"></i> Send a mail</a
-				>
-				<a
-					href="https://www.linkedin.com/in/avneesh-kasture-491b651b6/"
-					class="btn contact-details"
-					><i class="fab fa-linkedin"></i> linkedin
-				</a>
+
+		<!-- ─────────────────────────── EXPERIENCE ─────────────────────────── -->
+		<section class="section" id="experience">
+			<p class="section-label" data-reveal>// 02 · experience</p>
+			<h2 class="section-title" data-reveal>Where I've worked</h2>
+
+			<ol class="timeline">
+				<li class="tl-item" data-reveal>
+					<div class="tl-head">
+						<h3>Professional Services · Solutions Engineer</h3>
+						<span class="tl-org">Gruve</span>
+						<span class="tl-meta">Apr 2026 — Present · Pune</span>
+					</div>
+					<p class="tl-desc">
+						Design and deliver <strong>secure MCP servers for clients</strong> —
+						scoping tools, hardening the agentic layer against prompt injection and
+						privilege abuse, and shipping integrations they run in production.
+						Alongside client delivery I build internal apps that remove business
+						friction — including <strong>Helix</strong>, an AI sales-enablement
+						platform (a GPT-4o SOW-generation pipeline, automated pricing calculator,
+						engineering capability roadmap, and Service Navigator).
+					</p>
+				</li>
+				<li class="tl-item" data-reveal>
+					<div class="tl-head">
+						<h3>Security Operations Center Analyst</h3>
+						<span class="tl-org">Gruve</span>
+						<span class="tl-meta">Apr 2025 — Apr 2026 · Pune</span>
+					</div>
+					<p class="tl-desc">
+						Advanced triage and investigation of security alerts across network,
+						endpoint, and authentication telemetry using <strong>Splunk</strong> and
+						<strong>CrowdStrike Falcon</strong>. Conducted threat hunting that
+						identified a vulnerability and led to a customer-wide advisory report.
+					</p>
+				</li>
+				<li class="tl-item" data-reveal>
+					<div class="tl-head">
+						<h3>Digital Forensics Intern</h3>
+						<span class="tl-org">Deloitte</span>
+						<span class="tl-meta">Jul 2024 — Feb 2025 · Mumbai</span>
+					</div>
+					<p class="tl-desc">
+						Forensic acquisition and analysis of digital media using
+						industry-standard tools. Streamlined business-critical processes to
+						<strong>cut processing time by 80%</strong>, and automated virus
+						scanning and image documentation with Python (RPA).
+					</p>
+				</li>
+			</ol>
+		</section>
+
+		<!-- ────────────────────────────── WORK ────────────────────────────── -->
+		<section class="section" id="work">
+			<p class="section-label" data-reveal>// 03 · selected work</p>
+			<h2 class="section-title" data-reveal>Things I've built</h2>
+
+			<div class="cards">
+				<article class="card card-feature" data-reveal>
+					<div class="card-top">
+						<span class="card-idx">01</span>
+						<span class="card-tags">MCP · agentic-security · Python</span>
+					</div>
+					<h3 class="card-title">mcploitable</h3>
+					<p class="card-desc">
+						The “Metasploitable” of the Model Context Protocol — a deliberately
+						vulnerable MCP server for agentic-security training, mapped to the
+						<strong>OWASP Top 10 for Agentic Applications (2026)</strong>. One
+						isolated Docker server per vulnerability, an insecure/hardened toggle to
+						diff exploit vs. mitigation, and a CTF-style flag scoreboard.
+					</p>
+					<div class="card-links">
+						<a href="https://github.com/agileAlligator/mcploitable" target="_blank" rel="noopener">github ↗</a>
+					</div>
+				</article>
+
+				<article class="card" data-reveal>
+					<div class="card-top">
+						<span class="card-idx">02</span>
+						<span class="card-tags">agent-safety · provenance · Python</span>
+					</div>
+					<h3 class="card-title">d2c-analyst</h3>
+					<p class="card-desc">
+						An AI analyst plus an autonomous <strong>Margin Watch</strong> agent for
+						D2C brands. Every number in an answer is server-side validated against a
+						provenance model before the user sees it; a gpt-4o-mini → gpt-4o router
+						escalates on complexity, all on row-level-secure multi-tenant data.
+					</p>
+					<div class="card-links">
+						<a href="https://github.com/agileAlligator/d2c-analyst" target="_blank" rel="noopener">github ↗</a>
+					</div>
+				</article>
+
+				<article class="card" data-reveal>
+					<div class="card-top">
+						<span class="card-idx">03</span>
+						<span class="card-tags">platform · private</span>
+					</div>
+					<h3 class="card-title">Helix <span class="card-at">@ Gruve</span></h3>
+					<p class="card-desc">
+						Internal AI sales-enablement platform. A GPT-4o SOW generation pipeline,
+						automated pricing calculator, engineering capability roadmap, and Service
+						Navigator — Express.js, PostgreSQL, Redis, Prisma on Azure.
+					</p>
+					<div class="card-links">
+						<a href="https://helix.gruveai.com" target="_blank" rel="noopener">helix.gruveai.com ↗</a>
+						<span class="card-lock">live · Entra-gated</span>
+					</div>
+				</article>
+
+				<article class="card" data-reveal>
+					<div class="card-top">
+						<span class="card-idx">04</span>
+						<span class="card-tags">security tooling · NLP · Python</span>
+					</div>
+					<h3 class="card-title">PIIDetector</h3>
+					<p class="card-desc">
+						A filesystem-level PII detection tool that scans images, text, Word docs,
+						and PDFs for sensitive-data exposure, enhanced with NLP-based entity
+						recognition for structured and unstructured PII patterns.
+					</p>
+					<div class="card-links">
+						<a href="https://github.com/agileAlligator/PIIDetector" target="_blank" rel="noopener">github ↗</a>
+					</div>
+				</article>
+
+				<article class="card" data-reveal>
+					<div class="card-top">
+						<span class="card-idx">05</span>
+						<span class="card-tags">research · cryptography</span>
+					</div>
+					<h3 class="card-title">Randomness Testing Suites</h3>
+					<p class="card-desc">
+						A comparative analysis of randomness-testing algorithms and suites —
+						methodology and results written up as a research draft.
+					</p>
+					<div class="card-links">
+						<a href="https://docs.google.com/viewer?url=https://raw.githubusercontent.com/agileAlligator/Portfolio-Page/master/research-draft2024.pdf" target="_blank" rel="noopener">read draft ↗</a>
+						<a href="https://github.com/agileAlligator/comparative-analysis" target="_blank" rel="noopener">github ↗</a>
+					</div>
+				</article>
+
+				<article class="card card-mini" data-reveal>
+					<div class="card-top">
+						<span class="card-idx">·</span>
+						<span class="card-tags">for fun</span>
+					</div>
+					<h3 class="card-title">Seinfeld Excuse Rolodex</h3>
+					<p class="card-desc">
+						A tiny toy that generates an excuse for every day of the week. Kept
+						around because it still makes me laugh.
+					</p>
+					<div class="card-links">
+						<a href="seinfeld-rolodex.html" target="_blank" rel="noopener">open ↗</a>
+					</div>
+				</article>
 			</div>
 		</section>
+
+		<!-- ───────────────────────────── SKILLS ───────────────────────────── -->
+		<section class="section" id="skills">
+			<p class="section-label" data-reveal>// 04 · skills</p>
+			<h2 class="section-title" data-reveal>Toolkit</h2>
+
+			<div class="skills-grid">
+				<div class="skill-group" data-reveal>
+					<h3>Secure MCP &amp; Agentic</h3>
+					<ul>
+						<li>MCP server design</li>
+						<li>OWASP Agentic Top 10</li>
+						<li>Prompt-injection defense</li>
+						<li>Tool scoping &amp; sandboxing</li>
+						<li>Client delivery</li>
+					</ul>
+				</div>
+				<div class="skill-group" data-reveal>
+					<h3>AI &amp; Automation</h3>
+					<ul>
+						<li>LLM workflow orchestration</li>
+						<li>Document-generation pipelines</li>
+						<li>Citation / provenance validation</li>
+						<li>Tool-use / function calling</li>
+						<li>SOAR / playbook automation</li>
+					</ul>
+				</div>
+				<div class="skill-group" data-reveal>
+					<h3>Build &amp; Ship</h3>
+					<ul>
+						<li>Python</li>
+						<li>Docker</li>
+						<li>Internal app development</li>
+						<li>REST &amp; API integration</li>
+						<li>LLM app plumbing</li>
+					</ul>
+				</div>
+				<div class="skill-group" data-reveal>
+					<h3>Security Foundations</h3>
+					<ul>
+						<li>Threat Hunting</li>
+						<li>Detection Engineering</li>
+						<li>Splunk · CrowdStrike Falcon</li>
+						<li>Windows Forensics</li>
+						<li>Malware Analysis</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="creds">
+				<div class="cred" data-reveal>
+					<h4>Certifications</h4>
+					<ul>
+						<li>ISC2 — Certified in Cybersecurity (CC)</li>
+						<li>
+							<a href="https://www.skills.google/public_profiles/40acf708-29df-4cc6-ac66-01c214f45dd9" target="_blank" rel="noopener">Google Cloud &amp; Data Science ↗</a>
+						</li>
+					</ul>
+				</div>
+				<div class="cred" data-reveal>
+					<h4>Education</h4>
+					<ul>
+						<li>B.Tech, Computer Science &amp; Engineering</li>
+						<li>Vellore Institute of Technology · 2024</li>
+					</ul>
+				</div>
+				<div class="cred" data-reveal>
+					<h4>Community</h4>
+					<ul>
+						<li>Enactus — VIT Chennai Chapter</li>
+					</ul>
+				</div>
+			</div>
+		</section>
+
+		<!-- ──────────────────────────── CONTACT ──────────────────────────── -->
+		<section class="section section-contact" id="contact">
+			<p class="section-label" data-reveal>// 05 · contact</p>
+			<h2 class="contact-title" data-reveal>Let's build something secure.</h2>
+			<div class="contact-links" data-reveal>
+				<a href="mailto:apkasture02@gmail.com">apkasture02@gmail.com</a>
+				<a href="https://github.com/agileAlligator" target="_blank" rel="noopener">github / agileAlligator</a>
+				<a href="https://www.linkedin.com/in/avneesh-kasture-491b651b6/" target="_blank" rel="noopener">linkedin</a>
+				<a href="resume.pdf" target="_blank" rel="noopener">résumé (pdf)</a>
+			</div>
+			<footer class="footer">
+				<span><span class="prompt">&gt;</span> built by Avneesh Kasture</span>
+				<span class="footer-status">● all systems operational</span>
+			</footer>
+		</section>
+
+		<script src="main.js"></script>
 	</body>
 </html>
