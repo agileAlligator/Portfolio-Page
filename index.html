@@ -15,7 +15,7 @@
 			property="og:description"
 			content="Building secure MCP servers for clients — hardening the agentic layer against prompt injection, tool misuse, and privilege abuse. Plus internal LLM-powered apps."
 		/>
-		<meta property="og:url" content="https://agilealligator.github.io/Portfolio-Page/" />
+		<meta property="og:url" content="https://avneeshk.me/" />
 		<meta name="twitter:card" content="summary" />
 		<meta name="twitter:title" content="Avneesh Kasture — Secure MCP Engineer / Professional Services" />
 		<meta
@@ -31,26 +31,28 @@
 		<link rel="stylesheet" href="style.css" />
 	</head>
 	<body>
+		<a class="skip-link" href="#main">Skip to content</a>
 		<div class="grain" aria-hidden="true"></div>
 
 		<header class="nav" id="top">
 			<a class="nav-brand" href="#top">
 				<span class="prompt">&gt;</span> avneesh<span class="blink">_</span>
 			</a>
-			<nav class="nav-links" aria-label="Primary">
+			<nav class="nav-links" id="primary-nav" aria-label="Primary">
 				<a href="#about">about</a>
 				<a href="#experience">experience</a>
 				<a href="#work">work</a>
 				<a href="#skills">skills</a>
 				<a href="#contact">contact</a>
-				<a href="/blog/" class="nav-out">blog ↗</a>
+				<a href="/blog/" class="nav-out">blog <span aria-hidden="true">↗</span></a>
+				<a class="nav-resume" href="resume.pdf" target="_blank" rel="noopener">résumé <span aria-hidden="true">↗</span></a>
 			</nav>
-			<a class="nav-resume" href="resume.pdf" target="_blank" rel="noopener">résumé ↗</a>
-			<button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+			<button class="nav-toggle" type="button" aria-label="Toggle menu" aria-controls="primary-nav" aria-expanded="false">
 				<span></span><span></span><span></span>
 			</button>
 		</header>
 
+		<main id="main">
 		<!-- ───────────────────────────── HERO ───────────────────────────── -->
 		<section class="hero" id="hero">
 			<div class="hero-glow" aria-hidden="true"></div>
@@ -370,6 +372,7 @@
 				<span class="footer-status">● all systems operational</span>
 			</footer>
 		</section>
+		</main>
 
 		<script src="main.js"></script>
 	</body>
