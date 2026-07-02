@@ -111,6 +111,26 @@ a { color: inherit; text-decoration: none; }
 .nav-links a.active::after,
 .nav-links a:hover::after { transform: scaleX(1); }
 
+/* Off-SPA destination: a separate page, not an in-page scroll anchor.
+   Divider + accent colour + ↗ signal it leaves the single-page site. */
+.nav-links .nav-out {
+	color: var(--acc);
+	margin-left: 0.55rem;
+	padding-left: 1.2rem;
+	position: relative;
+}
+.nav-links .nav-out::before {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 1px;
+	height: 1em;
+	background: var(--line);
+}
+.nav-links .nav-out:hover { color: #6bf0b4; }
+
 .nav-resume {
 	font-family: var(--mono);
 	font-size: 0.82rem;
@@ -401,6 +421,13 @@ a { color: inherit; text-decoration: none; }
 		border-bottom: 1px solid var(--line);
 	}
 	.nav.open .nav-links a { padding: 0.85rem clamp(1.25rem, 5vw, 3.5rem); }
+	.nav.open .nav-links .nav-out {
+		margin-left: 0;
+		padding-left: clamp(1.25rem, 5vw, 3.5rem);
+		border-top: 1px solid var(--line-soft);
+		margin-top: 0.3rem;
+	}
+	.nav.open .nav-links .nav-out::before { display: none; }
 	.hero { grid-template-columns: 1fr; }
 	.about-grid { grid-template-columns: 1fr; }
 	.cards { grid-template-columns: 1fr; }
