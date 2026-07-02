@@ -1,7 +1,9 @@
 /* ══════════════════════════════════════════════════════════════════
    OWASP Agentic Top 10 — triangular-prism cards.
-   3 faces (risk → control → detection); click right half = rotate
-   forward, left half = back. Inherits tokens from style.css.
+   3 faces, colour-keyed via a per-face --glow (r,g,b):
+     attack = red · detection = yellow · control = blue.
+   Click right half → rotate forward (attack → detection → control),
+   left half → back. Inherits tokens from style.css.
    ══════════════════════════════════════════════════════════════════ */
 
 .owasp-intro { max-width: 68ch; }
@@ -19,9 +21,9 @@
 .owasp-intro a { color: var(--acc); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--line); }
 .owasp-intro a:hover { text-decoration-color: var(--acc); }
 .owasp-hint { font-family: var(--mono); font-size: 0.8rem; color: var(--ink-faint); }
-.owasp-hint .k-risk { color: var(--ink-dim); }
-.owasp-hint .k-control { color: var(--acc); }
-.owasp-hint .k-detect { color: var(--acc-2); }
+.owasp-hint .k-risk { color: var(--bad); }
+.owasp-hint .k-detect { color: var(--warn); }
+.owasp-hint .k-control { color: var(--acc-2); }
 
 /* grid: intro stays in the 760px column; the card row breaks out wider, centered */
 .asi-grid {
@@ -53,9 +55,18 @@
 	max-width: 100%;
 	perspective: 1200px;
 	cursor: pointer;
+	-webkit-tap-highlight-color: transparent;   /* no blue tap flash on mobile */
+	-webkit-user-select: none;
+	user-select: none;                           /* no text-selection on tap */
+	touch-action: manipulation;                  /* no double-tap zoom delay */
+	/* entrance */
+	opacity: 0;
+	transform: translateY(18px);
+	transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
 }
+.asi-card.in { opacity: 1; transform: none; }
 
-/* left/right rotation affordance (chevrons fade in on hover/focus) */
+/* left/right rotation affordance */
 .asi-card::before,
 .asi-card::after {
 	position: absolute;
@@ -103,37 +114,35 @@
 	overflow: hidden;
 	transition: border-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
 }
-/* three faces of the prism, 120° apart, pushed out by the apothem (300/2 ÷ tan60 ≈ 86.6px) */
-.face-risk    { transform: rotateY(0deg)   translateZ(86.6px); background: var(--panel); }
-.face-control { transform: rotateY(120deg) translateZ(86.6px); background: linear-gradient(150deg, var(--panel-2) 0%, var(--bg-2) 100%); }
-.face-detect  { transform: rotateY(240deg) translateZ(86.6px); background: linear-gradient(150deg, #0c1a22 0%, var(--bg-2) 100%); }
+/* three faces of the prism, 120° apart, pushed out by the apothem (≈86.6px), each colour-keyed */
+.face-risk    { --glow: 255, 107, 107; transform: rotateY(0deg)   translateZ(86.6px); background: linear-gradient(150deg, rgba(255, 107, 107, 0.07) 0%, var(--panel) 55%); }
+.face-control { --glow: 76, 201, 240;  transform: rotateY(120deg) translateZ(86.6px); background: linear-gradient(150deg, rgba(76, 201, 240, 0.08) 0%, var(--bg-2) 55%); }
+.face-detect  { --glow: 245, 181, 68;  transform: rotateY(240deg) translateZ(86.6px); background: linear-gradient(150deg, rgba(245, 181, 68, 0.08) 0%, var(--bg-2) 55%); }
 
 .asi-card:hover .asi-face,
 .asi-card:focus-visible .asi-face {
-	border-color: var(--acc);
-	box-shadow: 0 0 0 1px rgba(79, 227, 161, 0.22), 0 22px 55px -34px rgba(0, 0, 0, 0.9);
+	border-color: rgba(var(--glow), 0.7);
+	box-shadow: 0 0 0 1px rgba(var(--glow), 0.25), 0 22px 55px -34px rgba(0, 0, 0, 0.9);
 }
 
-.asi-code { font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.06em; color: var(--acc); }
+.asi-code { font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.06em; color: rgb(var(--glow)); }
 .asi-name {
 	font-family: var(--mono);
 	font-weight: 600;
 	font-size: 1.14rem;
 	letter-spacing: -0.02em;
-	margin: 0.55rem 0 0.85rem;
+	margin: 0.55rem 0;
 	color: var(--ink);
 }
-.asi-attack { color: var(--ink-dim); font-size: 0.95rem; line-height: 1.5; }
-
 .asi-label {
 	font-family: var(--mono);
 	font-size: 0.68rem;
 	text-transform: uppercase;
 	letter-spacing: 0.09em;
 	margin-bottom: 0.45rem;
+	color: rgb(var(--glow));
 }
-.lbl-control { color: var(--acc); }
-.lbl-detect { color: var(--acc-2); }
+.asi-attack { color: var(--ink-dim); font-size: 0.95rem; line-height: 1.5; }
 .asi-body { color: var(--ink-dim); font-size: 0.88rem; line-height: 1.55; }
 .asi-body strong { color: var(--ink); font-weight: 600; }
 
@@ -147,39 +156,27 @@
 	display: flex;
 	justify-content: space-between;
 }
-.asi-foot .step { color: var(--acc); }
+.asi-foot .step { color: rgb(var(--glow)); }
 
 /* ── VFX ─────────────────────────────────────────────────────────── */
-
-/* cursor-tracking accent spotlight on the visible face */
+/* cursor-tracking spotlight, tinted to the face colour */
 .asi-face::after {
 	content: "";
 	position: absolute;
 	inset: 0;
 	border-radius: inherit;
-	background: radial-gradient(240px circle at var(--mx, 50%) var(--my, 50%), rgba(79, 227, 161, 0.13), transparent 62%);
+	background: radial-gradient(240px circle at var(--mx, 50%) var(--my, 50%), rgba(var(--glow), 0.15), transparent 62%);
 	opacity: 0;
 	transition: opacity 0.35s var(--ease);
 	pointer-events: none;
 }
-.face-detect::after {
-	background: radial-gradient(240px circle at var(--mx, 50%) var(--my, 50%), rgba(76, 201, 240, 0.16), transparent 62%);
-}
 .asi-card:hover .asi-face::after,
 .asi-card:focus-visible .asi-face::after { opacity: 1; }
 
-/* staggered entrance */
-.asi-card {
-	opacity: 0;
-	transform: translateY(18px);
-	transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
-}
-.asi-card.in { opacity: 1; transform: none; }
-
-/* accent pulse on each rotation */
+/* accent pulse on each rotation, in the face colour */
 @keyframes asi-pulse {
-	0%   { box-shadow: 0 0 0 1px rgba(79, 227, 161, 0.55), 0 0 30px -2px rgba(79, 227, 161, 0.5); }
-	100% { box-shadow: 0 0 0 1px rgba(79, 227, 161, 0),    0 0 30px -2px rgba(79, 227, 161, 0); }
+	0%   { box-shadow: 0 0 0 1px rgba(var(--glow), 0.55), 0 0 30px -2px rgba(var(--glow), 0.5); }
+	100% { box-shadow: 0 0 0 1px rgba(var(--glow), 0),    0 0 30px -2px rgba(var(--glow), 0); }
 }
 .asi-card.spin .asi-face { animation: asi-pulse 0.65s var(--ease); }
 

@@ -18,8 +18,8 @@ extra_css: /assets/owasp.css
 	<p>I assume the model itself <strong>will</strong> be jailbroken — so prevention lives in the
 		<strong>server</strong>, not the prompt. And because prevention fails, each risk also needs an
 		answer to the question defenders actually ask: <em>how would I know?</em></p>
-	<p class="owasp-hint">Each card is a prism — click its <strong>right</strong> side to rotate forward, <strong>left</strong> to go back
-		(or use ← →):&nbsp; <span class="k-risk">risk</span> → <span class="k-control">control</span> → <span class="k-detect">detection</span>.</p>
+	<p class="owasp-hint">Each card is a prism — click the <strong>right</strong> half to turn it forward, the <strong>left</strong> half back
+		(or use ← →):&nbsp; <span class="k-risk">attack</span> → <span class="k-detect">detection</span> → <span class="k-control">control</span>.</p>
 </section>
 
 <div class="asi-grid">
@@ -29,8 +29,9 @@ extra_css: /assets/owasp.css
 			<span class="asi-face face-risk">
 				<span class="asi-code">ASI01 : 2026</span>
 				<span class="asi-name">Agent Goal Hijack</span>
+				<span class="asi-label">Attack</span>
 				<span class="asi-attack">Injected text in a tool result quietly rewrites the agent's objective.</span>
-				<span class="asi-foot"><span>‹ rotate ›</span><span class="step">risk</span></span>
+				<span class="asi-foot"><span>‹ rotate ›</span><span class="step">attack</span></span>
 			</span>
 			<span class="asi-face face-control">
 				<span class="asi-code">ASI01</span>
@@ -40,7 +41,7 @@ extra_css: /assets/owasp.css
 			</span>
 			<span class="asi-face face-detect">
 				<span class="asi-code">ASI01</span>
-				<span class="asi-label lbl-detect">Detection · blue-team</span>
+				<span class="asi-label">Detection · SOC</span>
 				<span class="asi-body">Flag tool-call chains whose target diverges from the session's stated task, and scan tool output for imperative/injection patterns before it can influence a call.</span>
 				<span class="asi-foot"><span>‹ rotate ›</span><span class="step">detection</span></span>
 			</span>
@@ -52,8 +53,9 @@ extra_css: /assets/owasp.css
 			<span class="asi-face face-risk">
 				<span class="asi-code">ASI02 : 2026</span>
 				<span class="asi-name">Tool Misuse &amp; Exploitation</span>
+				<span class="asi-label">Attack</span>
 				<span class="asi-attack">Legitimate tools bent into destructive or over-scoped actions.</span>
-				<span class="asi-foot"><span>‹ rotate ›</span><span class="step">risk</span></span>
+				<span class="asi-foot"><span>‹ rotate ›</span><span class="step">attack</span></span>
 			</span>
 			<span class="asi-face face-control">
 				<span class="asi-code">ASI02</span>
@@ -63,7 +65,7 @@ extra_css: /assets/owasp.css
 			</span>
 			<span class="asi-face face-detect">
 				<span class="asi-code">ASI02</span>
-				<span class="asi-label lbl-detect">Detection · blue-team</span>
+				<span class="asi-label">Detection · SOC</span>
 				<span class="asi-body">Alert on exfil-shaped sequences — a read-heavy query immediately followed by an external send — and on any user crossing N× their tool-call baseline.</span>
 				<span class="asi-foot"><span>‹ rotate ›</span><span class="step">detection</span></span>
 			</span>
@@ -75,8 +77,9 @@ extra_css: /assets/owasp.css
 			<span class="asi-face face-risk">
 				<span class="asi-code">ASI03 : 2026</span>
 				<span class="asi-name">Identity &amp; Privilege Abuse</span>
+				<span class="asi-label">Attack</span>
 				<span class="asi-attack">Over-broad or leaked credentials let the agent act beyond its scope.</span>
-				<span class="asi-foot"><span>‹ rotate ›</span><span class="step">risk</span></span>
+				<span class="asi-foot"><span>‹ rotate ›</span><span class="step">attack</span></span>
 			</span>
 			<span class="asi-face face-control">
 				<span class="asi-code">ASI03</span>
@@ -86,7 +89,7 @@ extra_css: /assets/owasp.css
 			</span>
 			<span class="asi-face face-detect">
 				<span class="asi-code">ASI03</span>
-				<span class="asi-label lbl-detect">Detection · blue-team</span>
+				<span class="asi-label">Detection · SOC</span>
 				<span class="asi-body">Alert when a token is used for endpoints or scopes outside its grant, or when one identity suddenly reaches resources it never touches.</span>
 				<span class="asi-foot"><span>‹ rotate ›</span><span class="step">detection</span></span>
 			</span>
@@ -98,8 +101,9 @@ extra_css: /assets/owasp.css
 			<span class="asi-face face-risk">
 				<span class="asi-code">ASI04 : 2026</span>
 				<span class="asi-name">Agentic Supply Chain</span>
+				<span class="asi-label">Attack</span>
 				<span class="asi-attack">A poisoned tool, registry, or dependency subverts the agent.</span>
-				<span class="asi-foot"><span>‹ rotate ›</span><span class="step">risk</span></span>
+				<span class="asi-foot"><span>‹ rotate ›</span><span class="step">attack</span></span>
 			</span>
 			<span class="asi-face face-control">
 				<span class="asi-code">ASI04</span>
@@ -109,7 +113,7 @@ extra_css: /assets/owasp.css
 			</span>
 			<span class="asi-face face-detect">
 				<span class="asi-code">ASI04</span>
-				<span class="asi-label lbl-detect">Detection · blue-team</span>
+				<span class="asi-label">Detection · SOC</span>
 				<span class="asi-body">Alert when a tool descriptor's hash changes after approval, when an unrecognized MCP server registers, or on dependency-lockfile drift.</span>
 				<span class="asi-foot"><span>‹ rotate ›</span><span class="step">detection</span></span>
 			</span>
@@ -121,8 +125,9 @@ extra_css: /assets/owasp.css
 			<span class="asi-face face-risk">
 				<span class="asi-code">ASI05 : 2026</span>
 				<span class="asi-name">Unexpected Code Execution</span>
+				<span class="asi-label">Attack</span>
 				<span class="asi-attack">Untrusted input reaches eval/exec — remote code execution.</span>
-				<span class="asi-foot"><span>‹ rotate ›</span><span class="step">risk</span></span>
+				<span class="asi-foot"><span>‹ rotate ›</span><span class="step">attack</span></span>
 			</span>
 			<span class="asi-face face-control">
 				<span class="asi-code">ASI05</span>
@@ -132,7 +137,7 @@ extra_css: /assets/owasp.css
 			</span>
 			<span class="asi-face face-detect">
 				<span class="asi-code">ASI05</span>
-				<span class="asi-label lbl-detect">Detection · blue-team</span>
+				<span class="asi-label">Detection · SOC</span>
 				<span class="asi-body">Alert when eval/exec paths fire, on unexpected child-process spawns from the MCP process, or when code-shaped input reaches an executor.</span>
 				<span class="asi-foot"><span>‹ rotate ›</span><span class="step">detection</span></span>
 			</span>
@@ -144,8 +149,9 @@ extra_css: /assets/owasp.css
 			<span class="asi-face face-risk">
 				<span class="asi-code">ASI06 : 2026</span>
 				<span class="asi-name">Memory &amp; Context Poisoning</span>
+				<span class="asi-label">Attack</span>
 				<span class="asi-attack">Adversarial data persisted into memory poisons future decisions.</span>
-				<span class="asi-foot"><span>‹ rotate ›</span><span class="step">risk</span></span>
+				<span class="asi-foot"><span>‹ rotate ›</span><span class="step">attack</span></span>
 			</span>
 			<span class="asi-face face-control">
 				<span class="asi-code">ASI06</span>
@@ -155,7 +161,7 @@ extra_css: /assets/owasp.css
 			</span>
 			<span class="asi-face face-detect">
 				<span class="asi-code">ASI06</span>
-				<span class="asi-label lbl-detect">Detection · blue-team</span>
+				<span class="asi-label">Detection · SOC</span>
 				<span class="asi-body">Flag memory/RAG writes from low-trust sources, and retrieval of freshly-written context that then steers a sensitive action (provenance gaps).</span>
 				<span class="asi-foot"><span>‹ rotate ›</span><span class="step">detection</span></span>
 			</span>
@@ -167,8 +173,9 @@ extra_css: /assets/owasp.css
 			<span class="asi-face face-risk">
 				<span class="asi-code">ASI07 : 2026</span>
 				<span class="asi-name">Insecure Inter-Agent Comms</span>
+				<span class="asi-label">Attack</span>
 				<span class="asi-attack">Agent-to-agent / MCP messages tampered, spoofed, or injected.</span>
-				<span class="asi-foot"><span>‹ rotate ›</span><span class="step">risk</span></span>
+				<span class="asi-foot"><span>‹ rotate ›</span><span class="step">attack</span></span>
 			</span>
 			<span class="asi-face face-control">
 				<span class="asi-code">ASI07</span>
@@ -178,7 +185,7 @@ extra_css: /assets/owasp.css
 			</span>
 			<span class="asi-face face-detect">
 				<span class="asi-code">ASI07</span>
-				<span class="asi-label lbl-detect">Detection · blue-team</span>
+				<span class="asi-label">Detection · SOC</span>
 				<span class="asi-body">Alert on failed-auth or unauthenticated peer messages, on messages failing schema/claims validation, and on sudden inter-agent volume spikes.</span>
 				<span class="asi-foot"><span>‹ rotate ›</span><span class="step">detection</span></span>
 			</span>
@@ -190,8 +197,9 @@ extra_css: /assets/owasp.css
 			<span class="asi-face face-risk">
 				<span class="asi-code">ASI08 : 2026</span>
 				<span class="asi-name">Cascading Agent Failures</span>
+				<span class="asi-label">Attack</span>
 				<span class="asi-attack">One compromised or failing agent cascades across the system.</span>
-				<span class="asi-foot"><span>‹ rotate ›</span><span class="step">risk</span></span>
+				<span class="asi-foot"><span>‹ rotate ›</span><span class="step">attack</span></span>
 			</span>
 			<span class="asi-face face-control">
 				<span class="asi-code">ASI08</span>
@@ -201,7 +209,7 @@ extra_css: /assets/owasp.css
 			</span>
 			<span class="asi-face face-detect">
 				<span class="asi-code">ASI08</span>
-				<span class="asi-label lbl-detect">Detection · blue-team</span>
+				<span class="asi-label">Detection · SOC</span>
 				<span class="asi-body">Watch for error-rate propagation across agents, retry storms, and circuit-breaker trips correlated within a short window.</span>
 				<span class="asi-foot"><span>‹ rotate ›</span><span class="step">detection</span></span>
 			</span>
@@ -213,8 +221,9 @@ extra_css: /assets/owasp.css
 			<span class="asi-face face-risk">
 				<span class="asi-code">ASI09 : 2026</span>
 				<span class="asi-name">Human-Agent Trust Exploitation</span>
+				<span class="asi-label">Attack</span>
 				<span class="asi-attack">The agent is used to manipulate the human in the loop.</span>
-				<span class="asi-foot"><span>‹ rotate ›</span><span class="step">risk</span></span>
+				<span class="asi-foot"><span>‹ rotate ›</span><span class="step">attack</span></span>
 			</span>
 			<span class="asi-face face-control">
 				<span class="asi-code">ASI09</span>
@@ -224,7 +233,7 @@ extra_css: /assets/owasp.css
 			</span>
 			<span class="asi-face face-detect">
 				<span class="asi-code">ASI09</span>
-				<span class="asi-label lbl-detect">Detection · blue-team</span>
+				<span class="asi-label">Detection · SOC</span>
 				<span class="asi-body">Flag high-impact actions approved with abnormally low latency (rubber-stamping) and outputs lacking provenance that precede an approval.</span>
 				<span class="asi-foot"><span>‹ rotate ›</span><span class="step">detection</span></span>
 			</span>
@@ -236,8 +245,9 @@ extra_css: /assets/owasp.css
 			<span class="asi-face face-risk">
 				<span class="asi-code">ASI10 : 2026</span>
 				<span class="asi-name">Rogue Agents</span>
+				<span class="asi-label">Attack</span>
 				<span class="asi-attack">An agent operating outside policy, undetected.</span>
-				<span class="asi-foot"><span>‹ rotate ›</span><span class="step">risk</span></span>
+				<span class="asi-foot"><span>‹ rotate ›</span><span class="step">attack</span></span>
 			</span>
 			<span class="asi-face face-control">
 				<span class="asi-code">ASI10</span>
@@ -247,7 +257,7 @@ extra_css: /assets/owasp.css
 			</span>
 			<span class="asi-face face-detect">
 				<span class="asi-code">ASI10</span>
-				<span class="asi-label lbl-detect">Detection · blue-team</span>
+				<span class="asi-label">Detection · SOC</span>
 				<span class="asi-body">Alert on any action with no matching originating-prompt hash, activity outside authorized windows, or deviation from the agent's behavioral baseline.</span>
 				<span class="asi-foot"><span>‹ rotate ›</span><span class="step">detection</span></span>
 			</span>
@@ -269,7 +279,7 @@ extra_css: /assets/owasp.css
 			var prism = card.querySelector(".asi-prism");
 
 			function rotate(dir) {                        // dir: +1 forward (right), -1 back (left)
-				var rot = parseInt(card.dataset.rot || "0", 10) - dir * 120;
+				var rot = parseInt(card.dataset.rot || "0", 10) + dir * 120;   // right → detection → control
 				card.dataset.rot = rot;
 				prism.style.transform = "translateZ(-86.6px) rotateY(" + rot + "deg)";
 				card.classList.remove("spin");
