@@ -35,12 +35,21 @@ body {
 	line-height: 1.65;
 	-webkit-font-smoothing: antialiased;
 	overflow-x: hidden;
-	/* subtle dot grid + vignette */
+}
+
+/* subtle dot grid + vignette — a fixed layer rather than
+   background-attachment:fixed, which forces full repaints on scroll
+   in some mobile browsers */
+body::before {
+	content: "";
+	position: fixed;
+	inset: 0;
+	z-index: -1;
+	pointer-events: none;
 	background-image:
 		radial-gradient(circle at 50% -10%, rgba(76, 201, 240, 0.08), transparent 55%),
 		radial-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px);
 	background-size: auto, 26px 26px;
-	background-attachment: fixed;
 }
 
 /* film-grain overlay */
