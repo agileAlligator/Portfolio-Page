@@ -41,7 +41,7 @@ document.addEventListener("keydown", (e) => {
 // ── Active section highlight ─────────────────────────────────────
 const sections = document.querySelectorAll("section[id]");
 const navLinks = new Map(
-	[...document.querySelectorAll(".nav-links a")].map((a) => [
+	[...document.querySelectorAll('.nav-links a[href^="#"]')].map((a) => [
 		a.getAttribute("href").slice(1),
 		a,
 	])
