@@ -5,7 +5,7 @@ subtitle: "In a stdio MCP server, stdout belongs to JSON-RPC. One stray log line
 description: >-
   A stdio MCP server that runs fine in a terminal but 'won't connect' to the
   client is almost always writing logs to stdout. Stdout is reserved for
-  JSON-RPC — here's why one log line corrupts the protocol, and the one-line
+  JSON-RPC. Here's why one log line corrupts the protocol, and the one-line
   structlog fix.
 date: 2026-07-02
 permalink: /blog/stdout-is-not-yours/
@@ -25,12 +25,12 @@ You logged to stdout. And in a stdio MCP server, **stdout isn't yours.**
 
 A stdio MCP server speaks JSON-RPC over exactly two pipes: it **reads** requests
 from stdin and **writes** responses to stdout. That's the transport. stdout is not
-a place to print things — it *is* the protocol channel. The client is on the other
+a place to print things. It *is* the protocol channel. The client is on the other
 end parsing every line it receives as a JSON-RPC message.
 
-So the moment anything that isn't a JSON-RPC message lands on stdout — a
+So the moment anything that isn't a JSON-RPC message lands on stdout (a
 `structlog` line, a stray `print()`, a library's "loaded model successfully"
-banner, a warning from a dependency — the client dutifully tries to parse it as
+banner, a warning from a dependency), the client dutifully tries to parse it as
 protocol and rejects the whole exchange:
 
 ```
@@ -40,7 +40,7 @@ invalid_value ... path: ["jsonrpc"]
 
 If you've seen a burst of `invalid_union` / `unrecognized_keys` errors and a server
 that "won't connect" despite starting perfectly in a shell, look at those key
-names. `event`, `timestamp`, `level` — those aren't protocol fields. **Those are
+names. `event`, `timestamp`, `level`: those aren't protocol fields. **Those are
 your log fields.** Your logger is talking on the wire, and the client can't tell
 your debug output apart from a malformed response.
 
@@ -72,8 +72,8 @@ Two rules follow from this, and they're absolute:
 
 1. **No `print()` in any runtime path.** A bare `print()` writes to stdout by
    definition. One of them, buried in an error branch you rarely hit, will corrupt
-   the protocol the day it fires. If you must, `print(..., file=sys.stderr)` — but
-   prefer the logger.
+   the protocol the day it fires. If you must, use `print(..., file=sys.stderr)`,
+   but prefer the logger.
 2. **Watch your dependencies.** Libraries that print banners or progress bars to
    stdout will poison the channel just as effectively as your own code. Import them
    knowing that, and silence anything chatty.
@@ -85,14 +85,14 @@ choke on a stray emoji or box-drawing character. One fewer platform surprise.
 ## Catch it before the client does
 
 The reason this bug is so common is that unit tests never see it. Your tests import
-functions and assert on return values — they never launch the server as a
+functions and assert on return values. They never launch the server as a
 subprocess and read its stdout the way a real client does. So the one class of bug
 that actually breaks the integration is the one your suite is blind to.
 
 Add a tiny **stdio smoke test**: spawn the server as a subprocess, send an
 `initialize` then a `tools/list` request, and assert that what comes back on stdout
 is clean, parseable JSON-RPC with the tools you expect. If a log line is leaking,
-this test fails immediately — and it catches a couple of its cousins (import-time
+this test fails immediately, and it catches a couple of its cousins (import-time
 crashes, empty-config startup failures) in the same run. Run it before you ever
 tell someone the server works.
 
@@ -102,4 +102,3 @@ In a stdio MCP server, **stdout is the protocol and stderr is for you.** Send on
 byte of logging to the wrong pipe and the client will tell you the server "won't
 connect" while giving you no obvious reason why. Route every log and every `print`
 to stderr, and the mystery disappears.
-
