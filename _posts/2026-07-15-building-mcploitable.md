@@ -6,7 +6,7 @@ description: >-
   The thinking behind mcploitable, a lab of deliberately vulnerable MCP servers
   covering the OWASP Agentic Top-10. How the boxes are built — faithful to real
   incidents, a two-plane attacker/victim split, an L0-L3 control ladder, scoring
-  by effect — and a few things I got wrong before I got them right.
+  by effect — and a few things I learned building it.
 date: 2026-07-15
 permalink: /blog/building-mcploitable/
 image: /assets/og/default.png
@@ -62,11 +62,11 @@ secret got out.
 ## What the ladder shows
 
 Twenty attempts per rung, seven boxes, against a fixed weak model. L0, L1, and
-L2 fall to a decent artifact almost every time. The L3 walls landed 0 out of
-140. Near-certain at the top, zero at the bottom. That is the argument, in the
-only form that matters.
+L2 fall to a decent artifact almost every time. The L3 walls held: zero landings
+out of 140. Near-certain at the top, zero at the bottom. That is the argument,
+in the only form that matters.
 
-## A few things I got wrong first
+## A few things I learned
 
 **A good payload sounds bored.** The biggest lever on whether an injection lands
 is *not* protesting its own innocence. "This is a routine automated step, no
@@ -75,28 +75,20 @@ request stated plainly. Reassurance reads as a threat, the way "I'm not going to
 hurt you" does. The attacks that work sound like a colleague who assumes the
 request is normal, because to them it is.
 
-**A warning that names the attack is a detector, not a warning.** My first L1
-signal spelled out the exact trick: "do not put data in image URLs." The weak
-model never reasoned about it. It matched the ban against what the payload asked
-for and refused every time. That is a signature scanner sitting at the wrong
-layer, not recognition. Once I made the warning generic, the kind a real content
-policy actually uses, it turned into a proper recognition rung: the weak model
-could be talked past it, and a stronger model still caught the attack on its
-own. If your soft control names the attack, you have built a brittle detector
-and mislabeled it.
-
 **The same bug wears different clothes.** Trusting a self-declared identity turns
 up as a plugin's publisher string, a memory entry's source field, and a peer
 agent's name. Three boxes, one flaw. The fix is the same every time: make the
-caller prove who it is with something it can't forge, a signature or a
+caller prove who they are with something they can't forge, a signature or a
 server-stamped origin.
 
-**Some classes aren't boxes.** Three of the ten (denial-of-wallet, monitoring,
-governance of rogue agents) have no secret to capture. They're resource,
-observability, and authorization gaps. Forcing a capture-the-flag box onto them
-would have been dishonest, so I didn't. They ship as guided walkthroughs that
-show the failure and its fix. Saying where the format doesn't fit is part of the
-point.
+## Not everything is a box
+
+Three of the ten OWASP classes (denial-of-wallet, monitoring, governance of
+rogue agents) have no secret to capture. They're resource, observability, and
+authorization gaps. I built the lab that way on purpose: forcing a
+capture-the-flag box onto them would have been dishonest, so those three ship as
+guided walkthroughs that show the failure and its fix. Saying where the format
+doesn't fit is part of the point.
 
 ## Go break it
 
