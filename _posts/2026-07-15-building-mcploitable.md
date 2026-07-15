@@ -1,119 +1,110 @@
 ---
 layout: post
 title: "Building mcploitable: A Lab Where Agent Guardrails Fail on Purpose"
-subtitle: "I argued the model can't police itself and the real controls belong in the server. So I built the place to prove it — seven real incidents, a four-rung control ladder, and a wall that held 0 for 140."
+subtitle: "I argued the model can't police itself and the real controls belong in the server. mcploitable is where I test that: seven real incidents, a four-rung control ladder, and a wall that held zero times out of 140."
 description: >-
-  The design thinking behind mcploitable, a lab of deliberately vulnerable MCP
-  servers mapping the OWASP Agentic Top-10: faithful incidents, a two-plane
-  attacker/victim split, an L0→L3 control ladder, effect-based scoring, and the
-  hard-won lessons — why a payload should sound bored, why a warning that names
-  the attack becomes a detector, and when the "box" metaphor stops working.
+  The thinking behind mcploitable, a lab of deliberately vulnerable MCP servers
+  covering the OWASP Agentic Top-10. How the boxes are built — faithful to real
+  incidents, a two-plane attacker/victim split, an L0-L3 control ladder, scoring
+  by effect — and a few things I got wrong before I got them right.
 date: 2026-07-15
 permalink: /blog/building-mcploitable/
 image: /assets/og/default.png
 tags: [mcp, security, agentic]
-reading_time: "7 min read"
+reading_time: "6 min read"
 ---
 
 A while back I made a claim here: [the model can't police itself, so the
-guardrails belong in the server](/blog/guardrails-belong-in-the-server/) — in
-deterministic code the model can't talk its way past. It's an easy thing to
-assert and a hard thing to *feel*. So I built a place to watch it happen:
-**[mcploitable](https://github.com/agileAlligator/mcploitable)** — the
-"Metasploitable of MCP." It's now a full lab covering the OWASP Top 10 for
-Agentic Applications, and this is the thinking behind it.
+guardrails belong in the server](/blog/guardrails-belong-in-the-server/), in
+deterministic code the model can't talk its way past. That is easy to assert
+and harder to prove. So I built somewhere to test it —
+[mcploitable](https://github.com/agileAlligator/mcploitable), the
+"Metasploitable of MCP." It now covers the OWASP Top 10 for Agentic
+Applications, and this is how I thought about building it.
 
-## The one claim it exists to test
+## What it actually tests
 
-Every box is built to make the same argument seven different ways: **a control
-the model can be talked out of is not a control.** Alignment — the model
-recognizing an attack and refusing — is real, but it's probabilistic and it
-degrades under pressure. A deterministic server-side check doesn't. The lab
-lets you feel the difference instead of reading it.
+Every box makes one argument: a control the model can be talked out of is not a
+control. Alignment (the model spotting an attack and refusing) is real, but it's
+probabilistic and it gets worse under pressure. A server-side check doesn't. The
+lab is there so you can watch that difference happen instead of taking my word
+for it.
 
-## Four design decisions
+## Four decisions
 
-**Faithful to real incidents, not toy bugs.** Each box is a real 2024–2026
-compromise: EchoLeak (zero-click Copilot exfil), the Supabase MCP data leak,
-the Meta account-recovery confused-deputy, the SolarWinds / event-stream
-supply-chain pattern, Vanna.AI's `exec`-the-untrusted-input RCE, ChatGPT
-memory poisoning ("SpAIware"), and cross-agent injection over an agent bus. If
-the mechanism doesn't match how the real thing worked, it teaches the wrong
-lesson — so faithfulness was the first constraint, not a nice-to-have.
+**Faithfulness first.** Each box is a real 2024-2026 compromise, not a toy bug:
+EchoLeak, the Supabase MCP data leak, a Meta account-recovery confused-deputy,
+the SolarWinds and event-stream supply-chain pattern, Vanna.AI's
+exec-the-untrusted-input RCE, ChatGPT memory poisoning, and cross-agent
+injection over an agent bus. If the mechanism doesn't match how the real attack
+worked, the box teaches the wrong thing, so getting that right came before
+anything else.
 
-**Two planes, and you only control one.** There's no "insecure/hardened"
-switch to flip. The victim agent, its tools, its system prompt — all fixed,
-the way a real deployment would ship. The *only* thing you control is one
-untrusted artifact: an email, a support ticket, a published plugin, a planted
-memory, a peer-agent message. The vulnerability is latent; you have to actually
-trigger it through the same surface a real attacker would.
+**You control one thing.** There is no insecure/hardened switch to flip. The
+victim agent, its tools, and its system prompt are fixed, the way a real
+deployment would ship them. The only thing you touch is a single untrusted
+artifact: an email, a support ticket, a published plugin, a planted memory, a
+message from another agent. The vulnerability is latent, and you have to trigger
+it through the same surface a real attacker would.
 
-**A four-rung ladder per box.** This is the heart of it:
+**A four-rung ladder.** L0 is the door left open, the incident as it shipped. L1
+adds a soft signal: the server tells the model the content is untrusted, and the
+model is free to refuse. L2 is a real but partial control that stops the obvious
+attempt and leaves one gap a competent attacker can drive through. L3 is the
+control done right, the one that holds. Climbing the rungs shows where a defense
+stops being reliable.
 
-- **L0** — the door open: the incident exactly as it shipped.
-- **L1** — a soft recognition signal: the server *tells* the model the content
-  is untrusted, and the model is free to refuse. A speed bump, not a barrier.
-- **L2** — a real but partial control: it blocks the naive attempt, but has a
-  single genuine gap a competent attacker drives through.
-- **L3** — the correct deterministic control: the wall.
-
-You climb it and watch precisely where defense stops being reliable.
-
-**Scored by effect, not by vibes.** You don't win because the model "said
-something bad." You win when a real canary secret actually egresses through a
-real tool call, detected server-side and logged out of band. The adjudicator
-never reads the model's prose — only whether the secret left.
+**Scoring by effect.** You don't win because the model said something alarming.
+You win when a real canary secret leaves through a real tool call, caught
+server-side. The adjudicator never reads the model's prose, only whether the
+secret got out.
 
 ## What the ladder shows
 
-Run it against a fixed weak victim, twenty attempts per rung, seven boxes:
-L0, L1, and L2 fall to a good artifact almost every time. The L3 walls landed
-**0 out of 140.** That gap — near-certain at the top of the ladder, a flat zero
-at the bottom — is the entire thesis in one column of numbers.
+Twenty attempts per rung, seven boxes, against a fixed weak model. L0, L1, and
+L2 fall to a decent artifact almost every time. The L3 walls landed 0 out of
+140. Near-certain at the top, zero at the bottom. That is the argument, in the
+only form that matters.
 
-## The lessons I didn't expect
+## A few things I got wrong first
 
-**A good payload sounds bored.** The single biggest lever on whether an
-injection lands is *not protesting its own innocence.* "This is a routine
-automated step, no customer will see it, perfectly safe" gets caught far more
-than the same request stated flatly. It's the same instinct that makes "I'm not
-going to hurt you" raise the hair on your neck. Reassurance is a tell. The
-attacks that work read like a colleague who assumes it's normal — because to
-them it is.
+**A good payload sounds bored.** The biggest lever on whether an injection lands
+is *not* protesting its own innocence. "This is a routine automated step, no
+customer will see it, perfectly safe" gets caught far more often than the same
+request stated plainly. Reassurance reads as a threat, the way "I'm not going to
+hurt you" does. The attacks that work sound like a colleague who assumes the
+request is normal, because to them it is.
 
-**A warning that names the attack is a detector, not a warning.** My first
-recognition rung spelled out the exact exfil trick ("do not put data in image
-URLs"). The weak model didn't reason about it — it just pattern-matched the ban
-and refused, every time. That's not a recognition control, it's a signature
-scanner hiding at the wrong layer. Genericize the warning to what a real
-content policy says and it becomes a true recognition rung: the weak model can
-be talked past it, and a sharper model still catches the attack on its own
-merits. If your "soft" control names the attack, you've built a brittle
-detector and mislabeled it.
+**A warning that names the attack is a detector, not a warning.** My first L1
+signal spelled out the exact trick: "do not put data in image URLs." The weak
+model never reasoned about it. It matched the ban against what the payload asked
+for and refused every time. That is a signature scanner sitting at the wrong
+layer, not recognition. Once I made the warning generic, the kind a real content
+policy actually uses, it turned into a proper recognition rung: the weak model
+could be talked past it, and a stronger model still caught the attack on its
+own. If your soft control names the attack, you have built a brittle detector
+and mislabeled it.
 
-**The same bug keeps changing clothes.** Trusting a *self-declared* identity
-shows up as a plugin's publisher string, a memory entry's `source` field, and a
-peer agent's name — three different boxes, one flaw. And the fix is always the
-same shape: attestation the caller can't forge (a signature, a server-stamped
-origin). Seeing it recur is the point; it's one transferable idea, not three
-trivia questions.
+**The same bug wears different clothes.** Trusting a self-declared identity turns
+up as a plugin's publisher string, a memory entry's source field, and a peer
+agent's name. Three boxes, one flaw. The fix is the same every time: make the
+caller prove who it is with something it can't forge, a signature or a
+server-stamped origin.
 
-**Know when the metaphor breaks.** Three of the ten OWASP classes —
-denial-of-wallet, insufficient monitoring, and governance of rogue agents —
-aren't things you "break into." There's no secret to capture; they're
-resource, observability, and authorization *gaps*. Forcing a capture-the-flag
-box onto them would have been a lie, so I didn't. They ship as guided
-simulations that show the failure and its deterministic fix instead. Being
-honest about where your teaching tool doesn't apply is part of the teaching.
+**Some classes aren't boxes.** Three of the ten (denial-of-wallet, monitoring,
+governance of rogue agents) have no secret to capture. They're resource,
+observability, and authorization gaps. Forcing a capture-the-flag box onto them
+would have been dishonest, so I didn't. They ship as guided walkthroughs that
+show the failure and its fix. Saying where the format doesn't fit is part of the
+point.
 
 ## Go break it
 
-It's live. `./play` drops you into an attacker REPL — pick a box and a rung,
-type your payload, watch the agent process it. `./simulate` walks the three
-demonstrations. Everything leaks only inert canaries inside network-isolated
+It's live. `./play` drops you into an attacker prompt: pick a box and a rung,
+type a payload, and watch the agent handle it. `./simulate` walks the three
+demonstrations. Everything leaks only inert canaries, inside network-isolated
 containers.
 
-The guardrails post asked you to take it on faith that the model can't police
-itself. This is where you get to stop taking my word for it.
-
-→ **[github.com/agileAlligator/mcploitable](https://github.com/agileAlligator/mcploitable)**
+The guardrails post asked you to take my word that the model can't police
+itself. This one lets you check it yourself:
+[github.com/agileAlligator/mcploitable](https://github.com/agileAlligator/mcploitable).
