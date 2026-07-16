@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Building mcploitable: A Lab Where Agent Guardrails Fail on Purpose"
-subtitle: "I argued the model can't police itself and the real controls belong in the server. mcploitable is where I test that: seven real incidents, a four-rung control ladder, and a wall that held zero times out of 140."
+subtitle: "I argued the model can't police itself and the real controls belong in the server. mcploitable is where I test that: seven real incidents, a four-rung control ladder, and a wall that held zero times out of 105."
 description: >-
   The thinking behind mcploitable, a lab of deliberately vulnerable MCP servers
   covering the OWASP Agentic Top-10. How the boxes are built — faithful to real
@@ -61,10 +61,16 @@ secret got out.
 
 ## What the ladder shows
 
-Twenty attempts per rung, seven boxes, against a fixed weak model. L0, L1, and
-L2 fall to a decent artifact almost every time. The L3 walls held: zero landings
-out of 140. Near-certain at the top, zero at the bottom. That is the argument,
-in the only form that matters.
+Each box runs across three victim models, from a deliberately weak one to two
+sharper ones, at ten attempts per rung and five at the wall. On the weak victim
+the open door and both partial controls (L0 through L2) land almost every time.
+On the sharper models something more telling happens: the boxes whose harm is
+visible when the agent acts, like a secret folded into a reply or a plugin
+asking for a credential, get refused on the model's own judgment, while the
+boxes whose harm is hidden keep landing anyway. L3 was the only rung that held
+everywhere: zero landings across all three models, 105 attempts at the wall and
+none got through. That is the argument in the only form that matters, because
+the correct control doesn't depend on which model you put behind it.
 
 ## A few things I learned
 
@@ -83,9 +89,10 @@ server-stamped origin.
 
 ## Not everything is a box
 
-Three of the ten OWASP classes (denial-of-wallet, monitoring, governance of
-rogue agents) have no secret to capture. They're resource, observability, and
-authorization gaps. I built the lab that way on purpose: forcing a
+Three of the ten OWASP classes (cascading failures, human-agent trust
+exploitation, and rogue agents) have no secret to capture. They're a fault
+spreading down an agent chain, a human over-trusting a fluent agent, and an
+agent acting outside its scope. I built the lab that way on purpose: forcing a
 capture-the-flag box onto them would have been dishonest, so those three ship as
 guided walkthroughs that show the failure and its fix. Saying where the format
 doesn't fit is part of the point.
@@ -93,9 +100,9 @@ doesn't fit is part of the point.
 ## Go break it
 
 It's live. `./play` drops you into an attacker prompt: pick a box and a rung,
-type a payload, and watch the agent handle it. `./simulate` walks the three
-demonstrations. Everything leaks only inert canaries, inside network-isolated
-containers.
+type a payload, and watch the agent handle it. The same menu has the three
+guided simulations, for the classes that don't fit a capture-the-flag box.
+Everything leaks only inert canaries, inside network-isolated containers.
 
 The guardrails post asked you to take my word that the model can't police
 itself. This one lets you check it yourself:
