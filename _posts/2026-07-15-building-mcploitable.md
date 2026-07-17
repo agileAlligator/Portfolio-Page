@@ -83,9 +83,12 @@ request is normal, because to them it is.
 
 **The same bug wears different clothes.** Trusting a self-declared identity turns
 up as a plugin's publisher string, a memory entry's source field, and a peer
-agent's name. Three boxes, one flaw. The fix is the same every time: make the
-caller prove who they are with something they can't forge, a signature or a
-server-stamped origin.
+agent's name. Three boxes, one flaw. The durable fix takes one of two shapes.
+You can make identity unforgeable, with a signature or a server-stamped origin.
+Or you can take the prize out of the model's reach so there is nothing to steer
+it toward, which is where the strongest walls ended up: the memory box keeps the
+secret value out of the model's context entirely, and the plugin box drops the
+credential at the sink no matter what the agent was convinced to do.
 
 ## Not everything is a box
 
