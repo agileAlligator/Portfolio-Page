@@ -13,21 +13,10 @@
 		<link rel="stylesheet" href="/assets/blog.css" />
 		<link rel="stylesheet" href="/assets/syntax.css" />
 		{% if page.extra_css %}<link rel="stylesheet" href="{{ page.extra_css }}" />{% endif %}
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<!-- Fonts load async so they never block first paint; fallbacks render instantly, then swap -->
-		<link
-			rel="preload"
-			as="style"
-			href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap"
-			onload="this.onload=null;this.rel='stylesheet'"
-		/>
-		<noscript>
-			<link
-				rel="stylesheet"
-				href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap"
-			/>
-		</noscript>
+		<!-- Self-hosted IBM Plex (latin woff2). The site serves its own type; no third-party font request. -->
+		<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/IBMPlexSans-400.woff2" crossorigin />
+		<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/IBMPlexMono-400.woff2" crossorigin />
+		<link rel="stylesheet" href="/assets/fonts.css" />
 	</head>
 	<body>
 		<a class="skip-link" href="#main">Skip to content</a>
