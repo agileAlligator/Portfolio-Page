@@ -43,7 +43,8 @@
 		// Feed
 		var feed = $("mcp-feed");
 		if (!feed) return;
-		var recent = Array.isArray(d.recent) ? d.recent : [];
+		// the page tells the L0-vs-L3 story; keep the feed to those two rungs
+		var recent = (Array.isArray(d.recent) ? d.recent : []).filter(function (e) { return (e.rung || "").toUpperCase() !== "L2"; });
 		if (!recent.length) return; // keep static fallback
 		feed.textContent = "";
 		recent.forEach(function (e) {

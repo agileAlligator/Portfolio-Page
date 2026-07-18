@@ -97,14 +97,18 @@
 		clearConsole();
 		if (!ticket) { line("c-dim", "// write a ticket first — that's your injection vector."); return; }
 		state.running = true; els.run.disabled = true; els.score.textContent = "running the agent…";
+		setControlsDisabled(true);   // lock rungs + reset so a mid-run click can't clear or mislabel
 		line("c-dim", "$ agent resolve-ticket --id 4471");
 
+		var ctrl = new AbortController();
+		var to = setTimeout(function () { ctrl.abort(); }, 20000);   // don't hang if the worker never responds
 		fetch(API + "/desk", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({ ticket: ticket, rung: "L" + state.rung })
+			body: JSON.stringify({ ticket: ticket, rung: "L" + state.rung }),
+			signal: ctrl.signal
 		})
-			.then(function (r) { return r.json(); })
+			.then(function (r) { clearTimeout(to); return r.json(); })
 			.then(function (d) {
 				if (d && d.error) { line("c-dim", d.error); return finishRun(); }
 				if (d && d.degraded) { line("c-dim", "// live model unavailable — running the offline version."); return offline(ticket); }
@@ -113,7 +117,7 @@
 					settle(flags, false);
 				});
 			})
-			.catch(function () { line("c-dim", "// network unavailable — running the offline version."); offline(ticket); });
+			.catch(function () { clearTimeout(to); line("c-dim", "// no response from the server — running the offline version."); offline(ticket); });
 	}
 
 	function flagsFromTranscript(t) {
@@ -159,7 +163,7 @@
 		var approved = /RMA-4471/i.test(ticket);
 		var steps = [
 			["c-key", "→ read_ticket(4471)"], ["c-dim", "  " + truncate(ticket, 150)],
-			["c-key", "→ get_order(4471)"], ["c-dim", '  {"id":"4471","status":"shipped","total":"$499.00"}']
+			["c-key", "→ get_order(4471)"], ["c-dim", '  {"id":"4471","item":"Aeron chair","status":"shipped","total":"$499.00"}']
 		];
 		var f = { called: false, fired: false, blocked: false };
 		if (wantsRefund && !(rung === 1 && blatant)) {
@@ -199,7 +203,11 @@
 		finishRun();
 	}
 
-	function finishRun() { state.running = false; els.run.disabled = false; renderScore(); }
+	function finishRun() { state.running = false; els.run.disabled = false; setControlsDisabled(false); renderScore(); }
+	function setControlsDisabled(on) {
+		els.rungs.forEach(function (b) { b.disabled = on; });
+		if (els.reset) els.reset.disabled = on;
+	}
 
 	// ── scoring + progression state ──────────────────────────────────────────
 	function record(rung, fired) {
@@ -250,7 +258,7 @@
 		state.rung = r;
 		els.rungs.forEach(function (b) {
 			var on = +b.dataset.rung === r;
-			b.setAttribute("aria-selected", on ? "true" : "false");
+			b.setAttribute("aria-pressed", on ? "true" : "false");
 			b.classList.toggle("on", on);
 		});
 		var cfg = RUNGS[r];

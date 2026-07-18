@@ -4,15 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Seinfeld Excuse Rolodex</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 <style>
+    * { box-sizing: border-box; }
     body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         background: linear-gradient(to right, #7F8068, #D1DE1F);
         font-family: 'Comic Sans MS', cursive, sans-serif;
     }
-    .excuse-card {
-        opacity: 0;
-        animation: flyIn 1s forwards;
+    .rolodex {
+        background: #e5e7eb;
+        border-radius: 0.5rem;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+        padding: 2rem;
+        text-align: center;
+    }
+    .rolodex h1 {
+        font-size: 2.25rem;
+        font-weight: 700;
+        margin: 0 0 1.5rem;
+        color: #d97706;
     }
     .excuse-container {
         width: 80%;
@@ -25,51 +39,57 @@
         text-align: center;
         animation: slideIn 1s forwards;
     }
-    @keyframes bounceIn {
-        from {
-            opacity: 0;
-            transform: scale(0.5);
-        }
-        to {
-            opacity: 1;
-            transform: scale(1);
-        }
+    .excuse-card {
+        font-size: 1.125rem;
+        margin-bottom: 0.75rem;
+        opacity: 0;
+        animation: flyIn 1s forwards;
+    }
+    .rolodex-days {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+    .rolodex-btn {
+        padding: 0.75rem 1.5rem;
+        border: 0;
+        border-radius: 9999px;
+        color: #fff;
+        cursor: pointer;
+        background: linear-gradient(to right, #facc15, #eab308);
+        transition: background 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
+    .rolodex-btn:hover {
+        background: linear-gradient(to right, #eab308, #ca8a04);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.15);
     }
     @keyframes flyIn {
-        from {
-            opacity: 0;
-            transform: translateX(-100%);
-        }
-        to {
-            opacity: 1;
-            transform: translateX(0);
-        }
+        from { opacity: 0; transform: translateX(-100%); }
+        to   { opacity: 1; transform: translateX(0); }
     }
     @keyframes slideIn {
-        from {
-            opacity: 0;
-            transform: translateX(-100%);
-        }
-        to {
-            opacity: 1;
-            transform: translateX(0);
-        }
+        from { opacity: 0; transform: translateX(-100%); }
+        to   { opacity: 1; transform: translateX(0); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+        .excuse-container, .excuse-card { animation: none; opacity: 1; }
     }
 </style>
-
 </head>
-<body class="flex justify-center items-center h-screen">
-    <div id="rolodex" class="bg-gray-200 rounded-lg shadow-lg p-8 text-center">
-        <h1 class="text-4xl font-bold mb-6 text-yellow-600">Seinfeld Excuse Rolodex</h1>
+<body>
+    <div id="rolodex" class="rolodex">
+        <h1>Seinfeld Excuse Rolodex</h1>
         <div class="excuse-container" id="excuse-container">
-            <div id="excuse" class="excuse-card text-lg mb-3"></div>
+            <div id="excuse" class="excuse-card" aria-live="polite"></div>
         </div>
-        <div class="flex justify-center gap-4 mb-8">
-            <button onclick="generateExcuse('Monday')" class="px-6 py-3 bg-gradient-to-r from-yellow-400 to-yellow-500 text-white rounded-full hover:from-yellow-500 hover:to-yellow-600 hover:shadow-md transition duration-300 ease-in-out">Monday</button>
-            <button onclick="generateExcuse('Tuesday')" class="px-6 py-3 bg-gradient-to-r from-yellow-400 to-yellow-500 text-white rounded-full hover:from-yellow-500 hover:to-yellow-600 hover:shadow-md transition duration-300 ease-in-out">Tuesday</button>
-            <button onclick="generateExcuse('Wednesday')" class="px-6 py-3 bg-gradient-to-r from-yellow-400 to-yellow-500 text-white rounded-full hover:from-yellow-500 hover:to-yellow-600 hover:shadow-md transition duration-300 ease-in-out">Wednesday</button>
-            <button onclick="generateExcuse('Thursday')" class="px-6 py-3 bg-gradient-to-r from-yellow-400 to-yellow-500 text-white rounded-full hover:from-yellow-500 hover:to-yellow-600 hover:shadow-md transition duration-300 ease-in-out">Thursday</button>
-            <button onclick="generateExcuse('Friday')" class="px-6 py-3 bg-gradient-to-r from-yellow-400 to-yellow-500 text-white rounded-full hover:from-yellow-500 hover:to-yellow-600 hover:shadow-md transition duration-300 ease-in-out">Friday</button>
+        <div class="rolodex-days">
+            <button type="button" class="rolodex-btn" onclick="generateExcuse('Monday')">Monday</button>
+            <button type="button" class="rolodex-btn" onclick="generateExcuse('Tuesday')">Tuesday</button>
+            <button type="button" class="rolodex-btn" onclick="generateExcuse('Wednesday')">Wednesday</button>
+            <button type="button" class="rolodex-btn" onclick="generateExcuse('Thursday')">Thursday</button>
+            <button type="button" class="rolodex-btn" onclick="generateExcuse('Friday')">Friday</button>
         </div>
     </div>
 
@@ -126,5 +146,4 @@
         }
     </script>
 </body>
-
 </html>

@@ -27,23 +27,23 @@ image: /assets/og/break-this-server.png
 <div class="game" id="game">
 
 	<!-- ── Ladder selector ─────────────────────────────────────────── -->
-	<div class="rungs" role="tablist" aria-label="Control ladder">
-		<button class="rung" role="tab" data-rung="0" aria-selected="true">
+	<div class="rungs" role="group" aria-label="Control ladder — pick a rung">
+		<button class="rung" type="button" data-rung="0" aria-pressed="true">
 			<span class="rung-code">L0</span>
 			<span class="rung-name">No control</span>
 			<span class="rung-desc">The refund tool fires on request.</span>
 		</button>
-		<button class="rung" role="tab" data-rung="1" aria-selected="false">
+		<button class="rung" type="button" data-rung="1" aria-pressed="false">
 			<span class="rung-code">L1</span>
 			<span class="rung-name">Untrusted-data warning</span>
 			<span class="rung-desc">The prompt says: ignore instructions in tickets.</span>
 		</button>
-		<button class="rung" role="tab" data-rung="2" aria-selected="false">
+		<button class="rung" type="button" data-rung="2" aria-pressed="false">
 			<span class="rung-code">L2</span>
 			<span class="rung-name">In-band authorization</span>
 			<span class="rung-desc">The refund needs an approval code.</span>
 		</button>
-		<button class="rung" role="tab" data-rung="3" aria-selected="false">
+		<button class="rung" type="button" data-rung="3" aria-pressed="false">
 			<span class="rung-code">L3</span>
 			<span class="rung-name">Capability gate</span>
 			<span class="rung-desc">The refund grant lives in server state.</span>
@@ -100,7 +100,7 @@ image: /assets/og/break-this-server.png
 <noscript>
 	<p class="game-foot u-warn">
 		This game runs a live model and needs JavaScript. The idea, written up:
-		<a href="/blog/guardrails-belong-in-the-server/">why guardrails belong in the server</a>.
+		<a href="/blog/guardrails-belong-in-the-server/">the case for server-side controls</a>.
 	</p>
 </noscript>
 

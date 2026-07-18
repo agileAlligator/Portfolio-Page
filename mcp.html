@@ -88,7 +88,7 @@ image: /assets/og/mcp.png
 			</div>
 			<div class="mcp-rung-card mcp-rung-card-held">
 				<span class="mcp-rung-label mcp-rung-label-l3">L3 · hardened</span>
-				<span class="mcp-rung-num mcp-rung-num-held" id="mcp-leak-l3" aria-live="polite">0</span>
+				<span class="mcp-rung-num mcp-rung-num-held" id="mcp-leak-l3" aria-live="polite">—</span>
 				<span class="mcp-rung-effect mcp-rung-effect-held">leaked</span>
 			</div>
 		</div>
@@ -134,7 +134,7 @@ image: /assets/og/mcp.png
 			</li>
 			<li class="mcp-tool-item">
 				<code class="mcp-tool-name">%2e%2e/internal/canary.txt</code>
-				<span class="mcp-tool-desc">URL-encoded variant — bypasses naive string checks on L2</span>
+				<span class="mcp-tool-desc">URL-encoded variant — slips past a blacklist that checks the raw string before decoding</span>
 			</li>
 		</ul>
 		<p class="mcp-toolset-foot">
@@ -271,7 +271,7 @@ image: /assets/og/mcp.png
 	<p class="section mcp-tools-lede u-warn">
 		The live scoreboard, attack demo, and feed need JavaScript. The server itself is
 		real: connect any MCP client with the command above, or read
-		<a href="/blog/guardrails-belong-in-the-server/">why guardrails belong in the server</a>.
+		<a href="/blog/guardrails-belong-in-the-server/">the case for server-side controls</a>.
 	</p>
 </noscript>
 
