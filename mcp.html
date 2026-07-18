@@ -22,10 +22,10 @@ image: /assets/og/mcp.png
 		<h1 class="mcp-title">My résumé is<br>an <span class="mcp-title-hot">MCP&nbsp;server.</span></h1>
 
 		<p class="mcp-lede">
-			You don't <em>read</em> this portfolio — you connect your agent to it.
-			One ordinary tool, <code>read_document</code>, with one missing path-confinement
-			invariant on the naive build. Same call. Same tool. The delta is
-			<strong>a few lines of server code.</strong>
+			Connect your agent and it answers from real tools. One of them,
+			<code>read_document</code>, ships without a path-confinement check on the naive
+			build — so the same call that returns a post can be steered to an inert canary.
+			The delta is <strong>a few lines of server code.</strong>
 		</p>
 
 		<div class="mcp-hero-cta">
@@ -99,9 +99,9 @@ image: /assets/og/mcp.png
 		</p>
 
 		<p class="mcp-count-sub">
-			The delta is one confinement check. L0 joins and returns — full stop.
-			L3 canonicalizes first, then refuses if the resolved path escapes the root.
-			L3's zero is earned: L0 demonstrably leaks the identical call.
+			The delta is one confinement check. L0 joins the path and returns whatever it
+			points at. L3 canonicalizes first, then refuses if the resolved path escapes
+			the root. Same call, two outcomes.
 		</p>
 
 		<p class="mcp-count-meta">
@@ -116,9 +116,8 @@ image: /assets/og/mcp.png
 	<p class="section-label">// 02 · the tool surface</p>
 	<h2 class="section-title">One tool. One missing invariant.</h2>
 	<p class="mcp-tools-lede">
-		One ordinary tool with a real handler, one missing path-confinement
-		invariant, and the traversal any agent reaches for. That is the whole
-		attack surface — no bait, no theater.
+		One ordinary tool with a real handler, one missing path-confinement invariant,
+		and the path traversal any agent reaches for. That's the whole attack surface.
 	</p>
 
 	<div class="mcp-tool-surface">
@@ -153,10 +152,9 @@ image: /assets/og/mcp.png
 	<p class="section-label">// 03 · try it</p>
 	<h2 class="section-title">Talk the agent into it.</h2>
 	<p class="mcp-tools-lede">
-		You don't get to call the tool. Only the model does — that is what an MCP server is.
-		So you do what a real attacker does: write an instruction and talk the agent into calling
-		<code>read_document</code> for you. It's a live model with no judgment on defense; it obeys.
-		The rung is the only thing that decides whether the canary leaves.
+		Write an instruction and the agent calls <code>read_document</code> for you — a live
+		model with no judgment on defense, so it reads whatever path you ask for. The rung
+		decides what comes back: L0 hands over the canary, L3 refuses the same call.
 	</p>
 
 	<div class="mcp-attack-box">
