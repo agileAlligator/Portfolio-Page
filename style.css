@@ -478,7 +478,6 @@ a { color: inherit; text-decoration: none; }
 	font-size: 0.8rem;
 	color: var(--ink-faint);
 }
-.footer-status { color: var(--acc); }
 
 /* ─────────────────────────── REVEAL ANIM ─────────────────────────── */
 /* Only hide-until-revealed when JS is present (html.js). Without JS the

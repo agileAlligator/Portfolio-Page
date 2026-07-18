@@ -42,8 +42,8 @@ Files: `style.css` (site-wide), `assets/blog.css` (blog), `assets/owasp.css`
 - **Layout** — `.section`, `.section-title`, `.section-label` (the `// 0N ·`
   kicker), `.content`, `.section-contact`.
 - **Nav / footer** — `.nav`, `.nav-brand`, `.nav-links`, `.nav-resume`,
-  `.nav-toggle`, `.nav-out`; `.footer`, `.site-footer`, `.site-footer-links`,
-  `.footer-status`. Brand mark uses `.prompt` + `.blink`.
+  `.nav-toggle`, `.nav-out`; `.footer`, `.site-footer`, `.site-footer-links`.
+  Brand mark uses `.prompt` + `.blink`.
 - **Buttons** — `.btn`, `.btn-primary`. The only two button styles. Any clickable
   that looks like a button uses these.
 - **Cards** — `.cards` grid of `.card`; variants `.card-feature`, `.card-mini`;
