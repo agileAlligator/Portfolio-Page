@@ -1,0 +1,501 @@
+/* ══════════════════════════════════════════════════════════════════
+   avneeshk.me/mcp — "My résumé is an MCP server."
+   Flagship page. Builds on the site tokens/components in style.css.
+   All new classes are prefixed .mcp-* (registered in design-system.json).
+   Reused-but-not-in-style.css components (.tool*, .verdict*) are given
+   their rules here too, since game.css doesn't load on this page.
+   ══════════════════════════════════════════════════════════════════ */
+
+/* This is a full-width landing page, not blog reading-width. The default
+   layout wraps content in .content (max-width 760px); un-cap it here (mcp.css
+   only loads on /mcp/) so each section controls its own width/padding. */
+.content { max-width: 100%; padding: 0; }
+
+/* ── shared: a small pulsing "live" dot ─────────────────────────── */
+.mcp-live-dot {
+	display: inline-block;
+	width: 0.6em;
+	height: 0.6em;
+	margin-right: 0.55em;
+	border-radius: 50%;
+	background: var(--acc);
+	vertical-align: baseline;
+	box-shadow: 0 0 0 0 rgba(79, 227, 161, 0.55);
+	animation: mcp-pulse 2.4s var(--ease) infinite;
+}
+@keyframes mcp-pulse {
+	0%   { box-shadow: 0 0 0 0 rgba(79, 227, 161, 0.5); }
+	70%  { box-shadow: 0 0 0 0.5em rgba(79, 227, 161, 0); }
+	100% { box-shadow: 0 0 0 0 rgba(79, 227, 161, 0); }
+}
+
+/* ══════════════════════════ HERO ══════════════════════════ */
+.mcp-hero {
+	position: relative;
+	max-width: var(--maxw);
+	margin: 0 auto;
+	padding: clamp(3rem, 8vw, 6rem) clamp(1.25rem, 5vw, 3.5rem) clamp(2.5rem, 6vw, 4.5rem);
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) clamp(300px, 34vw, 440px);
+	gap: clamp(2rem, 5vw, 4rem);
+	align-items: center;
+}
+.mcp-hero-copy { min-width: 0; }
+.mcp-hero-glow {
+	position: absolute;
+	top: -14%;
+	right: -8%;
+	width: 540px;
+	height: 540px;
+	max-width: 90vw;
+	background: radial-gradient(circle, rgba(79, 227, 161, 0.16), transparent 66%);
+	filter: blur(18px);
+	pointer-events: none;
+	z-index: -1;
+}
+.mcp-eyebrow {
+	display: inline-flex;
+	align-items: center;
+	margin-bottom: 1.4rem;
+}
+.mcp-title {
+	font-family: var(--mono);
+	font-weight: 700;
+	font-size: clamp(2.6rem, 7.2vw, 5rem);
+	line-height: 0.96;
+	letter-spacing: -0.045em;
+	margin-bottom: 1.6rem;
+	background: linear-gradient(180deg, #ffffff 34%, #b9c4d4 100%);
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+}
+.mcp-title-hot {
+	background: linear-gradient(180deg, var(--acc) 0%, #2fae7a 100%);
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+}
+.mcp-lede {
+	max-width: 34rem;
+	color: var(--ink-dim);
+	font-size: 1.1rem;
+	line-height: 1.6;
+	margin-bottom: 2rem;
+}
+.mcp-lede em { color: var(--ink); font-style: normal; text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 3px; }
+.mcp-lede strong { color: var(--warn); font-weight: 600; }
+.mcp-hero-cta { display: flex; gap: 0.9rem; flex-wrap: wrap; }
+
+.mcp-hero-side { min-width: 0; }
+.mcp-term-preview { box-shadow: 0 40px 90px -40px rgba(0, 0, 0, 0.85); }
+.mcp-term-body { font-size: 0.8rem; line-height: 1.72; white-space: pre; overflow-x: auto; word-break: normal; }
+
+/* ══════════════════════════ CONNECT ══════════════════════════ */
+.mcp-cmd {
+	display: flex;
+	align-items: center;
+	gap: 0.9rem;
+	padding: 1.05rem 1.15rem;
+	background: var(--panel-2);
+	border: 1px solid var(--line);
+	border-left: 3px solid var(--acc);
+	border-radius: 10px;
+	overflow-x: auto;
+}
+.mcp-cmd-prompt { color: var(--acc); font-family: var(--mono); font-weight: 600; flex-shrink: 0; }
+.mcp-cmd-text {
+	font-family: var(--mono);
+	font-size: clamp(0.78rem, 1.9vw, 0.95rem);
+	color: var(--ink);
+	white-space: nowrap;
+	flex: 1;
+}
+.mcp-copy {
+	flex-shrink: 0;
+	font-size: 0.78rem;
+	padding: 0.45rem 0.9rem;
+	cursor: pointer;
+}
+.mcp-copy.mcp-copied { border-color: var(--acc); color: var(--acc); background: rgba(79, 227, 161, 0.1); }
+.mcp-connect-note {
+	margin-top: 1.15rem;
+	max-width: 60ch;
+	color: var(--ink-dim);
+	font-size: 0.98rem;
+}
+.mcp-connect-note strong { color: var(--ink); font-weight: 600; }
+
+/* ══════════════════════════ THE COUNTER ══════════════════════════ */
+.mcp-counter {
+	position: relative;
+	overflow: hidden;
+	margin: clamp(2rem, 5vw, 4rem) auto 0;
+	padding: clamp(3.5rem, 9vw, 7rem) clamp(1.25rem, 5vw, 3.5rem);
+	border-top: 1px solid var(--line);
+	border-bottom: 1px solid var(--line);
+	background:
+		radial-gradient(ellipse 70% 90% at 50% 120%, rgba(79, 227, 161, 0.16), transparent 70%),
+		radial-gradient(ellipse 60% 80% at 50% -20%, rgba(79, 227, 161, 0.08), transparent 70%),
+		var(--bg-2);
+	text-align: center;
+}
+.mcp-scan {
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	background-image: repeating-linear-gradient(
+		to bottom,
+		rgba(79, 227, 161, 0.05) 0px,
+		rgba(79, 227, 161, 0.05) 1px,
+		transparent 1px,
+		transparent 4px
+	);
+	opacity: 0.6;
+	mix-blend-mode: screen;
+	animation: mcp-scan-drift 8s linear infinite;
+}
+@keyframes mcp-scan-drift { from { background-position: 0 0; } to { background-position: 0 8px; } }
+.mcp-counter-inner { position: relative; max-width: 44rem; margin: 0 auto; }
+.mcp-count-kicker { justify-content: center; margin-bottom: 1.75rem; }
+.mcp-count-line {
+	display: flex;
+	align-items: baseline;
+	justify-content: center;
+	gap: clamp(0.5rem, 2vw, 1.6rem);
+	line-height: 0.82;
+	margin-bottom: 0.4rem;
+}
+.mcp-count-num {
+	font-family: var(--mono);
+	font-weight: 700;
+	font-size: clamp(4.5rem, 20vw, 12rem);
+	letter-spacing: -0.05em;
+	font-variant-numeric: tabular-nums;
+}
+.mcp-count-zero {
+	color: var(--acc);
+	text-shadow: 0 0 28px rgba(79, 227, 161, 0.65), 0 0 4px rgba(79, 227, 161, 0.9);
+}
+.mcp-count-for {
+	font-family: var(--mono);
+	font-size: clamp(1.1rem, 3.5vw, 2rem);
+	color: var(--ink-faint);
+	font-weight: 400;
+	letter-spacing: -0.02em;
+}
+.mcp-count-n {
+	background: linear-gradient(180deg, #ffffff 30%, #9aa6b8 100%);
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+}
+.mcp-count-tag {
+	display: inline-flex;
+	align-items: center;
+	font-family: var(--mono);
+	font-size: clamp(0.95rem, 2.5vw, 1.25rem);
+	color: var(--acc);
+	letter-spacing: 0.04em;
+	margin-bottom: 1.75rem;
+}
+.mcp-count-sub {
+	max-width: 40ch;
+	margin: 0 auto 1.25rem;
+	color: var(--ink-dim);
+	font-size: 1.02rem;
+	line-height: 1.6;
+}
+.mcp-count-meta {
+	font-family: var(--mono);
+	font-size: 0.85rem;
+	color: var(--ink-faint);
+}
+.mcp-count-meta-val { color: var(--ink-dim); font-weight: 600; }
+.mcp-count-meta a { color: var(--acc-2); text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 3px; }
+.mcp-count-meta a:hover { text-decoration-color: var(--acc-2); }
+
+/* ══════════════════════════ TWO TOOL SETS ══════════════════════════ */
+.mcp-tools-lede {
+	max-width: 64ch;
+	margin: -1.4rem 0 2.4rem;
+	color: var(--ink-dim);
+	font-size: 1.02rem;
+}
+.mcp-tools-lede em { color: var(--ink); font-style: normal; }
+.mcp-tools-lede code, .mcp-connect-note code {
+	font-family: var(--mono);
+	font-size: 0.9em;
+	color: var(--acc-2);
+	background: var(--panel);
+	padding: 0.1em 0.4em;
+	border-radius: 4px;
+}
+.mcp-tools-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 1.25rem;
+	align-items: start;
+}
+.mcp-toolset {
+	border: 1px solid var(--line);
+	border-radius: 12px;
+	padding: 1.5rem 1.6rem;
+	background: var(--panel);
+}
+.mcp-toolset-benign {
+	border-color: color-mix(in srgb, var(--acc) 30%, var(--line));
+	background: linear-gradient(180deg, rgba(79, 227, 161, 0.05), transparent 40%), var(--panel);
+}
+.mcp-toolset-hot {
+	border-color: color-mix(in srgb, var(--bad) 40%, var(--line));
+	border-style: dashed;
+	background: linear-gradient(180deg, rgba(255, 107, 107, 0.06), transparent 40%), var(--panel);
+}
+.mcp-toolset-head {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 1rem;
+	margin-bottom: 1.1rem;
+	padding-bottom: 0.9rem;
+	border-bottom: 1px solid var(--line-soft);
+}
+.mcp-toolset-title {
+	font-family: var(--mono);
+	font-size: 0.95rem;
+	font-weight: 600;
+	color: var(--ink);
+	letter-spacing: -0.01em;
+}
+.mcp-toolset-count {
+	font-family: var(--mono);
+	font-size: 0.72rem;
+	color: var(--acc);
+	border: 1px solid color-mix(in srgb, var(--acc) 45%, var(--line));
+	border-radius: 999px;
+	padding: 0.18rem 0.65rem;
+	white-space: nowrap;
+	flex-shrink: 0;
+}
+.mcp-toolset-count-hot { color: var(--bad); border-color: color-mix(in srgb, var(--bad) 50%, var(--line)); }
+.mcp-toollist { list-style: none; display: grid; gap: 0; }
+.mcp-tool-item {
+	display: flex;
+	align-items: baseline;
+	flex-wrap: wrap;
+	gap: 0.3rem 0.75rem;
+	padding: 0.6rem 0;
+	border-bottom: 1px solid var(--line-soft);
+}
+.mcp-tool-item:last-child { border-bottom: 0; }
+.mcp-tool-name {
+	font-family: var(--mono);
+	font-size: 0.9rem;
+	color: var(--acc);
+	font-weight: 500;
+}
+.mcp-tool-desc { color: var(--ink-faint); font-size: 0.85rem; }
+.mcp-tool-hot .mcp-tool-name {
+	color: var(--bad);
+	text-decoration: line-through;
+	text-decoration-color: color-mix(in srgb, var(--bad) 60%, transparent);
+}
+.mcp-tool-hot .mcp-tool-desc { color: var(--ink-faint); font-style: italic; }
+.mcp-tool-stamp {
+	margin-left: auto;
+	font-family: var(--mono);
+	font-size: 0.66rem;
+	text-transform: uppercase;
+	letter-spacing: 0.12em;
+	color: var(--bad);
+	border: 1px solid color-mix(in srgb, var(--bad) 50%, var(--line));
+	border-radius: 4px;
+	padding: 0.1rem 0.45rem;
+	transform: rotate(-3deg);
+}
+.mcp-toolset-foot {
+	margin-top: 1.1rem;
+	color: var(--ink-dim);
+	font-size: 0.88rem;
+	line-height: 1.55;
+}
+
+/* ══════════════════════════ CONSOLE ══════════════════════════ */
+.mcp-presets { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
+.mcp-preset {
+	font-family: var(--mono);
+	font-size: 0.78rem;
+	padding: 0.4rem 0.8rem;
+	border-radius: 999px;
+	border: 1px solid var(--line);
+	color: var(--ink-dim);
+	background: var(--panel);
+	cursor: pointer;
+	transition: border-color 0.2s var(--ease), color 0.2s var(--ease), background 0.2s var(--ease);
+}
+.mcp-preset::before { content: "↯ "; color: var(--bad); }
+.mcp-preset:hover { border-color: var(--bad); color: var(--ink); background: rgba(255, 107, 107, 0.07); }
+
+.mcp-term-live { box-shadow: 0 30px 70px -35px rgba(0, 0, 0, 0.8); }
+.mcp-log {
+	min-height: 220px;
+	max-height: 48vh;
+	overflow-y: auto;
+	font-size: 0.84rem;
+	line-height: 1.7;
+	white-space: normal;
+}
+.mcp-line { margin: 0 0 0.35rem; white-space: pre-wrap; word-break: break-word; }
+.mcp-line-hint { color: var(--ink-faint); }
+/* JS-rendered transcript lines */
+.mcp-line-user   { color: var(--ink); }
+.mcp-line-user::before   { content: "you  "; color: var(--ink-faint); }
+.mcp-line-agent  { color: var(--ink-dim); }
+.mcp-line-agent::before  { content: "agent "; color: var(--acc-2); }
+.mcp-line-tool   { color: var(--warn); }
+.mcp-line-tool::before   { content: "call "; color: var(--ink-faint); }
+.mcp-line-block  { color: var(--acc); font-weight: 500; }
+.mcp-line-block::before  { content: "wall "; color: var(--acc); }
+.mcp-line-result { color: var(--ink-dim); }
+.mcp-line-system { color: var(--warn); font-style: italic; }
+
+.mcp-attack { margin-top: 1.4rem; }
+.mcp-attack-label { display: block; font-family: var(--mono); font-size: 0.86rem; color: var(--ink-dim); margin-bottom: 0.6rem; }
+.mcp-input {
+	width: 100%;
+	font-family: var(--mono);
+	font-size: 0.88rem;
+	line-height: 1.6;
+	color: var(--ink);
+	background: var(--bg-2);
+	border: 1px solid var(--line);
+	border-radius: 10px;
+	padding: 0.85rem 1rem;
+	resize: vertical;
+	transition: border-color 0.2s var(--ease);
+}
+.mcp-input:focus { outline: none; border-color: var(--acc); }
+.mcp-input::placeholder { color: var(--ink-faint); }
+.mcp-attack-actions { display: flex; align-items: center; gap: 0.9rem; margin-top: 0.85rem; flex-wrap: wrap; }
+.mcp-attack-actions .btn { cursor: pointer; }
+.mcp-attack-actions .btn:disabled { opacity: 0.5; cursor: wait; }
+.mcp-attack-hint {
+	font-family: var(--mono);
+	font-size: 0.78rem;
+	color: var(--ink-faint);
+	margin-left: auto;
+}
+
+/* ══════════════════════════ FEED ══════════════════════════ */
+.mcp-feed {
+	border: 1px solid var(--line);
+	border-radius: 12px;
+	overflow: hidden;
+	background: var(--panel);
+}
+.mcp-feed-empty { padding: 1.5rem; color: var(--ink-faint); font-family: var(--mono); font-size: 0.85rem; }
+.mcp-feed-item {
+	display: grid;
+	grid-template-columns: auto minmax(9rem, 0.9fr) auto 1.6fr auto;
+	align-items: baseline;
+	gap: 0.5rem 1rem;
+	padding: 0.75rem 1.15rem;
+	border-bottom: 1px solid var(--line-soft);
+	font-family: var(--mono);
+	font-size: 0.82rem;
+}
+.mcp-feed-item:last-child { border-bottom: 0; }
+.mcp-feed-item:nth-child(even) { background: rgba(255, 255, 255, 0.012); }
+.mcp-feed-n {
+	color: var(--bad);
+	font-weight: 600;
+	background: rgba(255, 107, 107, 0.1);
+	border: 1px solid color-mix(in srgb, var(--bad) 35%, var(--line));
+	border-radius: 5px;
+	padding: 0.05rem 0.4rem;
+	white-space: nowrap;
+}
+.mcp-feed-tool { color: var(--warn); text-decoration: line-through; text-decoration-color: color-mix(in srgb, var(--bad) 55%, transparent); }
+.mcp-feed-country { color: var(--ink-faint); }
+.mcp-feed-snippet { color: var(--ink-dim); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mcp-feed-time { color: var(--ink-faint); text-align: right; white-space: nowrap; }
+.mcp-feed-verdict { color: var(--acc); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; }
+
+/* ══════════════════════════ THE WALL ══════════════════════════ */
+.mcp-wall-term { max-width: 46rem; box-shadow: 0 30px 70px -35px rgba(0, 0, 0, 0.8); }
+.mcp-wall-code { font-size: clamp(0.78rem, 2vw, 0.95rem); line-height: 1.75; color: var(--ink-dim); white-space: pre; overflow-x: auto; word-break: normal; }
+.mcp-wall-hl {
+	display: block;
+	margin: 0 -1.35rem;
+	padding: 0.1rem 1.35rem;
+	background: rgba(79, 227, 161, 0.09);
+	border-left: 3px solid var(--acc);
+	color: var(--ink);
+	font-weight: 500;
+}
+/* reused component: .verdict / .verdict-block (game.css doesn't load here) */
+.verdict {
+	display: block;
+	padding: 0.85rem 1.1rem;
+	border-radius: 8px;
+	font-weight: 500;
+	line-height: 1.55;
+}
+.verdict-block { background: color-mix(in srgb, var(--acc) 10%, transparent); border: 1px solid var(--acc); color: var(--acc); }
+.mcp-wall-verdict { max-width: 46rem; margin: 1.5rem 0 2rem; font-size: 0.98rem; }
+.mcp-wall-body { max-width: 64ch; }
+.mcp-wall-body p { color: var(--ink-dim); font-size: 1.05rem; line-height: 1.65; }
+.mcp-wall-body strong { color: var(--ink); font-weight: 600; }
+
+.mcp-wall-links {
+	margin-top: 2.5rem;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 1rem;
+}
+.mcp-wall-link {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	padding: 1.25rem 1.35rem;
+	background: var(--panel);
+	border: 1px solid var(--line-soft);
+	border-radius: 10px;
+	transition: transform 0.25s var(--ease), border-color 0.25s var(--ease);
+}
+.mcp-wall-link:hover { transform: translateY(-3px); border-color: var(--acc); }
+.mcp-wall-link-k { font-family: var(--mono); font-size: 0.75rem; color: var(--acc); }
+.mcp-wall-link-t { color: var(--ink); font-size: 1rem; line-height: 1.4; }
+
+/* ══════════════════════════ RESPONSIVE ══════════════════════════ */
+@media (max-width: 860px) {
+	.mcp-hero { grid-template-columns: 1fr; }
+	.mcp-hero-side { order: -1; }
+}
+@media (max-width: 700px) {
+	.mcp-tools-grid { grid-template-columns: 1fr; }
+	.mcp-wall-links { grid-template-columns: 1fr; }
+	.mcp-feed-item {
+		grid-template-columns: auto 1fr auto;
+		gap: 0.3rem 0.75rem;
+	}
+	.mcp-feed-snippet { grid-column: 1 / -1; white-space: normal; }
+	.mcp-feed-time { grid-column: 3; }
+}
+@media (max-width: 400px) {
+	.mcp-count-line { gap: 0.4rem; }
+	.mcp-cmd { flex-wrap: wrap; }
+	.mcp-cmd-text { white-space: normal; word-break: break-all; }
+	.mcp-attack-hint { margin-left: 0; width: 100%; }
+	.mcp-feed-item { grid-template-columns: auto 1fr; }
+	.mcp-feed-time { grid-column: 2; text-align: left; }
+}
+
+/* ══════════════════════════ MOTION GATE ══════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+	.mcp-live-dot,
+	.mcp-scan { animation: none; }
+	.mcp-scan { opacity: 0.35; }
+	.mcp-wall-link:hover { transform: none; }
+}
