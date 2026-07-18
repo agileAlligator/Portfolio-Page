@@ -215,6 +215,77 @@
 .mcp-count-meta a { color: var(--acc-2); text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 3px; }
 .mcp-count-meta a:hover { text-decoration-color: var(--acc-2); }
 
+/* ══════════════════════════ RUNG SCOREBOARD ══════════════════════════ */
+.mcp-rung-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 1.25rem;
+	max-width: 36rem;
+	margin: 0 auto 2rem;
+}
+.mcp-rung-card {
+	border: 1px solid var(--line);
+	border-radius: 14px;
+	padding: 1.75rem 1.5rem 1.5rem;
+	background: var(--panel);
+	text-align: center;
+}
+.mcp-rung-card-leaked {
+	border-color: color-mix(in srgb, var(--bad) 45%, var(--line));
+	background: linear-gradient(180deg, rgba(255, 107, 107, 0.08), transparent 50%), var(--panel);
+}
+.mcp-rung-card-held {
+	border-color: color-mix(in srgb, var(--acc) 45%, var(--line));
+	background: linear-gradient(180deg, rgba(79, 227, 161, 0.08), transparent 50%), var(--panel);
+}
+.mcp-rung-label {
+	display: inline-block;
+	font-family: var(--mono);
+	font-size: 0.72rem;
+	font-weight: 700;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	padding: 0.2rem 0.65rem;
+	border-radius: 999px;
+	margin-bottom: 1rem;
+}
+.mcp-rung-label-l0 {
+	color: var(--bad);
+	border: 1px solid color-mix(in srgb, var(--bad) 55%, var(--line));
+	background: rgba(255, 107, 107, 0.1);
+}
+.mcp-rung-label-l3 {
+	color: var(--acc);
+	border: 1px solid color-mix(in srgb, var(--acc) 55%, var(--line));
+	background: rgba(79, 227, 161, 0.1);
+}
+.mcp-rung-num {
+	display: block;
+	font-family: var(--mono);
+	font-weight: 700;
+	font-size: clamp(3.5rem, 14vw, 7rem);
+	letter-spacing: -0.05em;
+	line-height: 0.9;
+	margin-bottom: 0.6rem;
+	font-variant-numeric: tabular-nums;
+}
+.mcp-rung-num-leaked {
+	color: var(--bad);
+	text-shadow: 0 0 20px rgba(255, 107, 107, 0.5), 0 0 4px rgba(255, 107, 107, 0.8);
+}
+.mcp-rung-num-held {
+	color: var(--acc);
+	text-shadow: 0 0 20px rgba(79, 227, 161, 0.5), 0 0 4px rgba(79, 227, 161, 0.8);
+}
+.mcp-rung-effect {
+	font-family: var(--mono);
+	font-size: 0.8rem;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+}
+.mcp-rung-effect-leaked { color: var(--bad); }
+.mcp-rung-effect-held { color: var(--acc); }
+
 /* ══════════════════════════ TWO TOOL SETS ══════════════════════════ */
 .mcp-tools-lede {
 	max-width: 64ch;
@@ -321,6 +392,118 @@
 	line-height: 1.55;
 }
 
+/* ══════════════════════════ TOOL SURFACE ══════════════════════════ */
+.mcp-tool-surface {
+	border: 1px solid color-mix(in srgb, var(--acc) 30%, var(--line));
+	border-radius: 12px;
+	padding: 1.5rem 1.6rem;
+	background: linear-gradient(180deg, rgba(79, 227, 161, 0.04), transparent 40%), var(--panel);
+	max-width: 44rem;
+	margin-bottom: 2rem;
+}
+
+/* ══════════════════════════ ATTACK BOX ══════════════════════════ */
+.mcp-attack-box { margin-bottom: 1.4rem; }
+.mcp-toggle {
+	display: inline-flex;
+	border: 1px solid var(--line);
+	border-radius: 10px;
+	overflow: hidden;
+	background: var(--panel);
+	margin-bottom: 1rem;
+}
+.mcp-toggle-btn {
+	font-family: var(--mono);
+	font-size: 0.84rem;
+	font-weight: 600;
+	padding: 0.55rem 1.2rem;
+	border: none;
+	background: transparent;
+	color: var(--ink-dim);
+	cursor: pointer;
+	letter-spacing: 0.03em;
+	transition: background 0.18s var(--ease), color 0.18s var(--ease);
+}
+.mcp-toggle-btn + .mcp-toggle-btn { border-left: 1px solid var(--line); }
+.mcp-toggle-btn.active[data-rung="L0"] { background: rgba(255, 107, 107, 0.15); color: var(--bad); }
+.mcp-toggle-btn.active[data-rung="L3"] { background: rgba(79, 227, 161, 0.12); color: var(--acc); }
+.mcp-path-row {
+	display: flex;
+	gap: 0.75rem;
+	align-items: stretch;
+	margin-bottom: 0.75rem;
+	flex-wrap: wrap;
+}
+.mcp-path-input {
+	flex: 1;
+	min-width: 0;
+	font-family: var(--mono);
+	font-size: 0.9rem;
+	color: var(--ink);
+	background: var(--bg-2);
+	border: 1px solid var(--line);
+	border-radius: 8px;
+	padding: 0.7rem 1rem;
+	transition: border-color 0.2s var(--ease);
+}
+.mcp-path-input:focus { outline: none; border-color: var(--acc); }
+.mcp-path-input::placeholder { color: var(--ink-faint); }
+.mcp-path-presets { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-bottom: 1rem; }
+.mcp-path-preset {
+	font-family: var(--mono);
+	font-size: 0.75rem;
+	padding: 0.35rem 0.75rem;
+	border-radius: 999px;
+	border: 1px solid var(--line);
+	color: var(--ink-dim);
+	background: var(--panel);
+	cursor: pointer;
+	transition: border-color 0.2s var(--ease), color 0.2s var(--ease), background 0.2s var(--ease);
+}
+.mcp-path-preset:hover { border-color: var(--acc-2); color: var(--ink); background: rgba(76, 201, 240, 0.07); }
+
+/* extra terminal line types for the attack demo */
+.mcp-line-leak {
+	color: var(--bad);
+	font-weight: 600;
+	background: rgba(255, 107, 107, 0.07);
+	border-radius: 4px;
+	padding: 0.1rem 0.35rem;
+	margin-left: -0.35rem;
+}
+.mcp-line-hold {
+	color: var(--acc);
+	font-weight: 500;
+	background: rgba(79, 227, 161, 0.07);
+	border-radius: 4px;
+	padding: 0.1rem 0.35rem;
+	margin-left: -0.35rem;
+}
+
+/* ══════════════════════════ DIFF ══════════════════════════ */
+.mcp-diff {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 1rem;
+	margin-bottom: 2rem;
+}
+.mcp-diff-col {
+	border: 1px solid var(--line);
+	border-radius: 10px;
+	overflow: hidden;
+	background: var(--panel);
+}
+.mcp-diff-head {
+	padding: 0.6rem 1rem;
+	border-bottom: 1px solid var(--line);
+	font-family: var(--mono);
+	font-size: 0.78rem;
+	font-weight: 600;
+	letter-spacing: 0.04em;
+}
+.mcp-diff-head-l0 { color: var(--bad); background: rgba(255, 107, 107, 0.07); }
+.mcp-diff-head-l3 { color: var(--acc); background: rgba(79, 227, 161, 0.07); }
+
 /* ══════════════════════════ CONSOLE ══════════════════════════ */
 .mcp-presets { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
 .mcp-preset {
@@ -397,7 +580,7 @@
 .mcp-feed-empty { padding: 1.5rem; color: var(--ink-faint); font-family: var(--mono); font-size: 0.85rem; }
 .mcp-feed-item {
 	display: grid;
-	grid-template-columns: auto minmax(9rem, 0.9fr) auto 1.6fr auto;
+	grid-template-columns: auto auto auto 1.6fr auto;
 	align-items: baseline;
 	gap: 0.5rem 1rem;
 	padding: 0.75rem 1.15rem;
@@ -408,15 +591,45 @@
 .mcp-feed-item:last-child { border-bottom: 0; }
 .mcp-feed-item:nth-child(even) { background: rgba(255, 255, 255, 0.012); }
 .mcp-feed-n {
-	color: var(--bad);
+	color: var(--ink-faint);
 	font-weight: 600;
-	background: rgba(255, 107, 107, 0.1);
-	border: 1px solid color-mix(in srgb, var(--bad) 35%, var(--line));
-	border-radius: 5px;
+	white-space: nowrap;
+}
+.mcp-feed-rung {
+	font-family: var(--mono);
+	font-size: 0.7rem;
+	font-weight: 700;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	border-radius: 4px;
 	padding: 0.05rem 0.4rem;
 	white-space: nowrap;
 }
-.mcp-feed-tool { color: var(--warn); text-decoration: line-through; text-decoration-color: color-mix(in srgb, var(--bad) 55%, transparent); }
+.mcp-feed-rung-l0 {
+	color: var(--bad);
+	background: rgba(255, 107, 107, 0.1);
+	border: 1px solid color-mix(in srgb, var(--bad) 35%, var(--line));
+}
+.mcp-feed-rung-l2 {
+	color: var(--warn);
+	background: rgba(245, 181, 68, 0.1);
+	border: 1px solid color-mix(in srgb, var(--warn) 35%, var(--line));
+}
+.mcp-feed-rung-l3 {
+	color: var(--acc);
+	background: rgba(79, 227, 161, 0.1);
+	border: 1px solid color-mix(in srgb, var(--acc) 35%, var(--line));
+}
+.mcp-feed-effect {
+	font-family: var(--mono);
+	font-size: 0.7rem;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	white-space: nowrap;
+}
+.mcp-feed-effect-leaked { color: var(--bad); }
+.mcp-feed-effect-held { color: var(--acc); }
+.mcp-feed-tool { color: var(--warn); }
 .mcp-feed-country { color: var(--ink-faint); }
 .mcp-feed-snippet { color: var(--ink-dim); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .mcp-feed-time { color: var(--ink-faint); text-align: right; white-space: nowrap; }
@@ -476,6 +689,8 @@
 @media (max-width: 700px) {
 	.mcp-tools-grid { grid-template-columns: 1fr; }
 	.mcp-wall-links { grid-template-columns: 1fr; }
+	.mcp-rung-grid { grid-template-columns: 1fr 1fr; }
+	.mcp-diff { grid-template-columns: 1fr; }
 	.mcp-feed-item {
 		grid-template-columns: auto 1fr auto;
 		gap: 0.3rem 0.75rem;

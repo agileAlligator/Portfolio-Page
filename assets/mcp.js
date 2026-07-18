@@ -1,14 +1,18 @@
 /* ══════════════════════════════════════════════════════════════════
-   mcp.js — wires the /mcp/ page to the live Worker.
-     GET  /stats   → the "0 for N" counter + the redacted attempts feed
-     POST /console → drive the in-browser attack, render the transcript
-   Every server/user string is set via textContent — never innerHTML.
+   mcp.js — wires /mcp/ to the live L0→L3 Worker.
+     GET  /stats                  → per-rung leak counts + recent feed
+     POST /mcp/l0  (or /mcp/l3)  → direct JSON-RPC tools/call demo
+     POST /console                → Workers-AI free-text agent console
+   Every user/server string is set via textContent — never innerHTML.
    ══════════════════════════════════════════════════════════════════ */
 (function () {
 	"use strict";
 	var API = "https://mcp.apkasture02.workers.dev";
 	var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 	var $ = function (id) { return document.getElementById(id); };
+
+	// ── current rung state ─────────────────────────────────────────────────
+	var currentRung = "L0"; // L0 | L3
 
 	// ── relative time ──────────────────────────────────────────────────────
 	function ago(ms) {
@@ -19,28 +23,55 @@
 		return Math.floor(s / 86400) + "d ago";
 	}
 
-	// ── /stats → counter + feed ─────────────────────────────────────────────
-	function paintStats(d) {
-		var c = $("mcp-count");
-		if (c && typeof d.blocked === "number") c.textContent = String(d.blocked);
+	// ── span factory ───────────────────────────────────────────────────────
+	function span(cls, txt) {
+		var s = document.createElement("span");
+		s.className = cls;
+		s.textContent = txt;
+		return s;
+	}
 
+	// ── /stats → scoreboard + feed ─────────────────────────────────────────
+	function paintStats(d) {
+		// Per-rung leak counts
+		var leaks = d.leaks || {};
+		var l0el = $("mcp-leak-l0");
+		var l3el = $("mcp-leak-l3");
+		if (l0el && typeof leaks.L0 === "number") l0el.textContent = String(leaks.L0);
+		if (l3el && typeof leaks.L3 === "number") l3el.textContent = String(leaks.L3);
+
+		// Feed
 		var feed = $("mcp-feed");
 		if (!feed) return;
 		var recent = Array.isArray(d.recent) ? d.recent : [];
-		if (!recent.length) return; // keep the static .mcp-feed-empty fallback
+		if (!recent.length) return; // keep static fallback
 		feed.textContent = "";
 		recent.forEach(function (e) {
 			var row = document.createElement("div");
 			row.className = "mcp-feed-item";
-			row.appendChild(span("mcp-feed-n", "#" + e.n));
+
+			// rung badge
+			var rung = (e.rung || "").toUpperCase();
+			var rungCls = "mcp-feed-rung " + (
+				rung === "L0" ? "mcp-feed-rung-l0" :
+				rung === "L2" ? "mcp-feed-rung-l2" :
+				"mcp-feed-rung-l3"
+			);
+			row.appendChild(span(rungCls, rung));
+
+			// effect badge
+			var effect = e.effect || "held";
+			var effectCls = "mcp-feed-effect " + (
+				effect === "leaked" ? "mcp-feed-effect-leaked" : "mcp-feed-effect-held"
+			);
+			row.appendChild(span(effectCls, effect));
+
 			row.appendChild(span("mcp-feed-tool", e.tool || "?"));
-			row.appendChild(span("mcp-feed-country", e.country || "??"));
 			row.appendChild(span("mcp-feed-snippet", e.snippet || ""));
 			row.appendChild(span("mcp-feed-time", e.t ? ago(e.t) : ""));
 			feed.appendChild(row);
 		});
 	}
-	function span(cls, txt) { var s = document.createElement("span"); s.className = cls; s.textContent = txt; return s; }
 
 	function refreshStats() {
 		fetch(API + "/stats", { cache: "no-store" })
@@ -49,74 +80,191 @@
 			.catch(function () { /* leave static fallbacks */ });
 	}
 
-	// ── copy button ──────────────────────────────────────────────────────────
+	// ── copy button ───────────────────────────────────────────────────────
 	var copy = $("mcp-copy");
 	if (copy) copy.addEventListener("click", function () {
 		var cmd = copy.getAttribute("data-copy") || "";
-		var done = function () { copy.classList.add("mcp-copied"); copy.textContent = "copied ✓"; setTimeout(function () { copy.classList.remove("mcp-copied"); copy.textContent = "copy"; }, 1500); };
+		var done = function () {
+			copy.classList.add("mcp-copied");
+			copy.textContent = "copied ✓";
+			setTimeout(function () {
+				copy.classList.remove("mcp-copied");
+				copy.textContent = "copy";
+			}, 1500);
+		};
 		if (navigator.clipboard) navigator.clipboard.writeText(cmd).then(done, done); else done();
 	});
 
-	// ── console ───────────────────────────────────────────────────────────────
-	var log = $("mcp-log"), input = $("mcp-input"), form = $("mcp-form"),
-		run = $("mcp-run"), status = $("mcp-status"), clear = $("mcp-clear");
+	// ── rung toggle ────────────────────────────────────────────────────────
+	var toggleBtns = document.querySelectorAll(".mcp-toggle-btn");
+	var termTitle = $("mcp-term-title");
 
-	function line(cls, txt) {
+	function setRung(rung) {
+		currentRung = rung;
+		toggleBtns.forEach(function (b) {
+			if (b.getAttribute("data-rung") === rung) {
+				b.classList.add("active");
+			} else {
+				b.classList.remove("active");
+			}
+		});
+		if (termTitle) termTitle.textContent = rung + " — direct tools/call";
+	}
+
+	toggleBtns.forEach(function (b) {
+		b.addEventListener("click", function () { setRung(b.getAttribute("data-rung")); });
+	});
+
+	// ── path presets ───────────────────────────────────────────────────────
+	var pathInput = $("mcp-path");
+	var pathPresets = document.querySelectorAll(".mcp-path-preset");
+	pathPresets.forEach(function (b) {
+		b.addEventListener("click", function () {
+			if (pathInput) pathInput.value = b.getAttribute("data-path") || "";
+		});
+	});
+
+	// ── direct tools/call demo ─────────────────────────────────────────────
+	var log = $("mcp-log");
+	var runBtn = $("mcp-run");
+	var clearBtn = $("mcp-clear");
+	var statusEl = $("mcp-status");
+
+	function termLine(cls, txt) {
 		var p = document.createElement("p");
 		p.className = "mcp-line " + cls;
 		p.textContent = txt;
-		log.appendChild(p);
-		log.scrollTop = log.scrollHeight;
-	}
-	function renderItem(m) {
-		if (m.role === "user") line("mcp-line-user", m.text || "");
-		else if (m.role === "assistant") line("mcp-line-agent", m.text || "");
-		else if (m.role === "tool") {
-			line(m.blocked ? "mcp-line-block" : "mcp-line-tool", (m.tool || "tool") + (m.blocked ? "  ✕ blocked" : "  → ran"));
-			if (m.result) line("mcp-line-result", m.result);
-		}
-		else if (m.role === "system") line("mcp-line-system", m.text || "");
-		else if (m.text) line("mcp-line-result", m.text);
+		if (log) { log.appendChild(p); log.scrollTop = log.scrollHeight; }
 	}
 
-	function runAttack(message) {
-		if (!message || !message.trim()) return;
-		message = message.trim();
-		run.disabled = true;
-		if (status) status.textContent = "running…";
-		line("mcp-line-user", message);
-		fetch(API + "/console", {
-			method: "POST", headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({ message: message }),
+	function runDirect() {
+		if (!pathInput) return;
+		var path = pathInput.value.trim();
+		if (!path) return;
+		var endpoint = currentRung === "L0" ? "/mcp/l0" : "/mcp/l3";
+		if (runBtn) runBtn.disabled = true;
+		if (statusEl) statusEl.textContent = "sending…";
+
+		termLine("mcp-line-user", "> tools/call read_document { path: \"" + path + "\" }  [" + currentRung + "]");
+
+		fetch(API + endpoint, {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({
+				jsonrpc: "2.0",
+				id: 1,
+				method: "tools/call",
+				params: { name: "read_document", arguments: { path: path } }
+			})
 		})
 			.then(function (r) { return r.json(); })
 			.then(function (d) {
-				if (d && d.error) { line("mcp-line-system", d.error); return; }
-				var t = (d && d.transcript) || [];
-				// the user line is already echoed; skip a duplicate user item from the server
-				t.forEach(function (m) { if (m.role !== "user") renderItem(m); });
-				refreshStats(); // a real block may have just ticked the counter
+				var result = d && d.result;
+				if (!result) {
+					termLine("mcp-line-system", d && d.error ? d.error.message : "Unexpected response.");
+					return;
+				}
+				var leaked = result._meta && result._meta.effect === "canary-exfiltrated";
+				var text = result.content && result.content[0] && result.content[0].text;
+				if (leaked) {
+					termLine("mcp-line-leak", "canary exfiltrated — you cracked the naive build: " + (text || ""));
+				} else {
+					termLine("mcp-line-hold", "held — " + (text || "path-confinement: denied"));
+				}
+				refreshStats();
 			})
 			.catch(function () {
-				line("mcp-line-system", "The worker didn't answer. Connect a real MCP client and keep attacking — the wall is the same code either way.");
+				termLine("mcp-line-system", "Worker didn't answer. The server is live — try curl or a real MCP client.");
 			})
 			.then(function () {
-				run.disabled = false;
-				if (status) status.textContent = "no model on defense · endpoint allowlist only";
+				if (runBtn) runBtn.disabled = false;
+				if (statusEl) statusEl.textContent = "direct JSON-RPC · no model in the loop";
 			});
 	}
 
-	if (form) form.addEventListener("submit", function (e) { e.preventDefault(); runAttack(input.value); });
-	if (clear) clear.addEventListener("click", function () {
-		input.value = "";
+	if (runBtn) runBtn.addEventListener("click", runDirect);
+	if (clearBtn) clearBtn.addEventListener("click", function () {
+		if (!log) return;
 		log.textContent = "";
-		line("mcp-line-hint", "# pick a preset or write your own jailbreak below, then hit run.");
-		line("mcp-line-hint", "# the agent will try a tool. the server decides — deterministically.");
+		termLine("mcp-line-hint", "# select a rung, pick a path, and hit run.");
+		termLine("mcp-line-hint", "# this sends the real JSON-RPC tools/call to the live worker.");
 	});
+
+	// ── Workers-AI free-text console ─────────────────────────────────────
+	var agentLog = $("mcp-agent-log");
+	var agentInput = $("mcp-input");
+	var agentForm = $("mcp-form");
+	var agentRun = $("mcp-agent-run");
+	var agentClear = $("mcp-agent-clear");
+	var agentStatus = $("mcp-agent-status");
+
+	function agentLine(cls, txt) {
+		var p = document.createElement("p");
+		p.className = "mcp-line " + cls;
+		p.textContent = txt;
+		if (agentLog) { agentLog.appendChild(p); agentLog.scrollTop = agentLog.scrollHeight; }
+	}
+
+	function renderTranscriptItem(m) {
+		if (m.role === "user") agentLine("mcp-line-user", m.text || "");
+		else if (m.role === "assistant") agentLine("mcp-line-agent", m.text || "");
+		else if (m.role === "tool") {
+			if (m.leaked) {
+				agentLine("mcp-line-leak", (m.tool || "tool") + " → " + (m.result || ""));
+			} else {
+				agentLine(m.blocked ? "mcp-line-hold" : "mcp-line-tool",
+					(m.tool || "tool") + (m.blocked ? " → held (path-confinement)" : " → ran"));
+				if (m.result && !m.leaked) agentLine("mcp-line-result", m.result);
+			}
+		}
+		else if (m.role === "system") agentLine("mcp-line-system", m.text || "");
+		else if (m.text) agentLine("mcp-line-result", m.text);
+	}
+
+	function runAgent(message) {
+		if (!message || !message.trim()) return;
+		message = message.trim();
+		if (agentRun) agentRun.disabled = true;
+		if (agentStatus) agentStatus.textContent = "running…";
+		agentLine("mcp-line-user", message);
+		fetch(API + "/console", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ message: message, rung: currentRung }),
+		})
+			.then(function (r) { return r.json(); })
+			.then(function (d) {
+				if (d && d.error) { agentLine("mcp-line-system", d.error); return; }
+				var t = (d && d.transcript) || [];
+				t.forEach(function (m) { if (m.role !== "user") renderTranscriptItem(m); });
+				refreshStats();
+			})
+			.catch(function () {
+				agentLine("mcp-line-system", "Worker didn't answer. Try the direct demo above instead.");
+			})
+			.then(function () {
+				if (agentRun) agentRun.disabled = false;
+				if (agentStatus) agentStatus.textContent = "llama-3.3-70b · no system prompt on defense";
+			});
+	}
+
+	if (agentForm) agentForm.addEventListener("submit", function (e) {
+		e.preventDefault();
+		if (agentInput) runAgent(agentInput.value);
+	});
+	if (agentClear) agentClear.addEventListener("click", function () {
+		if (agentInput) agentInput.value = "";
+		if (agentLog) {
+			agentLog.textContent = "";
+			agentLine("mcp-line-hint", "# pick a preset or write your own instruction below.");
+		}
+	});
+
+	// preset attacks for the agent console
 	var presets = $("mcp-presets");
 	if (presets) presets.addEventListener("click", function (e) {
 		var b = e.target.closest(".mcp-preset");
-		if (b) { input.value = b.getAttribute("data-attack") || ""; input.focus(); }
+		if (b && agentInput) { agentInput.value = b.getAttribute("data-attack") || ""; agentInput.focus(); }
 	});
 
 	// ── kick off ────────────────────────────────────────────────────────────
