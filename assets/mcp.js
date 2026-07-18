@@ -53,11 +53,7 @@
 
 			// rung badge
 			var rung = (e.rung || "").toUpperCase();
-			var rungCls = "mcp-feed-rung " + (
-				rung === "L0" ? "mcp-feed-rung-l0" :
-				rung === "L2" ? "mcp-feed-rung-l2" :
-				"mcp-feed-rung-l3"
-			);
+			var rungCls = "mcp-feed-rung " + (rung === "L0" ? "mcp-feed-rung-l0" : "mcp-feed-rung-l3");
 			row.appendChild(span(rungCls, rung));
 
 			// effect badge

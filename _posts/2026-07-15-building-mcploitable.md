@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Building mcploitable: A Lab Where Agent Guardrails Fail on Purpose"
-subtitle: "I argued the model can't police itself and the real controls belong in the server. mcploitable is where I test that: seven real incidents, a four-rung control ladder, and a wall that held zero times out of 105."
+subtitle: "I argued the model can't police itself and the real controls belong in the server. mcploitable is where I test that: seven real incidents, a four-rung control ladder, and a wall the attacker never breached in 105 tries."
 description: >-
   The thinking behind mcploitable, a lab of deliberately vulnerable MCP servers
   covering the OWASP Agentic Top-10. How the boxes are built — faithful to real

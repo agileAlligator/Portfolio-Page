@@ -135,14 +135,12 @@
 
         // Function to generate an excuse for the selected day
         function generateExcuse(day) {
-            const excuseContainer = document.getElementById('excuse-container');
-            excuseContainer.classList.remove('excuse-card');
-            void excuseContainer.offsetWidth; // Trigger reflow to restart animation
-            excuseContainer.classList.add('excuse-card');
-
             const excuseElement = document.getElementById('excuse');
             const randomIndex = Math.floor(Math.random() * excuses[day].length);
             excuseElement.textContent = excuses[day][randomIndex];
+            excuseElement.classList.remove('excuse-card');
+            void excuseElement.offsetWidth; // reflow to restart the flyIn animation on the card
+            excuseElement.classList.add('excuse-card');
         }
     </script>
 </body>
