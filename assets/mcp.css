@@ -496,11 +496,6 @@
 	background: rgba(255, 107, 107, 0.1);
 	border: 1px solid color-mix(in srgb, var(--bad) 35%, var(--line));
 }
-.mcp-feed-rung-l2 {
-	color: var(--warn);
-	background: rgba(245, 181, 68, 0.1);
-	border: 1px solid color-mix(in srgb, var(--warn) 35%, var(--line));
-}
 .mcp-feed-rung-l3 {
 	color: var(--acc);
 	background: rgba(79, 227, 161, 0.1);
