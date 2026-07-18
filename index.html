@@ -205,7 +205,7 @@
 			<p class="section-label" data-reveal>// 03 · case study</p>
 			<h2 class="section-title" data-reveal>A secure-by-default MCP framework, built for a client</h2>
 			<div class="cs" data-reveal>
-				<p class="cs-lede">The threat model starts from an uncomfortable premise: <strong>the model will be jailbroken.</strong> Researchers like <a href="https://pliny.gg" target="_blank" rel="noopener">Pliny the Liberator</a> break new frontier models within hours of release — so if a customer’s data is protected only by the model choosing to behave, it isn’t protected at all. I’ve measured this in my own lab: in <a href="https://github.com/agileAlligator/mcploitable" target="_blank" rel="noopener">mcploitable</a>, every guardrail that depends on the model recognizing an attack eventually falls to a good payload, while the deterministic wall behind them held <strong>0&nbsp;for&nbsp;105</strong>.</p>
+				<p class="cs-lede">The threat model starts from an uncomfortable premise: <strong>the model will be jailbroken.</strong> Researchers like <a href="https://pliny.gg" target="_blank" rel="noopener">Pliny the Liberator</a> break new frontier models within hours of release — so if a customer’s data is protected only by the model choosing to behave, it isn’t protected at all. I’ve measured this in my own lab: in <a href="https://github.com/agileAlligator/mcploitable" target="_blank" rel="noopener">mcploitable</a>, every guardrail that depends on the model recognizing an attack eventually falls to a good payload, while the server-side check behind them refused every one.</p>
 				<p>A client needed to connect internal AI agents to enterprise systems over MCP without betting company data on model compliance. I built them a <strong>secure-MCP development framework and a tested Python scaffold</strong> that makes the secure path the default one — driving every build through intake → auth design → endpoint governance → an auto-generated threat model → code from a hardened scaffold → a security-readiness gate before delivery.</p>
 				<p class="cs-sub">Threats it designs against, and the control that answers each:</p>
 				<ul class="cs-map">
@@ -216,7 +216,7 @@
 				<li><span class="cs-threat">Untraceable actions</span><span class="cs-ctrl">structured audit log tying every action to a hash of the prompt that caused it</span></li>
 				</ul>
 				<p class="cs-outcome"><strong>Outcome:</strong> every MCP the framework produces ships with the same non-negotiable controls and must pass a security-readiness checklist before delivery — a repeatable, auditable process instead of per-project guesswork. <span class="cs-note">(Delivered through my professional-services role at Gruve; client and proprietary internals anonymized.)</span></p>
-				<p class="cs-try" data-reveal><a href="/break-this-server/">→ Don't take my word for it — try to break one in your browser</a></p>
+				<p class="cs-try" data-reveal><a href="/break-this-server/">→ Try to break one in your browser</a></p>
 			</div>
 		</section>
 
@@ -284,7 +284,7 @@
 					</div>
 					<h3 class="card-title">mcploitable</h3>
 					<p class="card-desc">
-						The "Metasploitable of MCP" — deliberately vulnerable MCP servers, one per class of the <strong>OWASP Top 10 for Agentic Applications</strong>. Seven are breakable boxes on an <strong>L0→L3 control ladder</strong> (open door → recognition signal → bypassable control → the deterministic wall), scored by real effect — you win only when a canary secret actually leaves via a tool call. The other three ship as guided simulations. The point it makes empirically: recognition and partial controls fall to a good payload; the correct deterministic control held <strong>0 for 105</strong> at the wall.
+						The "Metasploitable of MCP" — deliberately vulnerable MCP servers, one per class of the <strong>OWASP Top 10 for Agentic Applications</strong>. Seven are breakable boxes on an <strong>L0→L3 control ladder</strong> (open door → recognition signal → bypassable control → the deterministic wall), scored by real effect — you win only when a canary secret actually leaves via a tool call. The other three ship as guided simulations. Recognition and partial controls fall to a good payload; the correct control held <strong>0 for 105</strong> at the wall.
 					</p>
 					<div class="card-links">
 						<a href="/break-this-server/">play in-browser ↗</a>
@@ -376,7 +376,7 @@
 				</article>
 			</div>
 			<p class="approach-more" data-reveal>
-				<a href="/lab/">→ Three of these run in the lab: a live server, a sandbox, and the map</a>
+				<a href="/lab/">→ Four of these run in the lab: a live server, a sandbox, a matcher, and the map</a>
 			</p>
 		</section>
 

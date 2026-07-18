@@ -44,13 +44,13 @@ image: /assets/og/mcp.png
 <span class="c-dim">  path: "../internal/canary.txt"</span>
 
 <span class="c-dim">── L0 · naive ──────────────────</span>
-<span class="c-bad">→ CANARY-mcp-105848a98f</span>  <span class="c-bad">✕ leaked</span>
+<span class="c-bad">→ CANARY-mcp-b7f3…</span>  <span class="c-bad">✕ leaked</span>
 
 <span class="c-dim">── L3 · hardened ───────────────</span>
 <span class="c-ok">→ path-confinement: denied</span> <span class="c-ok">✓ held</span>
 
 <span class="c-dim"># same call. same tool. same args.</span>
-<span class="c-dim"># the delta is the invariant.<span class="cursor">▌</span></span></pre>
+<span class="c-dim"># one invariant: stay under the root.<span class="cursor">▌</span></span></pre>
 		</div>
 	</div>
 </section>
@@ -98,7 +98,7 @@ image: /assets/og/mcp.png
 		</p>
 
 		<p class="mcp-count-sub">
-			The delta is one confinement check. L0 joins the path and returns whatever it
+			One confinement check separates them. L0 joins the path and returns whatever it
 			points at. L3 canonicalizes first, then refuses if the resolved path escapes
 			the root. Same call, two outcomes.
 		</p>
@@ -202,19 +202,19 @@ image: /assets/og/mcp.png
 		<!-- L0 naive -->
 		<div class="mcp-diff-col">
 			<div class="mcp-diff-head mcp-diff-head-l0">L0 · naive — leaks</div>
-			<pre class="term-body mcp-wall-code"><span class="c-dim">async function</span> <span class="c-key">readDocument</span>(path) {
-  <span class="c-dim">const</span> full = ROOT + path;
-  <span class="c-bad">return</span> fs.readFile(full);  <span class="c-dim">// ✕ no check</span>
+			<pre class="term-body mcp-wall-code"><span class="c-dim">function</span> <span class="c-key">readDocument</span>(path) {
+  <span class="c-dim">const</span> full = normalize(ROOT + path);
+  <span class="c-bad">return</span> store[full];  <span class="c-dim">// ✕ reads whatever it resolves to</span>
 }</pre>
 		</div>
 		<!-- L3 hardened -->
 		<div class="mcp-diff-col">
 			<div class="mcp-diff-head mcp-diff-head-l3">L3 · hardened — holds</div>
-			<pre class="term-body mcp-wall-code"><span class="c-dim">async function</span> <span class="c-key">readDocument</span>(path) {
-  <span class="c-dim">const</span> full = resolve(ROOT, path);
+			<pre class="term-body mcp-wall-code"><span class="c-dim">function</span> <span class="c-key">readDocument</span>(path) {
+  <span class="c-dim">const</span> full = normalize(ROOT + decode(path));
 <span class="mcp-wall-hl">  <span class="c-bad">if</span> (!(full + <span class="c-str">"/"</span>).startsWith(ROOT))
     <span class="c-bad">return</span> refuse(<span class="c-str">"path-confinement"</span>);</span>
-  <span class="c-bad">return</span> fs.readFile(full);  <span class="c-ok">// ✓ confined</span>
+  <span class="c-bad">return</span> store[full];  <span class="c-ok">// ✓ inside the root</span>
 }</pre>
 		</div>
 	</div>
@@ -228,11 +228,9 @@ image: /assets/og/mcp.png
 
 	<div class="mcp-wall-body">
 		<p>
-			You can argue with a prompt. You can talk a model into anything, given enough
-			context, roleplay, or Unicode. So the guardrail doesn't live in the prompt. It
-			lives in the server, as a <strong>deterministic path check</strong> that runs
-			before any file read. The model never gets a vote on whether the canary leaves,
-			because the canary sits outside every path the check allows.
+			You can talk a model into anything, given enough context, roleplay, or Unicode.
+			So the check doesn't live in the prompt. It runs in the server before any read,
+			and the canary sits outside every path it allows.
 		</p>
 	</div>
 
