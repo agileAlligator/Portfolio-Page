@@ -36,8 +36,15 @@
         justify-content: center;
         gap: 1.4rem;
         padding: 2.5rem 1.25rem 1.5rem;
-        background:
-            radial-gradient(120% 80% at 50% -10%, #1b1b1b 0%, var(--bg) 60%);
+        /* a dim brick alley wall (self-contained SVG, no assets) with the neon
+           spilling red light onto it near the top and a vignette for grit */
+        background-color: #1a100e;
+        background-image:
+            radial-gradient(120% 85% at 50% 3%, rgba(229,9,30,0.15), rgba(229,9,30,0.03) 32%, transparent 55%),
+            linear-gradient(180deg, rgba(0,0,0,0.34), rgba(0,0,0,0.66)),
+            url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='64'%20height='48'%3E%3Crect%20width='64'%20height='48'%20fill='%232a1916'/%3E%3Cg%20stroke='%23130b09'%20stroke-width='2.5'%3E%3Cline%20x1='0'%20y1='1'%20x2='64'%20y2='1'/%3E%3Cline%20x1='0'%20y1='24'%20x2='64'%20y2='24'/%3E%3Cline%20x1='0'%20y1='47'%20x2='64'%20y2='47'/%3E%3Cline%20x1='1'%20y1='0'%20x2='1'%20y2='24'/%3E%3Cline%20x1='63'%20y1='0'%20x2='63'%20y2='24'/%3E%3Cline%20x1='32'%20y1='24'%20x2='32'%20y2='48'/%3E%3C/g%3E%3C/svg%3E");
+        background-size: auto, auto, 94px 70px;
+        background-attachment: fixed, fixed, fixed;
         color: var(--cream);
         font-family: "Helvetica Neue", Arial, system-ui, sans-serif;
         -webkit-font-smoothing: antialiased;
@@ -66,22 +73,28 @@
         font-weight: 800;
         font-size: clamp(2.6rem, 12vw, 5.2rem);
         letter-spacing: -0.03em;
-        color: var(--red-hot);
+        /* glowing glass tubing: a whited-out lit core, bleeding red halos */
+        color: #fff2f4;
+        -webkit-text-stroke: 0.4px rgba(255,170,180,0.5);
         text-shadow:
-            0 0 6px rgba(229,9,30,0.9),
-            0 0 22px rgba(229,9,30,0.65),
-            0 0 48px rgba(229,9,30,0.4);
+            0 0 1px #fff,
+            0 0 5px #ffd3d8,
+            0 0 9px var(--red-hot),
+            0 0 18px var(--red-hot),
+            0 0 34px var(--red),
+            0 0 58px var(--red),
+            0 0 88px rgba(229,9,30,0.6);
         transform: skewX(-4deg);
     }
-    /* the tube stutters: a brownout, and a full dropout */
+    /* the tube stutters: a brownout, and a full dropout to dark glass */
     .wordmark h1.flicker {
-        opacity: 0.5;
-        color: #8a1a22;
-        text-shadow: 0 0 3px rgba(229,9,30,0.4);
+        color: #ff5966;
+        -webkit-text-stroke-color: rgba(255,120,130,0.3);
+        text-shadow: 0 0 3px var(--red-hot), 0 0 11px rgba(229,9,30,0.5);
     }
     .wordmark h1.flicker--out {
-        opacity: 0.14;
-        color: #3f1216;
+        color: #2a1214;
+        -webkit-text-stroke-color: rgba(120,55,60,0.45);
         text-shadow: none;
     }
     .wordmark p {
@@ -549,7 +562,7 @@
             setTimeout(function () { setCard(day, item); }, FLIP_MS / 2);  // swap while edge-on
         }
 
-        function newExcuse(day) {
+        function newExcuse(day, quiet) {
             if (state.locked) return;
             state.day = day;
             highlightTab(day);
@@ -560,7 +573,7 @@
                 setTimeout(function () { state.locked = false; }, FLIP_MS);
             }
             flip(day, item);
-            slap(item.soup);
+            if (!quiet) slap(item.soup);      // the "another excuse" button plays the full riff instead
         }
 
         // ── spin: a slot-machine whir that lands on a random day ────────────
@@ -603,63 +616,80 @@
             for (var i = 0; i < n; i++) d[i] = Math.random() * 2 - 1;
             return buf;
         }
-        // one slap-bass note. opts: {gain, dur, pop, ghost}
+        // one slap-bass note — a synth patch in the spirit of the M1 "slap bass"
+        // the show actually used: saw bite + a sine sub for body + a click transient.
+        // opts: {gain, dur, pop, ghost}
         function bass(freq, at, opts) {
             var c = actx; if (!c) return;
             opts = opts || {};
             var pop = !!opts.pop, ghost = !!opts.ghost;
-            var gain = opts.gain == null ? (ghost ? 0.10 : 0.30) : opts.gain;
-            var dur = opts.dur || (ghost ? 0.07 : 0.16);
-            // pitched body with a quick slap-pitch drop
+            var gain = opts.gain == null ? (ghost ? 0.09 : 0.30) : opts.gain;
+            var dur = opts.dur || (ghost ? 0.06 : (pop ? 0.15 : 0.18));
+            // harmonic bite: sawtooth through a lowpass, with a fast slap pitch+filter drop
             var o = c.createOscillator(), bg = c.createGain(), f = c.createBiquadFilter();
             o.type = "sawtooth";
-            o.frequency.setValueAtTime(freq * (pop ? 1.5 : 2.4), at);
-            o.frequency.exponentialRampToValueAtTime(freq, at + (ghost ? 0.02 : 0.05));
-            f.type = "lowpass";
-            f.frequency.setValueAtTime(pop ? 4400 : 2200, at);
-            f.frequency.exponentialRampToValueAtTime(pop ? 900 : 300, at + dur * 0.9);
+            o.frequency.setValueAtTime(freq * (pop ? 1.6 : 2.2), at);
+            o.frequency.exponentialRampToValueAtTime(freq, at + (ghost ? 0.02 : 0.045));
+            f.type = "lowpass"; f.Q.value = 7;
+            f.frequency.setValueAtTime(pop ? 5200 : 2600, at);
+            f.frequency.exponentialRampToValueAtTime(pop ? 720 : 260, at + dur * 0.85);
             bg.gain.setValueAtTime(0.0001, at);
-            bg.gain.exponentialRampToValueAtTime(gain, at + 0.006);
+            bg.gain.exponentialRampToValueAtTime(gain, at + 0.004);       // snappy attack
+            bg.gain.exponentialRampToValueAtTime(gain * 0.32, at + dur * 0.4);
             bg.gain.exponentialRampToValueAtTime(0.0001, at + dur);
             o.connect(f); f.connect(bg); bg.connect(c.destination);
             o.start(at); o.stop(at + dur + 0.03);
-            // percussive slap/pop transient (the finger click) — skipped on ghosts
+            // sine sub at the fundamental for weight (the sampled-bass body)
+            var sub = c.createOscillator(), sg = c.createGain();
+            sub.type = "sine"; sub.frequency.setValueAtTime(freq, at);
+            sg.gain.setValueAtTime(0.0001, at);
+            sg.gain.exponentialRampToValueAtTime(gain * (ghost ? 0.45 : 0.8), at + 0.006);
+            sg.gain.exponentialRampToValueAtTime(0.0001, at + dur * 1.05);
+            sub.connect(sg); sg.connect(c.destination);
+            sub.start(at); sub.stop(at + dur + 0.05);
+            // percussive slap/pop transient (thumb click / string pop) — skipped on ghosts
             if (noiseBuf && !ghost) {
                 var ns = c.createBufferSource(), nf = c.createBiquadFilter(), ng = c.createGain();
                 ns.buffer = noiseBuf;
-                nf.type = "bandpass"; nf.frequency.value = pop ? 3400 : 1900; nf.Q.value = 0.9;
+                nf.type = "bandpass"; nf.frequency.value = pop ? 3800 : 2000; nf.Q.value = 0.8;
                 ng.gain.setValueAtTime(0.0001, at);
-                ng.gain.exponentialRampToValueAtTime(pop ? 0.14 : 0.22, at + 0.002);
-                ng.gain.exponentialRampToValueAtTime(0.0001, at + 0.045);
+                ng.gain.exponentialRampToValueAtTime(pop ? 0.16 : 0.20, at + 0.001);
+                ng.gain.exponentialRampToValueAtTime(0.0001, at + 0.04);
                 ns.connect(nf); nf.connect(ng); ng.connect(c.destination);
                 ns.start(at); ns.stop(at + 0.06);
             }
         }
         function play(seq, t0) {                             // seq: [freq, 16th-offset, opts]
-            var s = 0.111;                                   // ~16ths around 135bpm
+            var s = 0.133;                                   // 16ths at ~113bpm — the show's pocket
             seq.forEach(function (n) {
-                // light swing: nudge the "e"/"a" offbeats (the .5s) a hair late
-                var off = n[1], swing = (Math.abs(off % 1 - 0.5) < 0.01) ? 0.022 : 0;
+                var off = n[1];
+                // swung 16ths: push the off-16ths a hair late for the funk bounce
+                var swing = (Math.round(off) % 2 === 1) ? 0.018 : 0;
                 bass(n[0], t0 + off * s + swing, n[2] || {});
             });
         }
-        function slap() {                                   // on a flip — a bouncy octave slap→pop in A
+        function slap() {                                   // on a flip — a quick slap→ghost→octave-pop in A
             if (!soundOn || !ctx()) return;
-            play([[110, 0, {}], [110, 0.5, { ghost: true }], [220, 1, { pop: true, gain: 0.22 }]],
+            play([[110, 0, {}], [110, 1, { ghost: true }], [220, 2, { pop: true, gain: 0.22 }]],
                 actx.currentTime + 0.01);
         }
-        function lick() {                                   // on spin — an original funk phrase in A minor
+        var lastLickAt = 0;
+        function lick() {                                   // the riff — an original A-minor funk groove
             if (!soundOn || !ctx()) return;
+            var now = actx.currentTime;
+            if (now - lastLickAt < 0.9) return;              // don't stack riffs on rapid clicks
+            lastLickAt = now;
             play([
-                // the hook: an octave-jump bounce (A2 up to A3), not a scalar run
-                [110, 0, {}], [110, 1.5, { ghost: true }], [220, 2, { pop: true }],
-                [196, 2.5, { pop: true }], [110, 3, {}], [82.4, 4, { ghost: true }],
-                [130.8, 4.5, { pop: true }], [110, 5, {}],
-                // the answer: a bluesy climb to the peak, then a drop to the low root
-                [73.4, 6, {}], [146.8, 6.5, { pop: true }], [164.8, 7, { pop: true }],
-                [130.8, 7.5, {}], [110, 8, { ghost: true }],
-                [55, 9.5, { dur: 0.32, gain: 0.32 }]
-            ], actx.currentTime + 0.02);
+                // bar 1 — root/octave bounce, ghost notes, space
+                [110, 0, {}], [110, 2, { ghost: true }], [220, 3, { pop: true }],
+                [110, 4, {}], [130.8, 6, { pop: true }], [110, 7, { ghost: true }],
+                [82.4, 8, {}], [82.4, 10, { ghost: true }], [164.8, 11, { pop: true }],
+                [110, 12, {}], [110, 14, { ghost: true }],
+                // bar 2 — the answer: pops climb, then drop to a low root that rings
+                [220, 16, { pop: true }], [196, 18, { pop: true }], [146.8, 19, { pop: true }],
+                [110, 20, {}], [130.8, 22, { pop: true }], [110, 23, { ghost: true }],
+                [82.4, 24, {}], [55, 28, { dur: 0.42, gain: 0.34 }]
+            ], now + 0.02);
         }
 
         // ── controls ────────────────────────────────────────────────────────
@@ -671,7 +701,7 @@
         }
         els.knobL.addEventListener("click", function () { turnWheel(-1); });
         els.knobR.addEventListener("click", function () { turnWheel(1); });
-        els.another.addEventListener("click", function () { newExcuse(state.day || DAYS[new Date().getDay() === 0 ? 6 : new Date().getDay() - 1]); });
+        els.another.addEventListener("click", function () { newExcuse(state.day || DAYS[new Date().getDay() === 0 ? 6 : new Date().getDay() - 1], true); lick(); });
         els.copy.addEventListener("click", function () {
             var txt = els.excuse.textContent;
             var done = function () { var o = els.copy.textContent; els.copy.textContent = "copied ✓"; setTimeout(function () { els.copy.textContent = "copy"; }, 1400); };
@@ -774,7 +804,7 @@
                 var hp = c.createBiquadFilter(); hp.type = "highpass"; hp.frequency.value = 520;
                 var rg = c.createGain(); rg.gain.value = 0.0001;
                 src.connect(hp); hp.connect(lp); lp.connect(rg); rg.connect(c.destination);
-                src.start(); rg.gain.linearRampToValueAtTime(0.033, c.currentTime + 0.9);
+                src.start(); rg.gain.linearRampToValueAtTime(0.012, c.currentTime + 0.9);
                 amb.src = src; amb.rg = rg;
             }
             var ho = c.createOscillator(); ho.type = "sine"; ho.frequency.value = 120;
