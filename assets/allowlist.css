@@ -1,0 +1,149 @@
+/* ══════════════════════════════════════════════════════════════════
+   /allowlist-bypass/ — two path matchers rule on the same request.
+   Loads only here (extra_css). Full-bleed like the other exhibits.
+   Shared components from style.css: .section, .verdict, .prompt, .c-*.
+   ══════════════════════════════════════════════════════════════════ */
+.content { max-width: 100%; padding: 0; }
+
+.al-intro {
+	max-width: var(--maxw);
+	margin: 0 auto;
+	padding: clamp(3rem, 7vw, 5rem) clamp(1.25rem, 5vw, 3.5rem) 0;
+}
+.al-intro .section-label { font-family: var(--mono); font-size: 0.82rem; color: var(--acc); margin-bottom: 0.9rem; }
+.al-title {
+	font-family: var(--mono);
+	font-weight: 600;
+	font-size: clamp(2rem, 5vw, 3.1rem);
+	letter-spacing: -0.02em;
+	line-height: 1.1;
+	margin: 0.4rem 0 1.1rem;
+	color: var(--ink);
+}
+.al-lede { font-size: 1.1rem; max-width: 46rem; color: var(--ink-dim); line-height: 1.65; }
+.al-lede code, .al-title code { font-family: var(--mono); color: var(--ink); background: var(--bg-2); padding: 0.05em 0.35em; border-radius: 5px; font-size: 0.9em; }
+
+/* ── 01 · request line ────────────────────────────────────────── */
+.al-row {
+	display: flex;
+	align-items: center;
+	gap: 0.7rem;
+	background: var(--bg-2);
+	border: 1px solid var(--line);
+	border-radius: 10px;
+	padding: 0.9rem 1.1rem;
+	max-width: 46rem;
+}
+.al-input {
+	flex: 1;
+	min-width: 0;
+	font-family: var(--mono);
+	font-size: 1rem;
+	color: var(--ink);
+	background: transparent;
+	border: none;
+	outline: none;
+}
+.al-input:focus-visible { outline: none; }
+.al-row:focus-within { border-color: var(--acc); }
+
+.al-presets { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin: 1rem 0 0; max-width: 46rem; }
+.al-preset-label { font-family: var(--mono); font-size: 0.72rem; color: var(--ink-faint); text-transform: uppercase; letter-spacing: 0.08em; margin-right: 0.15rem; }
+.al-preset-label:not(:first-child) { margin-left: 0.75rem; }
+.al-preset {
+	font-family: var(--mono);
+	font-size: 0.75rem;
+	padding: 0.35rem 0.75rem;
+	border-radius: 999px;
+	border: 1px solid var(--line);
+	background: var(--panel);
+	color: var(--ink-dim);
+	cursor: pointer;
+	transition: border-color 0.15s var(--ease), color 0.15s var(--ease);
+}
+.al-preset:hover { color: var(--ink); }
+.al-preset-in:hover { border-color: var(--acc); color: var(--acc); }
+.al-preset-out:hover { border-color: var(--bad); color: #ff9a9a; }
+
+/* ── path visualizer ──────────────────────────────────────────── */
+.al-viz-wrap { margin-top: 1.75rem; max-width: 46rem; }
+.al-pathviz {
+	font-family: var(--mono);
+	font-size: clamp(0.95rem, 2.4vw, 1.25rem);
+	line-height: 1.4;
+	background: var(--bg);
+	border: 1px solid var(--line);
+	border-radius: 10px;
+	padding: 1.4rem 1.35rem 1.1rem;
+	overflow-x: auto;
+	white-space: nowrap;
+}
+.al-seg { color: var(--ink); }
+.al-seg-prefix { color: var(--ink-faint); }
+.al-slash { color: var(--acc-2); }
+.al-viz-rails { margin-top: 0.85rem; font-family: var(--mono); }
+.al-rail { display: block; white-space: nowrap; line-height: 1; margin-bottom: 0.85rem; }
+.al-rail:last-child { margin-bottom: 0; }
+.al-rail-bar { display: inline-block; height: 5px; border-radius: 3px; vertical-align: middle; }
+.al-rail-glob { background: var(--bad); }
+.al-rail-anchor { background: var(--acc); }
+.al-rail-label { display: inline-block; vertical-align: middle; margin-left: 0.6rem; font-size: 0.72rem; color: var(--ink-faint); }
+.al-label-glob { color: #ff9a9a; }
+.al-label-anchor { color: var(--acc); }
+
+/* ── 02 · two matchers ────────────────────────────────────────── */
+.al-diff { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.al-diff-col { border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: var(--panel); display: flex; flex-direction: column; }
+.al-diff-head {
+	padding: 0.6rem 1rem;
+	border-bottom: 1px solid var(--line);
+	font-family: var(--mono);
+	font-size: 0.78rem;
+	font-weight: 600;
+	letter-spacing: 0.03em;
+}
+.al-head-naive { color: var(--bad); background: rgba(255, 107, 107, 0.07); }
+.al-head-hard { color: var(--acc); background: rgba(79, 227, 161, 0.07); }
+.al-code {
+	margin: 0;
+	padding: 1.1rem 1.35rem;
+	font-family: var(--mono);
+	font-size: clamp(0.8rem, 2vw, 0.95rem);
+	line-height: 1.7;
+	color: var(--ink-dim);
+	white-space: pre;
+	overflow-x: auto;
+}
+.al-hl { background: rgba(79, 227, 161, 0.14); color: var(--ink); border-radius: 4px; padding: 0.05em 0.25em; }
+.al-head-naive ~ .al-code .al-hl { background: rgba(255, 107, 107, 0.14); }
+.al-verdicts { padding: 0 1.35rem; margin-top: auto; }
+.al-verdict-pill {
+	display: inline-block;
+	font-family: var(--mono);
+	font-size: 0.82rem;
+	font-weight: 700;
+	letter-spacing: 0.06em;
+	padding: 0.3rem 0.9rem;
+	border-radius: 6px;
+	border: 1px solid var(--line);
+	color: var(--ink-faint);
+}
+.al-verdict-safe { color: var(--acc); border-color: var(--acc); background: rgba(79, 227, 161, 0.1); }
+.al-verdict-danger { color: #ff9a9a; border-color: var(--bad); background: rgba(255, 107, 107, 0.1); }
+.al-reason { padding: 0.7rem 1.35rem 1.2rem; font-family: var(--mono); font-size: 0.8rem; color: var(--ink-dim); line-height: 1.5; min-height: 1.5rem; }
+
+/* ── 03 · caveat ──────────────────────────────────────────────── */
+.al-caveat {
+	max-width: 46rem;
+	margin: 1.1rem 0 0;
+	padding: 0.9rem 1.1rem;
+	border-left: 3px solid var(--warn);
+	background: rgba(245, 181, 68, 0.08);
+	color: var(--ink);
+	font-size: 0.95rem;
+	line-height: 1.6;
+}
+
+@media (max-width: 620px) {
+	.al-diff { grid-template-columns: 1fr; }
+}
