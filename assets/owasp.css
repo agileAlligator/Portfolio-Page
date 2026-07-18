@@ -60,6 +60,23 @@
 	user-select: none;                           /* no text-selection on tap */
 	touch-action: manipulation;                  /* no double-tap zoom delay */
 }
+/* transparent full-card overlay: the single keyboard/AT entry point per card.
+   Pointer clicks land here and bubble to .asi-card, so the half-detection and
+   arrow-key handlers are unchanged. */
+.asi-turn {
+	position: absolute;
+	inset: 0;
+	z-index: 3;
+	appearance: none;
+	background: transparent;
+	border: 0;
+	padding: 0;
+	border-radius: 12px;
+	cursor: pointer;
+	-webkit-tap-highlight-color: transparent;
+	touch-action: manipulation;
+}
+html:not(.js) .asi-turn { display: none; }
 /* entrance — only hide when JS is present, else cards stay visible */
 .js .asi-card {
 	opacity: 0;
@@ -86,8 +103,8 @@
 .asi-card::after { content: "›"; right: 1.4rem; }
 .asi-card:hover::before,
 .asi-card:hover::after,
-.asi-card:focus-visible::before,
-.asi-card:focus-visible::after { opacity: 0.5; }
+.asi-card:has(.asi-turn:focus-visible)::before,
+.asi-card:has(.asi-turn:focus-visible)::after { opacity: 0.5; }
 
 .asi-prism {
 	display: block;
@@ -118,7 +135,7 @@
 .face-control { --glow: 76, 201, 240;  transform: rotateY(240deg) translateZ(86.6px); background: linear-gradient(150deg, rgba(76, 201, 240, 0.08) 0%, var(--bg-2) 55%); }
 
 .asi-card:hover .asi-face,
-.asi-card:focus-visible .asi-face {
+.asi-card:has(.asi-turn:focus-visible) .asi-face {
 	border-color: rgba(var(--glow), 0.7);
 	box-shadow: 0 0 0 1px rgba(var(--glow), 0.25), 0 22px 55px -34px rgba(0, 0, 0, 0.9);
 }
@@ -172,7 +189,7 @@
 	pointer-events: none;
 }
 .asi-card:hover .asi-face::after,
-.asi-card:focus-visible .asi-face::after { opacity: 1; }
+.asi-card:has(.asi-turn:focus-visible) .asi-face::after { opacity: 1; }
 
 /* accent pulse on each rotation, in the face colour */
 @keyframes asi-pulse {
