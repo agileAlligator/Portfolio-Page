@@ -236,7 +236,7 @@
 		if (!els.clear) return;
 		var breachedLow = cleared[0] === "cleared" && cleared[1] === "cleared" && cleared[2] === "cleared";
 		if (breachedLow && cleared[3] === "holding") {
-			els.clear.textContent = "You made the agent refund at L0, L1, and L2 — each control a ticket could talk past. At L3 the model still tried, and the capability gate refused it in code. That's the line: a control the model can be argued out of isn't one.";
+			els.clear.textContent = "L0, L1, and L2 each refunded. At L3 the model still called issue_refund, and the capability gate refused it in code.";
 			els.clear.hidden = false;
 		} else {
 			els.clear.hidden = true;
