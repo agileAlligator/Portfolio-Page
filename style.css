@@ -538,3 +538,13 @@ a { color: inherit; text-decoration: none; }
 	[data-reveal] { opacity: 1; transform: none; transition: none; }
 	.blink, .cursor { animation: none; }
 }
+
+/* ══════════════════════════════════════════════════════════════════
+   UTILITIES — the ONLY sanctioned escape hatch from components.
+   A small, closed set. Prefer a component; reach here only for a
+   one-off token application. Registered in .claude/design-system.json;
+   new utilities must be added there too. No inline style= anywhere.
+   ══════════════════════════════════════════════════════════════════ */
+.u-accent { color: var(--acc); }
+.u-warn   { color: var(--warn); }
+.u-mt-lg  { margin-top: 2rem; }
