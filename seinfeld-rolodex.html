@@ -73,6 +73,17 @@
             0 0 48px rgba(229,9,30,0.4);
         transform: skewX(-4deg);
     }
+    /* the tube stutters: a brownout, and a full dropout */
+    .wordmark h1.flicker {
+        opacity: 0.5;
+        color: #8a1a22;
+        text-shadow: 0 0 3px rgba(229,9,30,0.4);
+    }
+    .wordmark h1.flicker--out {
+        opacity: 0.14;
+        color: #3f1216;
+        text-shadow: none;
+    }
     .wordmark p {
         margin: 0.4rem 0 0;
         font-family: ui-monospace, "SF Mono", Menlo, monospace;
@@ -82,55 +93,159 @@
         color: var(--dim);
         padding-left: 0.42em;
     }
+    /* light rain, drawn to a canvas behind the content */
+    #rain {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+        opacity: 0.55;
+    }
 
-    /* ── the rolodex ───────────────────────────────────────────────── */
+    /* ── the rolodex: a rotary card file, rebuilt from how they actually work ──
+       central axle + two knobs; the reading card stands upright above the axle;
+       the rest of the wheel fans down into a cradle; cards clip on by two
+       T-slots in their bottom edge (Neilson's 1956 two-rail trick). */
     .stage {
-        perspective: 1400px;
-        width: min(560px, 94vw);
+        width: min(400px, 84vw);
     }
-    /* spindle: two prongs the cards hang on */
-    .spindle {
-        display: flex;
-        justify-content: center;
-        gap: 4.5rem;
-        margin-bottom: -9px;
+    .rolodex {
+        position: relative;
+        width: 100%;
+        margin: 0 auto;
+        padding-bottom: 118px;            /* reserves the wheel + cradle below the axle */
+        perspective: 1500px;
     }
-    .spindle span {
-        width: 14px; height: 18px;
-        border-radius: 3px 3px 0 0;
-        background: linear-gradient(#6a6a6a, #2c2c2c);
-        box-shadow: inset 0 2px 2px rgba(255,255,255,0.3);
-    }
+    /* the reading card, upright above the axle */
     .card {
         position: relative;
+        z-index: 3;
         background: var(--cream);
         color: var(--card-ink);
-        border-radius: 10px;
-        padding: 2.4rem 2rem 2rem;
-        min-height: 260px;
+        border-radius: 9px 9px 6px 6px;
+        padding: 1.6rem 1.8rem 1.5rem;
+        min-height: 244px;
+        transform-origin: center bottom;  /* pivots on the axle, like the real wheel */
         transform-style: preserve-3d;
-        transform-origin: center 6px;
         box-shadow:
             0 1px 0 #fff inset,
-            0 26px 50px -20px rgba(0,0,0,0.85),
-            0 4px 10px rgba(0,0,0,0.5);
-        /* faint index-card ruled lines over the cream */
+            0 22px 44px -18px rgba(0,0,0,0.85),
+            0 3px 8px rgba(0,0,0,0.5);
         background-image: repeating-linear-gradient(transparent 0 33px, rgba(120, 110, 80, 0.13) 33px 34px);
         display: flex;
         flex-direction: column;
     }
-    /* two punch-holes near the top where the spindle passes through */
-    .card::before, .card::after {
+    /* the two T-slots cut in the card's bottom edge that clip onto the rails */
+    .slot {
+        position: absolute;
+        bottom: -1px;
+        width: 15px; height: 14px;
+        background: var(--bg);
+        border-radius: 0 0 3px 3px;
+        box-shadow: inset 0 2px 3px rgba(0,0,0,0.7);
+        z-index: 4;
+    }
+    .slot::before {                       /* the T's neck, up into the card */
         content: "";
         position: absolute;
-        top: 10px;
-        width: 16px; height: 16px;
-        border-radius: 50%;
-        background: radial-gradient(circle at 40% 35%, #0d0d0d, #333);
-        box-shadow: inset 0 1px 2px rgba(0,0,0,0.8), 0 1px 0 rgba(255,255,255,0.6);
+        left: 50%; bottom: 100%;
+        transform: translateX(-50%);
+        width: 5px; height: 9px;
+        background: var(--bg);
+        box-shadow: inset 0 1px 2px rgba(0,0,0,0.6);
     }
-    .card::before { left: calc(50% - 2.9rem); }
-    .card::after  { left: calc(50% + 2.9rem - 16px); }
+    .slot--l { left: calc(50% - 3.4rem); }
+    .slot--r { left: calc(50% + 3.4rem - 15px); }
+
+    /* the axle rod, running knob-to-knob along the card's bottom edge */
+    .axle {
+        position: absolute;
+        top: calc(100% - 118px);
+        left: 4px; right: 4px;
+        height: 11px;
+        transform: translateY(-50%);
+        border-radius: 6px;
+        background: linear-gradient(180deg, #dcdcdc 0%, #909090 42%, #363636 100%);
+        box-shadow: 0 1px 2px rgba(0,0,0,0.6), inset 0 1px 1px rgba(255,255,255,0.75);
+        z-index: 2;
+    }
+    /* the wheel: card edges fanning down around the axle */
+    .fan {
+        position: absolute;
+        top: calc(100% - 118px);
+        left: 50%;
+        z-index: 1;
+    }
+    .fan span {
+        position: absolute;
+        left: -32px; top: -4px;
+        width: 64px; height: 126px;
+        border-radius: 7px 7px 5px 5px;
+        background: linear-gradient(180deg, #efe7d1 0%, #ddd3b8 55%, #c9bf9e 100%);
+        box-shadow: 0 1px 2px rgba(0,0,0,0.35);
+        transform-origin: 50% 4px;                        /* pivot at the axle */
+        transform: rotate(calc((var(--i) - 5) * 13deg));
+    }
+    /* the cradle the wheel sits in */
+    .cradle {
+        position: absolute;
+        top: calc(100% - 128px);
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80%;
+        height: 150px;
+        border-radius: 0 0 50% 50% / 0 0 76px 76px;
+        background: linear-gradient(180deg, #1e1e1e, #0b0b0b);
+        box-shadow: inset 0 7px 15px rgba(0,0,0,0.8), 0 2px 7px rgba(0,0,0,0.6);
+        z-index: 0;
+    }
+    /* two textured knobs on the axle ends — and they turn the wheel */
+    .knob {
+        position: absolute;
+        top: calc(100% - 118px);
+        width: 62px; height: 62px;
+        transform: translateY(-50%);
+        border: none;
+        padding: 0;
+        border-radius: 50%;
+        cursor: pointer;
+        z-index: 5;
+        background:
+            repeating-conic-gradient(from 0deg, rgba(255,255,255,0.10) 0deg 5deg, rgba(0,0,0,0.18) 5deg 10deg),
+            radial-gradient(circle at 38% 34%, #6d6d6d, #191919 78%);
+        box-shadow:
+            0 3px 6px rgba(0,0,0,0.6),
+            inset 0 2px 3px rgba(255,255,255,0.35),
+            inset 0 -3px 5px rgba(0,0,0,0.6);
+        transition: filter 0.12s, transform 0.12s;
+    }
+    .knob::after {                        /* the center hub */
+        content: "";
+        position: absolute;
+        left: 50%; top: 50%;
+        transform: translate(-50%, -50%);
+        width: 22px; height: 22px;
+        border-radius: 50%;
+        background: radial-gradient(circle at 40% 35%, #7d7d7d, #1f1f1f);
+        box-shadow: inset 0 1px 2px rgba(0,0,0,0.8), 0 1px 0 rgba(255,255,255,0.3);
+    }
+    .knob:hover { filter: brightness(1.14); }
+    .knob:active { transform: translateY(-50%) scale(0.95); filter: brightness(0.95); }
+    .knob--l { left: -25px; }
+    .knob--r { right: -25px; }
+    /* tubular frame arms that carry the axle */
+    .arm {
+        position: absolute;
+        top: calc(100% - 118px);
+        width: 15px; height: 130px;
+        transform: translateY(-8px);
+        border-radius: 8px;
+        background: linear-gradient(90deg, #050505, #363636 45%, #0f0f0f);
+        box-shadow: inset 0 0 3px rgba(255,255,255,0.2);
+        z-index: 0;
+    }
+    .arm--l { left: -19px; }
+    .arm--r { right: -19px; }
     /* the red margin line of an index card */
     .card-inner { border-top: 2px solid var(--margin-line); padding-top: 1.1rem; margin-top: 0.6rem; display: flex; flex-direction: column; flex: 1; }
 
@@ -161,13 +276,15 @@
     }
     .quote { color: var(--margin-line); font-weight: 700; }
 
+    /* the drum advances: the reading card tips back over the axle, the next
+       card rises from the front. pivot is the axle (the card's bottom edge). */
     @keyframes flip {
         0%     { transform: rotateX(0deg); }
-        49.9%  { transform: rotateX(-90deg); }
-        50%    { transform: rotateX(90deg); }
+        49.9%  { transform: rotateX(-92deg); }
+        50%    { transform: rotateX(88deg); }
         100%   { transform: rotateX(0deg); }
     }
-    .card.flip { animation: flip var(--flip, 440ms) cubic-bezier(0.5, 0, 0.4, 1); }
+    .card.flip { animation: flip var(--flip, 480ms) cubic-bezier(0.45, 0.05, 0.35, 1); }
 
     /* ── day tabs (rolodex dividers) ───────────────────────────────── */
     .tabs {
@@ -254,18 +371,29 @@
 </style>
 </head>
 <body>
+    <canvas id="rain" aria-hidden="true"></canvas>
     <div class="wordmark">
         <h1>Seinfeld</h1>
         <p>Excuse Rolodex</p>
     </div>
 
     <div class="stage">
-        <div class="spindle" aria-hidden="true"><span></span><span></span></div>
-        <div class="card" id="card">
-            <div class="card-inner">
-                <div class="day" id="day">— pick a day —</div>
-                <p class="excuse" id="excuse" aria-live="polite">A rolodex of reasons you're washing your hair that night. Pick a day, or hit spin.</p>
+        <div class="rolodex">
+            <span class="arm arm--l" aria-hidden="true"></span>
+            <span class="arm arm--r" aria-hidden="true"></span>
+            <div class="cradle" aria-hidden="true"></div>
+            <div class="fan" id="fan" aria-hidden="true"></div>
+            <div class="axle" aria-hidden="true"></div>
+            <div class="card" id="card">
+                <div class="card-inner">
+                    <div class="day" id="day">— pick a day —</div>
+                    <p class="excuse" id="excuse" aria-live="polite">A rolodex of reasons you're washing your hair that night. Pick a day, or hit spin.</p>
+                </div>
+                <span class="slot slot--l" aria-hidden="true"></span>
+                <span class="slot slot--r" aria-hidden="true"></span>
             </div>
+            <button class="knob knob--l" id="knobL" type="button" aria-label="Turn the wheel back a day"></button>
+            <button class="knob knob--r" id="knobR" type="button" aria-label="Turn the wheel forward a day"></button>
         </div>
     </div>
 
@@ -275,7 +403,7 @@
         <button class="btn btn-spin" id="spin" type="button">↻ spin</button>
         <button class="btn" id="another" type="button">another excuse</button>
         <button class="btn" id="copy" type="button">copy</button>
-        <button class="btn" id="sound" type="button" aria-pressed="false">🔇 bass: off</button>
+        <button class="btn" id="sound" type="button" aria-pressed="false">🔇 sound: off</button>
     </div>
 
     <p class="hint">
@@ -357,11 +485,19 @@
         var $ = function (id) { return document.getElementById(id); };
         var els = {
             card: $("card"), day: $("day"), excuse: $("excuse"), tabs: $("tabs"),
-            spin: $("spin"), another: $("another"), copy: $("copy"), sound: $("sound")
+            spin: $("spin"), another: $("another"), copy: $("copy"), sound: $("sound"),
+            fan: $("fan"), knobL: $("knobL"), knobR: $("knobR")
         };
         var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-        var FLIP_MS = 440;
+        var FLIP_MS = 480;
         var state = { day: null, locked: false, count: 0, last: "" };
+
+        // build the wheel: card-edge slivers fanning around the axle
+        for (var fi = 0; fi < 11; fi++) {
+            var sv = document.createElement("span");
+            sv.style.setProperty("--i", fi);
+            els.fan.appendChild(sv);
+        }
 
         // ── build the day tabs ─────────────────────────────────────────────
         DAYS.forEach(function (d) {
@@ -526,6 +662,13 @@
 
         // ── controls ────────────────────────────────────────────────────────
         els.spin.addEventListener("click", spin);
+        // the knobs turn the wheel a day at a time, like the real thing
+        function turnWheel(dir) {
+            var i = state.day ? DAYS.indexOf(state.day) : 0;
+            newExcuse(DAYS[(i + dir + 7) % 7]);
+        }
+        els.knobL.addEventListener("click", function () { turnWheel(-1); });
+        els.knobR.addEventListener("click", function () { turnWheel(1); });
         els.another.addEventListener("click", function () { newExcuse(state.day || DAYS[new Date().getDay() === 0 ? 6 : new Date().getDay() - 1]); });
         els.copy.addEventListener("click", function () {
             var txt = els.excuse.textContent;
@@ -535,10 +678,115 @@
         els.sound.addEventListener("click", function () {
             soundOn = !soundOn;
             els.sound.setAttribute("aria-pressed", soundOn ? "true" : "false");
-            els.sound.textContent = soundOn ? "🔊 bass: on" : "🔇 bass: off";
-            if (soundOn) { ctx(); slapPreview(); }   // a taste, so you know it works
+            els.sound.textContent = soundOn ? "🔊 sound: on" : "🔇 sound: off";
+            if (soundOn) { ctx(); startAmbient(); slapPreview(); }   // a taste, so you know it works
+            else { stopAmbient(); }
         });
         function slapPreview() { if (soundOn && ctx()) play([[82.4, 0, {}], [123.5, 1, { pop: true }], [164.8, 1.5, { pop: true }]], actx.currentTime + 0.01); }
+
+        // ── grit: light rain + a flickering neon tube (vfx + sfx) ─────────────
+        // rain drawn to the background canvas (visual only; skipped if reduced-motion)
+        (function rain() {
+            if (reduced) return;
+            var cv = document.getElementById("rain"); if (!cv || !cv.getContext) return;
+            var g = cv.getContext("2d"); if (!g) return;
+            var dpr = Math.min(window.devicePixelRatio || 1, 2), W = 0, H = 0, drops = [];
+            var slant = 1.1 * dpr;
+            function drop(any) {
+                return { x: Math.random() * W, y: any ? Math.random() * H : -20 * dpr,
+                    len: (10 + Math.random() * 16) * dpr, sp: (6 + Math.random() * 7) * dpr,
+                    a: 0.05 + Math.random() * 0.11 };
+            }
+            function size() {
+                W = cv.width = Math.floor(innerWidth * dpr);
+                H = cv.height = Math.floor(innerHeight * dpr);
+                cv.style.width = innerWidth + "px"; cv.style.height = innerHeight + "px";
+                var n = Math.round(innerWidth / 13); drops = [];
+                for (var i = 0; i < n; i++) drops.push(drop(true));
+            }
+            function frame() {
+                g.clearRect(0, 0, W, H);
+                g.lineWidth = dpr; g.lineCap = "round";
+                for (var i = 0; i < drops.length; i++) {
+                    var d = drops[i];
+                    g.strokeStyle = "rgba(228,222,206," + d.a + ")";
+                    g.beginPath(); g.moveTo(d.x, d.y); g.lineTo(d.x - slant, d.y - d.len); g.stroke();
+                    d.y += d.sp; d.x += slant * 0.18;
+                    if (d.y - d.len > H) drops[i] = drop(false);
+                }
+                requestAnimationFrame(frame);
+            }
+            size(); window.addEventListener("resize", size); frame();
+        })();
+
+        // the neon tube stutters; each burst fires a buzz when sound is on
+        var signEl = document.querySelector(".wordmark h1");
+        function buzz(strength) {
+            if (!soundOn) return; var c = ctx(); if (!c) return;
+            var t = c.currentTime, dur = 0.05 + 0.07 * strength;
+            var o = c.createOscillator(), bp = c.createBiquadFilter(), gg = c.createGain();
+            o.type = "sawtooth"; o.frequency.setValueAtTime(78 + Math.random() * 34, t);
+            bp.type = "bandpass"; bp.frequency.value = 850 + Math.random() * 750; bp.Q.value = 6;
+            gg.gain.setValueAtTime(0.0001, t);
+            gg.gain.exponentialRampToValueAtTime(0.04 * strength + 0.015, t + 0.005);
+            gg.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+            o.connect(bp); bp.connect(gg); gg.connect(c.destination);
+            o.start(t); o.stop(t + dur + 0.02);
+            if (noiseBuf) {                                  // a little electrical crackle
+                var ns = c.createBufferSource(), nf = c.createBiquadFilter(), ng = c.createGain();
+                ns.buffer = noiseBuf; nf.type = "highpass"; nf.frequency.value = 2200;
+                ng.gain.setValueAtTime(0.05 * strength, t);
+                ng.gain.exponentialRampToValueAtTime(0.0001, t + dur * 0.7);
+                ns.connect(nf); nf.connect(ng); ng.connect(c.destination);
+                ns.start(t); ns.stop(t + dur);
+            }
+        }
+        function flickerBurst() {
+            if (!signEl) return;
+            buzz(0.6 + Math.random() * 0.6);
+            var d = 0, steps = 2 + Math.floor(Math.random() * 4);
+            for (var i = 0; i < steps; i++) {
+                (function (delay) {
+                    var out = Math.random() < 0.4;
+                    setTimeout(function () { signEl.classList.add(out ? "flicker--out" : "flicker"); }, delay);
+                    setTimeout(function () { signEl.classList.remove("flicker", "flicker--out"); }, delay + 30 + Math.random() * 55);
+                })(d);
+                d += 45 + Math.random() * 95;
+            }
+        }
+        (function scheduleFlicker() {
+            if (reduced) return;
+            setTimeout(function () { flickerBurst(); scheduleFlicker(); }, 2800 + Math.random() * 6500);
+        })();
+
+        // ambient bed while sound is on: rain hiss + a faint mains hum
+        var amb = null;
+        function startAmbient() {
+            var c = ctx(); if (!c || amb) return;
+            amb = {};
+            if (!reduced) {                                  // looping broadband rain hiss
+                var rb = c.createBuffer(1, Math.floor(c.sampleRate * 2), c.sampleRate), rd = rb.getChannelData(0);
+                for (var i = 0; i < rd.length; i++) rd[i] = Math.random() * 2 - 1;
+                var src = c.createBufferSource(); src.buffer = rb; src.loop = true;
+                var lp = c.createBiquadFilter(); lp.type = "lowpass"; lp.frequency.value = 6500;
+                var hp = c.createBiquadFilter(); hp.type = "highpass"; hp.frequency.value = 520;
+                var rg = c.createGain(); rg.gain.value = 0.0001;
+                src.connect(hp); hp.connect(lp); lp.connect(rg); rg.connect(c.destination);
+                src.start(); rg.gain.linearRampToValueAtTime(0.033, c.currentTime + 0.9);
+                amb.src = src; amb.rg = rg;
+            }
+            var ho = c.createOscillator(); ho.type = "sine"; ho.frequency.value = 120;
+            var hg = c.createGain(); hg.gain.value = 0.0001;
+            ho.connect(hg); hg.connect(c.destination);
+            ho.start(); hg.gain.linearRampToValueAtTime(0.007, c.currentTime + 0.9);
+            amb.ho = ho; amb.hg = hg;
+        }
+        function stopAmbient() {
+            if (!amb) return; var c = actx, t = c.currentTime, a = amb; amb = null;
+            if (a.rg) a.rg.gain.linearRampToValueAtTime(0.0001, t + 0.4);
+            a.hg.gain.linearRampToValueAtTime(0.0001, t + 0.4);
+            setTimeout(function () { try { if (a.src) a.src.stop(); a.ho.stop(); } catch (e) {} }, 500);
+        }
 
         // ── keyboard ─────────────────────────────────────────────────────────
         document.addEventListener("keydown", function (e) {
