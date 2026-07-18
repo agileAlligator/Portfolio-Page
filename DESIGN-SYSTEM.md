@@ -90,7 +90,7 @@ Files: `style.css` (site-wide), `assets/blog.css` (blog), `assets/owasp.css`
 - **Utilities** — `.u-accent` (text `--acc`), `.u-warn` (text `--warn`),
   `.u-mt-lg` (top margin `2rem`). The complete utility set; keep it tiny.
 - **Runtime/state** (added by JS, not authored in HTML) — `.js`, `.active`,
-  `.on`, `.in`, `.spin`, `.revealed`, `.is-visible`, `.open`, `.no-js`.
+  `.on`, `.in`, `.spin`, `.open`.
 
 ## Enforcement
 
