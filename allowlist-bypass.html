@@ -63,22 +63,9 @@ image: /assets/og/allowlist-bypass.png
 			<p class="al-reason" id="al-reason-hard"></p>
 		</div>
 	</div>
+	<p class="al-caveat" id="al-caveat" hidden></p>
 </section>
 
-<section class="section">
-	<p class="section-label">// 03 · the fix is an anchor</p>
-	<div class="verdict verdict-block">
-		The list is the easy part; the matcher is where the allowlist leaks.
-		<code>*</code> is a shell glob, and a glob's <code>*</code> spans <code>/</code>,
-		so the naive rule approves every path under <code>/files/</code>, traversal
-		included. <code>[^/]+</code> refuses to cross a slash, so sub-paths fall back
-		outside the list where they belong.
-	</div>
-	<p class="al-caveat" id="al-caveat" hidden></p>
-	<p class="approach-more">
-		<a href="/blog/guardrails-belong-in-the-server/">→ Where allowlists live in a server, and why</a>
-	</p>
-</section>
 
 <noscript>
 	<p class="al-lede u-warn">This exhibit runs the matchers in your browser and needs JavaScript. The two rules are <code>^/files/.*$</code> and <code>^/files/[^/]+$</code>; feed each <code>/files/../../etc/passwd</code> and only the second refuses.</p>
