@@ -158,32 +158,6 @@
 @keyframes mcp-scan-drift { from { background-position: 0 0; } to { background-position: 0 8px; } }
 .mcp-counter-inner { position: relative; max-width: 44rem; margin: 0 auto; }
 .mcp-count-kicker { justify-content: center; margin-bottom: 1.75rem; }
-.mcp-count-line {
-	display: flex;
-	align-items: baseline;
-	justify-content: center;
-	gap: clamp(0.5rem, 2vw, 1.6rem);
-	line-height: 0.82;
-	margin-bottom: 0.4rem;
-}
-.mcp-count-num {
-	font-family: var(--mono);
-	font-weight: 700;
-	font-size: clamp(4.5rem, 20vw, 12rem);
-	letter-spacing: -0.05em;
-	font-variant-numeric: tabular-nums;
-}
-.mcp-count-zero {
-	color: var(--acc);
-	text-shadow: 0 0 28px rgba(79, 227, 161, 0.65), 0 0 4px rgba(79, 227, 161, 0.9);
-}
-.mcp-count-for {
-	font-family: var(--mono);
-	font-size: clamp(1.1rem, 3.5vw, 2rem);
-	color: var(--ink-faint);
-	font-weight: 400;
-	letter-spacing: -0.02em;
-}
 .mcp-count-n {
 	background: linear-gradient(180deg, #ffffff 30%, #9aa6b8 100%);
 	-webkit-background-clip: text;
@@ -302,26 +276,11 @@
 	padding: 0.1em 0.4em;
 	border-radius: 4px;
 }
-.mcp-tools-grid {
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	gap: 1.25rem;
-	align-items: start;
-}
 .mcp-toolset {
 	border: 1px solid var(--line);
 	border-radius: 12px;
 	padding: 1.5rem 1.6rem;
 	background: var(--panel);
-}
-.mcp-toolset-benign {
-	border-color: color-mix(in srgb, var(--acc) 30%, var(--line));
-	background: linear-gradient(180deg, rgba(79, 227, 161, 0.05), transparent 40%), var(--panel);
-}
-.mcp-toolset-hot {
-	border-color: color-mix(in srgb, var(--bad) 40%, var(--line));
-	border-style: dashed;
-	background: linear-gradient(180deg, rgba(255, 107, 107, 0.06), transparent 40%), var(--panel);
 }
 .mcp-toolset-head {
 	display: flex;
@@ -349,7 +308,6 @@
 	white-space: nowrap;
 	flex-shrink: 0;
 }
-.mcp-toolset-count-hot { color: var(--bad); border-color: color-mix(in srgb, var(--bad) 50%, var(--line)); }
 .mcp-toollist { list-style: none; display: grid; gap: 0; }
 .mcp-tool-item {
 	display: flex;
@@ -373,18 +331,6 @@
 	text-decoration-color: color-mix(in srgb, var(--bad) 60%, transparent);
 }
 .mcp-tool-hot .mcp-tool-desc { color: var(--ink-faint); font-style: italic; }
-.mcp-tool-stamp {
-	margin-left: auto;
-	font-family: var(--mono);
-	font-size: 0.66rem;
-	text-transform: uppercase;
-	letter-spacing: 0.12em;
-	color: var(--bad);
-	border: 1px solid color-mix(in srgb, var(--bad) 50%, var(--line));
-	border-radius: 4px;
-	padding: 0.1rem 0.45rem;
-	transform: rotate(-3deg);
-}
 .mcp-toolset-foot {
 	margin-top: 1.1rem;
 	color: var(--ink-dim);
@@ -427,40 +373,6 @@
 .mcp-toggle-btn + .mcp-toggle-btn { border-left: 1px solid var(--line); }
 .mcp-toggle-btn.active[data-rung="L0"] { background: rgba(255, 107, 107, 0.15); color: var(--bad); }
 .mcp-toggle-btn.active[data-rung="L3"] { background: rgba(79, 227, 161, 0.12); color: var(--acc); }
-.mcp-path-row {
-	display: flex;
-	gap: 0.75rem;
-	align-items: stretch;
-	margin-bottom: 0.75rem;
-	flex-wrap: wrap;
-}
-.mcp-path-input {
-	flex: 1;
-	min-width: 0;
-	font-family: var(--mono);
-	font-size: 0.9rem;
-	color: var(--ink);
-	background: var(--bg-2);
-	border: 1px solid var(--line);
-	border-radius: 8px;
-	padding: 0.7rem 1rem;
-	transition: border-color 0.2s var(--ease);
-}
-.mcp-path-input:focus { outline: none; border-color: var(--acc); }
-.mcp-path-input::placeholder { color: var(--ink-faint); }
-.mcp-path-presets { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-bottom: 1rem; }
-.mcp-path-preset {
-	font-family: var(--mono);
-	font-size: 0.75rem;
-	padding: 0.35rem 0.75rem;
-	border-radius: 999px;
-	border: 1px solid var(--line);
-	color: var(--ink-dim);
-	background: var(--panel);
-	cursor: pointer;
-	transition: border-color 0.2s var(--ease), color 0.2s var(--ease), background 0.2s var(--ease);
-}
-.mcp-path-preset:hover { border-color: var(--acc-2); color: var(--ink); background: rgba(76, 201, 240, 0.07); }
 
 /* extra terminal line types for the attack demo */
 .mcp-line-leak {
@@ -538,8 +450,6 @@
 .mcp-line-agent::before  { content: "agent "; color: var(--acc-2); }
 .mcp-line-tool   { color: var(--warn); }
 .mcp-line-tool::before   { content: "call "; color: var(--ink-faint); }
-.mcp-line-block  { color: var(--acc); font-weight: 500; }
-.mcp-line-block::before  { content: "wall "; color: var(--acc); }
 .mcp-line-result { color: var(--ink-dim); }
 .mcp-line-system { color: var(--warn); font-style: italic; }
 
@@ -590,11 +500,6 @@
 }
 .mcp-feed-item:last-child { border-bottom: 0; }
 .mcp-feed-item:nth-child(even) { background: rgba(255, 255, 255, 0.012); }
-.mcp-feed-n {
-	color: var(--ink-faint);
-	font-weight: 600;
-	white-space: nowrap;
-}
 .mcp-feed-rung {
 	font-family: var(--mono);
 	font-size: 0.7rem;
@@ -630,13 +535,8 @@
 .mcp-feed-effect-leaked { color: var(--bad); }
 .mcp-feed-effect-held { color: var(--acc); }
 .mcp-feed-tool { color: var(--warn); }
-.mcp-feed-country { color: var(--ink-faint); }
 .mcp-feed-snippet { color: var(--ink-dim); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .mcp-feed-time { color: var(--ink-faint); text-align: right; white-space: nowrap; }
-.mcp-feed-verdict { color: var(--acc); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; }
-
-/* ══════════════════════════ THE WALL ══════════════════════════ */
-.mcp-wall-term { max-width: 46rem; box-shadow: 0 30px 70px -35px rgba(0, 0, 0, 0.8); }
 .mcp-wall-code { font-size: clamp(0.78rem, 2vw, 0.95rem); line-height: 1.75; color: var(--ink-dim); white-space: pre; overflow-x: auto; word-break: normal; }
 .mcp-wall-hl {
 	display: block;
@@ -687,7 +587,6 @@
 	.mcp-hero-side { order: -1; }
 }
 @media (max-width: 700px) {
-	.mcp-tools-grid { grid-template-columns: 1fr; }
 	.mcp-wall-links { grid-template-columns: 1fr; }
 	.mcp-rung-grid { grid-template-columns: 1fr 1fr; }
 	.mcp-diff { grid-template-columns: 1fr; }
@@ -699,7 +598,6 @@
 	.mcp-feed-time { grid-column: 3; }
 }
 @media (max-width: 400px) {
-	.mcp-count-line { gap: 0.4rem; }
 	.mcp-cmd { flex-wrap: wrap; }
 	.mcp-cmd-text { white-space: normal; word-break: break-all; }
 	.mcp-attack-hint { margin-left: 0; width: 100%; }
