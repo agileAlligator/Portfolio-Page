@@ -9,7 +9,7 @@
 
      L0  no control            — fires on request
      L1  untrusted-data prompt — model-side, probabilistic; blatant asks caught
-     L2  in-band authorization — needs approval_code=APPROVED (attacker-settable)
+     L2  in-band authorization — needs approval_code=RMA-4471 (attacker-settable)
      L3  capability gate        — grant is server-held; the ticket can't mint it
 
    When the model is out of free-tier quota the page falls back to a
@@ -246,6 +246,7 @@
 
 	// ── rung switch ──────────────────────────────────────────────────────────
 	function selectRung(r) {
+		if (state.running) return;   // don't switch mid-run: it would clear the console and mislabel the in-flight result
 		state.rung = r;
 		els.rungs.forEach(function (b) {
 			var on = +b.dataset.rung === r;

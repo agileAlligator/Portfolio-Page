@@ -158,12 +158,6 @@
 @keyframes mcp-scan-drift { from { background-position: 0 0; } to { background-position: 0 8px; } }
 .mcp-counter-inner { position: relative; max-width: 44rem; margin: 0 auto; }
 .mcp-count-kicker { justify-content: center; margin-bottom: 1.75rem; }
-.mcp-count-n {
-	background: linear-gradient(180deg, #ffffff 30%, #9aa6b8 100%);
-	-webkit-background-clip: text;
-	background-clip: text;
-	color: transparent;
-}
 .mcp-count-tag {
 	display: inline-flex;
 	align-items: center;
@@ -185,7 +179,6 @@
 	font-size: 0.85rem;
 	color: var(--ink-faint);
 }
-.mcp-count-meta-val { color: var(--ink-dim); font-weight: 600; }
 .mcp-count-meta a { color: var(--acc-2); text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 3px; }
 .mcp-count-meta a:hover { text-decoration-color: var(--acc-2); }
 
@@ -276,12 +269,6 @@
 	padding: 0.1em 0.4em;
 	border-radius: 4px;
 }
-.mcp-toolset {
-	border: 1px solid var(--line);
-	border-radius: 12px;
-	padding: 1.5rem 1.6rem;
-	background: var(--panel);
-}
 .mcp-toolset-head {
 	display: flex;
 	align-items: baseline;
@@ -325,12 +312,6 @@
 	font-weight: 500;
 }
 .mcp-tool-desc { color: var(--ink-faint); font-size: 0.85rem; }
-.mcp-tool-hot .mcp-tool-name {
-	color: var(--bad);
-	text-decoration: line-through;
-	text-decoration-color: color-mix(in srgb, var(--bad) 60%, transparent);
-}
-.mcp-tool-hot .mcp-tool-desc { color: var(--ink-faint); font-style: italic; }
 .mcp-toolset-foot {
 	margin-top: 1.1rem;
 	color: var(--ink-dim);

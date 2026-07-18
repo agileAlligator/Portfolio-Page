@@ -40,7 +40,7 @@
 	.asi-grid { width: 100%; margin-left: 0; transform: none; }
 }
 
-/* card = a keyboard-operable button holding the 3D prism */
+/* card = an article holding the 3D prism; .asi-turn is the keyboard control */
 .asi-card {
 	appearance: none;
 	background: none;
@@ -163,18 +163,6 @@ html:not(.js) .asi-turn { display: none; }
 .asi-attack { color: var(--ink-dim); font-size: 0.95rem; line-height: 1.5; }
 .asi-body { color: var(--ink-dim); font-size: 0.88rem; line-height: 1.55; }
 .asi-body strong { color: var(--ink); font-weight: 600; }
-
-.asi-foot {
-	margin-top: auto;
-	padding-top: 0.9rem;
-	font-family: var(--mono);
-	font-size: 0.7rem;
-	letter-spacing: 0.04em;
-	color: var(--ink-faint);
-	display: flex;
-	justify-content: space-between;
-}
-.asi-foot .step { color: rgb(var(--glow)); }
 
 /* ── VFX ─────────────────────────────────────────────────────────── */
 /* cursor-tracking spotlight, tinted to the face colour */
