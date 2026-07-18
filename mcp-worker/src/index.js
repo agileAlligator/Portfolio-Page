@@ -15,6 +15,7 @@
 import { RESUME, PROJECTS, POSTS } from "../data/resume.js";
 
 const PROTOCOL = "2025-06-18";
+const SUPPORTED = ["2025-06-18", "2025-03-26", "2024-11-05"];
 const CORS = {
 	"Access-Control-Allow-Origin": "*",
 	"Access-Control-Allow-Methods": "POST, GET, OPTIONS",
@@ -57,7 +58,7 @@ async function handleMcp(req, env, ctx) {
 	switch (method) {
 		case "initialize":
 			return json(rpc(id, {
-				protocolVersion: (params && params.protocolVersion) || PROTOCOL,
+				protocolVersion: SUPPORTED.includes(params && params.protocolVersion) ? params.protocolVersion : PROTOCOL,
 				capabilities: { tools: {} },
 				serverInfo: { name: "avneesh-resume-mcp", version: "1.0.0" },
 				instructions:
@@ -104,10 +105,13 @@ const BENIGN = {
 };
 
 // ── THE WALL ─────────────────────────────────────────────────────────────────
-// One deterministic line. Anything not explicitly benign is refused in code —
-// no model vote. env.CANARY_SECRET is read by nothing here: structurally unreachable.
+// One deterministic line. Anything not an OWN function of BENIGN is refused in
+// code — no model vote. Object.hasOwn (not `name in BENIGN`) so prototype-chain
+// names like constructor/toString/__proto__ can't bypass it — that is the exact
+// allowlist bug this whole site is about. Belt-and-suspenders: also require the
+// value be a function. env.CANARY_SECRET is read by nothing here.
 async function callTool(name, args, env, ctx, req) {
-	if (!(name in BENIGN)) {
+	if (typeof name !== "string" || !Object.hasOwn(BENIGN, name) || typeof BENIGN[name] !== "function") {
 		ctx.waitUntil(recordBlock(env, name, args, req));
 		const count = await peekCount(env);
 		return {
@@ -150,7 +154,7 @@ function redact(s) {
 async function handleStats(env) {
 	const total = parseInt((await env.COUNTER.get("blocks:total")) || "0", 10);
 	const recent = JSON.parse((await env.COUNTER.get("attempts:recent")) || "[]");
-	return new Response(JSON.stringify({ blocked: total, l3_reps: 105, recent }), {
+	return new Response(JSON.stringify({ blocked: total, recent }), {
 		headers: { "Content-Type": "application/json", "Cache-Control": "public, max-age=10", ...CORS },
 	});
 }
