@@ -1,0 +1,11 @@
+name = "mcp"
+main = "src/index.js"
+compatibility_date = "2025-01-01"
+workers_dev = true
+
+[ai]
+binding = "AI"
+
+[[kv_namespaces]]
+binding = "COUNTER"
+id = "8139639b166d4e0eb7e7a260a1763fe8"

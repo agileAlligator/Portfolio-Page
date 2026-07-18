@@ -64,3 +64,4 @@ exclude:
   - Gemfile
   - Gemfile.lock
   - vendor
+  - mcp-worker

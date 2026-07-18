@@ -25,3 +25,7 @@ scripts/.fonts/
 # Python bytecode
 __pycache__/
 *.pyc
+
+# Cloudflare wrangler local state
+mcp-worker/.wrangler/
+mcp-worker/node_modules/
