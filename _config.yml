@@ -59,6 +59,8 @@ exclude:
   - "*.skill"
   - dns-records-avneeshk.me.txt
   - README.md
+  - DESIGN-SYSTEM.md
+  - .claude
   - Gemfile
   - Gemfile.lock
   - vendor
