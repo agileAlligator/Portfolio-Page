@@ -82,6 +82,11 @@ Files: `style.css` (site-wide), `assets/blog.css` (blog), `assets/owasp.css`
   `.post-list`, `.post-list-item`, `.pli-main`, `.pli-title`, `.pli-sub`;
   `.post-header`, `.post-kicker`, `.post-title`, `.post-subtitle`, `.post-meta`,
   `.post-body`, `.post-footer`, `.post-tags`.
+- **MCP rung scoreboard** — `.mcp-rung-grid` (two-up L0/L3 cards), `.mcp-rung-card` (per-rung tile), `.mcp-rung-num` (big leaked count), `.mcp-rung-label` (rung name chip), `.mcp-rung-effect` (leaked/held badge).
+- **MCP attack box** — `.mcp-attack-box` (direct toggle demo wrapper), `.mcp-toggle` + `.mcp-toggle-btn` (L0⇄L3 segmented control), `.mcp-path-row` (input+button row), `.mcp-path-input` (path text input), `.mcp-path-presets` + `.mcp-path-preset` (quick-fill path buttons), `.mcp-line-leak` / `.mcp-line-hold` (red/green terminal output lines).
+- **MCP tool surface** — `.mcp-tool-surface` (single-tool explanation panel).
+- **MCP diff** — `.mcp-diff` (L0 vs L3 side-by-side container), `.mcp-diff-col` (one column), `.mcp-diff-head` (column heading bar).
+- **MCP feed extras** — `.mcp-feed-rung` (rung badge), `.mcp-feed-effect` (leaked/held badge in recent-attempts feed).
 - **Utilities** — `.u-accent` (text `--acc`), `.u-warn` (text `--warn`),
   `.u-mt-lg` (top margin `2rem`). The complete utility set; keep it tiny.
 - **Runtime/state** (added by JS, not authored in HTML) — `.js`, `.active`,
