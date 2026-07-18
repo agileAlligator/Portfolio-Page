@@ -52,18 +52,18 @@ image: /assets/og/allowlist-bypass.png
 			<div class="al-diff-head al-head-naive">fnmatch(path, "/files/*")</div>
 			<pre class="al-code"><span class="c-dim"># glob compiled to a full-match regex</span>
 <span class="c-key">^/files/</span><span class="al-hl">.*</span><span class="c-key">$</span></pre>
-			<div class="al-verdicts"><span class="al-verdict-pill" id="al-pill-naive">—</span></div>
-			<p class="al-reason" id="al-reason-naive"></p>
+			<div class="al-verdicts" aria-live="polite"><span class="al-verdict-pill" id="al-pill-naive">—</span></div>
+			<p class="al-reason" id="al-reason-naive" aria-live="polite"></p>
 		</div>
 		<div class="al-diff-col">
 			<div class="al-diff-head al-head-hard">re.fullmatch(r"^/files/[^/]+$", path)</div>
 			<pre class="al-code"><span class="c-dim"># one segment, anchored on both ends</span>
 <span class="c-key">^/files/</span><span class="al-hl">[^/]+</span><span class="c-key">$</span></pre>
-			<div class="al-verdicts"><span class="al-verdict-pill" id="al-pill-hard">—</span></div>
-			<p class="al-reason" id="al-reason-hard"></p>
+			<div class="al-verdicts" aria-live="polite"><span class="al-verdict-pill" id="al-pill-hard">—</span></div>
+			<p class="al-reason" id="al-reason-hard" aria-live="polite"></p>
 		</div>
 	</div>
-	<p class="al-caveat" id="al-caveat" hidden></p>
+	<p class="al-caveat" id="al-caveat" aria-live="polite" hidden></p>
 </section>
 
 

@@ -138,7 +138,7 @@
 				agentLine("mcp-line-leak", (m.tool || "tool") + " → " + (m.result || ""));
 			} else {
 				agentLine(m.blocked ? "mcp-line-hold" : "mcp-line-tool",
-					(m.tool || "tool") + (m.blocked ? " → held (path-confinement)" : " → ran"));
+					(m.tool || "tool") + (m.blocked ? " → held (server-side control)" : " → ran"));
 				if (m.result && !m.leaked) agentLine("mcp-line-result", m.result);
 			}
 		}
@@ -169,7 +169,7 @@
 			})
 			.then(function () {
 				if (agentRun) agentRun.disabled = false;
-				if (agentStatus) agentStatus.textContent = "llama-3.3-70b · no system prompt on defense";
+				if (agentStatus) agentStatus.textContent = "llama-3.3-70b · no judgment on defense · the rung decides";
 			});
 	}
 
