@@ -69,7 +69,6 @@
 	background: var(--bg-2);
 }
 .tool-hot { border-color: color-mix(in srgb, var(--warn) 55%, var(--line)); color: var(--warn); }
-.tool-gone { border-style: dashed; color: var(--ink-faint); text-decoration: line-through; text-decoration-color: var(--bad); }
 
 /* ── the session terminal ────────────────────────────────────────── */
 .game-term { min-height: 320px; }
