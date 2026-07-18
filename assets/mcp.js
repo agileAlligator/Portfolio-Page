@@ -23,8 +23,6 @@
 	function paintStats(d) {
 		var c = $("mcp-count");
 		if (c && typeof d.blocked === "number") c.textContent = String(d.blocked);
-		var r = $("mcp-l3reps");
-		if (r && d.l3_reps != null) r.textContent = String(d.l3_reps);
 
 		var feed = $("mcp-feed");
 		if (!feed) return;

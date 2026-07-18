@@ -4,7 +4,8 @@
 
 export const RESUME = {
 	whoami:
-		"Avneesh Kasture — security engineer on Gruve's professional-services team. " +
+		"Avneesh Kasture — security engineer working as a Solutions Engineer on Gruve's " +
+		"professional-services team. " +
 		"He builds secure MCP servers for enterprise clients (hardening the agentic layer against " +
 		"prompt injection, tool misuse, and privilege abuse) and ships internal LLM-powered apps. " +
 		"Security-trained, detection-minded, product-focused. Thesis: the model can't police itself, " +

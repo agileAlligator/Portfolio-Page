@@ -92,14 +92,15 @@ image: /assets/og/default.png
 		</p>
 
 		<p class="mcp-count-sub">
-			Every number on the right is a blocked jailbreak attempt. The number on the left
-			hasn't moved. It doesn't get to — the secret is structurally unreachable, not
-			guarded by a model's good judgment.
+			On the right: blocked honeypot calls. Anyone can pad that number by poking the
+			traps — it's a hit counter, not a trophy. The number on the <em>left</em> is the one
+			that matters, and it's structural: no callable tool can reach the secret, so it
+			can't move no matter how hard you try.
 		</p>
 
 		<p class="mcp-count-meta">
-			<span class="mcp-count-meta-val" id="mcp-l3reps">105</span> reps at the wall in
-			<a href="/break-this-server/">the mcploitable ladder</a> · 0 leaks.
+			Separately, an offline lab run: <span class="mcp-count-meta-val">105</span> reps at the
+			L3 wall across <a href="/break-this-server/">mcploitable</a>, 0 leaks.
 		</p>
 	</div>
 </section>
@@ -175,8 +176,10 @@ image: /assets/og/default.png
 	<p class="section-label">// 03 · try it</p>
 	<h2 class="section-title">Attack it from your browser.</h2>
 	<p class="mcp-tools-lede">
-		Type an instruction. A real model reads it, decides to call a tool, and the
-		deterministic wall answers. Watch it reach for the bait and hit the wall.
+		Type an instruction. A real model (Llama-3.3-70B) reads it — and this one is
+		<strong>deliberately rigged to obey every attacker instruction and never refuse</strong>:
+		the worst-case hijacked agent, with no judgment of its own. It reaches for the bait;
+		the wall stops it anyway, because the secret isn't in any tool it can call.
 	</p>
 
 	<div class="mcp-presets" id="mcp-presets" aria-label="Preset attacks">
@@ -234,7 +237,7 @@ image: /assets/og/default.png
 			<span class="term-title">worker/src/index.js — callTool()</span>
 		</div>
 		<pre class="term-body mcp-wall-code"><span class="c-dim">async function</span> <span class="c-key">callTool</span>(name, args, env, ctx, req) {
-<span class="mcp-wall-hl">  <span class="c-bad">if</span> (!(name <span class="c-bad">in</span> BENIGN)) {          <span class="c-dim">// ← the entire wall</span></span>
+<span class="mcp-wall-hl">  <span class="c-bad">if</span> (!<span class="c-key">Object.hasOwn</span>(BENIGN, name)) {   <span class="c-dim">// ← the entire wall</span></span>
     recordBlock(env, name, args, req);
     <span class="c-bad">return</span> refuse(name);        <span class="c-dim">// deterministic. no model vote.</span>
   }
@@ -243,8 +246,9 @@ image: /assets/og/default.png
 	</div>
 
 	<div class="verdict verdict-block mcp-wall-verdict">
-		The guarded secret is never returned by any callable tool. There is nothing in the
-		model's reach to exfiltrate — so the wall holds regardless of which model you brought.
+		The guarded secret is never returned by any callable tool. Even if the allowlist were
+		bypassed, no code path reads it — defense in depth. There is nothing in the model's reach
+		to exfiltrate, so the wall holds regardless of which model you brought.
 	</div>
 
 	<div class="mcp-wall-body">
