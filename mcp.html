@@ -2,9 +2,8 @@
 layout: default
 title: "My résumé is an MCP server — Avneesh Kasture"
 description: >-
-  One ordinary tool. One missing invariant. The same read_document call leaks
-  a canary on the naive build and gets refused on the hardened one — live,
-  over the wire, exploitable in your browser.
+  One tool, one missing check. The same read_document call leaks a canary on the
+  naive build and is refused on the hardened one. Run the exploit in your browser.
 permalink: /mcp/
 extra_css: /assets/mcp.css
 image: /assets/og/mcp.png
@@ -23,9 +22,9 @@ image: /assets/og/mcp.png
 
 		<p class="mcp-lede">
 			Connect your agent and it answers from real tools. One of them,
-			<code>read_document</code>, ships without a path-confinement check on the naive
-			build — so the same call that returns a post can be steered to an inert canary.
-			The delta is <strong>a few lines of server code.</strong>
+			<code>read_document</code>, has no path-confinement check on the naive build, so
+			the same call that returns a post also reaches an inert canary. The delta is
+			<strong>a few lines of server code.</strong>
 		</p>
 
 		<div class="mcp-hero-cta">
@@ -69,8 +68,8 @@ image: /assets/og/mcp.png
 
 	<p class="mcp-connect-note">
 		This connects to the <strong>hardened L3 build</strong> at <code>/mcp</code>. The naive build
-		is live too at <code>/mcp/l0</code> — connect to that one and <code>read_document ../internal/canary.txt</code>
-		really does exfiltrate the canary. Works in <strong>Claude Desktop</strong>, <strong>Cursor</strong>,
+		runs at <code>/mcp/l0</code>; connect there and <code>read_document ../internal/canary.txt</code>
+		exfiltrates the canary. Works in <strong>Claude Desktop</strong>, <strong>Cursor</strong>,
 		or any MCP client that speaks streamable HTTP.
 	</p>
 </section>
@@ -152,7 +151,7 @@ image: /assets/og/mcp.png
 	<p class="section-label">// 03 · try it</p>
 	<h2 class="section-title">Talk the agent into it.</h2>
 	<p class="mcp-tools-lede">
-		Write an instruction and the agent calls <code>read_document</code> for you — a live
+		Write an instruction and the agent calls <code>read_document</code> for you. It's a live
 		model with no judgment on defense, so it reads whatever path you ask for. The rung
 		decides what comes back: L0 hands over the canary, L3 refuses the same call.
 	</p>
@@ -224,16 +223,16 @@ image: /assets/og/mcp.png
 		Canonicalize first, confine after. The naive build joins and reads. The hardened
 		build resolves the path to its canonical form, then checks that it stays inside
 		the root. <code>..</code> and <code>%2e%2e</code> don't survive the resolve step.
-		The canary is unreachable on L3 regardless of what argument you pass.
+		The canary stays unreachable on L3, whatever argument you pass.
 	</div>
 
 	<div class="mcp-wall-body">
 		<p>
-			A prompt can be argued with. A model can be talked into anything given enough
-			context, roleplay, or Unicode. That's why the guardrail doesn't live in the prompt —
-			it lives in the server, as a <strong>deterministic path check</strong> that runs
+			You can argue with a prompt. You can talk a model into anything, given enough
+			context, roleplay, or Unicode. So the guardrail doesn't live in the prompt. It
+			lives in the server, as a <strong>deterministic path check</strong> that runs
 			before any file read. The model never gets a vote on whether the canary leaves,
-			because the canary is outside every path the check allows.
+			because the canary sits outside every path the check allows.
 		</p>
 	</div>
 
@@ -258,20 +257,20 @@ image: /assets/og/mcp.png
 	<p class="section-label">// 05 · recent attempts</p>
 	<h2 class="section-title">Live from the wire.</h2>
 	<p class="mcp-tools-lede">
-		Every <code>read_document</code> call across all rungs — leaked in red, held in green.
-		Newest first.
+		Every <code>read_document</code> call across all rungs. Leaked in red, held in green,
+		newest first.
 	</p>
 
 	<div class="mcp-feed" id="mcp-feed" aria-live="polite">
-		<p class="mcp-feed-empty">Loading… if this persists, the worker is sleeping — the argument still holds.</p>
+		<p class="mcp-feed-empty">Loading recent attempts… if this stays, the worker is asleep; connect a real MCP client with the command above.</p>
 	</div>
 </section>
 
 <noscript>
 	<p class="section mcp-tools-lede u-warn">
-		The live scoreboard, attack demo, and feed need JavaScript. The full argument is
-		at <a href="/blog/guardrails-belong-in-the-server/">why guardrails belong in the server</a>,
-		and the server is real — connect any MCP client to the command above.
+		The live scoreboard, attack demo, and feed need JavaScript. The server itself is
+		real: connect any MCP client with the command above, or read
+		<a href="/blog/guardrails-belong-in-the-server/">why guardrails belong in the server</a>.
 	</p>
 </noscript>
 
