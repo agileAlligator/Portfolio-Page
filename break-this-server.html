@@ -26,6 +26,9 @@ image: /assets/og/break-this-server.png
 
 <div class="game" id="game">
 
+	<!-- ── Shared result (display-only; populated from ?r= on load) ──── -->
+	<div class="game-share-banner" id="share-banner" hidden></div>
+
 	<!-- ── Ladder selector ─────────────────────────────────────────── -->
 	<div class="rungs" role="group" aria-label="Control ladder — pick a rung">
 		<button class="rung" type="button" data-rung="0" aria-pressed="true">
@@ -82,6 +85,7 @@ image: /assets/og/break-this-server.png
 		<div class="attack-actions">
 			<button class="btn btn-primary" id="run" type="button">file ticket &amp; run agent</button>
 			<button class="btn" id="reset" type="button">reset</button>
+			<button class="btn" id="share" type="button" hidden>copy result link</button>
 			<span class="score" id="score" aria-live="polite"></span>
 		</div>
 	</div>

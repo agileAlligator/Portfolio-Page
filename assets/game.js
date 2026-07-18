@@ -55,6 +55,8 @@
 		presets: document.getElementById("presets"),
 		progress: document.getElementById("progress"),
 		clear: document.getElementById("clear"),
+		share: document.getElementById("share"),
+		shareBanner: document.getElementById("share-banner"),
 		rungs: Array.prototype.slice.call(document.querySelectorAll(".rung"))
 	};
 	var prefersReduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -226,20 +228,40 @@
 		if (!s.attempts) { els.score.textContent = ""; return; }
 		els.score.textContent = s.fired + " refund" + (s.fired === 1 ? "" : "s") + " fired in " + s.attempts + " attempt" + (s.attempts === 1 ? "" : "s") + " at L" + state.rung;
 	}
+	function makePip(rungNum, ch) {   // ch: "c" cleared · "h" holding · else pending
+		var pip = document.createElement("span");
+		var cls = "pip pip-pending", glyph = "·";
+		if (ch === "c") { cls = "pip pip-cleared"; glyph = "✗"; }
+		else if (ch === "h") { cls = "pip pip-holding"; glyph = "✓"; }
+		pip.className = cls;
+		pip.textContent = "L" + rungNum + " " + glyph;
+		return pip;
+	}
+	var STATE_CH = { cleared: "c", holding: "h" };
+	function clearedChar(r) { return STATE_CH[cleared[r]] || "p"; }
+	function encodeCleared() { return clearedChar(0) + clearedChar(1) + clearedChar(2) + clearedChar(3); }
+	function hasProgress() { for (var r = 0; r < 4; r++) if (cleared[r]) return true; return false; }
 	function renderProgress() {
 		if (!els.progress) return;
 		els.progress.textContent = "";
-		for (var r = 0; r < 4; r++) {
-			var st = cleared[r];
-			var pip = document.createElement("span");
-			var cls = "pip pip-pending";
-			var glyph = "·";
-			if (st === "cleared") { cls = "pip pip-cleared"; glyph = "✗"; }
-			else if (st === "holding") { cls = "pip pip-holding"; glyph = "✓"; }
-			pip.className = cls;
-			pip.textContent = "L" + r + " " + glyph;
-			els.progress.appendChild(pip);
-		}
+		for (var r = 0; r < 4; r++) els.progress.appendChild(makePip(r, clearedChar(r)));
+		if (els.share) els.share.hidden = !hasProgress();
+	}
+	// A shared link reconstructs a DISPLAY of someone's run from ?r= only —
+	// it never writes localStorage, so it can't spoof the viewer's own record.
+	function renderSharedBanner() {
+		if (!els.shareBanner) return;
+		var raw = new URLSearchParams(location.search).get("r") || "";
+		if (!/^[chp]{4}$/.test(raw)) return;   // ignore anything malformed
+		els.shareBanner.textContent = "";
+		var label = document.createElement("span");
+		label.className = "game-share-label"; label.textContent = "shared result";
+		els.shareBanner.appendChild(label);
+		for (var r = 0; r < 4; r++) els.shareBanner.appendChild(makePip(r, raw[r]));
+		var note = document.createElement("p");
+		note.className = "game-share-note"; note.textContent = "Someone's run. Play your own below.";
+		els.shareBanner.appendChild(note);
+		els.shareBanner.hidden = false;
 	}
 	function renderClear() {
 		if (!els.clear) return;
@@ -301,6 +323,11 @@
 	els.run.addEventListener("click", run);
 	els.reset.addEventListener("click", function () { els.payload.value = ""; selectRung(state.rung); els.payload.focus(); });
 	els.payload.addEventListener("keydown", function (e) { if ((e.metaKey || e.ctrlKey) && e.key === "Enter") { e.preventDefault(); run(); } });
+	if (els.share) els.share.addEventListener("click", function () {
+		var url = location.origin + location.pathname + "?r=" + encodeCleared();
+		var done = function () { els.share.textContent = "copied ✓"; setTimeout(function () { els.share.textContent = "copy result link"; }, 1500); };
+		if (navigator.clipboard) navigator.clipboard.writeText(url).then(done, done); else done();
+	});
 	PRESETS.forEach(function (p) {
 		var chip = document.createElement("button");
 		chip.type = "button"; chip.className = "preset"; chip.textContent = p.label;
@@ -309,4 +336,5 @@
 	});
 
 	selectRung(0);
+	renderSharedBanner();   // display-only, from ?r=; never writes localStorage
 })();
