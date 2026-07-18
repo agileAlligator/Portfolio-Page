@@ -8,15 +8,12 @@ export const RESUME = {
 		"professional-services team. " +
 		"He builds secure MCP servers for enterprise clients (hardening the agentic layer against " +
 		"prompt injection, tool misuse, and privilege abuse) and ships internal LLM-powered apps. " +
-		"Security-trained, detection-minded, product-focused. Thesis: the model can't police itself, " +
-		"so the guardrails belong in deterministic server code the model can't talk its way past.",
+		"Security-trained, detection-minded, product-focused.",
 
 	experience:
 		"EXPERIENCE\n" +
 		"• Solutions Engineer, Professional Services — Gruve (Apr 2026–present, Pune). " +
-		"Designs and delivers secure MCP servers for clients; hardens the agentic layer; builds " +
-		"internal apps including Helix (AI sales-enablement: GPT-4o SOW pipeline, pricing calculator, " +
-		"capability roadmap, Service Navigator).\n" +
+		"Designs and delivers secure MCP servers for clients; hardens the agentic layer; builds internal apps.\n" +
 		"• Security Operations Center Analyst — Gruve (Apr 2025–Apr 2026, Pune). " +
 		"Advanced triage across network/endpoint/auth telemetry with Splunk and CrowdStrike Falcon; " +
 		"threat hunting that found a vulnerability and led to a customer-wide advisory.\n" +
