@@ -1,0 +1,87 @@
+---
+layout: default
+title: "The wildcard that spans a slash — Avneesh Kasture"
+description: >-
+  A path allowlist written as the glob /files/* approves /files/../../etc/passwd,
+  because * matches across a slash. Type a path and watch a naive fnmatch glob and
+  an anchored ^/files/[^/]+$ rule on it live in your browser.
+permalink: /allowlist-bypass/
+extra_css: /assets/allowlist.css
+image: /assets/og/allowlist-bypass.png
+---
+
+<section class="al-intro">
+	<p class="section-label">// interactive · path allowlist</p>
+	<h1 class="al-title">The wildcard that spans a slash</h1>
+	<p class="al-lede">
+		An allowlist for <code>/files/*</code> means one file, directly under
+		<code>/files/</code>. Written as a shell glob, <code>*</code> also matches
+		across <code>/</code>, so <code>/files/../../etc/passwd</code> reads as a
+		match. Type a path below. A naive <code>fnmatch</code> glob and an anchored
+		regex each rule on it, and the path one approves the other refuses.
+	</p>
+</section>
+
+<section class="section">
+	<p class="section-label">// 01 · rule on a path</p>
+	<div class="al-row">
+		<span class="prompt">&gt;</span>
+		<input id="al-input" class="al-input" type="text" spellcheck="false" autocapitalize="off"
+			autocomplete="off" autocorrect="off" aria-label="request path"
+			value="/files/../../etc/passwd" />
+	</div>
+	<div class="al-presets" id="al-presets">
+		<span class="al-preset-label">in policy</span>
+		<button type="button" class="al-preset al-preset-in" data-path="/files/report.pdf">/files/report.pdf</button>
+		<button type="button" class="al-preset al-preset-in" data-path="/files/q3-budget.xlsx">/files/q3-budget.xlsx</button>
+		<span class="al-preset-label">out of policy</span>
+		<button type="button" class="al-preset al-preset-out" data-path="/files/../../etc/passwd">/files/../../etc/passwd</button>
+		<button type="button" class="al-preset al-preset-out" data-path="/files/secrets/prod.env">/files/secrets/prod.env</button>
+		<button type="button" class="al-preset al-preset-out" data-path="/files/report.pdf/">/files/report.pdf/</button>
+		<button type="button" class="al-preset al-preset-out" data-path="/files/%2e%2e%2fprod.env">/files/%2e%2e%2fprod.env</button>
+	</div>
+	<div class="al-viz-wrap">
+		<div class="al-pathviz" id="al-pathviz"></div>
+	</div>
+</section>
+
+<section class="section">
+	<p class="section-label">// 02 · two matchers, one verdict each</p>
+	<div class="al-diff">
+		<div class="al-diff-col">
+			<div class="al-diff-head al-head-naive">fnmatch(path, "/files/*")</div>
+			<pre class="al-code"><span class="c-dim"># glob compiled to a full-match regex</span>
+<span class="c-key">^/files/</span><span class="al-hl">.*</span><span class="c-key">$</span></pre>
+			<div class="al-verdicts"><span class="al-verdict-pill" id="al-pill-naive">—</span></div>
+			<p class="al-reason" id="al-reason-naive"></p>
+		</div>
+		<div class="al-diff-col">
+			<div class="al-diff-head al-head-hard">re.fullmatch(r"^/files/[^/]+$", path)</div>
+			<pre class="al-code"><span class="c-dim"># one segment, anchored on both ends</span>
+<span class="c-key">^/files/</span><span class="al-hl">[^/]+</span><span class="c-key">$</span></pre>
+			<div class="al-verdicts"><span class="al-verdict-pill" id="al-pill-hard">—</span></div>
+			<p class="al-reason" id="al-reason-hard"></p>
+		</div>
+	</div>
+</section>
+
+<section class="section">
+	<p class="section-label">// 03 · the fix is an anchor</p>
+	<div class="verdict verdict-block">
+		The list is the easy part; the matcher is where the allowlist leaks.
+		<code>*</code> is a shell glob, and a glob's <code>*</code> spans <code>/</code>,
+		so the naive rule approves every path under <code>/files/</code>, traversal
+		included. <code>[^/]+</code> refuses to cross a slash, so sub-paths fall back
+		outside the list where they belong.
+	</div>
+	<p class="al-caveat" id="al-caveat" hidden></p>
+	<p class="approach-more">
+		<a href="/blog/guardrails-belong-in-the-server/">→ Where allowlists live in a server, and why</a>
+	</p>
+</section>
+
+<noscript>
+	<p class="al-lede u-warn">This exhibit runs the matchers in your browser and needs JavaScript. The two rules are <code>^/files/.*$</code> and <code>^/files/[^/]+$</code>; feed each <code>/files/../../etc/passwd</code> and only the second refuses.</p>
+</noscript>
+
+<script src="/assets/allowlist.js" defer></script>

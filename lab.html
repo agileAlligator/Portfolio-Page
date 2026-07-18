@@ -11,14 +11,15 @@ extra_css: /assets/lab.css
 ---
 
 <section class="lab-intro">
-	<p class="section-label">// three exhibits · one control</p>
+	<p class="section-label">// four exhibits · one control</p>
 	<h1 class="lab-title">The lab</h1>
 	<p class="lab-lede">
 		The claim: a guardrail that lives in the model's judgment fails, and a
 		guardrail that lives in deterministic server code holds. Each exhibit here
-		tests that claim a different way. One maps the attack surface, one lets you
-		walk defenses up a control ladder until they fall, and one is a real server
-		on the public internet, waiting.
+		tests that claim a different way. One maps the attack surface, one is a real
+		server on the public internet, one walks defenses up a control ladder until
+		they fall, and one puts two path matchers side by side to rule on the same
+		request.
 	</p>
 </section>
 
@@ -72,11 +73,29 @@ extra_css: /assets/lab.css
 			<p class="card-desc">
 				Ten risks, each a prism with three faces: the attack, the server-side
 				control that prevents it, and the signal that tells you the control
-				failed. This is the map the other two exhibits run on.
+				failed. This is the map the other exhibits run on.
 			</p>
 			<div class="card-links">
 				<a href="/owasp-top-10/">turn the prisms ↗</a>
 				<span class="card-lock">reference</span>
+			</div>
+		</article>
+
+		<article class="card">
+			<div class="card-top">
+				<span class="card-idx">04</span>
+				<span class="card-tags">glob vs regex · path allowlist</span>
+			</div>
+			<h3 class="card-title">The wildcard that spans a slash</h3>
+			<p class="card-desc">
+				A path allowlist written as the glob <code>/files/*</code> approves
+				<code>/files/../../etc/passwd</code>, because <code>*</code> matches
+				across a slash. Type a path and watch a naive <code>fnmatch</code> glob
+				and an anchored <code>^/files/[^/]+$</code> rule on it side by side.
+			</p>
+			<div class="card-links">
+				<a href="/allowlist-bypass/">drive the matchers ↗</a>
+				<span class="card-lock">client-side · real logic</span>
 			</div>
 		</article>
 	</div>
@@ -85,11 +104,9 @@ extra_css: /assets/lab.css
 <section class="section">
 	<p class="section-label">// result</p>
 	<div class="verdict verdict-block">
-		Result, so far: prompt-level defenses in these exhibits fall to a good
-		payload, every time. The deterministic wall holds: 0 leaks in 105 attempts
-		at the L3 rung in the lab run, plus a live count of held calls on the public
-		server. The pattern is small enough to memorize: canonicalize, confine,
-		allowlist, in server code where the model gets no vote.
+		The through-line: the prompt-level defenses here fall to a good payload, and
+		the deterministic ones hold. What survives lives in server code, between the
+		model's decision and the effect.
 	</div>
 	<p class="approach-more">
 		<a href="/blog/guardrails-belong-in-the-server/">→ The essay behind the exhibits: why guardrails belong in the server</a>
