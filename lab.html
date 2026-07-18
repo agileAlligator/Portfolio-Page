@@ -1,0 +1,97 @@
+---
+layout: default
+title: "The lab — agentic security, demonstrated"
+description: >-
+  Three interactive exhibits of one claim: a live hardened MCP server you can
+  attack, a prompt-injection sandbox, and the OWASP Agentic Top 10 mapped to
+  server-side controls.
+permalink: /lab/
+image: /assets/og/lab.png
+extra_css: /assets/lab.css
+---
+
+<section class="lab-intro">
+	<p class="section-label">// three exhibits · one control</p>
+	<h1 class="lab-title">The lab</h1>
+	<p class="lab-lede">
+		The claim: a guardrail that lives in the model's judgment fails, and a
+		guardrail that lives in deterministic server code holds. Each exhibit here
+		tests that claim a different way. One maps the attack surface, one lets you
+		walk defenses up a control ladder until they fall, and one is a real server
+		on the public internet, waiting.
+	</p>
+</section>
+
+<section class="section">
+	<p class="section-label">// exhibits</p>
+	<div class="cards">
+		<article class="card card-feature">
+			<div class="card-top">
+				<span class="card-idx">01</span>
+				<span class="card-tags">live server · workers ai · path traversal</span>
+			</div>
+			<h3 class="card-title">My résumé is an MCP server</h3>
+			<p class="card-desc">
+				A public MCP server, live at <code>mcp.apkasture02.workers.dev</code>,
+				serves my résumé through real tools. Talk the Workers-AI agent into
+				traversing to the inert canary: the naive build leaks it, the hardened
+				build refuses at a canonicalize-then-confine check a few lines long, and
+				a counter of held calls updates live.
+			</p>
+			<div class="card-links">
+				<a href="/mcp/">attack the live server ↗</a>
+				<a href="/mcp/#the-wall">the wall, explained ↗</a>
+				<span class="card-lock"><span class="mcp-live-dot" aria-hidden="true"></span>live · Cloudflare Workers</span>
+			</div>
+		</article>
+
+		<article class="card">
+			<div class="card-top">
+				<span class="card-idx">02</span>
+				<span class="card-tags">sandbox · prompt injection · L0→L3</span>
+			</div>
+			<h3 class="card-title">Break this server</h3>
+			<p class="card-desc">
+				File a poisoned support ticket and walk a support-desk MCP agent up the
+				control ladder. Prompt-level defenses fall to a good payload; the
+				allowlist at L3 holds. Scripted, deterministic, and entirely in your
+				browser.
+			</p>
+			<div class="card-links">
+				<a href="/break-this-server/">play the ladder ↗</a>
+				<span class="card-lock">client-side · no model</span>
+			</div>
+		</article>
+
+		<article class="card">
+			<div class="card-top">
+				<span class="card-idx">03</span>
+				<span class="card-tags">reference · owasp 2026</span>
+			</div>
+			<h3 class="card-title">The OWASP Agentic Top 10</h3>
+			<p class="card-desc">
+				Ten risks, each a prism with three faces: the attack, the server-side
+				control that prevents it, and the signal that tells you the control
+				failed. This is the map the other two exhibits run on.
+			</p>
+			<div class="card-links">
+				<a href="/owasp-top-10/">turn the prisms ↗</a>
+				<span class="card-lock">reference</span>
+			</div>
+		</article>
+	</div>
+</section>
+
+<section class="section">
+	<p class="section-label">// result</p>
+	<div class="verdict verdict-block">
+		Result, so far: prompt-level defenses in these exhibits fall to a good
+		payload, every time. The deterministic wall holds: 0 leaks in 105 attempts
+		at the L3 rung in the lab run, plus a live count of held calls on the public
+		server. The pattern is small enough to memorize: canonicalize, confine,
+		allowlist, in server code where the model gets no vote.
+	</div>
+	<p class="approach-more">
+		<a href="/blog/guardrails-belong-in-the-server/">→ The essay behind the exhibits: why guardrails belong in the server</a>
+	</p>
+</section>
