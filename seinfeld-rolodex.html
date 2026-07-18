@@ -582,10 +582,12 @@
         }
 
         // ── the bass. a synthesized slap-bass PARODY — no assets, off by default.
-        //    not a transcription: an original funk line in E written in the same
-        //    spirit (thumb-slap + mouth-pop octaves, ghost notes, syncopation).
-        //    thumb-slap attack (noise transient + pitched body), popped highs,
-        //    muted ghost notes. all our own synthesis, our own notes.
+        //    deliberately NOT the theme: the real riff sits in E7 and opens with a
+        //    DESCENDING G-pentatonic lick, then an ascending chromatic E slap walk.
+        //    so we go the other way — A minor-pentatonic, an OCTAVE-JUMP hook (not a
+        //    scalar run), and a bluesy climb (the b5 the theme never touches). same
+        //    genre (thumb-slap + mouth-pop octaves, ghost notes, funk syncopation),
+        //    our own key, our own contour, our own notes. all synthesis.
         var actx = null, soundOn = false, noiseBuf = null;
         function ctx() {
             if (!actx) {
@@ -641,22 +643,22 @@
                 bass(n[0], t0 + off * s + swing, n[2] || {});
             });
         }
-        function slap() {                                   // on a flip — a bouncy slap→ghost→pop
+        function slap() {                                   // on a flip — a bouncy octave slap→pop in A
             if (!soundOn || !ctx()) return;
-            play([[98, 0, {}], [98, 0.5, { ghost: true }], [196, 1, { pop: true, gain: 0.22 }]],
+            play([[110, 0, {}], [110, 0.5, { ghost: true }], [220, 1, { pop: true, gain: 0.22 }]],
                 actx.currentTime + 0.01);
         }
-        function lick() {                                   // on spin — an original funk phrase in E
+        function lick() {                                   // on spin — an original funk phrase in A minor
             if (!soundOn || !ctx()) return;
             play([
-                // the call: bouncy low slaps with an octave pop kick
-                [82.4, 0, {}], [82.4, 1, { ghost: true }], [164.8, 1.5, { pop: true }],
-                [123.5, 2.5, { pop: true }], [82.4, 3, {}], [110, 4, { pop: true }],
-                [98, 4.5, { ghost: true }], [82.4, 5, {}],
-                // the response: a popped walk-down that resolves low
-                [146.8, 6, { pop: true }], [130.8, 6.5, { pop: true }], [123.5, 7, { pop: true }],
-                [110, 7.5, {}], [98, 8, { ghost: true }], [82.4, 8.5, {}],
-                [61.7, 9.5, { dur: 0.3, gain: 0.32 }]
+                // the hook: an octave-jump bounce (A2 up to A3), not a scalar run
+                [110, 0, {}], [110, 1.5, { ghost: true }], [220, 2, { pop: true }],
+                [196, 2.5, { pop: true }], [110, 3, {}], [82.4, 4, { ghost: true }],
+                [130.8, 4.5, { pop: true }], [110, 5, {}],
+                // the answer: a bluesy climb to the peak, then a drop to the low root
+                [73.4, 6, {}], [146.8, 6.5, { pop: true }], [164.8, 7, { pop: true }],
+                [130.8, 7.5, {}], [110, 8, { ghost: true }],
+                [55, 9.5, { dur: 0.32, gain: 0.32 }]
             ], actx.currentTime + 0.02);
         }
 
@@ -682,7 +684,7 @@
             if (soundOn) { ctx(); startAmbient(); slapPreview(); }   // a taste, so you know it works
             else { stopAmbient(); }
         });
-        function slapPreview() { if (soundOn && ctx()) play([[82.4, 0, {}], [123.5, 1, { pop: true }], [164.8, 1.5, { pop: true }]], actx.currentTime + 0.01); }
+        function slapPreview() { if (soundOn && ctx()) play([[110, 0, {}], [164.8, 1, { pop: true }], [220, 1.5, { pop: true }]], actx.currentTime + 0.01); }
 
         // ── grit: light rain + a flickering neon tube (vfx + sfx) ─────────────
         // rain drawn to the background canvas (visual only; skipped if reduced-motion)
