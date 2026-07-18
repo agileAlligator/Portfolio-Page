@@ -9,7 +9,7 @@ description: >-
   by effect — and a few things I learned building it.
 date: 2026-07-15
 permalink: /blog/building-mcploitable/
-image: /assets/og/default.png
+image: /assets/og/building-mcploitable.png
 tags: [mcp, security, agentic]
 reading_time: "6 min read"
 ---
