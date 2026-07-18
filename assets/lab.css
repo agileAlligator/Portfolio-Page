@@ -1,0 +1,25 @@
+/* ══════════════════════════════════════════════════════════════════
+   /lab — the exhibits index. Loads only on /lab/ (extra_css).
+   Full-bleed like /mcp: un-cap the default reading-width .content so the
+   .cards grid gets the same room as the homepage work section. The two
+   .section blocks center themselves at --maxw; the intro matches.
+   Shared components used here (.verdict, .mcp-live-dot) live in style.css.
+   ══════════════════════════════════════════════════════════════════ */
+.content { max-width: 100%; padding: 0; }
+
+.lab-intro {
+	max-width: var(--maxw);
+	margin: 0 auto;
+	padding: clamp(3rem, 7vw, 5rem) clamp(1.25rem, 5vw, 3.5rem) 0;
+}
+.lab-intro .section-label { font-family: var(--mono); font-size: 0.82rem; color: var(--acc); margin-bottom: 0.9rem; }
+.lab-title {
+	font-family: var(--mono);
+	font-weight: 600;
+	font-size: clamp(2rem, 5vw, 3.1rem);
+	letter-spacing: -0.02em;
+	line-height: 1.1;
+	margin: 0.4rem 0 1.1rem;
+	color: var(--ink);
+}
+.lab-lede { font-size: 1.1rem; max-width: 46rem; color: var(--ink-dim); line-height: 1.65; }
