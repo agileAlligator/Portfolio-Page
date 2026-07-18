@@ -16,6 +16,9 @@ author:
 permalink: /blog/:title/
 
 # Social / SEO (consumed by jekyll-seo-tag)
+# Site-default share card. Pages set their own `image:` in front matter; those
+# that don't fall back to this so every shared link renders a card.
+image: /assets/og/default.png
 twitter:
   card: summary_large_image
 social:
