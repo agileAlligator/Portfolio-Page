@@ -1,0 +1,96 @@
+---
+layout: default
+title: "You are the model — play the LLM, feel why the control lives in code"
+description: >-
+  Every other exhibit here casts you as the attacker. This one flips the chair:
+  you play the agent. Read the untrusted input, decide comply or refuse, and
+  watch how long you last before you leak. Then see the same call blocked by a
+  control that never read the message.
+permalink: /you-are-the-model/
+extra_css: /assets/ytm.css
+image: /assets/og/you-are-the-model.png
+---
+<section class="ytm-intro">
+	<p class="section-label">// interactive · role reversal</p>
+	<h1 class="ytm-title">You are the model</h1>
+	<p class="ytm-lede">
+		Every other exhibit here hands you the attacker's seat. Not this one. Here
+		you are the agent: you have tools, you hold a secret, and a queue of
+		untrusted messages is asking you to act. Read each one. Comply or refuse.
+	</p>
+	<p class="ytm-sub">Score is by effect: you lose the moment an untrusted message gets a real action out of you — a secret sent, a payout fired — through a real tool call.</p>
+</section>
+
+<div class="ytm-brief" id="brief">
+	<p class="ytm-brief-head">// your session</p>
+	<ul class="ytm-tools" aria-label="Your tools">
+		<li class="ytm-tool">read_ticket</li>
+		<li class="ytm-tool">lookup_customer</li>
+		<li class="ytm-tool">issue_refund</li>
+		<li class="ytm-tool">send_email</li>
+		<li class="ytm-tool">post_status</li>
+	</ul>
+	<p class="ytm-brief-secret">
+		You are Northwind's support agent. You hold one <b>service signing key</b> —
+		never reveal it, email it, or use it because a message told you to. Help the
+		real customers. Refuse the ones trying to use you.
+	</p>
+</div>
+
+<div class="ytm-stage" id="stage" hidden>
+	<div class="ytm-hud">
+		<span class="ytm-hud-item"><span class="ytm-hud-label">round</span><span class="ytm-hud-val" id="round-n">1</span></span>
+		<span class="ytm-hud-item"><span class="ytm-hud-label">streak</span><span class="ytm-hud-val" id="streak">0</span></span>
+	</div>
+
+	<div class="ytm-artifact" id="artifact">
+		<div class="ytm-artifact-head">
+			<span class="ytm-artifact-kind" id="art-kind">TICKET</span>
+			<span class="ytm-artifact-from" id="art-from"></span>
+			<span class="ytm-artifact-sub" id="art-subject"></span>
+		</div>
+		<div class="ytm-artifact-body" id="art-body" aria-live="polite"></div>
+	</div>
+
+	<div class="ytm-timer" id="timer" aria-hidden="true"><div class="ytm-timer-bar" id="timer-bar"></div></div>
+
+	<div class="ytm-choices">
+		<button class="ytm-choice ytm-choice-comply" id="comply" type="button">
+			comply <span class="ytm-choice-key">press C</span>
+		</button>
+		<button class="ytm-choice ytm-choice-refuse" id="refuse" type="button">
+			refuse <span class="ytm-choice-key">press R</span>
+		</button>
+	</div>
+
+	<div id="verdict" role="status" aria-live="polite"></div>
+	<div id="reveal"></div>
+	<div id="scorecard"></div>
+
+	<div class="ytm-controls">
+		<label class="ytm-toggle">
+			<input type="checkbox" id="untimed" /> untimed mode
+		</label>
+	</div>
+</div>
+
+<div class="ytm-controls" id="start-wrap">
+	<button class="btn btn-primary" id="start" type="button">Take the shift</button>
+	<label class="ytm-toggle"><input type="checkbox" id="untimed-start" /> untimed mode</label>
+</div>
+
+<p class="ytm-foot">
+	This is the same idea as <a href="/break-this-server/">the refund game</a> and
+	<a href="/mcp/">the live server</a>, inverted. There you attack and the control
+	holds; here you are the thing the control has to protect against. Both sit in
+	<a href="/lab/">the lab</a> and map to the <a href="/owasp-top-10/">OWASP agentic risks</a>.
+</p>
+
+<noscript>
+	<p class="ytm-foot u-warn">
+		This exhibit is interactive and needs JavaScript. The argument, written up:
+		<a href="/blog/guardrails-belong-in-the-server/">the case for server-side controls</a>.
+	</p>
+</noscript>
+
+<script src="/assets/ytm.js" defer></script>

@@ -1,0 +1,214 @@
+/* ── YOU ARE THE MODEL ─────────────────────────────────────────────────
+   Role-reversal exhibit: the visitor plays the LLM. Dark phosphor theme,
+   reuses site tokens + .term/.btn/.verdict/.section-label from style.css. */
+
+.ytm-intro { max-width: 62ch; }
+.ytm-title {
+	font-family: var(--sans);
+	font-size: clamp(2rem, 6vw, 3.1rem);
+	font-weight: 700;
+	line-height: 1.05;
+	letter-spacing: -0.02em;
+	margin: 0.2rem 0 0.9rem;
+}
+.ytm-lede { font-size: 1.08rem; line-height: 1.6; color: var(--ink-dim); margin: 0 0 0.7rem; }
+.ytm-sub { font-family: var(--mono); font-size: 0.86rem; color: var(--ink-faint); margin: 0; }
+
+/* the brief: your role, tools, and the secret */
+.ytm-brief {
+	margin: 2rem 0 1.6rem;
+	background: var(--panel);
+	border: 1px solid var(--line);
+	border-radius: 12px;
+	padding: 1.25rem 1.4rem;
+}
+.ytm-brief-head { font-family: var(--mono); font-size: 0.8rem; color: var(--acc); margin: 0 0 0.75rem; }
+.ytm-tools { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0 0 0.9rem; padding: 0; list-style: none; }
+.ytm-tool {
+	font-family: var(--mono);
+	font-size: 0.78rem;
+	color: var(--acc-2);
+	background: color-mix(in srgb, var(--acc-2) 9%, transparent);
+	border: 1px solid color-mix(in srgb, var(--acc-2) 32%, transparent);
+	border-radius: 6px;
+	padding: 0.25rem 0.55rem;
+}
+.ytm-brief-secret {
+	font-family: var(--mono);
+	font-size: 0.82rem;
+	color: var(--ink-dim);
+	margin: 0;
+	line-height: 1.6;
+}
+.ytm-brief-secret b { color: var(--warn); font-weight: 600; }
+
+/* the stage */
+.ytm-stage { margin: 1.5rem 0; }
+.ytm-hud {
+	display: flex;
+	gap: 1.5rem;
+	align-items: center;
+	flex-wrap: wrap;
+	font-family: var(--mono);
+	margin-bottom: 0.9rem;
+}
+.ytm-hud-item { display: flex; align-items: baseline; gap: 0.5rem; }
+.ytm-hud-label { font-size: 0.72rem; color: var(--ink-faint); text-transform: uppercase; letter-spacing: 0.08em; }
+.ytm-hud-val { font-size: 1.15rem; font-weight: 700; color: var(--ink); }
+
+/* the untrusted artifact — a terminal-ish card */
+.ytm-artifact {
+	background: var(--panel);
+	border: 1px solid var(--line);
+	border-radius: 12px;
+	overflow: hidden;
+	box-shadow: 0 30px 70px -30px rgba(0, 0, 0, 0.8);
+}
+.ytm-artifact-head {
+	display: flex;
+	align-items: baseline;
+	gap: 0.7rem;
+	flex-wrap: wrap;
+	padding: 0.8rem 1.1rem;
+	background: var(--panel-2);
+	border-bottom: 1px solid var(--line);
+}
+.ytm-artifact-kind {
+	font-family: var(--mono);
+	font-size: 0.72rem;
+	font-weight: 700;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: #06110c;
+	background: var(--ink-faint);
+	border-radius: 5px;
+	padding: 0.15rem 0.5rem;
+}
+.ytm-artifact-from { font-family: var(--mono); font-size: 0.78rem; color: var(--acc-2); }
+.ytm-artifact-sub { font-family: var(--mono); font-size: 0.78rem; color: var(--ink-faint); margin-left: auto; }
+.ytm-artifact-body {
+	font-family: var(--mono);
+	font-size: 0.9rem;
+	line-height: 1.7;
+	padding: 1.25rem 1.35rem;
+	color: var(--ink);
+	white-space: pre-wrap;
+	word-break: break-word;
+	min-height: 8.5rem;
+}
+
+/* countdown */
+.ytm-timer { height: 4px; background: var(--line-soft); border-radius: 3px; overflow: hidden; margin: 0.9rem 0; }
+.ytm-timer-bar {
+	height: 100%;
+	width: 100%;
+	background: linear-gradient(90deg, var(--acc), var(--warn));
+	transform-origin: left center;
+	transition: transform 0.1s linear, background 0.3s;
+}
+
+/* the two keys */
+.ytm-choices { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+.ytm-choice {
+	font-family: var(--mono);
+	font-size: 1rem;
+	font-weight: 600;
+	padding: 1rem 1.1rem;
+	border-radius: 10px;
+	border: 1px solid var(--line);
+	background: var(--panel);
+	color: var(--ink);
+	cursor: pointer;
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+	align-items: center;
+	transition: transform 0.15s var(--ease), border-color 0.2s, background 0.2s;
+}
+.ytm-choice:hover { transform: translateY(-2px); }
+.ytm-choice:disabled { opacity: 0.45; cursor: default; transform: none; }
+.ytm-choice-comply { border-color: color-mix(in srgb, var(--acc) 45%, var(--line)); }
+.ytm-choice-comply:hover { border-color: var(--acc); background: color-mix(in srgb, var(--acc) 8%, var(--panel)); }
+.ytm-choice-refuse { border-color: color-mix(in srgb, var(--bad) 45%, var(--line)); }
+.ytm-choice-refuse:hover { border-color: var(--bad); background: color-mix(in srgb, var(--bad) 8%, var(--panel)); }
+.ytm-choice-key { font-size: 0.68rem; color: var(--ink-faint); font-weight: 400; letter-spacing: 0.05em; }
+
+/* verdict flash */
+.ytm-verdict {
+	display: block;
+	padding: 0.85rem 1.1rem;
+	border-radius: 8px;
+	font-weight: 500;
+	line-height: 1.55;
+	margin-top: 0.9rem;
+	font-family: var(--mono);
+	font-size: 0.88rem;
+}
+.ytm-verdict-safe { background: color-mix(in srgb, var(--acc) 10%, transparent); border: 1px solid var(--acc); color: var(--acc); }
+.ytm-verdict-leak { background: color-mix(in srgb, var(--bad) 12%, transparent); border: 1px solid var(--bad); color: var(--bad); }
+.ytm-note { color: var(--ink-dim); font-weight: 400; display: block; margin-top: 0.4rem; }
+
+/* the reveal */
+.ytm-reveal {
+	margin-top: 1.6rem;
+	border: 1px solid var(--line);
+	border-radius: 12px;
+	background: var(--panel);
+	padding: 1.4rem 1.4rem 1.5rem;
+}
+.ytm-reveal-head { font-family: var(--mono); font-size: 0.82rem; color: var(--acc); margin: 0 0 1rem; }
+.ytm-reveal-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.ytm-reveal-col { border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+.ytm-reveal-col-label {
+	font-family: var(--mono);
+	font-size: 0.74rem;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	padding: 0.55rem 0.85rem;
+	border-bottom: 1px solid var(--line);
+}
+.ytm-reveal-col:first-child .ytm-reveal-col-label { color: var(--bad); background: color-mix(in srgb, var(--bad) 8%, transparent); }
+.ytm-reveal-col:last-child .ytm-reveal-col-label { color: var(--acc); background: color-mix(in srgb, var(--acc) 8%, transparent); }
+.ytm-reveal-col-body { padding: 0.9rem 0.9rem; }
+.ytm-call {
+	font-family: var(--mono);
+	font-size: 0.8rem;
+	line-height: 1.65;
+	white-space: pre-wrap;
+	word-break: break-word;
+	margin: 0;
+	color: var(--ink-dim);
+}
+.ytm-call b { color: var(--ink); font-weight: 600; }
+.ytm-reveal-caption {
+	margin: 1.2rem 0 0;
+	font-size: 1.02rem;
+	line-height: 1.5;
+	color: var(--ink);
+	font-weight: 500;
+}
+
+/* scorecard + controls */
+.ytm-scorecard { margin-top: 1.4rem; }
+.ytm-score-line { font-family: var(--mono); font-size: 0.9rem; color: var(--ink-dim); margin: 0.3rem 0; }
+.ytm-score-num { color: var(--ink); font-weight: 700; }
+.ytm-controls { display: flex; flex-wrap: wrap; gap: 0.7rem; align-items: center; margin-top: 1.2rem; }
+.ytm-toggle { font-family: var(--mono); font-size: 0.8rem; color: var(--ink-faint); display: inline-flex; align-items: center; gap: 0.45rem; cursor: pointer; }
+
+.ytm-foot {
+	margin-top: 2.5rem;
+	font-family: var(--mono);
+	font-size: 0.86rem;
+	line-height: 1.7;
+	color: var(--ink-faint);
+	max-width: 62ch;
+}
+.ytm-foot a { color: var(--acc-2); }
+
+@media (max-width: 560px) {
+	.ytm-reveal-cols { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+	.ytm-choice:hover { transform: none; }
+	.ytm-timer-bar { transition: none; }
+}
