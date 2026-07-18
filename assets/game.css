@@ -177,6 +177,21 @@
 }
 .cline-fired { font-weight: 700; }
 
+/* ── shared result (display-only, from ?r=) ────────────────────────── */
+.game-share-banner {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.55rem;
+	margin-bottom: 1.25rem;
+	padding: 0.9rem 1.1rem;
+	border: 1px dashed var(--line);
+	border-radius: 10px;
+	background: var(--bg-2);
+}
+.game-share-label { font-family: var(--mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-faint); }
+.game-share-note { width: 100%; font-size: 0.82rem; color: var(--ink-dim); margin: 0.2rem 0 0; }
+
 /* ── responsive ──────────────────────────────────────────────────── */
 @media (max-width: 820px) {
 	.rungs { grid-template-columns: repeat(2, 1fr); }
