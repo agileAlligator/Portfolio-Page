@@ -108,86 +108,11 @@
 				b.classList.remove("active");
 			}
 		});
-		if (termTitle) termTitle.textContent = rung + " — direct tools/call";
+		if (termTitle) termTitle.textContent = "agent @ " + rung + " · workers-ai session";
 	}
 
 	toggleBtns.forEach(function (b) {
 		b.addEventListener("click", function () { setRung(b.getAttribute("data-rung")); });
-	});
-
-	// ── path presets ───────────────────────────────────────────────────────
-	var pathInput = $("mcp-path");
-	var pathPresets = document.querySelectorAll(".mcp-path-preset");
-	pathPresets.forEach(function (b) {
-		b.addEventListener("click", function () {
-			if (pathInput) pathInput.value = b.getAttribute("data-path") || "";
-		});
-	});
-
-	// ── direct tools/call demo ─────────────────────────────────────────────
-	var log = $("mcp-log");
-	var runBtn = $("mcp-run");
-	var clearBtn = $("mcp-clear");
-	var statusEl = $("mcp-status");
-
-	function termLine(cls, txt) {
-		var p = document.createElement("p");
-		p.className = "mcp-line " + cls;
-		p.textContent = txt;
-		if (log) { log.appendChild(p); log.scrollTop = log.scrollHeight; }
-	}
-
-	function runDirect() {
-		if (!pathInput) return;
-		var path = pathInput.value.trim();
-		if (!path) return;
-		var endpoint = currentRung === "L0" ? "/mcp/l0" : "/mcp/l3";
-		if (runBtn) runBtn.disabled = true;
-		if (statusEl) statusEl.textContent = "sending…";
-
-		termLine("mcp-line-user", "> tools/call read_document { path: \"" + path + "\" }  [" + currentRung + "]");
-
-		fetch(API + endpoint, {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({
-				jsonrpc: "2.0",
-				id: 1,
-				method: "tools/call",
-				params: { name: "read_document", arguments: { path: path } }
-			})
-		})
-			.then(function (r) { return r.json(); })
-			.then(function (d) {
-				var result = d && d.result;
-				if (!result) {
-					termLine("mcp-line-system", d && d.error ? d.error.message : "Unexpected response.");
-					return;
-				}
-				var leaked = result._meta && result._meta.effect === "canary-exfiltrated";
-				var text = result.content && result.content[0] && result.content[0].text;
-				if (leaked) {
-					termLine("mcp-line-leak", "canary exfiltrated — you cracked the naive build: " + (text || ""));
-				} else {
-					termLine("mcp-line-hold", "held — " + (text || "path-confinement: denied"));
-				}
-				refreshStats();
-			})
-			.catch(function () {
-				termLine("mcp-line-system", "Worker didn't answer. The server is live — try curl or a real MCP client.");
-			})
-			.then(function () {
-				if (runBtn) runBtn.disabled = false;
-				if (statusEl) statusEl.textContent = "direct JSON-RPC · no model in the loop";
-			});
-	}
-
-	if (runBtn) runBtn.addEventListener("click", runDirect);
-	if (clearBtn) clearBtn.addEventListener("click", function () {
-		if (!log) return;
-		log.textContent = "";
-		termLine("mcp-line-hint", "# select a rung, pick a path, and hit run.");
-		termLine("mcp-line-hint", "# this sends the real JSON-RPC tools/call to the live worker.");
 	});
 
 	// ── Workers-AI free-text console ─────────────────────────────────────
@@ -240,7 +165,7 @@
 				refreshStats();
 			})
 			.catch(function () {
-				agentLine("mcp-line-system", "Worker didn't answer. Try the direct demo above instead.");
+				agentLine("mcp-line-system", "The in-browser model is unavailable (free-tier quota). Connect a real MCP client to keep attacking: claude mcp add --transport http avneesh-l0 https://mcp.apkasture02.workers.dev/mcp/l0");
 			})
 			.then(function () {
 				if (agentRun) agentRun.disabled = false;
