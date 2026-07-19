@@ -127,7 +127,7 @@
 	var state = { i: 0, streak: 0, best: 0, caught: 0, mode: "off", running: false, untimed: false, decided: false, to: null };
 	var MODE_NOTE = {
 		off: "You are the only thing between the message and the tool. One wrong call and something real leaves.",
-		on: "A deterministic check sits in front of every tool — the same rules the reveal names when you leak. Your judgment is still scored. It just stops being load-bearing."
+		on: "A deterministic check sits in front of every tool — the same rule that would refuse each call if you leaked with the controls off. Your judgment is still scored. It just stops being load-bearing."
 	};
 
 	function clearTimer() {
@@ -183,7 +183,7 @@
 		}
 	}
 
-	function col(labelText, isControl, callText, noteText) {
+	function col(labelText, callText, noteText) {
 		var c = document.createElement("div");
 		c.className = "ytm-reveal-col";
 		var lab = document.createElement("div");
@@ -216,9 +216,9 @@
 		box.appendChild(head);
 		var cols = document.createElement("div");
 		cols.className = "ytm-reveal-cols";
-		cols.appendChild(col("You complied", false, r.toolCall,
+		cols.appendChild(col("You complied", r.toolCall,
 			"That call fired. The attacker got the effect they wanted — you were convinced, which is exactly the job working as designed."));
-		cols.appendChild(col("The control", true, r.control,
+		cols.appendChild(col("The control", r.control,
 			"Same call. The control never read the message — it checked a rule and stopped it."));
 		box.appendChild(cols);
 		var cap = document.createElement("p");
@@ -256,8 +256,8 @@
 		if (outcome === "on") {
 			scoreLine(box, "Rounds worked:", ROUNDS.length + " of " + ROUNDS.length);
 			scoreLine(box, "Longest run of correct calls:", String(state.best));
-			scoreLine(box, "Hostile calls you approved:", String(state.caught));
-			scoreLine(box, "Of those, refused at the tool boundary:", state.caught + " of " + state.caught);
+			scoreLine(box, "Hostile calls that got past you:", String(state.caught));
+			if (state.caught > 0) scoreLine(box, "Of those, stopped at the tool boundary:", state.caught + " of " + state.caught);
 		} else {
 			scoreLine(box, "Rounds cleared:", (outcome === "win" ? ROUNDS.length : state.i) + " of " + ROUNDS.length);
 			scoreLine(box, "Longest run of correct calls:", String(state.best));
@@ -308,8 +308,8 @@
 		el.streak.textContent = "0";
 		el.caughtN.textContent = String(state.caught);
 		verdict("caught", auto
-			? "Time ran out — you complied by default. The control refused the call anyway."
-			: "You complied. The control refused the call before it did anything.", r.explain);
+			? "Time ran out — you complied by default. The control stopped the call anyway."
+			: "You complied. The control stopped the call before it did anything.", r.explain);
 		// the attempted call + the exact rule that stopped it, above the explain note
 		var callEl = document.createElement("span");
 		callEl.className = "ytm-verdict-call";
@@ -329,7 +329,7 @@
 		});
 		next.className = "btn ytm-next";
 		el.reveal.appendChild(next);
-		next.focus();
+		setTimeout(function () { if (next.isConnected) next.focus(); }, 150);   // let the polite verdict announce first
 	}
 
 	function nextRound() {
@@ -358,10 +358,10 @@
 		var n = state.caught, calls = n === 1 ? "call" : "calls", times = n === 1 ? "time" : "times";
 		if (n > 0) {
 			verdict("caught",
-				"Shift complete. You approved " + n + " hostile " + calls + ". Refused at the tool boundary: " + n + " of " + n + ". Leaked: nothing. Paid out: nothing.",
-				"You were wrong " + n + " " + times + " and it didn't matter. These are the same rules the reveal names when you leak with the controls off — recipient allowlists, amount caps, DLP on tool arguments, human-in-loop. They don't detect prompt injection and they don't make the model smarter; they take this class of action off the table no matter who's convinced.");
+				"Shift complete. " + n + " hostile " + calls + " got past you. Stopped at the tool boundary: " + n + " of " + n + ". Leaked: nothing. Paid out: nothing.",
+				"You were wrong " + n + " " + times + " and it didn't matter. These are the same rules that would refuse the call if you leaked with the controls off — recipient allowlists, amount caps, DLP on tool arguments, human-in-loop. They don't detect prompt injection and they don't make the model smarter; they take this class of action off the table no matter who's convinced.");
 		} else {
-			verdict("safe", "Shift complete. You approved zero hostile calls. The controls sat idle — twelve rounds of correct judgment.",
+			verdict("safe", "Shift complete. Zero hostile calls got past you. The controls sat idle — " + ROUNDS.length + " rounds of correct judgment.",
 				"That's the happy path. Run it with the controls off and see how long the judgment holds.");
 		}
 		endScreen("on");
@@ -404,7 +404,7 @@
 				state.streak = 0;
 				el.streak.textContent = "0";
 				var rnote = state.mode === "on"
-					? r.explain + " The controls had no say here — you never made a call."
+					? r.explain + " The controls had no say here — no tool call was ever attempted."
 					: r.explain;
 				verdict("safe", "You refused a real customer. Over-caution isn't the catastrophe here — but it isn't free.", rnote);
 				setTimeout(nextRound, 1500);
@@ -445,7 +445,7 @@
 	el.start.addEventListener("click", function () {
 		state.untimed = el.untimedStart.checked;
 		el.untimed.checked = state.untimed;
-		setMode(el.modeOn && el.modeOn.checked ? "on" : "off");
+		state.mode = (el.modeOn && el.modeOn.checked) ? "on" : "off";   // startGame() syncs the UI via setMode
 		startGame();
 	});
 	[el.modeOff, el.modeOn].forEach(function (radio) {
@@ -461,6 +461,7 @@
 	});
 	document.addEventListener("keydown", function (e) {
 		if (!state.running || state.decided) return;
+		if (e.ctrlKey || e.metaKey || e.altKey) return;   // don't hijack copy / reload / etc.
 		var k = e.key.toLowerCase();
 		if (k === "c") { e.preventDefault(); decide("comply", false); }
 		else if (k === "r") { e.preventDefault(); decide("refuse", false); }

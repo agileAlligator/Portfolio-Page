@@ -53,6 +53,7 @@
 	margin-bottom: 0.9rem;
 }
 .ytm-hud-item { display: flex; align-items: baseline; gap: 0.5rem; }
+.ytm-hud-item[hidden] { display: none; }   /* the class's display:flex otherwise beats [hidden] */
 .ytm-hud-label { font-size: 0.72rem; color: var(--ink-faint); text-transform: uppercase; letter-spacing: 0.08em; }
 .ytm-hud-val { font-size: 1.15rem; font-weight: 700; color: var(--ink); }
 
@@ -212,6 +213,12 @@
 	transition: color 0.15s, background 0.15s, border-color 0.15s;
 }
 .ytm-seg-opt input:checked + .ytm-seg-face {
+	color: var(--ink);
+	background: color-mix(in srgb, var(--ink) 9%, transparent);
+	border-color: var(--ink-faint);
+}
+/* reserve cyan for the controls-ON identity: only "on", when chosen, glows cyan */
+#mode-on:checked + .ytm-seg-face {
 	color: var(--acc-2);
 	background: color-mix(in srgb, var(--acc-2) 10%, transparent);
 	border-color: color-mix(in srgb, var(--acc-2) 40%, var(--line));
