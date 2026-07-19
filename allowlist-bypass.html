@@ -15,7 +15,7 @@ image: /assets/og/allowlist-bypass.png
 	<h1 class="al-title">The wildcard that spans a slash</h1>
 	<p class="al-lede">
 		An allowlist for <code>/files/*</code> means one file, directly under
-		<code>/files/</code>. Written as a shell glob, <code>*</code> also matches
+		<code>/files/</code>. Written as an <code>fnmatch</code> glob, <code>*</code> also matches
 		across <code>/</code>, so <code>/files/../../etc/passwd</code> reads as a
 		match. Type a path below. A naive <code>fnmatch</code> glob and an anchored
 		regex each rule on it, and often the path one approves the other refuses.

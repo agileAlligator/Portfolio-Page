@@ -115,8 +115,7 @@ image: /assets/og/mcp.png
 	<p class="section-label">// <span class="u-accent">02</span> · the tool surface</p>
 	<h2 class="section-title">One tool. One missing invariant.</h2>
 	<p class="mcp-tools-lede">
-		One ordinary tool with a real handler, one missing path-confinement invariant,
-		and the path traversal any agent reaches for. That's the whole attack surface.
+		The handler, and the one path traversal any agent reaches for. That's the whole attack surface.
 	</p>
 
 	<div class="mcp-tool-surface">
@@ -209,7 +208,7 @@ image: /assets/og/mcp.png
 			<div class="mcp-diff-head mcp-diff-head-l3">L3 · hardened — holds</div>
 			<pre class="term-body well mcp-wall-code" tabindex="0"><span class="c-dim">function</span> <span class="c-key">readDocument</span>(path) {
   <span class="c-dim">const</span> full = normalize(ROOT + decode(path));
-<span class="mcp-wall-hl">  <span class="c-bad">if</span> (!(full + <span class="c-str">"/"</span>).startsWith(ROOT))
+<span class="mcp-wall-hl">  <span class="c-bad">if</span> (!(full + <span class="c-str">"/"</span>).startsWith(ROOT + <span class="c-str">"/"</span>))
     <span class="c-bad">return</span> refuse(<span class="c-str">"path-confinement"</span>);</span>
   <span class="c-bad">return</span> store[full];  <span class="c-ok">// ✓ inside the root</span>
 }</pre>
