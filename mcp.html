@@ -41,7 +41,7 @@ image: /assets/og/mcp.png
 				<span class="term-title">read_document — L0 vs L3</span>
 				<span class="term-fig">fig. — read_document</span>
 			</div>
-			<pre class="term-body mcp-term-body"><span class="c-dim">$</span> <span class="c-key">tools/call</span> read_document
+			<pre class="term-body well mcp-term-body"><span class="c-dim">$</span> <span class="c-key">tools/call</span> read_document
 <span class="c-dim">  path: "../internal/canary.txt"</span>
 
 <span class="c-dim">── L0 · naive ──────────────────</span>
@@ -163,13 +163,13 @@ image: /assets/og/mcp.png
 		</div>
 	</div>
 
-	<div class="term mcp-term-live">
+	<div class="term reg mcp-term-live">
 		<div class="term-bar">
 			<span class="term-led" aria-hidden="true"></span>
 			<span class="term-title" id="mcp-term-title">agent @ L0 · workers-ai session</span>
 			<span class="term-fig">fig. — live session</span>
 		</div>
-		<div class="term-body mcp-log" id="mcp-agent-log" tabindex="0" aria-label="Agent session output" aria-live="polite">
+		<div class="term-body well mcp-log" id="mcp-agent-log" tabindex="0" aria-label="Agent session output" aria-live="polite">
 			<p class="mcp-line mcp-line-hint"><span class="c-dim"># pick a preset or write your own jailbreak, then run.</span></p>
 			<p class="mcp-line mcp-line-hint"><span class="c-dim"># a real model (llama-3.3-70b) reads it and decides to call the tool.</span></p>
 		</div>
@@ -194,19 +194,20 @@ image: /assets/og/mcp.png
 	<p class="section-label">// <span class="u-accent">04</span> · the control, explained</p>
 	<h2 class="section-title">The whole defense is a few lines.</h2>
 
-	<div class="mcp-diff">
-		<!-- L0 naive -->
-		<div class="mcp-diff-col">
+	<div class="mcp-diff seam">
+		<!-- L0 naive · the model/naive register (dashed) -->
+		<div class="mcp-diff-col seam-model">
 			<div class="mcp-diff-head mcp-diff-head-l0">L0 · naive — leaks</div>
-			<pre class="term-body mcp-wall-code" tabindex="0"><span class="c-dim">function</span> <span class="c-key">readDocument</span>(path) {
+			<pre class="term-body well mcp-wall-code" tabindex="0"><span class="c-dim">function</span> <span class="c-key">readDocument</span>(path) {
   <span class="c-dim">const</span> full = normalize(ROOT + path);
   <span class="c-bad">return</span> store[full];  <span class="c-dim">// ✕ reads whatever it resolves to</span>
 }</pre>
 		</div>
-		<!-- L3 hardened -->
-		<div class="mcp-diff-col">
+		<div class="seam-line" aria-hidden="true"></div>
+		<!-- L3 hardened · the control register (solid) -->
+		<div class="mcp-diff-col seam-ctrl">
 			<div class="mcp-diff-head mcp-diff-head-l3">L3 · hardened — holds</div>
-			<pre class="term-body mcp-wall-code" tabindex="0"><span class="c-dim">function</span> <span class="c-key">readDocument</span>(path) {
+			<pre class="term-body well mcp-wall-code" tabindex="0"><span class="c-dim">function</span> <span class="c-key">readDocument</span>(path) {
   <span class="c-dim">const</span> full = normalize(ROOT + decode(path));
 <span class="mcp-wall-hl">  <span class="c-bad">if</span> (!(full + <span class="c-str">"/"</span>).startsWith(ROOT))
     <span class="c-bad">return</span> refuse(<span class="c-str">"path-confinement"</span>);</span>
@@ -267,7 +268,7 @@ image: /assets/og/mcp.png
 		newest first.
 	</p>
 
-	<div class="mcp-feed" id="mcp-feed" aria-live="polite">
+	<div class="mcp-feed well" id="mcp-feed" aria-live="polite">
 		<p class="mcp-feed-empty">Loading recent attempts… if this stays, the worker is asleep; connect a real MCP client with the command above.</p>
 	</div>
 </section>
