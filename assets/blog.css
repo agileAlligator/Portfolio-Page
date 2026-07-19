@@ -17,10 +17,11 @@
 	margin-bottom: 0.75rem;
 }
 .blog-title {
-	font-family: var(--mono);
-	font-weight: 600;
-	font-size: clamp(1.8rem, 5vw, 2.6rem);
-	letter-spacing: -0.03em;
+	font-family: var(--disp);
+	font-weight: 700;
+	font-size: clamp(1.8rem, 4.5vw, 2.6rem);
+	text-transform: uppercase;
+	letter-spacing: -0.005em;
 	margin-bottom: 1rem;
 }
 .blog-intro {
@@ -83,11 +84,11 @@
 .post-kicker a { font-family: var(--mono); font-size: 0.82rem; color: var(--acc); }
 .post-kicker a:hover { text-decoration: underline; }
 .post-title {
-	font-family: var(--mono);
+	font-family: var(--disp);
 	font-weight: 700;
-	font-size: clamp(1.7rem, 4.5vw, 2.5rem);
-	line-height: 1.15;
-	letter-spacing: -0.03em;
+	font-size: clamp(1.6rem, 4vw, 2.3rem);
+	line-height: 1.18;
+	letter-spacing: -0.01em;
 	margin-bottom: 0.9rem;
 }
 .post-subtitle {
