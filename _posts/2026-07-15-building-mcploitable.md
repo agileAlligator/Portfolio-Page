@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Building mcploitable: A Lab Where Agent Guardrails Fail on Purpose"
-subtitle: "I argued the model can't police itself and the real controls belong in the server. mcploitable is where I test that: seven real incidents, a four-rung control ladder, and a wall the attacker never breached in 105 tries."
+subtitle: "The model can't police itself, so the controls belong in the server. mcploitable is where I prove it: seven incidents from the wild, a four-rung control ladder, and a wall that holds by construction — 105 attempts, zero through."
 description: >-
   The thinking behind mcploitable, a lab of deliberately vulnerable MCP servers
   covering the OWASP Agentic Top-10. How the boxes are built — faithful to real
@@ -97,7 +97,7 @@ exploitation, and rogue agents) have no secret to capture. They're a fault
 spreading down an agent chain, a human over-trusting a fluent agent, and an
 agent acting outside its scope. I built the lab that way on purpose: forcing a
 capture-the-flag box onto them would have been dishonest, so those three ship as
-guided walkthroughs that show the failure and its fix. Saying where the format
+guided simulations that show the failure and its fix. Saying where the format
 doesn't fit is part of the point.
 
 ## Go break it

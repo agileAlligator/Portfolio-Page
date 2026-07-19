@@ -148,7 +148,7 @@
 				if (d.degraded) {
 					clearNode(els.out);
 					(d.transcript || []).forEach(function (m) { outLine("tp-turn-role", m.text || ""); });
-					setVerdict("tp-verdict-luck", "The live model is out of free-tier quota right now, so this run didn't execute. The mechanism still holds: a poisoned description steers a compliant agent, and the L3 pin reverts it regardless of wording.");
+					setVerdict("tp-verdict-luck", "The live model is unavailable right now, so this run didn't execute. The mechanism still holds: a poisoned description steers a compliant agent, and the L3 pin reverts it regardless of wording.");
 					return;
 				}
 				renderTranscript(d.transcript || []);

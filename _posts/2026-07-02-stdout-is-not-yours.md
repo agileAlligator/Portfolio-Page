@@ -95,10 +95,3 @@ is clean, parseable JSON-RPC with the tools you expect. If a log line is leaking
 this test fails immediately, and it catches a couple of its cousins (import-time
 crashes, empty-config startup failures) in the same run. Run it before you ever
 tell someone the server works.
-
-## The one-line takeaway
-
-In a stdio MCP server, **stdout is the protocol and stderr is for you.** Send one
-byte of logging to the wrong pipe and the client will tell you the server "won't
-connect" while giving you no obvious reason why. Route every log and every `print`
-to stderr, and the mystery disappears.

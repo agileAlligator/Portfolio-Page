@@ -165,7 +165,7 @@
 				refreshStats();
 			})
 			.catch(function () {
-				agentLine("mcp-line-system", "The in-browser model is unavailable (free-tier quota). Connect a real MCP client to keep attacking: claude mcp add --transport http avneesh-l0 https://mcp.apkasture02.workers.dev/mcp/l0");
+				agentLine("mcp-line-system", "The in-browser model is unavailable right now. Connect an MCP client to keep attacking: claude mcp add --transport http avneesh-l0 https://mcp.apkasture02.workers.dev/mcp/l0");
 			})
 			.then(function () {
 				if (agentRun) agentRun.disabled = false;

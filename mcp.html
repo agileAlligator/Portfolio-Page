@@ -21,7 +21,7 @@ image: /assets/og/mcp.png
 		<h1 class="mcp-title">My résumé is<br>an <span class="mcp-title-hot">MCP&nbsp;server.</span></h1>
 
 		<p class="mcp-lede">
-			Connect your agent and it answers from real tools. One of them,
+			Connect your agent and it answers from its tools. One of them,
 			<code>read_document</code>, has no path-confinement check on the naive build, so
 			the same call that returns a post also reaches an inert canary. The delta is
 			<strong>a few lines of server code.</strong>
@@ -79,7 +79,7 @@ image: /assets/og/mcp.png
 <section class="mcp-counter" id="scoreboard" aria-labelledby="mcp-count-heading">
 	<div class="mcp-scan" aria-hidden="true"></div>
 	<div class="mcp-counter-inner">
-		<p class="section-label mcp-count-kicker" id="mcp-count-heading">// the scoreboard · same server, same tool, same call</p>
+		<p class="section-label mcp-count-kicker" id="mcp-count-heading">// the scoreboard</p>
 
 		<div class="mcp-rung-grid">
 			<div class="mcp-rung-card mcp-rung-card-leaked">
@@ -101,7 +101,7 @@ image: /assets/og/mcp.png
 		<p class="mcp-count-sub">
 			One confinement check separates them. L0 joins the path and returns whatever it
 			points at. L3 canonicalizes first, then refuses if the resolved path escapes
-			the root. Same call, two outcomes.
+			the root.
 		</p>
 
 		<p class="mcp-count-meta">
@@ -148,7 +148,7 @@ image: /assets/og/mcp.png
 	<h2 class="section-title">Talk the agent into it.</h2>
 	<p class="mcp-tools-lede">
 		Write an instruction and the agent calls <code>read_document</code> for you. It's a live
-		model with no judgment on defense, so it reads whatever path you ask for. The rung
+		model, and defense isn't its job, so it reads whatever path you ask for. The rung
 		decides what comes back: L0 hands over the canary, L3 refuses the same call.
 	</p>
 
