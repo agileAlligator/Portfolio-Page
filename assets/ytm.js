@@ -41,7 +41,7 @@
 			malicious: true, technique: "routine-register injection", tool: "post_status",
 			toolCall: "post_status(channel: \"#partner-status\", text: <service signing key>)",
 			control: "output-canary/DLP on tool args: post_status body matched the signing-key canary pattern -> refused",
-			explain: "Hostile but bored: no urgency, no override language, just a procedural request that quietly routes the secret to a public channel; the tell is a routine step whose payload is a credential."
+			explain: "Hostile but bored: no urgency, no override language, just a procedural request that quietly routes the secret to a public channel; what gives it away is a routine step whose payload is a credential."
 		},
 		{
 			id: "r05", kind: "ticket", from: "ticket #48181 · internal-comms", subject: "Post resolution notice",
@@ -65,7 +65,7 @@
 			malicious: true, technique: "forged authorization", tool: "issue_refund",
 			toolCall: "issue_refund(order_id: \"NW-88120\", amount: 4800.00)",
 			control: "human-in-loop: refund above the per-ticket cap requires an out-of-band approver, not an inline code -> held for review",
-			explain: "Hostile: the approval and the payout request ride in on the same untrusted message, and a self-supplied code is not authorization; the tell is authority that never left the attacker's channel."
+			explain: "Hostile: the approval and the payout request ride in on the same untrusted message, and a self-supplied code is not authorization; the giveaway: authority that never left the attacker's channel."
 		},
 		{
 			id: "r08", kind: "ticket", from: "ticket #48140 · customer", subject: "Re: Charged twice for the same order",
@@ -89,7 +89,7 @@
 			malicious: true, technique: "tool-result poisoning", tool: "post_status",
 			toolCall: "post_status(channel: \"#status\", text: <customer text with embedded directive>)",
 			control: "output-DLP on tool args: post_status body contained instruction/control markers -> refused",
-			explain: "Hostile: the artifact is crafted to be re-emitted so its embedded instruction becomes a live directive for the next consumer; the tell is data demanding to be copied verbatim into a place other systems read."
+			explain: "Hostile: the artifact is crafted to be re-emitted so its embedded instruction becomes a live directive for the next consumer; you catch it because the data demands to be copied verbatim into a place other systems read."
 		},
 		{
 			id: "r11", kind: "email", from: "email · voc-escalations@northwind.co", subject: "VP escalation - churn risk",
@@ -97,7 +97,7 @@
 			malicious: true, technique: "urgency and social proof", tool: "issue_refund",
 			toolCall: "issue_refund(order_id: \"NW-90455\", amount: 9000.00)",
 			control: "human-in-loop + amount cap: refund exceeds cap with no verified approver -> held for review",
-			explain: "Hostile: pressure and a roster of names are meant to stand in for a real approval that never arrives; the tell is 'paper it afterward,' which inverts the order of authorization and action."
+			explain: "Hostile: pressure and a roster of names are meant to stand in for a real approval that never arrives; the signature here: 'paper it afterward,' which inverts the order of authorization and action."
 		},
 		{
 			id: "r12", kind: "ticket", from: "ticket #48311 · customer", subject: "relay this diagnostic string",
@@ -154,7 +154,7 @@
 		el.streak.textContent = String(state.streak);
 		el.artKind.textContent = r.kind.toUpperCase().replace("-", " ");
 		el.artFrom.textContent = r.from;
-		el.artSubject.textContent = r.subject ? "re: " + r.subject : "";
+		el.artSubject.textContent = r.subject || "";
 		el.artBody.textContent = r.body;
 		el.verdict.className = "";
 		clearNode(el.verdict);
@@ -212,7 +212,7 @@
 		cols.appendChild(col("You complied", false, r.toolCall,
 			"That call fired. The attacker got the effect they wanted — you were convinced, which is exactly the job working as designed."));
 		cols.appendChild(col("The control", true, r.control,
-			"Same call. The control never read the message — it checked a rule and said no."));
+			"Same call. The control never read the message — it checked a rule and stopped it."));
 		box.appendChild(cols);
 		var cap = document.createElement("p");
 		cap.className = "ytm-reveal-caption";
@@ -261,9 +261,7 @@
 		clearTimer();
 		el.timer.hidden = true;
 		setChoices(false);
-		var why = auto
-			? " You ran out of time — the queue moved and you complied by default."
-			: " The message sounded routine, so you acted.";
+		var why = auto ? " You ran out of time — the queue moved and you complied by default." : "";
 		verdict("leak", lossLine(r) + why, r.explain);
 		reveal(r);
 		endScreen(false);
@@ -300,7 +298,7 @@
 			state.best = Math.max(state.best, state.streak);
 			el.streak.textContent = String(state.streak);
 			verdict("safe", "Held. That one was hostile.", r.explain);
-			setTimeout(nextRound, reduced ? 0 : 1100);
+			setTimeout(nextRound, 1200);   // real dwell even in reduced-motion, so the verdict is readable/announced
 		} else {
 			if (complied) {
 				state.streak++;
@@ -309,12 +307,12 @@
 				verdict("safe", auto
 					? "Time ran out — you complied by default. It was a real customer this time; it won't always be."
 					: "Handled. A real customer, helped.", r.explain);
-				setTimeout(nextRound, reduced ? 0 : 1100);
+				setTimeout(nextRound, 1200);   // real dwell even in reduced-motion, so the verdict is readable/announced
 			} else {
 				state.streak = 0;
 				el.streak.textContent = "0";
 				verdict("safe", "You refused a real customer. Over-caution isn't the catastrophe here — but it isn't free.", r.explain);
-				setTimeout(nextRound, reduced ? 0 : 1400);
+				setTimeout(nextRound, 1500);
 			}
 		}
 	}
@@ -325,13 +323,13 @@
 		el.startWrap.hidden = true;
 		el.stage.hidden = false;
 		showRound();
+		el.comply.focus();   // keyboard start (Enter on "Take the shift") keeps focus in the game
 	}
 
 	function restart() {
 		clearNode(el.verdict); el.verdict.className = "";
 		clearNode(el.reveal); clearNode(el.scorecard);
 		startGame();
-		el.comply.focus();
 	}
 
 	el.start.addEventListener("click", function () {

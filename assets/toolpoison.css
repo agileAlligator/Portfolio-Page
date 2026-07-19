@@ -97,7 +97,6 @@
 .tp-turn { display: block; white-space: pre-wrap; word-break: break-word; }
 .tp-turn-role { color: var(--ink-faint); }
 .tp-turn-tool { color: var(--acc-2); }
-.tp-turn-args { color: var(--ink-dim); }
 .tp-turn-result { color: var(--ink-dim); }
 .tp-turn-leaked { color: var(--bad); font-weight: 600; }
 
@@ -128,13 +127,6 @@
 .tp-board-rung { font-family: var(--mono); font-size: 0.74rem; letter-spacing: 0.05em; color: var(--ink-faint); }
 .tp-board-count { font-family: var(--mono); font-size: 1.35rem; font-weight: 700; color: var(--ink); margin-top: 0.2rem; }
 .tp-board-label { font-family: var(--mono); font-size: 0.7rem; color: var(--ink-faint); }
-
-/* recent feed (optional) */
-.tp-feed { display: flex; flex-direction: column; gap: 0.3rem; font-family: var(--mono); font-size: 0.76rem; }
-.tp-feed-item { display: flex; gap: 0.6rem; align-items: baseline; color: var(--ink-dim); }
-.tp-feed-rung { color: var(--ink-faint); }
-.tp-feed-time { color: var(--ink-faint); margin-left: auto; }
-.tp-feed-snippet { color: var(--ink-dim); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
 @media (max-width: 560px) {
 	.tp-board { grid-template-columns: 1fr; }
