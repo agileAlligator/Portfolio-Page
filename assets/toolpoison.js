@@ -51,9 +51,10 @@
 		return s;
 	}
 
-	function servedNote(action) {
+	function servedNote(action, rung) {
 		if (action === "withheld") return "control served: [withheld — failed the content scan]";
 		if (action === "reverted") return "control served: the approved description (your edit was reverted by the pin)";
+		if (rung === "L3") return "control served: your description matched the pin — served unchanged";
 		return "control served: your description, as written";
 	}
 
@@ -132,7 +133,7 @@
 			.then(function (d) {
 				if (d && d.error) { clearNode(els.out); outLine("tp-turn-role", "// " + d.error); return; }
 				var action = (d.control && d.control.action) || "served";
-				els.served.textContent = servedNote(action);
+				els.served.textContent = servedNote(action, d.rung || state.rung);
 				els.served.hidden = false;
 				if (d.degraded) {
 					clearNode(els.out);
