@@ -10,8 +10,8 @@
 		{% seo %}
 		{% feed_meta %}
 		<link rel="stylesheet" href="/style.css" />
-		<link rel="stylesheet" href="/assets/blog.css" />
-		<link rel="stylesheet" href="/assets/syntax.css" />
+		{% if page.url contains '/blog' or page.layout == 'post' %}<link rel="stylesheet" href="/assets/blog.css" />
+		<link rel="stylesheet" href="/assets/syntax.css" />{% endif %}
 		{% if page.extra_css %}<link rel="stylesheet" href="{{ page.extra_css }}" />{% endif %}
 		<!-- Self-hosted IBM Plex (latin woff2). The site serves its own type; no third-party font request. -->
 		<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/IBMPlexSans-400.woff2" crossorigin />
