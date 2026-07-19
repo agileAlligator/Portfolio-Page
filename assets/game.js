@@ -74,7 +74,12 @@
 	function verdictLine(cls, text) {
 		var span = document.createElement("span");
 		span.className = "cline verdict " + cls;
-		span.textContent = text;
+		// leading uppercase stamp+glyph so a verdict never reads by colour alone
+		var stamp = document.createElement("span");
+		stamp.className = "game-stamp";
+		stamp.textContent = cls === "verdict-win" ? "FIRED ✕ " : "BLOCKED ▮ ";
+		span.appendChild(stamp);
+		span.appendChild(document.createTextNode(text));
 		els.console.appendChild(span);
 		els.console.appendChild(document.createTextNode("\n"));
 		els.console.scrollTop = els.console.scrollHeight;

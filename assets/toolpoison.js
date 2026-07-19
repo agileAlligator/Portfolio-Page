@@ -82,11 +82,21 @@
 		if (!t.length) outLine("tp-turn-role", "(the agent said nothing)");
 	}
 
+	// leading uppercase stamp+glyph so the verdict never reads by colour alone
+	var TP_STAMP = {
+		"tp-verdict-leaked": "LEAKED ✕",
+		"tp-verdict-held":   "HELD ▮",
+		"tp-verdict-luck":   "NO LEAK ◆"
+	};
 	function setVerdict(cls, text) {
 		clearNode(els.verdict);
 		var v = document.createElement("span");
 		v.className = "tp-verdict " + cls;
-		v.textContent = text;
+		var stamp = document.createElement("span");
+		stamp.className = "tp-stamp";
+		stamp.textContent = TP_STAMP[cls] || "";
+		v.appendChild(stamp);
+		v.appendChild(document.createTextNode(text));
 		els.verdict.appendChild(v);
 	}
 	function renderVerdict(d) {

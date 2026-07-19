@@ -110,6 +110,7 @@
 	border-radius: 0;
 	margin-top: 0.2rem;
 }
+.tp-stamp { font-family: var(--disp); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.76rem; margin-right: 0.6rem; }
 .tp-verdict-leaked { background: color-mix(in srgb, var(--bad) 12%, transparent); border: 1px solid var(--bad); color: var(--bad); }
 .tp-verdict-held { background: color-mix(in srgb, var(--acc) 10%, transparent); border: 1px solid var(--acc); color: var(--acc); }
 /* no leak, but no control credit either — luck, at a rung that didn't stop it */

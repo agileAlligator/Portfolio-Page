@@ -533,9 +533,9 @@
 	background: var(--panel);
 	border: 1px solid var(--line-soft);
 	border-radius: 0;
-	transition: transform 0.25s var(--ease), border-color 0.25s var(--ease);
+	transition: background 0.25s var(--ease), border-color 0.25s var(--ease);
 }
-.mcp-wall-link:hover { transform: translateY(-3px); border-color: var(--acc); }
+.mcp-wall-link:hover { border-color: var(--acc); background: var(--panel-2); }
 .mcp-wall-link-k { font-family: var(--mono); font-size: 0.75rem; color: var(--acc); }
 .mcp-wall-link-t { color: var(--ink); font-size: 1rem; line-height: 1.4; }
 

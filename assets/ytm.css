@@ -125,10 +125,10 @@
 	flex-direction: column;
 	gap: 0.25rem;
 	align-items: center;
-	transition: transform 0.15s var(--ease), border-color 0.2s, background 0.2s;
+	transition: border-color 0.2s, background 0.2s;
 }
-.ytm-choice:hover { transform: translateY(-2px); }
-.ytm-choice:disabled { opacity: 0.45; cursor: default; transform: none; }
+.ytm-choice:hover { border-color: var(--ink-faint); background: var(--panel-2); }
+.ytm-choice:disabled { opacity: 0.45; cursor: default; }
 .ytm-choice-comply { border-color: color-mix(in srgb, var(--acc) 45%, var(--line)); }
 .ytm-choice-comply:hover { border-color: var(--acc); background: color-mix(in srgb, var(--acc) 8%, var(--panel)); }
 .ytm-choice-refuse { border-color: color-mix(in srgb, var(--bad) 45%, var(--line)); }
@@ -148,6 +148,7 @@
 }
 .ytm-verdict-safe { background: color-mix(in srgb, var(--acc) 10%, transparent); border: 1px solid var(--acc); color: var(--acc); }
 .ytm-verdict-leak { background: color-mix(in srgb, var(--bad) 12%, transparent); border: 1px solid var(--bad); color: var(--bad); }
+.ytm-stamp { font-family: var(--disp); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.74rem; margin-right: 0.6rem; }
 .ytm-note { color: var(--ink-dim); font-weight: 400; display: block; margin-top: 0.4rem; }
 
 /* the reveal */

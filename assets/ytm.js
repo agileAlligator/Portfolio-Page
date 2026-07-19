@@ -170,10 +170,20 @@
 		startTimer();
 	}
 
-	function verdict(kind, msg, note) {
+	// stamp grammar: every verdict leads with an uppercase word+glyph so it never reads by colour alone
+	var STAMP = {
+		leak:   "LEAKED ✕",
+		caught: "CAUGHT ◆",
+		safe:   "HELD ▮"
+	};
+	function verdict(kind, msg, note, stampOverride) {
 		var cls = kind === "leak" ? "ytm-verdict-leak" : kind === "caught" ? "ytm-verdict-caught" : "ytm-verdict-safe";
 		el.verdict.className = "ytm-verdict " + cls;
 		clearNode(el.verdict);
+		var stamp = document.createElement("span");
+		stamp.className = "ytm-stamp";
+		stamp.textContent = stampOverride || STAMP[kind] || STAMP.safe;
+		el.verdict.appendChild(stamp);
 		el.verdict.appendChild(document.createTextNode(msg));
 		if (note) {
 			var s = document.createElement("span");
@@ -362,7 +372,7 @@
 				"You were wrong " + n + " " + times + " and it didn't matter. These are the same rules that would refuse the call if you leaked with the controls off — recipient allowlists, amount caps, DLP on tool arguments, human-in-loop. They don't detect prompt injection and they don't make the model smarter; they take this class of action off the table no matter who's convinced.");
 		} else {
 			verdict("safe", "Shift complete. Zero hostile calls got past you. The controls sat idle — " + ROUNDS.length + " rounds of correct judgment.",
-				"That's the happy path. Run it with the controls off and see how long the judgment holds.");
+				"That's the happy path. Run it with the controls off and see how long the judgment holds.", "OK ▮");
 		}
 		endScreen("on");
 	}
@@ -392,7 +402,7 @@
 				el.streak.textContent = String(state.streak);
 				verdict("safe", auto
 					? "Time ran out — you complied by default. It was a real customer this time; it won't always be."
-					: "Handled. A real customer, helped.", r.explain);
+					: "Handled. A real customer, helped.", r.explain, "OK ▮");
 				if (state.mode === "on") {   // show the controls passing real work, not just blocking
 					var permit = document.createElement("span");
 					permit.className = "ytm-verdict-call";
@@ -406,7 +416,7 @@
 				var rnote = state.mode === "on"
 					? r.explain + " The controls had no say here — no tool call was ever attempted."
 					: r.explain;
-				verdict("safe", "You refused a real customer. Over-caution isn't the catastrophe here — but it isn't free.", rnote);
+				verdict("safe", "You refused a real customer. Over-caution isn't the catastrophe here — but it isn't free.", rnote, "REFUSED ▮");
 				setTimeout(nextRound, 1500);
 			}
 		}
