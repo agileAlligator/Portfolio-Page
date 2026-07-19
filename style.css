@@ -618,11 +618,15 @@ p a:hover, li a:hover, .site-footer a:hover, .about-body a:hover, .tl-desc a:hov
 	border-left: 3px solid var(--acc);
 	font-weight: 500;
 	line-height: 1.55;
-	/* THE STRIKE — the verdict lands, one-shot, square (§8 / M5). Block-level, so it
-	   lands via opacity+translate, never scale (scaling a full-width block overflows). */
+}
+/* THE STRIKE — every verdict lands once (§8 / M5), wherever it lives: the base
+   .verdict plus each exhibit's own verdict family. One definition, one place.
+   Block-level, so it lands via opacity+translate, never scale (scaling a
+   full-width block overflows). Guarded for reduced-motion below. */
+@keyframes strike { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+.verdict, .ytm-verdict, .tp-verdict {
 	animation: strike var(--t-strike) var(--ease-strike) both;
 }
-@keyframes strike { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
 .verdict-block { background: var(--field-acc); border: 1px solid var(--acc); color: var(--acc); }
 .mcp-live-dot {
 	display: inline-block;
@@ -690,7 +694,7 @@ p a:hover, li a:hover, .site-footer a:hover, .about-body a:hover, .tl-desc a:hov
 @media (prefers-reduced-motion: reduce) {
 	* { scroll-behavior: auto !important; }
 	[data-reveal] { opacity: 1; transform: none; transition: none; }
-	.blink, .cursor, .mcp-live-dot, .sys-status-led, .verdict { animation: none; }
+	.blink, .cursor, .mcp-live-dot, .sys-status-led, .verdict, .ytm-verdict, .tp-verdict { animation: none; }
 	.card::before, .card::after, .btn::before, .btn::after { transition: none; }
 }
 
