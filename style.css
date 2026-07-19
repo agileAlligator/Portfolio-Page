@@ -619,6 +619,9 @@ p a:hover, li a:hover, .site-footer a:hover, .about-body a:hover, .tl-desc a:hov
 		color: var(--acc);
 		font-size: var(--fs-1);
 	}
+	/* it's a plain centered row here, not a button — drop the ↗ so the word
+	   centers on the column like every other item (the arrow only skewed it) */
+	.nav.open .nav-links .nav-resume span { display: none; }
 	.hero { grid-template-columns: 1fr; }
 	.about-grid { grid-template-columns: 1fr; }
 	.cards { grid-template-columns: 1fr; }
