@@ -193,6 +193,7 @@
 .ytm-score-line { font-family: var(--mono); font-size: 0.9rem; color: var(--ink-dim); margin: 0.3rem 0; }
 .ytm-score-num { color: var(--ink); font-weight: 700; }
 .ytm-controls { display: flex; flex-wrap: wrap; gap: 0.7rem; align-items: center; margin-top: 1.2rem; }
+.ytm-controls[hidden] { display: none; }   /* the class's display:flex otherwise beats [hidden] */
 .ytm-toggle { font-family: var(--mono); font-size: 0.8rem; color: var(--ink-faint); display: inline-flex; align-items: center; gap: 0.45rem; cursor: pointer; }
 
 .ytm-foot {
