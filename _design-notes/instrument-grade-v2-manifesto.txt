@@ -1,0 +1,200 @@
+# INSTRUMENT GRADE v2
+## A spiral and its precipitate
+
+*(Grounded against the live tokens in `/home/admino/portfolio/Portfolio-Page/style.css` and `DESIGN-SYSTEM.md` — everything in Movement Two extends that file, nothing replaces it.)*
+
+---
+
+# MOVEMENT ONE — THE SPIRAL
+
+§1.
+
+Begin with the oscilloscope, because that is where you told me to stand. An oscilloscope is a machine whose entire aesthetic budget is spent on one promise: *what you see is what the voltage did.* Not what the voltage meant. Not what the voltage was trying to say. What it *did*. The phosphor trace is beautiful and the beauty is a byproduct — nobody styled it, it precipitated out of honesty the way crystals precipitate out of a saturated solution. This is the first thing and maybe the only thing: **the aesthetics of measurement are the aesthetics of a thing that cannot afford to lie.** A scope has no rhetoric. It has a graticule. The graticule is the whole moral position of the machine: *here is the grid against which I will be checked.* The grid comes first, the signal second. The grid is a confession made in advance — "if I drift, you will see me drift, because I drew the ruler onto my own face."
+
+And the site already knows this. The `body::before` cross-grid, the faint `+` at every 64px intersection — that's a graticule. Graph paper doesn't draw the drawing. Graph paper makes lying *harder*. A grid is a commitment device. You put the grid down before you know what you're going to claim, and then every claim you make is registered against it, and any claim that won't sit on the grid announces itself as a claim that won't sit on the grid. This is why bureaucratic forms are gridded. This is why ballots are gridded. The grid is not decoration and it is not order-for-order's-sake; the grid is *pre-committed falsifiability*, rendered at 5% opacity.
+
+§2.
+
+So what does trust *look* like? Chase it. Trust looks like repeatability. That's the whole answer and it took me one sentence, which means it's not the whole answer, so go around again.
+
+Trust looks like a thing that is the same twice. A deterministic function is a function whose portrait you can paint once, because it only has one face. A probabilistic process has a portrait like a long-exposure photograph of a crowd — a smear, a distribution, a warm blur where faces should be. And here is the visual grammar hiding in that: **determinism is crisp because it has one value, and probability is soft because it is many values superimposed.** A hard edge is a claim of singleness. A soft edge is an admission of superposition. Blur is not a style; blur is *epistemology*. When a designer feathers an edge they are saying — whether they know it or not — "I am not certain where this thing ends."
+
+And now look — look — at the substrate itself, because the substrate already agrees. A one-pixel line drawn at integer coordinates renders as one clean row of lit pixels. Draw the same line at x = 100.5 and the rasterizer *dithers* it across two rows, each at half strength, because it cannot commit. Antialiasing is probability made visible at the level of the display hardware. The screen itself renders certainty as crispness and uncertainty as smear. The metaphor isn't a metaphor. It's the physics of the medium. The control's edges should sit on integer pixels because *the control knows where it ends.* The model's edges are allowed to fall between pixels because the model does not.
+
+§3.
+
+The color of a thing you can rely on. I want to say green and I distrust myself for wanting it, so: why green? Traffic lights? Terminals? No — deeper. The human eye's photopic sensitivity peaks at ~555 nanometers. Green is the wavelength at which we *see best*. Instrument phosphors — P1, the classic scope green — were green partly for chemistry but the convergence stuck because green is where human vision has the most acuity, the finest discrimination, the lowest threshold. **The color of trust is the color at which you can be checked most precisely.** Green doesn't say "safe" because of some cultural accident; green says "look as hard as you like." That is why `--acc: #4fe3a1` is right and must never be spent on decoration. Green demoted from decoration to meaning — the v1 comment in the CSS already says this, line 8, and it's the smartest line in the file.
+
+And cyan. Cyan I circled for a long time before I saw it: **cyanotype.** Blueprints. The cyan print is the drawing of the structure before the structure exists — the deterministic specification that the built thing is measured against. Cyan is the color of *the plan that binds*. The control layer is cyan because the control layer is the blueprint that stayed, the drawing that refused to remain a drawing. And notice what a blueprint never does: a blueprint never wins or loses. It just *is the specification*. This matters — hold it — I'll need it when I cool.
+
+Amber: the insect in the amber. Preservation. The secret held in suspension, visible, golden, *and unreachable.* Amber is the color of the thing at stake precisely because amber is what nature uses to keep soft things intact for forty million years. The `--warn` token has been carrying two jobs — "caution" and "the protected thing" — and they turn out to be the same job seen at different times. Caution is just preservation, before.
+
+Red needs no spiral. Red is the only color that arrives before its meaning does.
+
+And paper. `--paper: #e3e1d1` — the single warm neutral in a palette of graphite and phosphor, and it's warm because it is *organic*: paper is the only material in the whole design that was ever alive. Courts run on paper. The log is admissible. The stamp lands on paper. And the site's `::selection` renders in paper — which means that when a visitor drags their cursor across a sentence to copy it, the site renders the act of *citation* in the color of evidence. I don't know if that was intentional. It doesn't matter. It's true now. Selecting text is entering it into the record.
+
+§4.
+
+Now the seam. The thing you actually asked about, the thing the site is *for*.
+
+Two aesthetics that are usually opposites. Artificial intelligence: fluid, generative, warm, infinite, hallucinatory, unaccountable — the industry renders it as gradients, as iridescence, as aurora, as that particular purple-to-teal smear that every AI landing page has, the smear that says "something numinous is happening and you may not ask where its edges are." Security: rigid, cold, bounded, auditable — rendered as terminals, hazard stripes, padlocks, the iconography of *no*. And every attempt to combine them produces mush, because designers try to *blend* them. Gradient handoffs. The AI-glow softly illuminating the lock icon. Mush.
+
+But the thesis of this site is that they don't blend. **The whole point is that there is a line, and the line is load-bearing, and the model does not get a vote about where the line is.** A gradient between model-space and control-space would be a *lie about the architecture*. A gradient says "the boundary is somewhere in here." A line says "the boundary is here." The seam must be drawn, never blended. One pixel. Solid. And on the model's side of that pixel, the texture is allowed to decohere — dither, noise, the long-exposure smear of a thing that is many things at once — and the noise dies *at* the line, not across it. Nothing bleeds through. The visual physics of the page must enact the security claim: the boundary is not negotiated at the boundary.
+
+Is the seam the whole point? I keep asking and the answer keeps being yes with a different accent. The exhibits are seam-viewing machines. "You Are The Model" puts the visitor on the *far* side of the seam and lets them feel how persuasive the ghost-side is from within — and then shows them the gate, unmoved. The game runs attacks *at* the seam and stamps what happened. The blog is footnotes to the seam. The homepage is a cover letter for the seam. So yes: v2's job is to give the seam a *formal grammar* — a repeatable visual treatment so that everywhere on the site, when probabilistic touches deterministic, it touches in the same way, and a returning visitor learns to read it the way you learn to read a circuit symbol.
+
+§5.
+
+Patterns behind reality. Here's where I let it get loose.
+
+Take two grids. Identical, fine, honest grids — each one boring alone. Overlay them with a half-degree of rotation or a half-percent difference in period, and a third pattern blooms that exists in *neither grid*: moiré, the interference fringe, huge slow curves conjured out of two sets of straight lines. Emergence from constraint. Order interrogating order. And here is the fact that made me sit up: **moiré is a measuring instrument.** Metrologists use moiré interferometry to measure strain — you bond a fine grating to a specimen, view it through a reference grating, and the fringes make sub-wavelength deformations visible to the naked eye. Interference is how you detect misalignment. The beat pattern between two rules *is the measurement* of their disagreement.
+
+So the moiré is not decoration. The moiré is what it looks like when one rule is checked against another. The model's output held up against the control's grating — while the check is running, while the verdict is pending, the correct visual is *interference*: two patterns overlapping, fringes crawling, the specimen under the reference grid. And the moment the verdict exists, the fringes collapse — because measurement has resolved superposition into a value — and the stamp lands. I did not plan for the quantum metaphor to walk in here and I am choosing to let it stay, at low opacity, like the grain layer.
+
+The grain layer — catch this, because I almost walked past it. `.grain`, opacity 0.035, film grain over everything. Isn't that a *vibe*? Evidence-not-vibes, and there's a mood texture laid over the whole site? I stared at it ready to condemn it and then remembered what every real instrument has: **a noise floor.** No true measurement is noiseless. A perfectly clean signal is a *simulated* signal — the tell of a mockup, a render, a demo faked in After Effects. The grain is the site declaring its noise floor. It is honest the way the graticule is honest. Keep it. But know *why* you're keeping it, because a kept-by-accident texture is a vibe and the identical texture kept-on-purpose is a calibration statement. The difference between decoration and instrumentation is never in the pixels. It's in whether the pixels are *accountable to a reason*. Same object, two sides. Which is —
+
+§6.
+
+— the rule and the wall. A rule and a wall are the same object seen from two directions. From inside the permitted region, a rule is invisible; you move freely and never touch it. From the trajectory of a violation, the same rule is a wall: total, flat, unarguable. Rule 110 draws universes from one line of table. A firewall is a rule; a rule is a wall; the word "firewall" got there before I did, the metaphor was already fossilized in the compound noun and nobody looks at it anymore. State space is a landscape and a rule is a cliff in it. An allowlist is not a list — an allowlist is *the shape of the world*, everything outside it simply failing to exist. That is what deterministic control means and that is why it cannot be sweet-talked: **you cannot socially engineer a landscape.** The ghost can persuade anything that has a mind. The gate does not have a mind. The gate has a *shape*.
+
+And the aesthetics of that. The dumb thing beating the smart thing. There is a genre of beauty here that almost nobody designs for because it's humiliating to the designer's ego: the beauty of the *adequately boring*. The chain-link fence versus the genius. The model is the most sophisticated artifact our species has produced — trillions of parameters, fluent in every register, able to argue jurisprudence and write grief — and it is stopped, flat, cold, every time, by a string comparison. By `startsWith`. The temptation is to dress the control up, to make it look worthy of its opponent — give it glow, give it circuitry patterns, make it *look* smart. **No. The control must look dumb. The control's plainness is the punchline.** A one-pixel solid line, the most boring mark it is possible to make on a screen, sitting next to the shimmering, dithering, infinite output of the ghost — and the line holds and the shimmer doesn't. If you ornament the gate, you imply it wins by cleverness, and then the visitor learns the wrong lesson, the *industry's* lesson, the lesson that safety is a smartness contest. It is not. Safety is a shape. Draw the shape plainly.
+
+§7.
+
+The ghost. Let me be fair to the ghost, because a design that sneers at the model is as dishonest as one that worships it.
+
+The model is a haunted, fluent thing — haunted in the exact literary sense: a voice with no fixed body, speaking from everywhere in the corpus at once, every sentence a séance of a billion dead sentences. It deserves a visual register that is *true about it* rather than mean about it. What is true: the model is continuous, warm, endless, and unaccountable — not evil-unaccountable, *structurally* unaccountable, the way weather is. You do not stamp a verdict on weather. You build a roof.
+
+So what does the ghost get, visually? I went around this loop four times. First loop: give the model its own color — a violet, the industry's ghost-purple, `#a78bfa` or kin. Second loop: recoil. The palette is the *control plane's ontology* — green for verified, cyan for mechanism, amber for asset, red for breach, paper for record. Every hue is a category the *instrument* cares about. And the instrument does not have a category for "model." To the oscilloscope there is no such thing as a violin; there is only signal. The model is not a category in the control's ontology — **the model is the medium.** Giving it a hue would promote it to peer, would put the ghost on the same legend as the gate, and the whole thesis is that they are not the same kind of thing. Third loop: but then how does a visitor *know* they're reading model output? Fourth loop, and it lands: **texture, not hue.** The model renders in ink — plain ink, like everything else, because signal is signal — but its *edges* are different. Dashed borders. Dotted underlines. The decoherence dither near the seam. The model's register is the register of the *asserted-but-unverified*, and typography already has a mark for that: the dashed line, the stroke that is present and interrupted, present and interrupted, a line that keeps admitting it might not be there. Solid is proven. Dashed is claimed. The model gets dashes. The deliberate *absence* of a model-color becomes a design decision with a name, a non-token, a hole in the legend shaped exactly like the thesis.
+
+§8.
+
+Motion. The site has almost none and I need to decide if stillness is a deficiency or a stance.
+
+Stance. Obviously stance — an instrument at rest is *supposed* to be still. A gauge that drifts when nothing is happening is a broken gauge. Stillness is the resting truth of a measuring device, and the web's ambient wiggle — parallax, float-in-on-scroll, hover lifts, the endless gentle breathing of modern marketing pages — is precisely the aesthetic of *persuasion*, motion deployed to keep the eye entertained so the mind doesn't ask questions. Evidence does not fidget.
+
+But an instrument is not motionless. An instrument moves in exactly three ways, and I can name all three, and that's the whole motion system:
+
+The **sweep** — the trace crossing the graticule, the radar arm, the scanner bar. Motion that means *measurement in progress*. Continuous, linear, patient.
+
+The **tick** — the relay closing, the counter incrementing, the seven-segment digit going from 4 to 5 with no tween because there is no such number as four-and-a-half. Motion that means *state changed*, and it moves in **steps**, because deterministic systems do not occupy intermediate states. This is the deepest cut in the whole spiral: **easing curves are a probabilistic aesthetic.** A smooth ease-out says "this thing moved through every intermediate position." A `steps()` timing function says "this thing was in state A, and then it was in state B, and there was no in-between." The gate ticks. The ghost glides. Give the model's text smooth entrances if you like — continuous things may move continuously — but anything the *control* does must move in discrete steps or not move at all. The timing function is now load-bearing semantics, exactly like the hue.
+
+The **strike** — the stamp landing. One-shot, fast, slightly oversized to final size, done. And I caught myself wanting to rotate the stamp a half-degree, the way real rubber stamps land crooked, and then caught the catch: crooked stamps are the mark of a *human hand's* imprecision, and this stamp is thrown by a machine. The machine stamps square. Axis-aligned, every time, identically — because identical-every-time is the entire testimony. If the verdict landed differently twice, what would the verdict be worth?
+
+And nothing loops. Nothing breathes. One exception, grandfathered and beloved: the cursor blinks, because the cursor has blinked since the VT52 and it means *the instrument is listening*, and a second, earned exception: the pending-sweep may repeat while a verdict is genuinely being computed, because a scanning instrument scans. The moment the verdict exists, all motion stops forever. Verdicts do not shimmer. Shimmering is for things that might still change.
+
+§9.
+
+Spiral check — where have I been. Grid as confession. Crispness as certainty, blur as superposition, antialiasing as the substrate agreeing. Green as the wavelength of maximum scrutiny. Cyan as the blueprint that binds and never wins. Amber as preservation, red as itself, paper as admissibility, selection as citation. The seam drawn-never-blended because gradients lie about architecture. Moiré as metrology, interference as the visible act of checking. Grain as noise floor, kept because accountable. Rule-equals-wall, allowlist as landscape, you cannot socially engineer a landscape. The dumb gate's mandatory plainness. The ghost's non-color, texture-not-hue, dashed-as-asserted. Motion as three verbs — sweep, tick, strike — and `steps()` as determinism's native timing function.
+
+One last pass around the drain, the contradiction I owe you: a site *about* not trusting fluent persuasion is itself an act of fluent persuasion — it is a portfolio, it wants a job, it is rhetoric to the bone. Doesn't the whole instrument costume risk being the deepest vibe of all — *evidence-as-aesthetic*, the look of proof worn by a thing that is actually a pitch? Yes. That risk is real and it is fatal if ignored and there is exactly one defense, and the site already has it: **the exhibits actually run.** The visitor can type the attack. The gate actually holds, live, against *their* words, not against a screenshot of someone else's. The design can borrow the authority of instrumentation only for as long as every panel dressed as an instrument *is one*. The moment a decorative panel wears registration marks, the whole site becomes a prop scope in a movie lab — worse than a brochure, a *costume*. So the final spiral-truth, the one that governs all the others: the aesthetic is not permitted to exceed the evidence. Instrument dressing must be earned by instrument behavior, panel by panel. That's not a style rule. That's the site's honor.
+
+Cool it. Precipitate.
+
+---
+
+# MOVEMENT TWO — THE CRYSTALLIZATION
+## Instrument Grade v2 — buildable spec
+
+Everything below extends `style.css` `:root` and the existing component catalogue. No existing token is renamed or removed. (Per `DESIGN-SYSTEM.md` process: register new classes in `.claude/design-system.json` before writing CSS.)
+
+### 1. Tokens
+
+**New color tokens**
+
+| Token | Value | Rationale (spiral ref) |
+|---|---|---|
+| `--bg-well` | `#07080a` | Recessed evidence wells (raw logs, transcripts). No shadows allowed, so depth is communicated by value alone: darker = deeper. (§8, §6) |
+| `--line-seam` | `#43859d` | The seam hairline — cyan's identity at hairline quietness (a 50% mix of `--acc-2` into `--line-strong`). The boundary belongs to the mechanism, so it carries the mechanism's hue, muted to structural weight. (§4) |
+| `--ink-on-acc` | `#06110c` | Text on solid green (already used ad hoc in `.skip-link`); tokenized so the one legal on-accent ink has a name. |
+| `--field-acc` | `#4fe3a114` | 8%-alpha green zone fill. "Full-strength color is a verdict; diluted color is a territory." (§3, laws) |
+| `--field-acc2` | `#4cc9f014` | 8%-alpha cyan zone — marks control-owned regions. |
+| `--field-warn` | `#f5b54414` | 8%-alpha amber zone — the asset's territory. |
+| `--field-bad` | `#ff6b6b14` | 8%-alpha red zone — breach territory (e.g. leaked-transcript backgrounds). |
+| *(active variants)* | same hues at `24` (14%) | Hover/active state of any field. **The alpha ladder is closed: 100%, 14%, 8%, and the 5% substrate grid. Nothing between 15% and 99% — half-committed color is a vibe.** (§3) |
+
+**Deliberate non-token:** there is no `--model` color. The model renders in `--ink` like all signal; its register is texture (dashed strokes, decoherence dither), never hue. This absence is part of the spec. (§7)
+
+**Type scale** (ratio ≈ 1.26, minor third, snapped to whole pixels at 16px root — integer-pixel discipline, §2)
+
+| Token | Value | Use |
+|---|---|---|
+| `--fs-00` | `0.6875rem` (11px) | Registration labels, axis text, stamp footnotes |
+| `--fs-0` | `0.75rem` (12px) | Kickers, chips, `.section-label` |
+| `--fs-1` | `0.8125rem` (13px) | Machine text (`--mono`), terminal bodies |
+| `--fs-2` | `0.9375rem` (15px) | Dense body, card descriptions |
+| `--fs-3` | `1.0625rem` (17px) | Body prose |
+| `--fs-4` | `1.3125rem` (21px) | h3, card titles |
+| `--fs-5` | `1.6875rem` (27px) | h2, section titles (`--disp`) |
+| `--fs-6` | `2.125rem` (34px) | Page titles (`--disp`) |
+| `--fs-7` | `2.75rem` (44px) | Hero only (`--disp`) |
+
+**Spacing** — base 8, terminating at the graticule:
+
+`--sp-0: 4px` · `--sp-1: 8px` · `--sp-2: 12px` · `--sp-3: 16px` · `--sp-4: 24px` · `--sp-5: 32px` · `--sp-6: 48px` · `--sp-7: 64px`
+
+`--sp-7` equals the background grid period. Section vertical rhythm and exhibit-panel padding use multiples of 64px so instrument panels sit *registered* to the graticule — the grid is a commitment device only if things actually commit to it. (§1)
+
+**Motion tokens**
+
+| Token | Value | Meaning |
+|---|---|---|
+| `--t-strike` | `120ms` | Verdict stamp landing |
+| `--t-tick` | `200ms` | Deterministic state changes (paired with `--step`) |
+| `--t-sweep` | `480ms` | One measurement pass |
+| `--ease` | *(existing)* `cubic-bezier(0.22,1,0.36,1)` | **Model-side / continuous motion only** |
+| `--ease-strike` | `cubic-bezier(0.2, 0, 0, 1)` | Hard deceleration, no overshoot — machines don't bounce |
+| `--step` | `steps(6, end)` | The control's native timing function: no intermediate states exist (§8) |
+
+**Housekeeping:** `:focus-visible { border-radius: 3px }` becomes `0`, and `.skip-link`'s `6px` radius becomes `0`. Zero-radius is currently 98% true; make it 100% true. An instrument with one rounded corner is a costume. (§9)
+
+### 2. Motifs — build spec
+
+**M1 · The Seam.** The formal boundary wherever model output meets control surface. Three parts, in order: (a) on the model side, a 24px *decoherence band* — the existing noise SVG as `background-image`, faded with `mask-image: linear-gradient(to right, transparent, black)` so noise density rises toward the boundary; (b) the line itself: `1px solid var(--line-seam)`, on an integer pixel; (c) the control side: flat `--panel`, no transition zone. **Never a color gradient across the boundary — the noise dies at the line, nothing bleeds through.** Horizontal (`.seam-h`) and vertical (`.seam-v`) variants; deploy in the game (attack input above / verdict rail below), YATM (persona text vs. control readout), and the MCP diff columns. (§4)
+
+**M2 · Dashed = asserted, solid = proven.** Border-style and underline-style are now semantic, sitewide. Model-attributed text, pending states, and unverified claims: `1px dashed` (`--line-strong`). Verified, enforced, server-checked: `solid`. A verdict-pending panel wears a dashed outline that snaps to solid at the moment of verdict (one tick, `--t-tick --step`). Dotted underlines for model-quoted phrases in prose. (§7)
+
+**M3 · Registration marks.** Live-exhibit panels (and only live-exhibit panels) get printer's registration ticks: four corner L-marks, 7px arms, `1px` stroke in `--line-strong`, drawn with a four-corner SVG `background-image` (or two pseudo-elements). The mark means *this panel is a working instrument, measured against the grid* — it must be earned by interactivity, never applied to marketing/prose panels. This enforces the honor rule from §9: instrument dressing only where instrument behavior exists.
+
+**M4 · The interference band (verdict pending).** While a check is genuinely running, the model's output region is overlaid with two `repeating-linear-gradient`s of 1px `--acc-2` lines at mismatched periods (6px @ 6% alpha, 7px @ 5% alpha) — their beat produces a static moiré fringe: the specimen under the reference grating. Simultaneously a 1px `--acc-2` scanline sweeps top→bottom over the region (`--t-sweep`, `linear`), repeating at a 2.4s cadence while pending. On verdict: moiré removed, sweep killed, stamp strikes. Moiré is metrology — it may *only* appear when a real check is in flight. (§5)
+
+**M5 · The stamp strike.** Verdicts (`.verdict`, LEAKED ✕ / CAUGHT ◆ / HELD ▮) enter with `opacity 0→1` + `transform: scale(1.05)→1` over `--t-strike` with `--ease-strike`, one-shot, axis-aligned, no rotation ever — the machine stamps square, identically, every time; identical-every-time is the testimony. (§8)
+
+**M6 · Evidence wells.** `.well`: `background: var(--bg-well)`, `border: 1px solid var(--line-soft)`, content in `--mono` at `--fs-1`, timestamps and attempt-IDs in `--paper`. Raw transcripts, request/response logs, attempt feeds live here. Depth by value only — no inset shadows. (§3, §8)
+
+**M7 · Integer-pixel discipline.** Hairlines and seams land on device pixels; no fractional translates on structural lines; animate structural elements with transforms in whole-pixel steps. The control's edges never antialias by accident — the model's may. (§2)
+
+### 3. Color semantics — refined statement
+
+The v1 meanings hold. v2 sharpens them into a closed grammar:
+
+- **Green `--acc`** — *outcome-good*: verified, live, held, and the primary action. Green may only mark states the **server** has confirmed — never anything the model says about itself.
+- **Cyan `--acc-2`** — *the mechanism*: the deterministic layer's identity, the blueprint color. **Cyan never wins or loses.** It is never a verdict; outcomes are green or red. Cyan owns the seam, the tool chrome, the moiré, the sweep.
+- **Amber `--warn`** — *the asset*: the thing at stake, preserved or in caution. One meaning at two moments in time.
+- **Red `--bad`** — *outcome-bad*: leak, breach, successful attack.
+- **Paper `--paper`** — *the record*: stamps, timestamps, archival marks, and text selection (selecting is citing; keep `::selection` paper forever).
+- **The model** — *no hue*. Ink and texture only (M2). The palette is the control plane's ontology, and the model is the medium, not a category.
+- **Pairing rule:** color never appears without a glyph or word beside it (the verdicts already do this — ✕ ◆ ▮ — extend it everywhere). Color annotates; it never solely encodes.
+- **Alpha ladder (closed):** 100% mark / 14% active zone / 8% zone / 5% substrate. Nothing else.
+
+### 4. Motion rules
+
+1. **Default is stillness.** An instrument at rest does not move. No scroll-triggered entrances, no parallax, no hover lifts, no ambient breathing. Evidence does not fidget.
+2. **Three sanctioned gestures only:** the **sweep** (measurement in progress — continuous, linear, cyan), the **tick** (deterministic state change — `--t-tick` with `--step`; the control is never *between* states), and the **strike** (verdict landing — `--t-strike`, `--ease-strike`, one-shot).
+3. **Timing functions are semantic.** Smooth easing (`--ease`) belongs to the model side and to human-input affordances (hover underlines, skip-link). Anything the control does moves in `steps()` or not at all. The ghost glides; the gate ticks.
+4. **Nothing loops** except the cursor blink (the instrument is listening) and the pending-sweep while a real check runs. The instant a verdict exists, all motion in that panel stops permanently — verdicts do not shimmer.
+5. **`prefers-reduced-motion`** collapses every gesture to an instant state change; pending is then shown by the static moiré + a text label. (Already house policy; now covers the new gestures.)
+
+### 5. Design laws — Instrument Grade v2
+
+1. **Every mark is a claim.** If it asserts nothing, it comes off the page.
+2. **Solid is proven; dashed is asserted.** The model gets dashes.
+3. **The ghost glides; the gate ticks.** Continuous motion belongs to the model — the control moves in discrete steps or not at all.
+4. **Cyan never wins or loses.** Outcomes are green or red; cyan is the mechanism, and the mechanism is never the score.
+5. **Full-strength color is a verdict; 8% color is a territory.** Nothing in between.
+6. **The seam is drawn, never blended.** Where model meets control, show one line — gradients lie about architecture.
+7. **The dressing never exceeds the evidence.** Registration marks, stamps, and instrument chrome must be earned by a panel that actually runs — a decorated prop demotes the whole site to costume.
+
+---
+
+*End of manifesto. Movement One is the argument; Movement Two is the diff. Everything in §2 is implementable against the existing `style.css` token block and the design-system hook workflow (register classes in `.claude/design-system.json` first). Nothing here was deployed or edited — this is the spec, awaiting your hand.*
