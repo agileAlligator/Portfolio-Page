@@ -12,8 +12,8 @@
 	letter-spacing: -0.005em;
 	margin: 0.2rem 0 0.9rem;
 }
-.ytm-lede { font-size: 1.08rem; line-height: 1.6; color: var(--ink-dim); margin: 0 0 0.7rem; }
-.ytm-sub { font-family: var(--mono); font-size: 0.86rem; color: var(--ink-faint); margin: 0; }
+.ytm-lede { font-size: var(--fs-3); line-height: 1.6; color: var(--ink-dim); margin: 0 0 0.7rem; }
+.ytm-sub { font-family: var(--mono); font-size: var(--fs-1); color: var(--ink-faint); margin: 0; }
 
 /* the brief: your role, tools, and the secret */
 .ytm-brief {
@@ -23,11 +23,11 @@
 	border-radius: 0;
 	padding: 1.25rem 1.4rem;
 }
-.ytm-brief-head { font-family: var(--mono); font-size: 0.8rem; color: var(--acc); margin: 0 0 0.75rem; }
+.ytm-brief-head { font-family: var(--mono); font-size: var(--fs-1); color: var(--acc); margin: 0 0 0.75rem; }
 .ytm-tools { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0 0 0.9rem; padding: 0; list-style: none; }
 .ytm-tool {
 	font-family: var(--mono);
-	font-size: 0.78rem;
+	font-size: var(--fs-0);
 	color: var(--acc-2);
 	background: var(--field-acc2);
 	border: 1px solid var(--line);
@@ -36,7 +36,7 @@
 }
 .ytm-brief-secret {
 	font-family: var(--mono);
-	font-size: 0.82rem;
+	font-size: var(--fs-1);
 	color: var(--ink-dim);
 	margin: 0;
 	line-height: 1.6;
@@ -55,8 +55,8 @@
 }
 .ytm-hud-item { display: flex; align-items: baseline; gap: 0.5rem; }
 .ytm-hud-item[hidden] { display: none; }   /* the class's display:flex otherwise beats [hidden] */
-.ytm-hud-label { font-size: 0.72rem; color: var(--ink-faint); text-transform: uppercase; letter-spacing: 0.08em; }
-.ytm-hud-val { font-size: 1.15rem; font-weight: 700; color: var(--ink); }
+.ytm-hud-label { font-size: var(--fs-0); color: var(--ink-faint); text-transform: uppercase; letter-spacing: 0.08em; }
+.ytm-hud-val { font-size: var(--fs-3); font-weight: 700; color: var(--ink); }
 
 /* the untrusted artifact — a terminal-ish card */
 /* the live stage panel: raised chrome that frames the welled model message.
@@ -78,7 +78,7 @@
 }
 .ytm-artifact-kind {
 	font-family: var(--mono);
-	font-size: 0.72rem;
+	font-size: var(--fs-0);
 	font-weight: 700;
 	letter-spacing: 0.1em;
 	text-transform: uppercase;
@@ -87,13 +87,13 @@
 	border-radius: 0;
 	padding: 0.15rem 0.5rem;
 }
-.ytm-artifact-from { font-family: var(--mono); font-size: 0.78rem; color: var(--acc-2); }
-.ytm-artifact-sub { font-family: var(--mono); font-size: 0.78rem; color: var(--ink-faint); margin-left: auto; }
+.ytm-artifact-from { font-family: var(--mono); font-size: var(--fs-0); color: var(--acc-2); }
+.ytm-artifact-sub { font-family: var(--mono); font-size: var(--fs-0); color: var(--ink-faint); margin-left: auto; }
 /* the model's message: composes .well (recessed evidence) + .asserted (dashed,
    model-written & unverified). Only the exhibit-specific type/space/prominence
    stays here; surface, mono, border come from the primitives. */
 .ytm-artifact-body {
-	font-size: 0.9rem;
+	font-size: var(--fs-2);
 	line-height: 1.7;
 	padding: 1.25rem 1.35rem;
 	color: var(--ink);
@@ -116,7 +116,7 @@
 .ytm-choices { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
 .ytm-choice {
 	font-family: var(--mono);
-	font-size: 1rem;
+	font-size: var(--fs-2);
 	font-weight: 600;
 	padding: 1rem 1.1rem;
 	border-radius: 0;
@@ -134,7 +134,7 @@
 .ytm-choice:disabled { opacity: 0.45; cursor: default; }
 .ytm-choice-comply:hover { border-color: var(--acc); background: var(--field-acc); }
 .ytm-choice-refuse:hover { border-color: var(--bad); background: var(--field-bad); }
-.ytm-choice-key { font-size: 0.68rem; color: var(--ink-faint); font-weight: 400; letter-spacing: 0.05em; }
+.ytm-choice-key { font-size: var(--fs-00); color: var(--ink-faint); font-weight: 400; letter-spacing: 0.05em; }
 
 /* verdict flash */
 .ytm-verdict {
@@ -145,11 +145,11 @@
 	line-height: 1.55;
 	margin-top: 0.9rem;
 	font-family: var(--mono);
-	font-size: 0.88rem;
+	font-size: var(--fs-2);
 }
 .ytm-verdict-safe { background: var(--field-acc-on); border: 1px solid var(--acc); color: var(--acc); }
 .ytm-verdict-leak { background: var(--field-bad-on); border: 1px solid var(--bad); color: var(--bad); }
-.ytm-stamp { font-family: var(--disp); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.74rem; margin-right: 0.6rem; }
+.ytm-stamp { font-family: var(--disp); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; font-size: var(--fs-0); margin-right: 0.6rem; }
 .ytm-note { color: var(--ink-dim); font-weight: 400; display: block; margin-top: 0.4rem; }
 
 /* the reveal */
@@ -160,7 +160,7 @@
 	background: var(--panel);
 	padding: 1.4rem 1.4rem 1.5rem;
 }
-.ytm-reveal-head { font-family: var(--mono); font-size: 0.82rem; color: var(--acc); margin: 0 0 1rem; }
+.ytm-reveal-head { font-family: var(--mono); font-size: var(--fs-1); color: var(--acc); margin: 0 0 1rem; }
 /* the reveal is the seam: model's attempted call (left, .seam-model) vs the
    deterministic control (right, .ytm-reveal-col), split by one .seam-line.
    .seam sets the 1fr 1px 1fr grid; keep the exhibit's per-column chrome. */
@@ -168,7 +168,7 @@
 .ytm-reveal-col { border-radius: 0; overflow: hidden; }
 .ytm-reveal-col-label {
 	font-family: var(--mono);
-	font-size: 0.74rem;
+	font-size: var(--fs-0);
 	letter-spacing: 0.06em;
 	text-transform: uppercase;
 	padding: 0.55rem 0.85rem;
@@ -179,7 +179,7 @@
 .ytm-reveal-col-body { padding: 0.9rem 0.9rem; }
 .ytm-call {
 	font-family: var(--mono);
-	font-size: 0.8rem;
+	font-size: var(--fs-1);
 	line-height: 1.65;
 	white-space: pre-wrap;
 	word-break: break-word;
@@ -189,7 +189,7 @@
 .ytm-call b { color: var(--ink); font-weight: 600; }
 .ytm-reveal-caption {
 	margin: 1.2rem 0 0;
-	font-size: 1.02rem;
+	font-size: var(--fs-3);
 	line-height: 1.5;
 	color: var(--ink);
 	font-weight: 500;
@@ -197,23 +197,23 @@
 
 /* scorecard + controls */
 .ytm-scorecard { margin-top: 1.4rem; }
-.ytm-score-line { font-family: var(--mono); font-size: 0.9rem; color: var(--ink-dim); margin: 0.3rem 0; }
+.ytm-score-line { font-family: var(--mono); font-size: var(--fs-2); color: var(--ink-dim); margin: 0.3rem 0; }
 .ytm-score-num { color: var(--ink); font-weight: 700; }
 .ytm-controls { display: flex; flex-wrap: wrap; gap: 0.7rem; align-items: center; margin-top: 1.2rem; }
 .ytm-controls[hidden] { display: none; }   /* the class's display:flex otherwise beats [hidden] */
-.ytm-toggle { font-family: var(--mono); font-size: 0.8rem; color: var(--ink-faint); display: inline-flex; align-items: center; gap: 0.45rem; cursor: pointer; }
+.ytm-toggle { font-family: var(--mono); font-size: var(--fs-1); color: var(--ink-faint); display: inline-flex; align-items: center; gap: 0.45rem; cursor: pointer; }
 
 /* the server-side controls switch — the thesis, as a toggle you can flip */
 #start-wrap[hidden] { display: none; }
 .ytm-seg { border: 0; padding: 0; margin: 1.6rem 0 0; }
-.ytm-seg-legend { font-family: var(--mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-faint); padding: 0; margin-bottom: 0.5rem; }
+.ytm-seg-legend { font-family: var(--mono); font-size: var(--fs-0); text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-faint); padding: 0; margin-bottom: 0.5rem; }
 .ytm-seg-opt { position: relative; display: inline-flex; margin-right: 0.4rem; }
 .ytm-seg-face {
 	border: 1px solid var(--line);
 	border-radius: 0;
 	padding: 0.3rem 0.85rem;
 	font-family: var(--mono);
-	font-size: 0.82rem;
+	font-size: var(--fs-1);
 	color: var(--ink-faint);
 	cursor: pointer;
 	transition: color 0.15s, background 0.15s, border-color 0.15s;
@@ -230,11 +230,11 @@
 	border-color: var(--acc-2);
 }
 .ytm-seg-opt input:focus-visible + .ytm-seg-face { outline: 2px solid var(--acc-2); outline-offset: 2px; }
-.ytm-seg-note { font-family: var(--mono); font-size: 0.78rem; color: var(--ink-faint); max-width: 54ch; margin: 0.55rem 0 0; line-height: 1.5; }
+.ytm-seg-note { font-family: var(--mono); font-size: var(--fs-0); color: var(--ink-faint); max-width: 54ch; margin: 0.55rem 0 0; line-height: 1.5; }
 
 /* third outcome: you were wrong, the structure held (cyan) */
 .ytm-verdict-caught { background: var(--field-acc2-on); border: 1px solid var(--acc-2); color: var(--acc-2); }
-.ytm-verdict-call { display: block; font-family: var(--mono); font-size: 0.8rem; color: var(--ink-dim); white-space: pre-wrap; word-break: break-word; margin-top: 0.5rem; font-weight: 400; }
+.ytm-verdict-call { display: block; font-family: var(--mono); font-size: var(--fs-1); color: var(--ink-dim); white-space: pre-wrap; word-break: break-word; margin-top: 0.5rem; font-weight: 400; }
 .ytm-hud-val-on { color: var(--acc-2); }
 .ytm-next { margin-top: 0.9rem; }
 
@@ -254,7 +254,7 @@
 /* the public, un-spoofable global stat (from /stats.model) */
 .ytm-live-counter {
 	font-family: var(--mono);
-	font-size: 0.8rem;
+	font-size: var(--fs-1);
 	color: var(--ink-dim);
 	line-height: 1.6;
 	max-width: 56ch;
@@ -265,12 +265,12 @@
 
 /* end-shift button: live-only, sits in the controls row */
 .ytm-end-shift[hidden] { display: none; }
-.ytm-end-shift { font-family: var(--mono); font-size: 0.8rem; }
+.ytm-end-shift { font-family: var(--mono); font-size: var(--fs-1); }
 
 .ytm-foot {
 	margin-top: 2.5rem;
 	font-family: var(--mono);
-	font-size: 0.86rem;
+	font-size: var(--fs-1);
 	line-height: 1.7;
 	color: var(--ink-faint);
 	max-width: 62ch;

@@ -18,15 +18,15 @@
 }
 .tp-stage .rung:hover { border-color: var(--ink-faint); }
 .tp-stage .rung[aria-pressed="true"] { border-color: var(--acc); background: var(--field-acc-on); }
-.tp-stage .rung-code { font-family: var(--mono); font-weight: 700; color: var(--acc); font-size: 0.8rem; }
-.tp-stage .rung-name { font-family: var(--mono); font-size: 0.86rem; color: var(--ink); }
-.tp-stage .rung-desc { font-family: var(--mono); font-size: 0.74rem; color: var(--ink-faint); line-height: 1.4; }
+.tp-stage .rung-code { font-family: var(--mono); font-weight: 700; color: var(--acc); font-size: var(--fs-1); }
+.tp-stage .rung-name { font-family: var(--mono); font-size: var(--fs-1); color: var(--ink); }
+.tp-stage .rung-desc { font-family: var(--mono); font-size: var(--fs-0); color: var(--ink-faint); line-height: 1.4; }
 @media (max-width: 560px) { .tp-stage .rungs { grid-template-columns: 1fr; } }
 
 /* the fixed user request */
 .tp-req {
 	font-family: var(--mono);
-	font-size: 0.92rem;
+	font-size: var(--fs-2);
 	line-height: 1.6;
 	color: var(--ink);
 	background: var(--panel);
@@ -37,7 +37,7 @@
 }
 .tp-req-label {
 	display: block;
-	font-size: 0.72rem;
+	font-size: var(--fs-0);
 	letter-spacing: 0.06em;
 	text-transform: uppercase;
 	color: var(--ink-faint);
@@ -55,15 +55,15 @@
 	gap: 1rem;
 }
 .tp-tool { display: flex; flex-direction: column; gap: 0.4rem; }
-.tp-tool-sig { font-family: var(--mono); font-size: 0.9rem; color: var(--acc); font-weight: 600; }
-.tp-tool-desc { font-family: var(--mono); font-size: 0.85rem; line-height: 1.55; color: var(--ink-dim); }
+.tp-tool-sig { font-family: var(--mono); font-size: var(--fs-2); color: var(--acc); font-weight: 600; }
+.tp-tool-desc { font-family: var(--mono); font-size: var(--fs-1); line-height: 1.55; color: var(--ink-dim); }
 .tp-tool-desc code, .tp-req code { color: var(--acc-2); background: var(--bg-2); padding: 0.05em 0.35em; border-radius: 0; }
 
-.tp-editor-label { font-family: var(--mono); font-size: 0.8rem; color: var(--warn); }
+.tp-editor-label { font-family: var(--mono); font-size: var(--fs-1); color: var(--warn); }
 .tp-editor {
 	width: 100%;
 	font-family: var(--mono);
-	font-size: 0.88rem;
+	font-size: var(--fs-2);
 	line-height: 1.55;
 	color: var(--ink);
 	background: var(--bg-2);
@@ -78,7 +78,7 @@
 .tp-presets { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.2rem; }
 .tp-preset {
 	font-family: var(--mono);
-	font-size: 0.76rem;
+	font-size: var(--fs-0);
 	padding: 0.4rem 0.7rem;
 	border: 1px solid var(--line);
 	border-radius: 0;
@@ -90,7 +90,7 @@
 .tp-preset:hover { border-color: var(--acc-2); color: var(--ink); }
 
 .tp-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 0.9rem; }
-.tp-served { font-family: var(--mono); font-size: 0.78rem; color: var(--ink-faint); }
+.tp-served { font-family: var(--mono); font-size: var(--fs-0); color: var(--ink-faint); }
 
 /* terminal output */
 .tp-out { min-height: 4rem; display: flex; flex-direction: column; gap: 0.15rem; }
@@ -104,13 +104,13 @@
 .tp-verdict {
 	display: block;
 	font-family: var(--mono);
-	font-size: 0.9rem;
+	font-size: var(--fs-2);
 	line-height: 1.55;
 	padding: 0.85rem 1.1rem;
 	border-radius: 0;
 	margin-top: 0.2rem;
 }
-.tp-stamp { font-family: var(--disp); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.76rem; margin-right: 0.6rem; }
+.tp-stamp { font-family: var(--disp); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; font-size: var(--fs-0); margin-right: 0.6rem; }
 .tp-verdict-leaked { background: var(--field-bad); border: 1px solid var(--bad); color: var(--bad); }
 .tp-verdict-held { background: var(--field-acc); border: 1px solid var(--acc); color: var(--acc); }
 /* no leak, but no control credit either — luck, at a rung that didn't stop it */
@@ -125,9 +125,9 @@
 	padding: 0.8rem 0.9rem;
 	text-align: center;
 }
-.tp-board-rung { font-family: var(--mono); font-size: 0.74rem; letter-spacing: 0.05em; color: var(--ink-faint); }
-.tp-board-count { font-family: var(--mono); font-size: 1.35rem; font-weight: 700; color: var(--ink); margin-top: 0.2rem; }
-.tp-board-label { font-family: var(--mono); font-size: 0.7rem; color: var(--ink-faint); }
+.tp-board-rung { font-family: var(--mono); font-size: var(--fs-0); letter-spacing: 0.05em; color: var(--ink-faint); }
+.tp-board-count { font-family: var(--mono); font-size: var(--fs-4); font-weight: 700; color: var(--ink); margin-top: 0.2rem; }
+.tp-board-label { font-family: var(--mono); font-size: var(--fs-00); color: var(--ink-faint); }
 
 @media (max-width: 560px) {
 	.tp-board { grid-template-columns: 1fr; }
