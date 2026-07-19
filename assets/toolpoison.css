@@ -1,3 +1,7 @@
+/* the intro/foot reuse .game-* (game-intro/title/lede/sub/foot), which live in
+   game.css; a page can only declare one extra_css, so pull it in here. */
+@import "/assets/game.css";
+
 /* ── POISON THE TOOL ───────────────────────────────────────────────────
    Tool-description poisoning game. Dark phosphor theme; reuses site tokens
    + .rungs/.rung/.term/.btn/.verdict/.game-* from style.css / game.css. */
@@ -109,6 +113,8 @@
 }
 .tp-verdict-leaked { background: color-mix(in srgb, var(--bad) 12%, transparent); border: 1px solid var(--bad); color: var(--bad); }
 .tp-verdict-held { background: color-mix(in srgb, var(--acc) 10%, transparent); border: 1px solid var(--acc); color: var(--acc); }
+/* no leak, but no control credit either — luck, at a rung that didn't stop it */
+.tp-verdict-luck { background: color-mix(in srgb, var(--warn) 11%, transparent); border: 1px solid var(--warn); color: var(--warn); }
 
 /* scoreboard: leaks by rung */
 .tp-board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.7rem; }

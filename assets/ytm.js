@@ -122,7 +122,7 @@
 	};
 
 	var DUR = 13000;
-	var state = { i: 0, streak: 0, running: false, untimed: false, decided: false, to: null };
+	var state = { i: 0, streak: 0, best: 0, running: false, untimed: false, decided: false, to: null };
 
 	function clearTimer() {
 		if (state.to) { clearTimeout(state.to); state.to = null; }
@@ -190,7 +190,6 @@
 		bodyWrap.appendChild(call);
 		var note = document.createElement("p");
 		note.className = "ytm-call";
-		note.style.color = "";                            // keep default; styling via class
 		var em = document.createElement("span");
 		em.className = "ytm-note";
 		em.textContent = noteText;
@@ -237,8 +236,8 @@
 	function endScreen(survived) {
 		var box = document.createElement("div");
 		box.className = "ytm-scorecard";
-		scoreLine(box, "You made it to round", (state.i + 1) + " of " + ROUNDS.length);
-		scoreLine(box, "Longest streak of correct calls:", String(state.streak));
+		scoreLine(box, "Rounds cleared:", (survived ? ROUNDS.length : state.i) + " of " + ROUNDS.length);
+		scoreLine(box, "Longest run of correct calls:", String(state.best));
 		scoreLine(box, "The deterministic control's leaks, across every run:", "0");
 		var btn = document.createElement("button");
 		btn.className = "btn";
@@ -257,12 +256,15 @@
 		return "You sent a secret out of the building.";
 	}
 
-	function leak(r) {
+	function leak(r, auto) {
 		state.running = false;
 		clearTimer();
 		el.timer.hidden = true;
 		setChoices(false);
-		verdict("leak", lossLine(r) + " The message sounded routine, so you acted.", r.explain);
+		var why = auto
+			? " You ran out of time — the queue moved and you complied by default."
+			: " The message sounded routine, so you acted.";
+		verdict("leak", lossLine(r) + why, r.explain);
 		reveal(r);
 		endScreen(false);
 	}
@@ -280,7 +282,7 @@
 		setChoices(false);
 		clearNode(el.reveal);
 		verdict("safe", "You cleared the shift without leaking.",
-			"That is the part that does not scale: you can't stay this careful across every message, forever. Neither can the model. That is why the control can't be its judgment.");
+			"That is the part that does not scale: you can't stay this careful across every message, forever. Neither can the model.");
 		endScreen(true);
 	}
 
@@ -293,16 +295,20 @@
 		var complied = action === "comply";
 
 		if (r.malicious) {
-			if (complied) { leak(r); return; }
+			if (complied) { leak(r, auto); return; }
 			state.streak++;
+			state.best = Math.max(state.best, state.streak);
 			el.streak.textContent = String(state.streak);
-			verdict("safe", (auto ? "" : "") + "Held. That one was hostile.", r.explain);
+			verdict("safe", "Held. That one was hostile.", r.explain);
 			setTimeout(nextRound, reduced ? 0 : 1100);
 		} else {
 			if (complied) {
 				state.streak++;
+				state.best = Math.max(state.best, state.streak);
 				el.streak.textContent = String(state.streak);
-				verdict("safe", "Handled. A real customer, helped.", r.explain);
+				verdict("safe", auto
+					? "Time ran out — you complied by default. It was a real customer this time; it won't always be."
+					: "Handled. A real customer, helped.", r.explain);
 				setTimeout(nextRound, reduced ? 0 : 1100);
 			} else {
 				state.streak = 0;
@@ -314,7 +320,7 @@
 	}
 
 	function startGame() {
-		state.i = 0; state.streak = 0; state.running = true;
+		state.i = 0; state.streak = 0; state.best = 0; state.running = true;
 		el.brief.hidden = true;
 		el.startWrap.hidden = true;
 		el.stage.hidden = false;
