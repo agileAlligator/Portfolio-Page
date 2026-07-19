@@ -22,18 +22,18 @@
 .highlight .m, .highlight .mi, .highlight .mf, .highlight .mh, .highlight .mo, .highlight .il { color: #f5b544; }
 
 /* names */
-.highlight .n { color: #e6ebf2; }
+.highlight .n { color: var(--ink); }
 .highlight .nb, .highlight .bp { color: #7ee0ff; }   /* builtins */
 .highlight .nf, .highlight .fm { color: #b9a4ff; }   /* function names */
 .highlight .nc { color: #b9a4ff; }                   /* class names */
-.highlight .nn { color: #9aa6b8; }                   /* namespaces */
+.highlight .nn { color: var(--ink-dim); }                   /* namespaces */
 .highlight .nd { color: #f5b544; }                   /* decorators */
-.highlight .nv, .highlight .vc, .highlight .vg, .highlight .vi { color: #e6ebf2; }
+.highlight .nv, .highlight .vc, .highlight .vg, .highlight .vi { color: var(--ink); }
 .highlight .no { color: #f5b544; }                   /* constants */
 .highlight .na { color: #7ee0ff; }                   /* attributes */
 
 /* operators / punctuation */
-.highlight .o, .highlight .ow { color: #9aa6b8; }
+.highlight .o, .highlight .ow { color: var(--ink-dim); }
 .highlight .p { color: #8792a6; }
 
 /* diff / misc */

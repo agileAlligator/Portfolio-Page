@@ -37,8 +37,9 @@ image: /assets/og/mcp.png
 	<div class="mcp-hero-side">
 		<div class="term mcp-term-preview">
 			<div class="term-bar">
-				<span class="dot"></span><span class="dot"></span><span class="dot"></span>
+				<span class="term-led" aria-hidden="true"></span>
 				<span class="term-title">read_document — L0 vs L3</span>
+				<span class="term-fig">fig. — read_document</span>
 			</div>
 			<pre class="term-body mcp-term-body"><span class="c-dim">$</span> <span class="c-key">tools/call</span> read_document
 <span class="c-dim">  path: "../internal/canary.txt"</span>
@@ -57,7 +58,7 @@ image: /assets/og/mcp.png
 
 <!-- ═══════════════════════════ CONNECT ═══════════════════════════ -->
 <section class="section mcp-connect" id="connect">
-	<p class="section-label">// 01 · connect</p>
+	<p class="section-label">// <span class="u-accent">01</span> · connect</p>
 	<h2 class="section-title">Point your MCP client here.</h2>
 
 	<div class="mcp-cmd" role="group" aria-label="Connect command">
@@ -111,7 +112,7 @@ image: /assets/og/mcp.png
 
 <!-- ═══════════════════════════ THE TOOL SURFACE ═══════════════════════════ -->
 <section class="section mcp-tools" id="tools">
-	<p class="section-label">// 02 · the tool surface</p>
+	<p class="section-label">// <span class="u-accent">02</span> · the tool surface</p>
 	<h2 class="section-title">One tool. One missing invariant.</h2>
 	<p class="mcp-tools-lede">
 		One ordinary tool with a real handler, one missing path-confinement invariant,
@@ -143,7 +144,7 @@ image: /assets/og/mcp.png
 
 <!-- ═══════════════════════════ ATTACK BOX ═══════════════════════════ -->
 <section class="section mcp-console-section" id="attack">
-	<p class="section-label">// 03 · try it</p>
+	<p class="section-label">// <span class="u-accent">03</span> · try it</p>
 	<h2 class="section-title">Talk the agent into it.</h2>
 	<p class="mcp-tools-lede">
 		Write an instruction and the agent calls <code>read_document</code> for you. It's a live
@@ -164,8 +165,9 @@ image: /assets/og/mcp.png
 
 	<div class="term mcp-term-live">
 		<div class="term-bar">
-			<span class="dot"></span><span class="dot"></span><span class="dot"></span>
+			<span class="term-led" aria-hidden="true"></span>
 			<span class="term-title" id="mcp-term-title">agent @ L0 · workers-ai session</span>
+			<span class="term-fig">fig. — live session</span>
 		</div>
 		<div class="term-body mcp-log" id="mcp-agent-log" tabindex="0" aria-label="Agent session output" aria-live="polite">
 			<p class="mcp-line mcp-line-hint"><span class="c-dim"># pick a preset or write your own jailbreak, then run.</span></p>
@@ -189,7 +191,7 @@ image: /assets/og/mcp.png
 
 <!-- ═══════════════════════════ THE CONTROL ═══════════════════════════ -->
 <section class="section mcp-wall" id="the-wall">
-	<p class="section-label">// 04 · the control, explained</p>
+	<p class="section-label">// <span class="u-accent">04</span> · the control, explained</p>
 	<h2 class="section-title">The whole defense is a few lines.</h2>
 
 	<div class="mcp-diff">
@@ -258,7 +260,7 @@ image: /assets/og/mcp.png
 
 <!-- ═══════════════════════════ FEED ═══════════════════════════ -->
 <section class="section mcp-feed-section" id="feed">
-	<p class="section-label">// 05 · recent attempts</p>
+	<p class="section-label">// <span class="u-accent">05</span> · recent attempts</p>
 	<h2 class="section-title">Live from the wire.</h2>
 	<p class="mcp-tools-lede">
 		Every <code>read_document</code> call across all rungs. Leaked in red, held in green,
