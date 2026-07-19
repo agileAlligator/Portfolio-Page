@@ -4,22 +4,27 @@
    ══════════════════════════════════════════════════════════════════ */
 
 :root {
-	--bg:        #0b0e14;
-	--bg-2:      #10141d;
-	--panel:     #131824;
-	--panel-2:   #171d2b;
-	--line:      #232b3a;
-	--line-soft: #1a2130;
-	--ink:       #e6ebf2;
-	--ink-dim:   #9aa6b8;
-	--ink-faint: #7f8a9e; /* WCAG-AA contrast on the dark bg (was #626d80, ~3.7:1) */
-	--acc:       #4fe3a1; /* phosphor green */
-	--acc-2:     #4cc9f0; /* cyan */
-	--warn:      #f5b544; /* amber */
-	--bad:       #ff6b6b; /* red */
+	/* "Instrument Grade" — neutral graphite ground; accent hues kept (exhibit
+	   semantics depend on them), green demoted from decoration to meaning. */
+	--bg:        #0a0b0d;   /* neutral near-black (was blue #0b0e14) */
+	--bg-2:      #0e1013;
+	--panel:     #101317;
+	--panel-2:   #14181d;
+	--line-soft: #1a1e24;
+	--line:      #252a31;
+	--line-strong: #39404a; /* frames, active borders, link underlines */
+	--ink:       #e9edf1;
+	--ink-dim:   #a9b1bb;   /* ~7.4:1 on --panel */
+	--ink-faint: #94a0ad;   /* ~6:1 on --panel — fixes the old 4.36:1 flags */
+	--acc:       #4fe3a1;   /* phosphor green — verified / live / held / primary action */
+	--acc-2:     #4cc9f0;   /* cyan — the tool / structure layer (exhibit-critical) */
+	--warn:      #f5b544;   /* amber — secret / caution */
+	--bad:       #ff6b6b;   /* red — leak / attack / fail */
+	--paper:     #e3e1d1;   /* archival spec-paper — stamps, selection, evidence */
+	--disp: "Martian Mono", "IBM Plex Mono", ui-monospace, monospace; /* the instrument voice */
 	--mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 	--sans: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
-	--maxw: 1120px;
+	--maxw: 1200px;
 	--ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -46,10 +51,10 @@ body::before {
 	inset: 0;
 	z-index: -1;
 	pointer-events: none;
-	background-image:
-		radial-gradient(circle at 50% -10%, rgba(76, 201, 240, 0.08), transparent 55%),
-		radial-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px);
-	background-size: auto, 26px 26px;
+	/* drafting cross-grid: a faint + at each 64px intersection — graph paper for
+	   an engineering drawing, no colour cast (self-hosted data-URI, 0 requests) */
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Cg stroke='%23eef2f6' stroke-opacity='0.05' stroke-width='1'%3E%3Cpath d='M32 28v8M28 32h8'/%3E%3C/g%3E%3C/svg%3E");
+	background-size: 64px 64px;
 }
 
 /* film-grain overlay */
@@ -62,7 +67,7 @@ body::before {
 	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-::selection { background: var(--acc); color: #06110c; }
+::selection { background: var(--paper); color: #0a0b0d; }
 
 /* ── a11y: visible keyboard focus everywhere ── */
 :focus-visible {
@@ -91,6 +96,21 @@ body::before {
 
 a { color: inherit; text-decoration: none; }
 
+/* prose links carry a non-color affordance (underline) so they're distinguishable
+   without relying on colour. Link groups (nav, cards, buttons, contact) are evident
+   controls with their own affordances and opt out. Retires axe link-in-text-block. */
+p a, li a, .site-footer a, .about-body a, .tl-desc a, .post-content a, .game-foot a, .ytm-foot a {
+	text-decoration: underline;
+	text-decoration-thickness: 1px;
+	text-underline-offset: 3px;
+	text-decoration-color: var(--line-strong);
+	transition: text-decoration-color 0.2s var(--ease), text-decoration-thickness 0.2s var(--ease);
+}
+p a:hover, li a:hover, .site-footer a:hover, .about-body a:hover, .tl-desc a:hover, .post-content a:hover, .game-foot a:hover, .ytm-foot a:hover {
+	text-decoration-color: var(--acc);
+	text-decoration-thickness: 2px;
+}
+
 .prompt { color: var(--acc); font-family: var(--mono); }
 
 /* ─────────────────────────────── NAV ─────────────────────────────── */
@@ -102,9 +122,9 @@ a { color: inherit; text-decoration: none; }
 	align-items: center;
 	gap: 2rem;
 	padding: 1rem clamp(1.25rem, 5vw, 3.5rem);
-	background: rgba(11, 14, 20, 0.72);
+	background: rgba(10, 11, 13, 0.85);
 	backdrop-filter: blur(12px);
-	border-bottom: 1px solid var(--line-soft);
+	border-bottom: 1px solid var(--line);
 }
 
 .nav-brand {
@@ -170,12 +190,15 @@ a { color: inherit; text-decoration: none; }
 .nav-links .nav-out::after { display: none; }
 
 .nav-resume {
-	font-family: var(--mono);
-	font-size: 0.82rem;
+	font-family: var(--disp);
+	font-size: 0.72rem;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
 	color: var(--acc);
-	border: 1px solid var(--line);
-	padding: 0.4rem 0.85rem;
-	border-radius: 6px;
+	border: 1px solid var(--line-strong);
+	padding: 0.42rem 0.85rem;
+	border-radius: 0;
 	transition: border-color 0.25s var(--ease), background 0.25s var(--ease);
 }
 .nav-resume:hover { border-color: var(--acc); background: rgba(79, 227, 161, 0.08); }
@@ -194,15 +217,7 @@ a { color: inherit; text-decoration: none; }
 	gap: clamp(2rem, 5vw, 4rem);
 	align-items: center;
 }
-.hero-glow {
-	position: absolute;
-	top: -10%; right: -5%;
-	width: 480px; height: 480px;
-	background: radial-gradient(circle, rgba(79, 227, 161, 0.16), transparent 68%);
-	filter: blur(20px);
-	pointer-events: none;
-	z-index: -1;
-}
+.hero-glow { display: none; }   /* the instrument doesn't glow */
 
 .hero-kicker {
 	font-family: var(--mono);
@@ -211,16 +226,20 @@ a { color: inherit; text-decoration: none; }
 	margin-bottom: 1.25rem;
 }
 .hero-title {
-	font-family: var(--mono);
+	font-family: var(--disp);
 	font-weight: 700;
-	font-size: clamp(3rem, 9vw, 6rem);
-	line-height: 0.95;
-	letter-spacing: -0.04em;
+	font-size: clamp(2.5rem, 6.5vw, 4.4rem);
+	line-height: 1.04;
+	letter-spacing: 0;
+	text-transform: uppercase;
+	color: var(--ink);
+	margin-bottom: 1.1rem;
+}
+.hero-rev {
+	font-family: var(--mono);
+	font-size: 0.82rem;
+	color: var(--ink-faint);
 	margin-bottom: 1.5rem;
-	background: linear-gradient(180deg, #ffffff 30%, #b9c4d4 100%);
-	-webkit-background-clip: text;
-	background-clip: text;
-	color: transparent;
 }
 .hero-role {
 	display: flex;
@@ -234,7 +253,7 @@ a { color: inherit; text-decoration: none; }
 	font-size: 0.9rem;
 	color: var(--acc-2);
 	border: 1px solid var(--line);
-	border-radius: 999px;
+	border-radius: 2px;
 	padding: 0.3rem 0.85rem;
 	background: var(--panel);
 }
@@ -249,45 +268,56 @@ a { color: inherit; text-decoration: none; }
 
 .hero-cta { display: flex; gap: 0.9rem; flex-wrap: wrap; }
 .btn {
-	font-family: var(--mono);
-	font-size: 0.9rem;
-	padding: 0.72rem 1.35rem;
-	border: 1px solid var(--line);
-	border-radius: 8px;
+	font-family: var(--disp);
+	font-size: 0.78rem;
+	font-weight: 600;
+	letter-spacing: 0.04em;
+	padding: 0.72rem 1.2rem;
+	border: 1px solid var(--line-strong);
+	border-radius: 0;
 	color: var(--ink);
-	background: var(--panel);
-	transition: transform 0.2s var(--ease), border-color 0.25s var(--ease), background 0.25s var(--ease);
+	background: transparent;
+	transition: border-color 0.25s var(--ease), background 0.25s var(--ease), color 0.25s var(--ease);
 }
-.btn:hover { transform: translateY(-2px); border-color: var(--ink-faint); }
+/* bracket affordance — snaps in on hover AND focus (non-color, layout-stable) */
+.btn::before { content: "[ "; opacity: 0; transition: opacity 0.2s var(--ease); }
+.btn::after  { content: " ]"; opacity: 0; transition: opacity 0.2s var(--ease); }
+.btn:hover, .btn:focus-visible { border-color: var(--acc); color: var(--acc); }
+.btn:hover::before, .btn:hover::after,
+.btn:focus-visible::before, .btn:focus-visible::after { opacity: 1; }
 .btn-primary {
 	background: var(--acc);
 	color: #06110c;
 	border-color: var(--acc);
-	font-weight: 600;
 }
-.btn-primary:hover { background: #6bf0b4; border-color: #6bf0b4; }
+.btn-primary:hover, .btn-primary:focus-visible { background: #6bf0b4; border-color: #6bf0b4; color: #06110c; }
 
-/* terminal card */
+/* the figure — a framed instrument readout (was a mac-window terminal) */
 .term {
 	background: var(--panel);
-	border: 1px solid var(--line);
-	border-radius: 12px;
+	border: 1px solid var(--line-strong);
+	border-radius: 0;
 	overflow: hidden;
-	box-shadow: 0 30px 70px -30px rgba(0, 0, 0, 0.8);
+	outline: 1px solid var(--line-soft);   /* print-style double rule */
+	outline-offset: 4px;
 }
 .term-bar {
 	display: flex;
 	align-items: center;
-	gap: 0.5rem;
+	gap: 0.6rem;
 	padding: 0.7rem 0.95rem;
 	background: var(--panel-2);
 	border-bottom: 1px solid var(--line);
 }
-.term-bar .dot { width: 11px; height: 11px; border-radius: 50%; background: #333c4d; }
-.term-bar .dot:nth-child(1) { background: #ff5f57; }
-.term-bar .dot:nth-child(2) { background: #febc2e; }
-.term-bar .dot:nth-child(3) { background: #28c840; }
-.term-title { margin-left: auto; font-family: var(--mono); font-size: 0.75rem; color: var(--ink-faint); }
+/* any legacy mac dots degrade to neutral squares until their page is upgraded */
+.term-bar .dot { width: 8px; height: 8px; border-radius: 0; background: var(--line-strong); }
+.term-bar .dot:nth-child(1),
+.term-bar .dot:nth-child(2),
+.term-bar .dot:nth-child(3) { background: var(--line-strong); }
+/* the upgraded readout: one square status LED + a figure nameplate */
+.term-led { width: 8px; height: 8px; border-radius: 0; background: var(--acc); flex-shrink: 0; }
+.term-fig { margin-left: auto; font-family: var(--disp); font-weight: 600; font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-faint); }
+.term-title { font-family: var(--mono); font-size: 0.75rem; color: var(--ink-faint); }
 .term-body {
 	font-family: var(--mono);
 	font-size: 0.82rem;
@@ -312,17 +342,20 @@ a { color: inherit; text-decoration: none; }
 	border-top: 1px solid var(--line-soft);
 }
 .section-label {
-	font-family: var(--mono);
-	font-size: 0.82rem;
-	color: var(--acc);
-	margin-bottom: 1rem;
-	letter-spacing: 0.02em;
-}
-.section-title {
-	font-family: var(--mono);
+	font-family: var(--disp);
 	font-weight: 600;
-	font-size: clamp(1.6rem, 4vw, 2.4rem);
-	letter-spacing: -0.03em;
+	font-size: 0.72rem;
+	text-transform: uppercase;
+	letter-spacing: 0.14em;
+	color: var(--ink-faint);
+	margin-bottom: 1rem;
+}
+.section-label .u-accent, .section-label b { color: var(--acc); font-weight: 600; }
+.section-title {
+	font-family: var(--disp);
+	font-weight: 600;
+	font-size: clamp(1.45rem, 3.2vw, 2.05rem);
+	letter-spacing: -0.01em;
 	margin-bottom: 2.5rem;
 }
 
@@ -348,9 +381,8 @@ a { color: inherit; text-decoration: none; }
 	position: absolute;
 	left: -1.75rem; top: 7px;
 	width: 9px; height: 9px;
-	border-radius: 50%;
+	border-radius: 0;
 	background: var(--acc);
-	box-shadow: 0 0 0 4px rgba(79, 227, 161, 0.14);
 	transform: translateX(0.5px);
 }
 .tl-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.5rem 0.9rem; margin-bottom: 0.6rem; }
@@ -408,33 +440,37 @@ a { color: inherit; text-decoration: none; }
 .cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
 .card {
 	background: var(--panel);
-	border: 1px solid var(--line-soft);
-	border-radius: 12px;
+	border: 1px solid var(--line);
+	border-radius: 0;
 	padding: 1.6rem;
 	display: flex;
 	flex-direction: column;
 	position: relative;
-	overflow: hidden;
-	transition: transform 0.3s var(--ease), border-color 0.3s var(--ease);
+	transition: border-color 0.3s var(--ease), background 0.3s var(--ease);
 }
-.card::before {
+/* corner registration ticks — instrument alignment marks, draw in on hover/focus */
+.card::before, .card::after {
 	content: "";
 	position: absolute;
-	inset: 0 0 auto 0;
-	height: 2px;
-	background: linear-gradient(90deg, var(--acc), var(--acc-2));
-	transform: scaleX(0);
-	transform-origin: left;
-	transition: transform 0.4s var(--ease);
+	width: 10px; height: 10px;
+	border: 1px solid var(--acc);
+	opacity: 0;
+	transition: opacity 0.2s var(--ease);
+	pointer-events: none;
 }
-.card:hover { transform: translateY(-4px); border-color: var(--line); }
-.card:hover::before { transform: scaleX(1); }
-.card-feature { grid-column: 1 / -1; background: linear-gradient(135deg, var(--panel) 0%, var(--panel-2) 100%); }
-.card-top { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
-.card-idx { font-family: var(--mono); color: var(--ink-faint); font-size: 0.85rem; }
+.card::before { top: 6px; left: 6px; border-right: 0; border-bottom: 0; }
+.card::after { bottom: 6px; right: 6px; border-left: 0; border-top: 0; }
+.card:hover, .card:focus-within { border-color: var(--line-strong); background: var(--panel-2); }
+.card:hover::before, .card:hover::after,
+.card:focus-within::before, .card:focus-within::after { opacity: 1; }
+.card-feature { grid-column: 1 / -1; background: var(--panel-2); }
+.card-feature::before, .card-feature::after { opacity: 0.4; }
+.card-top { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; padding-right: 3rem; }
+/* the plate numeral — exhibit as a numbered instrument */
+.card-idx { position: absolute; top: 0.9rem; right: 1.1rem; font-family: var(--disp); font-weight: 700; font-size: 2rem; line-height: 1; color: #626b77; }   /* faint plate, but clears 3:1 large-text on both panels */
 .card-tags { font-family: var(--mono); font-size: 0.74rem; color: var(--acc-2); text-transform: lowercase; letter-spacing: 0.02em; }
-.card-title { font-family: var(--mono); font-weight: 600; font-size: 1.4rem; letter-spacing: -0.02em; margin-bottom: 0.7rem; }
-.card-feature .card-title { font-size: 1.85rem; }
+.card-title { font-family: var(--disp); font-weight: 600; font-size: 1.25rem; letter-spacing: -0.01em; margin-bottom: 0.7rem; }
+.card-feature .card-title { font-size: 1.6rem; }
 .card-at { color: var(--ink-faint); font-weight: 400; font-size: 0.9rem; }
 .card-desc { color: var(--ink-dim); font-size: 0.97rem; flex: 1; }
 .card-desc strong { color: var(--ink); font-weight: 500; }
@@ -446,8 +482,8 @@ a { color: inherit; text-decoration: none; }
 
 /* skills */
 .skills-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; margin-bottom: 3rem; }
-.skill-group { border: 1px solid var(--line-soft); border-radius: 10px; padding: 1.35rem; background: var(--bg-2); }
-.skill-group h3 { font-family: var(--mono); font-size: 0.92rem; color: var(--acc); margin-bottom: 1rem; font-weight: 600; }
+.skill-group { border: 1px solid var(--line); border-radius: 0; padding: 1.35rem; background: var(--panel); }
+.skill-group h3 { font-family: var(--disp); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--acc); margin-bottom: 1rem; font-weight: 600; }
 .skill-group ul { list-style: none; }
 .skill-group li { color: var(--ink-dim); font-size: 0.93rem; padding: 0.28rem 0; border-bottom: 1px solid var(--line-soft); }
 .skill-group li:last-child { border-bottom: 0; }
@@ -461,7 +497,7 @@ a { color: inherit; text-decoration: none; }
 
 /* contact */
 .section-contact { text-align: center; }
-.contact-title { font-family: var(--mono); font-weight: 700; font-size: clamp(1.8rem, 6vw, 3.5rem); letter-spacing: -0.03em; margin-bottom: 2.5rem; }
+.contact-title { font-family: var(--disp); font-weight: 700; font-size: clamp(1.7rem, 5vw, 3rem); text-transform: uppercase; letter-spacing: -0.005em; margin-bottom: 2.5rem; }
 .contact-links { display: flex; flex-direction: column; gap: 0.5rem; align-items: center; font-family: var(--mono); font-size: clamp(1rem, 2.5vw, 1.3rem); }
 .contact-links a { color: var(--ink-dim); padding: 0.3rem 0; transition: color 0.25s var(--ease), letter-spacing 0.25s var(--ease); }
 .contact-links a:hover { color: var(--acc); letter-spacing: 0.02em; }
@@ -469,15 +505,20 @@ a { color: inherit; text-decoration: none; }
 .footer {
 	margin-top: 4rem;
 	padding-top: 1.5rem;
-	border-top: 1px solid var(--line-soft);
+	border-top: 1px solid var(--line);
 	display: flex;
 	justify-content: space-between;
 	flex-wrap: wrap;
-	gap: 0.5rem;
+	gap: 0.5rem 1.5rem;
+	align-items: center;
 	font-family: var(--mono);
 	font-size: 0.8rem;
 	color: var(--ink-faint);
 }
+/* the signature: a status readout that is true by construction — open devtools,
+   see zero external requests, and remember the site. */
+.sys-status { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--mono); font-size: 0.75rem; color: var(--ink-faint); }
+.sys-status-led { width: 8px; height: 8px; border-radius: 0; background: var(--acc); flex-shrink: 0; box-shadow: 0 0 0 0 rgba(79,227,161,0.55); animation: mcp-pulse 2.4s var(--ease) infinite; }
 
 /* ─────────────────────────── REVEAL ANIM ─────────────────────────── */
 /* Only hide-until-revealed when JS is present (html.js). Without JS the
@@ -538,7 +579,8 @@ a { color: inherit; text-decoration: none; }
 .verdict {
 	display: block;
 	padding: 0.85rem 1.1rem;
-	border-radius: 8px;
+	border-radius: 0;
+	border-left: 3px solid var(--acc);
 	font-weight: 500;
 	line-height: 1.55;
 }
@@ -548,7 +590,7 @@ a { color: inherit; text-decoration: none; }
 	width: 0.6em;
 	height: 0.6em;
 	margin-right: 0.55em;
-	border-radius: 50%;
+	border-radius: 0;
 	background: var(--acc);
 	vertical-align: baseline;
 	box-shadow: 0 0 0 0 rgba(79, 227, 161, 0.55);
@@ -563,7 +605,8 @@ a { color: inherit; text-decoration: none; }
 @media (prefers-reduced-motion: reduce) {
 	* { scroll-behavior: auto !important; }
 	[data-reveal] { opacity: 1; transform: none; transition: none; }
-	.blink, .cursor, .mcp-live-dot { animation: none; }
+	.blink, .cursor, .mcp-live-dot, .sys-status-led { animation: none; }
+	.card::before, .card::after, .btn::before, .btn::after { transition: none; }
 }
 
 /* ══════════════════════════════════════════════════════════════════

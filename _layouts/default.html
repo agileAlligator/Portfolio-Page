@@ -16,6 +16,7 @@
 		<!-- Self-hosted IBM Plex (latin woff2). The site serves its own type; no third-party font request. -->
 		<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/IBMPlexSans-400.woff2" crossorigin />
 		<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/IBMPlexMono-400.woff2" crossorigin />
+		<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/MartianMono-700.woff2" crossorigin />
 		<link rel="stylesheet" href="/assets/fonts.css" />
 	</head>
 	<body>
@@ -44,8 +45,9 @@
 			{{ content }}
 		</main>
 
-		<footer class="footer site-footer">
+		<footer class="footer site-footer" aria-label="Site">
 			<span><span class="prompt">&gt;</span> built by Avneesh Kasture</span>
+			<span class="sys-status"><span class="sys-status-led" aria-hidden="true"></span>external requests: 0 · fonts: self-hosted · trackers: none</span>
 			<span class="site-footer-links">
 				<a href="/feed.xml">RSS</a>
 				<a href="https://github.com/agileAlligator" target="_blank" rel="noopener">github</a>
