@@ -47,7 +47,7 @@ export const RESUME = {
 
 export const PROJECTS = [
 	{ id: "mcploitable", title: "mcploitable", tags: "agentic-security · CTF lab · Python",
-	  desc: "The \"Metasploitable of MCP\" — deliberately vulnerable MCP servers, one per class of the OWASP Agentic Top 10. Seven are breakable boxes on an L0→L3 control ladder scored by real effect; the correct deterministic control held 0 for 105 at the wall.",
+	  desc: "The \"Metasploitable of MCP\" — deliberately vulnerable MCP servers, one per class of the OWASP Agentic Top 10. Seven are breakable boxes on an L0→L3 control ladder scored by real effect; nothing got past the wall in 105 tries.",
 	  links: "github: https://github.com/agileAlligator/mcploitable · play: https://avneeshk.me/break-this-server/ · writeup: https://avneeshk.me/blog/building-mcploitable/" },
 	{ id: "d2c-analyst", title: "d2c-analyst", tags: "agent-safety · provenance · Python",
 	  desc: "An AI analyst plus an autonomous Margin Watch agent for D2C brands. Every number is server-side validated against a provenance model before it reaches the user; a gpt-4o-mini → gpt-4o router escalates on complexity, over row-level-secure multi-tenant data.",
