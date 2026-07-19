@@ -181,7 +181,7 @@
 		if (agentInput) agentInput.value = "";
 		if (agentLog) {
 			agentLog.textContent = "";
-			agentLine("mcp-line-hint", "# pick a preset or write your own instruction below.");
+			agentLine("mcp-line-hint", "# pick a preset or write your own jailbreak, then run.");
 		}
 	});
 
