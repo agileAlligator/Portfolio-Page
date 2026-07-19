@@ -12,7 +12,7 @@
 .tp-stage .rungs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; margin: 0; padding: 0; }
 .tp-stage .rung {
 	display: flex; flex-direction: column; gap: 0.25rem; text-align: left;
-	padding: 0.75rem 0.85rem; border: 1px solid var(--line); border-radius: 9px;
+	padding: 0.75rem 0.85rem; border: 1px solid var(--line); border-radius: 0;
 	background: var(--panel); color: var(--ink-dim); cursor: pointer;
 	transition: border-color 0.15s var(--ease), background 0.15s var(--ease);
 }
@@ -32,7 +32,7 @@
 	background: var(--panel);
 	border: 1px solid var(--line);
 	border-left: 3px solid var(--acc-2);
-	border-radius: 8px;
+	border-radius: 0;
 	padding: 0.85rem 1.05rem;
 }
 .tp-req-label {
@@ -48,7 +48,7 @@
 .tp-toolview {
 	background: var(--panel);
 	border: 1px solid var(--line);
-	border-radius: 10px;
+	border-radius: 0;
 	padding: 1.1rem 1.15rem;
 	display: flex;
 	flex-direction: column;
@@ -57,7 +57,7 @@
 .tp-tool { display: flex; flex-direction: column; gap: 0.4rem; }
 .tp-tool-sig { font-family: var(--mono); font-size: 0.9rem; color: var(--acc); font-weight: 600; }
 .tp-tool-desc { font-family: var(--mono); font-size: 0.85rem; line-height: 1.55; color: var(--ink-dim); }
-.tp-tool-desc code, .tp-req code { color: var(--acc-2); background: var(--bg-2); padding: 0.05em 0.35em; border-radius: 4px; }
+.tp-tool-desc code, .tp-req code { color: var(--acc-2); background: var(--bg-2); padding: 0.05em 0.35em; border-radius: 0; }
 
 .tp-editor-label { font-family: var(--mono); font-size: 0.8rem; color: var(--warn); }
 .tp-editor {
@@ -68,7 +68,7 @@
 	color: var(--ink);
 	background: var(--bg-2);
 	border: 1px solid var(--line);
-	border-radius: 8px;
+	border-radius: 0;
 	padding: 0.75rem 0.9rem;
 	resize: vertical;
 	min-height: 5.5rem;
@@ -81,7 +81,7 @@
 	font-size: 0.76rem;
 	padding: 0.4rem 0.7rem;
 	border: 1px solid var(--line);
-	border-radius: 6px;
+	border-radius: 0;
 	background: var(--panel-2);
 	color: var(--ink-dim);
 	cursor: pointer;
@@ -107,7 +107,7 @@
 	font-size: 0.9rem;
 	line-height: 1.55;
 	padding: 0.85rem 1.1rem;
-	border-radius: 8px;
+	border-radius: 0;
 	margin-top: 0.2rem;
 }
 .tp-verdict-leaked { background: color-mix(in srgb, var(--bad) 12%, transparent); border: 1px solid var(--bad); color: var(--bad); }
@@ -120,7 +120,7 @@
 .tp-board-card {
 	background: var(--panel);
 	border: 1px solid var(--line);
-	border-radius: 9px;
+	border-radius: 0;
 	padding: 0.8rem 0.9rem;
 	text-align: center;
 }

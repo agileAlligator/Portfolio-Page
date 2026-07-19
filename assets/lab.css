@@ -12,13 +12,14 @@
 	margin: 0 auto;
 	padding: clamp(3rem, 7vw, 5rem) clamp(1.25rem, 5vw, 3.5rem) 0;
 }
-.lab-intro .section-label { font-family: var(--mono); font-size: 0.82rem; color: var(--acc); margin-bottom: 0.9rem; }
+.lab-intro .section-label { margin-bottom: 0.9rem; }   /* inherits the global Martian label style */
 .lab-title {
-	font-family: var(--mono);
-	font-weight: 600;
-	font-size: clamp(2rem, 5vw, 3.1rem);
-	letter-spacing: -0.02em;
-	line-height: 1.1;
+	font-family: var(--disp);
+	font-weight: 700;
+	font-size: clamp(1.9rem, 4.5vw, 2.75rem);
+	text-transform: uppercase;
+	letter-spacing: -0.005em;
+	line-height: 1.08;
 	margin: 0.4rem 0 1.1rem;
 	color: var(--ink);
 }

@@ -154,7 +154,7 @@
 	font-size: 0.86em;
 	background: var(--panel-2);
 	border: 1px solid var(--line-soft);
-	border-radius: 4px;
+	border-radius: 0;
 	padding: 0.1em 0.4em;
 	color: var(--acc);
 	word-break: break-word;
@@ -164,7 +164,7 @@
 .post-body pre {
 	background: #0a0d13;
 	border: 1px solid var(--line);
-	border-radius: 10px;
+	border-radius: 0;
 	padding: 1.1rem 1.25rem;
 	overflow-x: auto;
 	font-size: 0.85rem;
@@ -184,7 +184,7 @@
 
 .post-body hr { border: 0; border-top: 1px solid var(--line-soft); margin: 2.5rem 0; }
 
-.post-body img { max-width: 100%; border-radius: 8px; border: 1px solid var(--line); }
+.post-body img { max-width: 100%; border-radius: 0; border: 1px solid var(--line); }
 
 /* post footer nav */
 .post-footer {
