@@ -119,6 +119,16 @@
        central axle + two knobs; the reading card stands upright above the axle;
        the rest of the wheel fans down into a cradle; cards clip on by two
        T-slots in their bottom edge (Neilson's 1956 two-rail trick). */
+    /* the inner column: body's flex only reaches <main>; restore the stack (gap +
+       centring) for the elements inside it, or the tabs/controls collapse into
+       the machine above them */
+    main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.4rem;
+        width: 100%;
+    }
     .stage {
         width: min(400px, 84vw);
     }

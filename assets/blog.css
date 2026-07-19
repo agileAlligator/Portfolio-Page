@@ -44,6 +44,8 @@
 	padding: 1.4rem 0.85rem;
 	position: relative;
 	transition: color 0.2s var(--ease);
+	/* the post row is a nav control, not prose — no underline (overrides the global li a rule) */
+	text-decoration: none;
 }
 /* left accent bar grows in place on hover — no layout shift, no bg wash */
 .post-list-item a::before {
