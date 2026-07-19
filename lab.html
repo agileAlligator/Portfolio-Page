@@ -11,6 +11,17 @@ image: /assets/og/lab.png
 extra_css: /assets/lab.css
 ---
 
+<script type="application/ld+json">
+{
+	"@context": "https://schema.org",
+	"@type": "BreadcrumbList",
+	"itemListElement": [
+		{ "@type": "ListItem", "position": 1, "name": "Home", "item": "{{ site.url }}/" },
+		{ "@type": "ListItem", "position": 2, "name": "The lab", "item": "{{ site.url }}/lab/" }
+	]
+}
+</script>
+
 <section class="lab-intro">
 	<p class="section-label">// six exhibits · one control</p>
 	<h1 class="lab-title">The lab</h1>

@@ -1,6 +1,17 @@
 ---
 layout: default
 ---
+<script type="application/ld+json">
+{
+	"@context": "https://schema.org",
+	"@type": "BreadcrumbList",
+	"itemListElement": [
+		{ "@type": "ListItem", "position": 1, "name": "Home", "item": "{{ site.url }}/" },
+		{ "@type": "ListItem", "position": 2, "name": "Blog", "item": "{{ site.url }}/blog/" },
+		{ "@type": "ListItem", "position": 3, "name": {{ page.title | jsonify }}, "item": "{{ site.url }}{{ page.url }}" }
+	]
+}
+</script>
 <article class="post">
 	<header class="post-header">
 		<p class="post-kicker"><a href="/blog/">// blog</a></p>
