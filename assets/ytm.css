@@ -196,6 +196,35 @@
 .ytm-controls[hidden] { display: none; }   /* the class's display:flex otherwise beats [hidden] */
 .ytm-toggle { font-family: var(--mono); font-size: 0.8rem; color: var(--ink-faint); display: inline-flex; align-items: center; gap: 0.45rem; cursor: pointer; }
 
+/* the server-side controls switch — the thesis, as a toggle you can flip */
+#start-wrap[hidden] { display: none; }
+.ytm-seg { border: 0; padding: 0; margin: 1.6rem 0 0; }
+.ytm-seg-legend { font-family: var(--mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-faint); padding: 0; margin-bottom: 0.5rem; }
+.ytm-seg-opt { position: relative; display: inline-flex; margin-right: 0.4rem; }
+.ytm-seg-face {
+	border: 1px solid var(--line);
+	border-radius: 6px;
+	padding: 0.3rem 0.85rem;
+	font-family: var(--mono);
+	font-size: 0.82rem;
+	color: var(--ink-faint);
+	cursor: pointer;
+	transition: color 0.15s, background 0.15s, border-color 0.15s;
+}
+.ytm-seg-opt input:checked + .ytm-seg-face {
+	color: var(--acc-2);
+	background: color-mix(in srgb, var(--acc-2) 10%, transparent);
+	border-color: color-mix(in srgb, var(--acc-2) 40%, var(--line));
+}
+.ytm-seg-opt input:focus-visible + .ytm-seg-face { outline: 2px solid var(--acc-2); outline-offset: 2px; }
+.ytm-seg-note { font-family: var(--mono); font-size: 0.78rem; color: var(--ink-faint); max-width: 54ch; margin: 0.55rem 0 0; line-height: 1.5; }
+
+/* third outcome: you were wrong, the structure held (cyan) */
+.ytm-verdict-caught { background: color-mix(in srgb, var(--acc-2) 10%, transparent); border: 1px solid var(--acc-2); color: var(--acc-2); }
+.ytm-verdict-call { display: block; font-family: var(--mono); font-size: 0.8rem; color: var(--ink-dim); white-space: pre-wrap; word-break: break-word; margin-top: 0.5rem; font-weight: 400; }
+.ytm-hud-val-on { color: var(--acc-2); }
+.ytm-next { margin-top: 0.9rem; }
+
 .ytm-foot {
 	margin-top: 2.5rem;
 	font-family: var(--mono);
