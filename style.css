@@ -4,28 +4,62 @@
    ══════════════════════════════════════════════════════════════════ */
 
 :root {
-	/* "Instrument Grade" — neutral graphite ground; accent hues kept (exhibit
-	   semantics depend on them), green demoted from decoration to meaning. */
-	--bg:        #0a0b0d;   /* neutral near-black (was blue #0b0e14) */
-	--bg-2:      #0e1013;
-	--panel:     #101317;
-	--panel-2:   #14181d;
-	--line-soft: #1a1e24;
-	--line:      #252a31;
-	--line-strong: #39404a; /* frames, active borders, link underlines */
+	/* ═══ INSTRUMENT GRADE v2 — one closed system ═══
+	   Calibrated test equipment, not a terminal costume. Every hue is a category
+	   the *instrument* cares about; the model is the medium, not a category, so it
+	   gets no hue (texture only — see .asserted). Full reference: DESIGN-SYSTEM.md. */
+
+	/* ground & structure — depth is value alone (no shadows): darker = deeper */
+	--bg:        #0a0b0d;   /* the page */
+	--bg-2:      #0e1013;   /* inset panels (nav dropdown, etc.) */
+	--bg-well:   #07080a;   /* recessed evidence wells — the deepest surface */
+	--panel:     #101317;   /* raised surfaces — cards, instruments */
+	--panel-2:   #14181d;   /* chrome on a panel — bars, heads */
+	--line-soft: #1a1e24;   /* faint dividers */
+	--line:      #252a31;   /* default borders */
+	--line-strong: #39404a; /* frames, active borders, link underlines, dashed=asserted */
+	--line-seam: #43859d;   /* THE SEAM — cyan muted to structural weight; the boundary belongs to the mechanism */
+
+	/* ink — record voice is --paper */
 	--ink:       #e9edf1;
 	--ink-dim:   #a9b1bb;   /* ~7.4:1 on --panel */
-	--ink-faint: #94a0ad;   /* ~6:1 on --panel — fixes the old 4.36:1 flags */
-	--acc:       #4fe3a1;   /* phosphor green — verified / live / held / primary action */
-	--acc-2:     #4cc9f0;   /* cyan — the tool / structure layer (exhibit-critical) */
-	--warn:      #f5b544;   /* amber — secret / caution */
-	--bad:       #ff6b6b;   /* red — leak / attack / fail */
-	--paper:     #e3e1d1;   /* archival spec-paper — stamps, selection, evidence */
+	--ink-faint: #94a0ad;   /* ~6:1 on --panel */
+	--ink-on-acc:#06110c;   /* the one legal ink on solid green */
+	--plate:     #626b77;   /* faint plate numerals — clears 3:1 large-text on both panels */
+
+	/* accent SEMANTICS — load-bearing, never decoration */
+	--acc:       #4fe3a1;   /* green  · outcome-good: verified / live / held / primary. Only what the SERVER confirmed. */
+	--acc-hi:    #6bf0b4;   /* green, lifted — hover/active of a green control */
+	--acc-2:     #4cc9f0;   /* cyan   · THE MECHANISM: the deterministic layer, the blueprint. Never a verdict. */
+	--warn:      #f5b544;   /* amber  · THE ASSET: the thing at stake — preserved, or in caution */
+	--bad:       #ff6b6b;   /* red    · outcome-bad: leak / breach / successful attack */
+	--bad-hi:    #ff9a9a;   /* red, lifted — red text needing contrast on dark */
+	--paper:     #e3e1d1;   /* THE RECORD: stamps, timestamps, ::selection (selecting is citing) */
+
+	/* the CLOSED alpha ladder — the only tinted-territory fills. 100% is a verdict;
+	   14% is an active zone; 8% is a resting zone; 5% is the substrate grid.
+	   Nothing between 15% and 99% — half-committed colour is a vibe. */
+	--field-acc:      rgba(79,227,161,0.08);
+	--field-acc-on:   rgba(79,227,161,0.14);
+	--field-acc2:     rgba(76,201,240,0.08);
+	--field-acc2-on:  rgba(76,201,240,0.14);
+	--field-warn:     rgba(245,181,68,0.08);
+	--field-warn-on:  rgba(245,181,68,0.14);
+	--field-bad:      rgba(255,107,107,0.08);
+	--field-bad-on:   rgba(255,107,107,0.14);
+
 	--disp: "Martian Mono", "IBM Plex Mono", ui-monospace, monospace; /* the instrument voice */
 	--mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 	--sans: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
 	--maxw: 1200px;
-	--ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+	/* motion — three verbs only (§8). The ghost glides; the gate ticks. */
+	--ease:        cubic-bezier(0.22, 1, 0.36, 1);  /* model-side / continuous / human-input affordances */
+	--ease-strike: cubic-bezier(0.2, 0, 0, 1);      /* the strike — hard decel, no overshoot; machines don't bounce */
+	--step:        steps(6, end);                    /* the tick — the control is never *between* states */
+	--t-strike: 120ms;   /* verdict lands */
+	--t-tick:   200ms;   /* deterministic state change */
+	--t-sweep:  480ms;   /* one measurement pass */
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -67,13 +101,14 @@ body::before {
 	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-::selection { background: var(--paper); color: #0a0b0d; }
+::selection { background: var(--paper); color: var(--bg); }
 
 /* ── a11y: visible keyboard focus everywhere ── */
 :focus-visible {
 	outline: 2px solid var(--acc);
 	outline-offset: 3px;
-	border-radius: 3px;
+	/* zero-radius is 100% true — an instrument with one rounded corner is a costume */
+	border-radius: 0;
 }
 
 /* ── a11y: skip-to-content link (visible only when focused) ── */
@@ -84,11 +119,11 @@ body::before {
 	z-index: 300;
 	padding: 0.6rem 1rem;
 	background: var(--acc);
-	color: #06110c;
+	color: var(--ink-on-acc);
 	font-family: var(--mono);
 	font-size: 0.85rem;
 	font-weight: 600;
-	border-radius: 6px;
+	border-radius: 0;
 	transform: translateY(-160%);
 	transition: transform 0.2s var(--ease);
 }
@@ -184,7 +219,7 @@ p a:hover, li a:hover, .site-footer a:hover, .about-body a:hover, .tl-desc a:hov
 	height: 1em;
 	background: var(--line);
 }
-.nav-links .nav-out:hover { color: #6bf0b4; }
+.nav-links .nav-out:hover { color: var(--acc-hi); }
 /* no hover underline on the blog link — it has its own divider + accent treatment,
    and the underline would run under the padding gap to the left of the word */
 .nav-links .nav-out::after { display: none; }
@@ -201,7 +236,7 @@ p a:hover, li a:hover, .site-footer a:hover, .about-body a:hover, .tl-desc a:hov
 	border-radius: 0;
 	transition: border-color 0.25s var(--ease), background 0.25s var(--ease);
 }
-.nav-resume:hover { border-color: var(--acc); background: rgba(79, 227, 161, 0.08); }
+.nav-resume:hover { border-color: var(--acc); background: var(--field-acc); }
 
 .nav-toggle { display: none; margin-left: auto; background: none; border: 0; cursor: pointer; flex-direction: column; gap: 5px; }
 .nav-toggle span { width: 22px; height: 2px; background: var(--ink); transition: 0.3s var(--ease); }
@@ -287,10 +322,10 @@ p a:hover, li a:hover, .site-footer a:hover, .about-body a:hover, .tl-desc a:hov
 .btn:focus-visible::before, .btn:focus-visible::after { opacity: 1; }
 .btn-primary {
 	background: var(--acc);
-	color: #06110c;
+	color: var(--ink-on-acc);
 	border-color: var(--acc);
 }
-.btn-primary:hover, .btn-primary:focus-visible { background: #6bf0b4; border-color: #6bf0b4; color: #06110c; }
+.btn-primary:hover, .btn-primary:focus-visible { background: var(--acc-hi); border-color: var(--acc-hi); color: var(--ink-on-acc); }
 
 /* the figure — a framed instrument readout (was a mac-window terminal) */
 .term {
@@ -467,7 +502,7 @@ p a:hover, li a:hover, .site-footer a:hover, .about-body a:hover, .tl-desc a:hov
 .card-feature::before, .card-feature::after { opacity: 0.4; }
 .card-top { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; padding-right: 3rem; }
 /* the plate numeral — exhibit as a numbered instrument */
-.card-idx { position: absolute; top: 0.9rem; right: 1.1rem; font-family: var(--disp); font-weight: 700; font-size: 2rem; line-height: 1; color: #626b77; }   /* faint plate, but clears 3:1 large-text on both panels */
+.card-idx { position: absolute; top: 0.9rem; right: 1.1rem; font-family: var(--disp); font-weight: 700; font-size: 2rem; line-height: 1; color: var(--plate); }
 .card-tags { font-family: var(--mono); font-size: 0.74rem; color: var(--acc-2); text-transform: lowercase; letter-spacing: 0.02em; }
 .card-title { font-family: var(--disp); font-weight: 600; font-size: 1.25rem; letter-spacing: -0.01em; margin-bottom: 0.7rem; }
 .card-feature .card-title { font-size: 1.6rem; }
@@ -476,7 +511,7 @@ p a:hover, li a:hover, .site-footer a:hover, .about-body a:hover, .tl-desc a:hov
 .card-desc strong { color: var(--ink); font-weight: 500; }
 .card-links { display: flex; gap: 1.1rem; margin-top: 1.25rem; font-family: var(--mono); font-size: 0.85rem; }
 .card-links a { color: var(--acc); transition: color 0.2s var(--ease); }
-.card-links a:hover { color: #6bf0b4; }
+.card-links a:hover { color: var(--acc-hi); }
 .card-lock { font-family: var(--mono); font-size: 0.8rem; color: var(--ink-faint); }
 .card-mini { background: transparent; border-style: dashed; }
 
@@ -583,8 +618,12 @@ p a:hover, li a:hover, .site-footer a:hover, .about-body a:hover, .tl-desc a:hov
 	border-left: 3px solid var(--acc);
 	font-weight: 500;
 	line-height: 1.55;
+	/* THE STRIKE — the verdict lands, one-shot, square (§8 / M5). Block-level, so it
+	   lands via opacity+translate, never scale (scaling a full-width block overflows). */
+	animation: strike var(--t-strike) var(--ease-strike) both;
 }
-.verdict-block { background: color-mix(in srgb, var(--acc) 10%, transparent); border: 1px solid var(--acc); color: var(--acc); }
+@keyframes strike { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+.verdict-block { background: var(--field-acc); border: 1px solid var(--acc); color: var(--acc); }
 .mcp-live-dot {
 	display: inline-block;
 	width: 0.6em;
@@ -597,15 +636,61 @@ p a:hover, li a:hover, .site-footer a:hover, .about-body a:hover, .tl-desc a:hov
 	animation: mcp-pulse 2.4s var(--ease) infinite;
 }
 @keyframes mcp-pulse {
-	0%   { box-shadow: 0 0 0 0 rgba(79, 227, 161, 0.5); }
+	0%   { box-shadow: 0 0 0 0 var(--field-acc-on); }
 	70%  { box-shadow: 0 0 0 0.5em rgba(79, 227, 161, 0); }
 	100% { box-shadow: 0 0 0 0 rgba(79, 227, 161, 0); }
 }
 
+/* ══════════════════════════════════════════════════════════════════
+   PRIMITIVES (v2) — the shared instrument grammar, defined ONCE.
+   Every exhibit composes these; none re-invents a surface. DESIGN-SYSTEM.md.
+   ══════════════════════════════════════════════════════════════════ */
+
+/* THE WELL — a recessed evidence surface: raw logs, transcripts, machine
+   readouts. Deepest value on the page; depth by value, never shadow (M6). */
+.well {
+	background: var(--bg-well);
+	border: 1px solid var(--line-soft);
+	padding: 1rem 1.15rem;
+	font-family: var(--mono);
+	font-size: 0.8rem;
+	line-height: 1.7;
+	color: var(--ink-dim);
+	overflow-x: auto;
+}
+
+/* ASSERTED — the model's register. The model is the medium, not a category, so
+   it gets no hue: texture. Dashed = claimed-but-unverified; solid is proven (M2). */
+.asserted { border: 1px dashed var(--line-strong); }
+
+/* THE SEAM — where model output meets control surface. Drawn, never blended:
+   one line; the noise dies at it; nothing bleeds through (M1 / §4). The line
+   carries the mechanism's hue — the boundary belongs to the mechanism. */
+.seam { display: grid; grid-template-columns: 1fr 1px 1fr; }
+.seam-line  { background: var(--line-seam); }
+.seam-model { border: 1px dashed var(--line-strong); border-right: 0; }
+.seam-ctrl  { border: 1px solid var(--line-soft); border-left: 0; background: var(--panel-2); }
+@media (max-width: 640px) {
+	.seam { grid-template-columns: 1fr; }
+	.seam-line  { height: 1px; }
+	.seam-model { border-right: 1px dashed var(--line-strong); border-bottom: 0; }
+	.seam-ctrl  { border-left: 1px solid var(--line-soft); }
+}
+
+/* REGISTRATION MARKS — printer's alignment ticks: "this panel is a working
+   instrument". Earned by interactivity, never on prose (M3 / §9). */
+.reg { position: relative; }
+.reg::before, .reg::after {
+	content: ""; position: absolute; width: 8px; height: 8px;
+	border: 1px solid var(--line-strong); pointer-events: none;
+}
+.reg::before { top: 6px; left: 6px; border-right: 0; border-bottom: 0; }
+.reg::after  { bottom: 6px; right: 6px; border-left: 0; border-top: 0; }
+
 @media (prefers-reduced-motion: reduce) {
 	* { scroll-behavior: auto !important; }
 	[data-reveal] { opacity: 1; transform: none; transition: none; }
-	.blink, .cursor, .mcp-live-dot, .sys-status-led { animation: none; }
+	.blink, .cursor, .mcp-live-dot, .sys-status-led, .verdict { animation: none; }
 	.card::before, .card::after, .btn::before, .btn::after { transition: none; }
 }
 
