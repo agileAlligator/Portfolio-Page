@@ -128,11 +128,14 @@
 	}
 
 	function renderTranscriptItem(m) {
-		if (m.role === "user") agentLine("mcp-line-user", m.text || "");
-		else if (m.role === "assistant") agentLine("mcp-line-agent", m.text || "");
+		// The model's register is texture, not hue: model-generated / untrusted
+		// text is .asserted (dashed = claimed-but-unverified). The deterministic
+		// control's output (held / tool record / result) stays solid.
+		if (m.role === "user") agentLine("mcp-line-user asserted", m.text || "");
+		else if (m.role === "assistant") agentLine("mcp-line-agent asserted", m.text || "");
 		else if (m.role === "tool") {
 			if (m.leaked) {
-				agentLine("mcp-line-leak", (m.tool || "tool") + " → " + (m.result || ""));
+				agentLine("mcp-line-leak asserted", (m.tool || "tool") + " → " + (m.result || ""));
 			} else {
 				agentLine(m.blocked ? "mcp-line-hold" : "mcp-line-tool",
 					(m.tool || "tool") + (m.blocked ? " → held (server-side control)" : " → ran"));
@@ -148,7 +151,7 @@
 		message = message.trim();
 		if (agentRun) agentRun.disabled = true;
 		if (agentStatus) agentStatus.textContent = "running…";
-		agentLine("mcp-line-user", message);
+		agentLine("mcp-line-user asserted", message);
 		fetch(API + "/console", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },

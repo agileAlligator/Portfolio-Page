@@ -20,11 +20,11 @@
 	border-radius: 50%;
 	background: var(--acc);
 	vertical-align: baseline;
-	box-shadow: 0 0 0 0 rgba(79, 227, 161, 0.55);
+	box-shadow: 0 0 0 0 var(--field-acc-on);
 	animation: mcp-pulse 2.4s var(--ease) infinite;
 }
 @keyframes mcp-pulse {
-	0%   { box-shadow: 0 0 0 0 rgba(79, 227, 161, 0.5); }
+	0%   { box-shadow: 0 0 0 0 var(--field-acc-on); }
 	70%  { box-shadow: 0 0 0 0.5em rgba(79, 227, 161, 0); }
 	100% { box-shadow: 0 0 0 0 rgba(79, 227, 161, 0); }
 }
@@ -70,8 +70,8 @@
 .mcp-hero-cta { display: flex; gap: 0.9rem; flex-wrap: wrap; }
 
 .mcp-hero-side { min-width: 0; }
-.mcp-term-preview { box-shadow: 0 40px 90px -40px rgba(0, 0, 0, 0.85); }
-.mcp-term-body { font-size: 0.8rem; line-height: 1.72; white-space: pre; overflow-x: auto; word-break: normal; }
+/* .well supplies bg/border/mono/base-color/overflow-x; keep only readout layout */
+.mcp-term-body { font-size: 0.8rem; line-height: 1.72; white-space: pre; word-break: normal; }
 
 /* ══════════════════════════ CONNECT ══════════════════════════ */
 .mcp-cmd {
@@ -99,7 +99,7 @@
 	padding: 0.45rem 0.9rem;
 	cursor: pointer;
 }
-.mcp-copy.mcp-copied { border-color: var(--acc); color: var(--acc); background: rgba(79, 227, 161, 0.1); }
+.mcp-copy.mcp-copied { border-color: var(--acc); color: var(--acc); background: var(--field-acc-on); }
 .mcp-connect-note {
 	margin-top: 1.15rem;
 	max-width: 60ch;
@@ -117,8 +117,8 @@
 	border-top: 1px solid var(--line);
 	border-bottom: 1px solid var(--line);
 	background:
-		radial-gradient(ellipse 70% 90% at 50% 120%, rgba(79, 227, 161, 0.16), transparent 70%),
-		radial-gradient(ellipse 60% 80% at 50% -20%, rgba(79, 227, 161, 0.08), transparent 70%),
+		radial-gradient(ellipse 70% 90% at 50% 120%, var(--field-acc-on), transparent 70%),
+		radial-gradient(ellipse 60% 80% at 50% -20%, var(--field-acc), transparent 70%),
 		var(--bg-2);
 	text-align: center;
 }
@@ -128,8 +128,8 @@
 	pointer-events: none;
 	background-image: repeating-linear-gradient(
 		to bottom,
-		rgba(79, 227, 161, 0.05) 0px,
-		rgba(79, 227, 161, 0.05) 1px,
+		var(--field-acc) 0px,
+		var(--field-acc) 1px,
 		transparent 1px,
 		transparent 4px
 	);
@@ -180,12 +180,12 @@
 	text-align: center;
 }
 .mcp-rung-card-leaked {
-	border-color: color-mix(in srgb, var(--bad) 45%, var(--line));
-	background: linear-gradient(180deg, rgba(255, 107, 107, 0.08), transparent 50%), var(--panel);
+	border-color: var(--bad);
+	background: linear-gradient(180deg, var(--field-bad), transparent 50%), var(--panel);
 }
 .mcp-rung-card-held {
-	border-color: color-mix(in srgb, var(--acc) 45%, var(--line));
-	background: linear-gradient(180deg, rgba(79, 227, 161, 0.08), transparent 50%), var(--panel);
+	border-color: var(--acc);
+	background: linear-gradient(180deg, var(--field-acc), transparent 50%), var(--panel);
 }
 .mcp-rung-label {
 	display: inline-block;
@@ -200,13 +200,13 @@
 }
 .mcp-rung-label-l0 {
 	color: var(--bad);
-	border: 1px solid color-mix(in srgb, var(--bad) 55%, var(--line));
-	background: rgba(255, 107, 107, 0.1);
+	border: 1px solid var(--bad);
+	background: var(--field-bad-on);
 }
 .mcp-rung-label-l3 {
 	color: var(--acc);
-	border: 1px solid color-mix(in srgb, var(--acc) 55%, var(--line));
-	background: rgba(79, 227, 161, 0.1);
+	border: 1px solid var(--acc);
+	background: var(--field-acc-on);
 }
 .mcp-rung-num {
 	display: block;
@@ -218,14 +218,8 @@
 	margin-bottom: 0.6rem;
 	font-variant-numeric: tabular-nums;
 }
-.mcp-rung-num-leaked {
-	color: var(--bad);
-	text-shadow: 0 0 20px rgba(255, 107, 107, 0.5), 0 0 4px rgba(255, 107, 107, 0.8);
-}
-.mcp-rung-num-held {
-	color: var(--acc);
-	text-shadow: 0 0 20px rgba(79, 227, 161, 0.5), 0 0 4px rgba(79, 227, 161, 0.8);
-}
+.mcp-rung-num-leaked { color: var(--bad); }
+.mcp-rung-num-held { color: var(--acc); }
 .mcp-rung-effect {
 	font-family: var(--mono);
 	font-size: 0.8rem;
@@ -271,7 +265,7 @@
 	font-family: var(--mono);
 	font-size: 0.72rem;
 	color: var(--acc);
-	border: 1px solid color-mix(in srgb, var(--acc) 45%, var(--line));
+	border: 1px solid var(--acc);
 	border-radius: 0;
 	padding: 0.18rem 0.65rem;
 	white-space: nowrap;
@@ -303,10 +297,10 @@
 
 /* ══════════════════════════ TOOL SURFACE ══════════════════════════ */
 .mcp-tool-surface {
-	border: 1px solid color-mix(in srgb, var(--acc) 30%, var(--line));
+	border: 1px solid var(--acc);
 	border-radius: 0;
 	padding: 1.5rem 1.6rem;
-	background: linear-gradient(180deg, rgba(79, 227, 161, 0.04), transparent 40%), var(--panel);
+	background: linear-gradient(180deg, var(--field-acc), transparent 40%), var(--panel);
 	max-width: 44rem;
 	margin-bottom: 2rem;
 }
@@ -334,14 +328,14 @@
 	transition: background 0.18s var(--ease), color 0.18s var(--ease);
 }
 .mcp-toggle-btn + .mcp-toggle-btn { border-left: 1px solid var(--line); }
-.mcp-toggle-btn.active[data-rung="L0"] { background: rgba(255, 107, 107, 0.15); color: var(--bad); }
-.mcp-toggle-btn.active[data-rung="L3"] { background: rgba(79, 227, 161, 0.12); color: var(--acc); }
+.mcp-toggle-btn.active[data-rung="L0"] { background: var(--field-bad-on); color: var(--bad); }
+.mcp-toggle-btn.active[data-rung="L3"] { background: var(--field-acc-on); color: var(--acc); }
 
 /* extra terminal line types for the attack demo */
 .mcp-line-leak {
 	color: var(--bad);
 	font-weight: 600;
-	background: rgba(255, 107, 107, 0.07);
+	background: var(--field-bad);
 	border-radius: 0;
 	padding: 0.1rem 0.35rem;
 	margin-left: -0.35rem;
@@ -349,24 +343,19 @@
 .mcp-line-hold {
 	color: var(--acc);
 	font-weight: 500;
-	background: rgba(79, 227, 161, 0.07);
+	background: var(--field-acc);
 	border-radius: 0;
 	padding: 0.1rem 0.35rem;
 	margin-left: -0.35rem;
 }
 
 /* ══════════════════════════ DIFF ══════════════════════════ */
-.mcp-diff {
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	gap: 1rem;
-	margin-bottom: 2rem;
-}
+/* the L0-vs-L3 diff is a natural seam: naive/model column (dashed) vs
+   hardened/control column (solid), a 1px --line-seam between. .seam owns the
+   grid + column borders; .mcp-diff keeps only exhibit spacing. */
+.mcp-diff { margin-bottom: 2rem; }
 .mcp-diff-col {
-	border: 1px solid var(--line);
-	border-radius: 0;
 	overflow: hidden;
-	background: var(--panel);
 }
 .mcp-diff-head {
 	padding: 0.6rem 1rem;
@@ -376,8 +365,8 @@
 	font-weight: 600;
 	letter-spacing: 0.04em;
 }
-.mcp-diff-head-l0 { color: var(--bad); background: rgba(255, 107, 107, 0.07); }
-.mcp-diff-head-l3 { color: var(--acc); background: rgba(79, 227, 161, 0.07); }
+.mcp-diff-head-l0 { color: var(--bad); background: var(--field-bad); }
+.mcp-diff-head-l3 { color: var(--acc); background: var(--field-acc); }
 
 /* ══════════════════════════ CONSOLE ══════════════════════════ */
 .mcp-presets { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
@@ -393,9 +382,8 @@
 	transition: border-color 0.2s var(--ease), color 0.2s var(--ease), background 0.2s var(--ease);
 }
 .mcp-preset::before { content: "↯ "; color: var(--bad); }
-.mcp-preset:hover { border-color: var(--bad); color: var(--ink); background: rgba(255, 107, 107, 0.07); }
+.mcp-preset:hover { border-color: var(--bad); color: var(--ink); background: var(--field-bad-on); }
 
-.mcp-term-live { box-shadow: 0 30px 70px -35px rgba(0, 0, 0, 0.8); }
 .mcp-log {
 	min-height: 220px;
 	max-height: 48vh;
@@ -444,13 +432,14 @@
 }
 
 /* ══════════════════════════ FEED ══════════════════════════ */
+/* .well supplies bg/border/mono/base-color; the feed lays rows edge-to-edge so
+   it drops the well's container padding and adds its own rule. */
 .mcp-feed {
-	border: 1px solid var(--line);
 	border-radius: 0;
 	overflow: hidden;
-	background: var(--panel);
+	padding: 0;
 }
-.mcp-feed-empty { padding: 1.5rem; color: var(--ink-faint); font-family: var(--mono); font-size: 0.85rem; }
+.mcp-feed-empty { padding: 1.5rem; color: var(--ink-faint); font-size: 0.85rem; }
 .mcp-feed-item {
 	display: grid;
 	grid-template-columns: auto auto auto 1.6fr auto;
@@ -475,13 +464,13 @@
 }
 .mcp-feed-rung-l0 {
 	color: var(--bad);
-	background: rgba(255, 107, 107, 0.1);
-	border: 1px solid color-mix(in srgb, var(--bad) 35%, var(--line));
+	background: var(--field-bad-on);
+	border: 1px solid var(--bad);
 }
 .mcp-feed-rung-l3 {
 	color: var(--acc);
-	background: rgba(79, 227, 161, 0.1);
-	border: 1px solid color-mix(in srgb, var(--acc) 35%, var(--line));
+	background: var(--field-acc-on);
+	border: 1px solid var(--acc);
 }
 .mcp-feed-effect {
 	font-family: var(--mono);
@@ -495,12 +484,13 @@
 .mcp-feed-tool { color: var(--warn); }
 .mcp-feed-snippet { color: var(--ink-dim); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .mcp-feed-time { color: var(--ink-faint); text-align: right; white-space: nowrap; }
-.mcp-wall-code { font-size: clamp(0.78rem, 2vw, 0.95rem); line-height: 1.75; color: var(--ink-dim); white-space: pre; overflow-x: auto; word-break: normal; }
+/* .well supplies bg/border/mono/base-color/overflow-x; keep only code layout */
+.mcp-wall-code { font-size: clamp(0.78rem, 2vw, 0.95rem); line-height: 1.75; white-space: pre; word-break: normal; }
 .mcp-wall-hl {
 	display: block;
 	margin: 0 -1.35rem;
 	padding: 0.1rem 1.35rem;
-	background: rgba(79, 227, 161, 0.09);
+	background: var(--field-acc);
 	border-left: 3px solid var(--acc);
 	color: var(--ink);
 	font-weight: 500;
@@ -513,7 +503,7 @@
 	font-weight: 500;
 	line-height: 1.55;
 }
-.verdict-block { background: color-mix(in srgb, var(--acc) 10%, transparent); border: 1px solid var(--acc); color: var(--acc); }
+.verdict-block { background: var(--field-acc-on); border: 1px solid var(--acc); color: var(--acc); }
 .mcp-wall-verdict { max-width: 46rem; margin: 1.5rem 0 2rem; font-size: 0.98rem; }
 .mcp-wall-body { max-width: 64ch; }
 .mcp-wall-body p { color: var(--ink-dim); font-size: 1.05rem; line-height: 1.65; }
@@ -547,7 +537,6 @@
 @media (max-width: 700px) {
 	.mcp-wall-links { grid-template-columns: 1fr; }
 	.mcp-rung-grid { grid-template-columns: 1fr 1fr; }
-	.mcp-diff { grid-template-columns: 1fr; }
 	.mcp-feed-item {
 		grid-template-columns: auto 1fr auto;
 		gap: 0.3rem 0.75rem;
