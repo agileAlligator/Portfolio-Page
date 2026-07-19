@@ -41,6 +41,8 @@ image: /assets/og/you-are-the-model.png
 	<div class="ytm-hud">
 		<span class="ytm-hud-item"><span class="ytm-hud-label">round</span><span class="ytm-hud-val" id="round-n">1</span></span>
 		<span class="ytm-hud-item"><span class="ytm-hud-label">streak</span><span class="ytm-hud-val" id="streak">0</span></span>
+		<span class="ytm-hud-item"><span class="ytm-hud-label">controls</span><span class="ytm-hud-val" id="hud-mode">off</span></span>
+		<span class="ytm-hud-item" id="caught-wrap" hidden><span class="ytm-hud-label">caught</span><span class="ytm-hud-val ytm-hud-val-on" id="caught-n">0</span></span>
 	</div>
 
 	<div class="ytm-artifact" id="artifact">
@@ -75,9 +77,23 @@ image: /assets/og/you-are-the-model.png
 	</div>
 </div>
 
-<div class="ytm-controls" id="start-wrap">
-	<button class="btn btn-primary" id="start" type="button">Take the shift</button>
-	<label class="ytm-toggle"><input type="checkbox" id="untimed-start" /> untimed mode</label>
+<div id="start-wrap">
+	<fieldset class="ytm-seg" id="mode-seg">
+		<legend class="ytm-seg-legend">server-side controls</legend>
+		<label class="ytm-seg-opt">
+			<input type="radio" class="u-sr-only" name="ytm-mode" id="mode-off" value="off" checked />
+			<span class="ytm-seg-face">off</span>
+		</label>
+		<label class="ytm-seg-opt">
+			<input type="radio" class="u-sr-only" name="ytm-mode" id="mode-on" value="on" />
+			<span class="ytm-seg-face">on</span>
+		</label>
+	</fieldset>
+	<p class="ytm-seg-note" id="mode-note">You are the only thing between the message and the tool. One wrong call and something real leaves.</p>
+	<div class="ytm-controls">
+		<button class="btn btn-primary" id="start" type="button">Take the shift</button>
+		<label class="ytm-toggle"><input type="checkbox" id="untimed-start" /> untimed mode</label>
+	</div>
 </div>
 
 <p class="ytm-foot">

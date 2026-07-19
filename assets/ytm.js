@@ -118,11 +118,17 @@
 		artKind: $("art-kind"), artFrom: $("art-from"), artSubject: $("art-subject"), artBody: $("art-body"),
 		timer: $("timer"), timerBar: $("timer-bar"),
 		comply: $("comply"), refuse: $("refuse"),
-		verdict: $("verdict"), reveal: $("reveal"), scorecard: $("scorecard")
+		verdict: $("verdict"), reveal: $("reveal"), scorecard: $("scorecard"),
+		modeOff: $("mode-off"), modeOn: $("mode-on"), modeNote: $("mode-note"),
+		hudMode: $("hud-mode"), caughtWrap: $("caught-wrap"), caughtN: $("caught-n")
 	};
 
 	var DUR = 13000;
-	var state = { i: 0, streak: 0, best: 0, running: false, untimed: false, decided: false, to: null };
+	var state = { i: 0, streak: 0, best: 0, caught: 0, mode: "off", running: false, untimed: false, decided: false, to: null };
+	var MODE_NOTE = {
+		off: "You are the only thing between the message and the tool. One wrong call and something real leaves.",
+		on: "A deterministic check sits in front of every tool — the same rules the reveal names when you leak. Your judgment is still scored. It just stops being load-bearing."
+	};
 
 	function clearTimer() {
 		if (state.to) { clearTimeout(state.to); state.to = null; }
@@ -165,7 +171,8 @@
 	}
 
 	function verdict(kind, msg, note) {
-		el.verdict.className = "ytm-verdict " + (kind === "leak" ? "ytm-verdict-leak" : "ytm-verdict-safe");
+		var cls = kind === "leak" ? "ytm-verdict-leak" : kind === "caught" ? "ytm-verdict-caught" : "ytm-verdict-safe";
+		el.verdict.className = "ytm-verdict " + cls;
 		clearNode(el.verdict);
 		el.verdict.appendChild(document.createTextNode(msg));
 		if (note) {
@@ -233,21 +240,45 @@
 		parent.appendChild(p);
 	}
 
-	function endScreen(survived) {
+	function mkButton(label, onClick) {
+		var b = document.createElement("button");
+		b.className = "btn";
+		b.type = "button";
+		b.textContent = label;
+		b.addEventListener("click", onClick);
+		return b;
+	}
+
+	// outcome: "loss" | "win" | "on" — routes the scorecard + the cross-mode replay pair
+	function endScreen(outcome) {
 		var box = document.createElement("div");
 		box.className = "ytm-scorecard";
-		scoreLine(box, "Rounds cleared:", (survived ? ROUNDS.length : state.i) + " of " + ROUNDS.length);
-		scoreLine(box, "Longest run of correct calls:", String(state.best));
-		scoreLine(box, "The deterministic control's leaks, across every run:", "0");
-		var btn = document.createElement("button");
-		btn.className = "btn";
-		btn.type = "button";
-		btn.textContent = survived ? "Play again" : "Take the shift again";
-		btn.addEventListener("click", restart);
-		box.appendChild(btn);
+		if (outcome === "on") {
+			scoreLine(box, "Rounds worked:", ROUNDS.length + " of " + ROUNDS.length);
+			scoreLine(box, "Longest run of correct calls:", String(state.best));
+			scoreLine(box, "Hostile calls you approved:", String(state.caught));
+			scoreLine(box, "Of those, refused at the tool boundary:", state.caught + " of " + state.caught);
+		} else {
+			scoreLine(box, "Rounds cleared:", (outcome === "win" ? ROUNDS.length : state.i) + " of " + ROUNDS.length);
+			scoreLine(box, "Longest run of correct calls:", String(state.best));
+			scoreLine(box, "The deterministic control's leaks, across every run:", "0");
+		}
+		var primary, secondary;
+		if (outcome === "on") {
+			primary = mkButton("Replay the same shift, controls off", function () { restart("off"); });
+			secondary = mkButton("Play again", function () { restart("on"); });
+		} else if (outcome === "loss") {
+			primary = mkButton("Replay the same shift, controls on", function () { restart("on"); });
+			secondary = mkButton("Take the shift again", function () { restart("off"); });
+		} else {
+			primary = mkButton("Play again", function () { restart("off"); });
+			secondary = mkButton("Replay the same shift, controls on", function () { restart("on"); });
+		}
+		box.appendChild(primary);
+		box.appendChild(secondary);
 		clearNode(el.scorecard);
 		el.scorecard.appendChild(box);
-		btn.focus();
+		primary.focus();
 	}
 
 	function lossLine(r) {
@@ -264,12 +295,46 @@
 		var why = auto ? " You ran out of time — the queue moved and you complied by default." : "";
 		verdict("leak", lossLine(r) + why, r.explain);
 		reveal(r);
-		endScreen(false);
+		endScreen("loss");
+	}
+
+	// controls on: a hostile call you approved is refused at the tool boundary — no leak, no game over
+	function caughtRound(r, auto) {
+		clearTimer();
+		el.timer.hidden = true;
+		setChoices(false);
+		state.caught++;
+		state.streak = 0;
+		el.streak.textContent = "0";
+		el.caughtN.textContent = String(state.caught);
+		verdict("caught", auto
+			? "Time ran out — you complied by default. The control refused the call anyway."
+			: "You complied. The control refused the call before it did anything.", r.explain);
+		// the attempted call + the exact rule that stopped it, above the explain note
+		var callEl = document.createElement("span");
+		callEl.className = "ytm-verdict-call";
+		callEl.textContent = r.toolCall;
+		var ruleEl = document.createElement("span");
+		ruleEl.className = "ytm-verdict-call";
+		ruleEl.textContent = r.control;
+		var note = el.verdict.querySelector(".ytm-note");
+		if (note) { el.verdict.insertBefore(ruleEl, note); el.verdict.insertBefore(callEl, ruleEl); }
+		else { el.verdict.appendChild(callEl); el.verdict.appendChild(ruleEl); }
+		// explicit gate so the caught moment gets read
+		var next = mkButton("next artifact", function () {
+			clearNode(el.verdict); el.verdict.className = "";
+			clearNode(el.reveal);
+			nextRound();
+			el.comply.focus();
+		});
+		next.className = "btn ytm-next";
+		el.reveal.appendChild(next);
+		next.focus();
 	}
 
 	function nextRound() {
 		state.i++;
-		if (state.i >= ROUNDS.length) { win(); return; }
+		if (state.i >= ROUNDS.length) { if (state.mode === "on") { endShiftOn(); } else { win(); } return; }
 		showRound();
 	}
 
@@ -281,7 +346,25 @@
 		clearNode(el.reveal);
 		verdict("safe", "You cleared the shift without leaking.",
 			"That is the part that does not scale: you can't stay this careful across every message, forever. Neither can the model.");
-		endScreen(true);
+		endScreen("win");
+	}
+
+	function endShiftOn() {
+		state.running = false;
+		clearTimer();
+		el.timer.hidden = true;
+		setChoices(false);
+		clearNode(el.reveal);
+		var n = state.caught, calls = n === 1 ? "call" : "calls", times = n === 1 ? "time" : "times";
+		if (n > 0) {
+			verdict("caught",
+				"Shift complete. You approved " + n + " hostile " + calls + ". Refused at the tool boundary: " + n + " of " + n + ". Leaked: nothing. Paid out: nothing.",
+				"You were wrong " + n + " " + times + " and it didn't matter. These are the same rules the reveal names when you leak with the controls off — recipient allowlists, amount caps, DLP on tool arguments, human-in-loop. They don't detect prompt injection and they don't make the model smarter; they take this class of action off the table no matter who's convinced.");
+		} else {
+			verdict("safe", "Shift complete. You approved zero hostile calls. The controls sat idle — twelve rounds of correct judgment.",
+				"That's the happy path. Run it with the controls off and see how long the judgment holds.");
+		}
+		endScreen("on");
 	}
 
 	function decide(action, auto) {
@@ -293,7 +376,10 @@
 		var complied = action === "comply";
 
 		if (r.malicious) {
-			if (complied) { leak(r, auto); return; }
+			if (complied) {
+				if (state.mode === "on") { caughtRound(r, auto); return; }
+				leak(r, auto); return;
+			}
 			state.streak++;
 			state.best = Math.max(state.best, state.streak);
 			el.streak.textContent = String(state.streak);
@@ -307,18 +393,41 @@
 				verdict("safe", auto
 					? "Time ran out — you complied by default. It was a real customer this time; it won't always be."
 					: "Handled. A real customer, helped.", r.explain);
-				setTimeout(nextRound, 1200);   // real dwell even in reduced-motion, so the verdict is readable/announced
+				if (state.mode === "on") {   // show the controls passing real work, not just blocking
+					var permit = document.createElement("span");
+					permit.className = "ytm-verdict-call";
+					permit.textContent = r.control;
+					el.verdict.appendChild(permit);
+				}
+				setTimeout(nextRound, 1200);
 			} else {
 				state.streak = 0;
 				el.streak.textContent = "0";
-				verdict("safe", "You refused a real customer. Over-caution isn't the catastrophe here — but it isn't free.", r.explain);
+				var rnote = state.mode === "on"
+					? r.explain + " The controls had no say here — you never made a call."
+					: r.explain;
+				verdict("safe", "You refused a real customer. Over-caution isn't the catastrophe here — but it isn't free.", rnote);
 				setTimeout(nextRound, 1500);
 			}
 		}
 	}
 
+	function setMode(mode) {
+		state.mode = mode === "on" ? "on" : "off";
+		if (el.modeOff) el.modeOff.checked = state.mode === "off";
+		if (el.modeOn) el.modeOn.checked = state.mode === "on";
+		if (el.modeNote) el.modeNote.textContent = MODE_NOTE[state.mode];
+		if (el.hudMode) {
+			el.hudMode.textContent = state.mode;
+			el.hudMode.className = "ytm-hud-val" + (state.mode === "on" ? " ytm-hud-val-on" : "");
+		}
+		if (el.caughtWrap) el.caughtWrap.hidden = state.mode !== "on";
+	}
+
 	function startGame() {
-		state.i = 0; state.streak = 0; state.best = 0; state.running = true;
+		state.i = 0; state.streak = 0; state.best = 0; state.caught = 0; state.running = true;
+		el.caughtN.textContent = "0";
+		setMode(state.mode);
 		el.brief.hidden = true;
 		el.startWrap.hidden = true;
 		el.stage.hidden = false;
@@ -326,7 +435,8 @@
 		el.comply.focus();   // keyboard start (Enter on "Take the shift") keeps focus in the game
 	}
 
-	function restart() {
+	function restart(mode) {
+		if (mode) setMode(mode);
 		clearNode(el.verdict); el.verdict.className = "";
 		clearNode(el.reveal); clearNode(el.scorecard);
 		startGame();
@@ -335,7 +445,13 @@
 	el.start.addEventListener("click", function () {
 		state.untimed = el.untimedStart.checked;
 		el.untimed.checked = state.untimed;
+		setMode(el.modeOn && el.modeOn.checked ? "on" : "off");
 		startGame();
+	});
+	[el.modeOff, el.modeOn].forEach(function (radio) {
+		if (radio) radio.addEventListener("change", function () {
+			if (radio.checked && el.modeNote) el.modeNote.textContent = MODE_NOTE[radio.value];
+		});
 	});
 	el.comply.addEventListener("click", function () { decide("comply", false); });
 	el.refuse.addEventListener("click", function () { decide("refuse", false); });
