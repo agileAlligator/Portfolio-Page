@@ -320,6 +320,10 @@
 	font-size: var(--fs-1);
 	font-weight: 600;
 	padding: 0.55rem 1.2rem;
+	min-height: 44px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
 	border: none;
 	background: transparent;
 	color: var(--ink-dim);
