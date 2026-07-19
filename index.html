@@ -52,6 +52,7 @@
 		<!-- Self-hosted IBM Plex (latin woff2). The site serves its own type; no third-party font request. -->
 		<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/IBMPlexSans-400.woff2" crossorigin />
 		<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/IBMPlexMono-400.woff2" crossorigin />
+		<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/MartianMono-700.woff2" crossorigin />
 		<link rel="stylesheet" href="assets/fonts.css" />
 	</head>
 	<body>
@@ -81,7 +82,6 @@
 		<main id="main">
 		<!-- ───────────────────────────── HERO ───────────────────────────── -->
 		<section class="hero" id="hero">
-			<div class="hero-glow" aria-hidden="true"></div>
 			<div class="hero-inner">
 				<p class="hero-kicker" data-reveal>
 					<span class="prompt">$</span> whoami
@@ -89,6 +89,7 @@
 				<h1 class="hero-title" data-reveal>
 					Avneesh<br />Kasture
 				</h1>
+				<p class="hero-rev" data-reveal>rev 2026.07 · pune, in · all systems self-hosted</p>
 				<p class="hero-role" data-reveal>
 					<span class="tag">secure-mcp engineer</span>
 					<span class="slash">/</span>
@@ -110,8 +111,9 @@
 
 			<div class="term" data-reveal aria-hidden="true">
 				<div class="term-bar">
-					<span class="dot"></span><span class="dot"></span><span class="dot"></span>
+					<span class="term-led" aria-hidden="true"></span>
 					<span class="term-title">read_file.py — before / after</span>
+					<span class="term-fig">fig. 01 — hardened</span>
 				</div>
 				<pre class="term-body"><span class="c-dim"># hardening an MCP tool the model can call</span>
 
@@ -279,7 +281,7 @@
 			<div class="cards">
 				<article class="card card-feature" data-reveal>
 					<div class="card-top">
-						<span class="card-idx">01</span>
+						<span class="card-idx" aria-hidden="true">01</span>
 						<span class="card-tags">agentic-security · CTF lab · Python</span>
 					</div>
 					<h3 class="card-title">mcploitable</h3>
@@ -295,7 +297,7 @@
 
 				<article class="card" data-reveal>
 					<div class="card-top">
-						<span class="card-idx">02</span>
+						<span class="card-idx" aria-hidden="true">02</span>
 						<span class="card-tags">agent-safety · provenance · Python</span>
 					</div>
 					<h3 class="card-title">d2c-analyst</h3>
@@ -313,7 +315,7 @@
 
 				<article class="card" data-reveal>
 					<div class="card-top">
-						<span class="card-idx">03</span>
+						<span class="card-idx" aria-hidden="true">03</span>
 						<span class="card-tags">platform · private</span>
 					</div>
 					<h3 class="card-title">Helix <span class="card-at">@ Gruve</span></h3>
@@ -330,7 +332,7 @@
 
 				<article class="card" data-reveal>
 					<div class="card-top">
-						<span class="card-idx">04</span>
+						<span class="card-idx" aria-hidden="true">04</span>
 						<span class="card-tags">security tooling · NLP · Python</span>
 					</div>
 					<h3 class="card-title">PIIDetector</h3>
@@ -346,7 +348,7 @@
 
 				<article class="card" data-reveal>
 					<div class="card-top">
-						<span class="card-idx">05</span>
+						<span class="card-idx" aria-hidden="true">05</span>
 						<span class="card-tags">research · cryptography</span>
 					</div>
 					<h3 class="card-title">Randomness Testing Suites</h3>
@@ -362,7 +364,7 @@
 
 				<article class="card card-mini" data-reveal>
 					<div class="card-top">
-						<span class="card-idx">·</span>
+						<span class="card-idx" aria-hidden="true">·</span>
 						<span class="card-tags">for fun</span>
 					</div>
 					<h3 class="card-title">Seinfeld Excuse Rolodex</h3>
