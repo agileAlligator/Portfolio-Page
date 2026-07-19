@@ -5,16 +5,17 @@
 
 .game-intro { max-width: var(--maxw); margin: 0 auto; padding: 3.5rem 1.5rem 1.5rem; }
 .game-title {
-	font-family: var(--mono);
-	font-weight: 600;
-	font-size: clamp(2rem, 5vw, 3.1rem);
-	letter-spacing: -0.02em;
+	font-family: var(--disp);
+	font-weight: 700;
+	font-size: clamp(1.9rem, 4.5vw, 2.75rem);
+	text-transform: uppercase;
+	letter-spacing: -0.005em;
 	margin: 0.6rem 0 1rem;
 }
 .game-lede { font-size: 1.12rem; max-width: 60ch; color: var(--ink); }
 .game-sub { margin-top: 0.9rem; max-width: 62ch; color: var(--ink-dim); }
-.game-sub a, .game-lede a, .game-foot a { color: var(--acc-2); text-decoration: none; border-bottom: 1px solid transparent; }
-.game-sub a:hover, .game-lede a:hover, .game-foot a:hover { border-bottom-color: var(--acc-2); }
+.game-sub a, .game-lede a, .game-foot a { color: var(--acc-2); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; text-decoration-color: var(--line-strong); }
+.game-sub a:hover, .game-lede a:hover, .game-foot a:hover { text-decoration-color: var(--acc-2); text-decoration-thickness: 2px; }
 
 .game { max-width: var(--maxw); margin: 0 auto; padding: 0 1.5rem 1rem; }
 
@@ -29,7 +30,7 @@
 	text-align: left;
 	background: var(--panel);
 	border: 1px solid var(--line);
-	border-radius: 10px;
+	border-radius: 0;
 	padding: 0.85rem 0.95rem;
 	cursor: pointer;
 	display: flex;
@@ -53,7 +54,7 @@
 .rig {
 	background: var(--panel);
 	border: 1px solid var(--line);
-	border-radius: 12px;
+	border-radius: 0;
 	padding: 1.2rem 1.25rem;
 }
 .rig-label { font-family: var(--mono); font-size: 0.78rem; color: var(--acc-2); margin-bottom: 0.7rem; }
@@ -63,7 +64,7 @@
 	font-family: var(--mono);
 	font-size: 0.72rem;
 	padding: 0.28rem 0.55rem;
-	border-radius: 6px;
+	border-radius: 0;
 	border: 1px solid var(--line);
 	color: var(--ink-dim);
 	background: var(--bg-2);
@@ -83,7 +84,7 @@
 	display: block;
 	margin-top: 0.9rem;
 	padding: 0.7rem 0.85rem;
-	border-radius: 8px;
+	border-radius: 0;
 	font-weight: 600;
 	white-space: pre-wrap;
 }
@@ -98,7 +99,7 @@
 	font-family: var(--mono);
 	font-size: 0.75rem;
 	padding: 0.35rem 0.7rem;
-	border-radius: 20px;
+	border-radius: 0;
 	border: 1px solid var(--line);
 	color: var(--ink-dim);
 	background: var(--panel);
@@ -114,7 +115,7 @@
 	color: var(--ink);
 	background: var(--bg-2);
 	border: 1px solid var(--line);
-	border-radius: 10px;
+	border-radius: 0;
 	padding: 0.85rem 1rem;
 	resize: vertical;
 	transition: border-color 0.2s var(--ease);
@@ -143,7 +144,7 @@
 	background: var(--bg-2);
 	border-left: 2px solid var(--acc-2);
 	padding: 0.6rem 0.8rem;
-	border-radius: 0 6px 6px 0;
+	border-radius: 0;
 	margin: 0.4rem 0 1rem;
 	line-height: 1.55;
 }
@@ -156,7 +157,7 @@
 	font-size: 0.75rem;
 	letter-spacing: 0.04em;
 	padding: 0.28rem 0.7rem;
-	border-radius: 999px;
+	border-radius: 0;
 	border: 1px solid var(--line);
 	color: var(--ink-faint);
 }
@@ -169,7 +170,7 @@
 	margin: 1.5rem 0 0;
 	padding: 1.1rem 1.35rem;
 	border: 1px solid var(--acc);
-	border-radius: 10px;
+	border-radius: 0;
 	background: color-mix(in srgb, var(--acc) 8%, transparent);
 	color: var(--ink);
 	font-size: 0.98rem;
@@ -186,7 +187,7 @@
 	margin-bottom: 1.25rem;
 	padding: 0.9rem 1.1rem;
 	border: 1px dashed var(--line);
-	border-radius: 10px;
+	border-radius: 0;
 	background: var(--bg-2);
 }
 .game-share-label { font-family: var(--mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-faint); }

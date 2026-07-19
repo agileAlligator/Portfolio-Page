@@ -4,11 +4,12 @@
 
 .ytm-intro { max-width: 62ch; }
 .ytm-title {
-	font-family: var(--sans);
-	font-size: clamp(2rem, 6vw, 3.1rem);
+	font-family: var(--disp);
+	font-size: clamp(1.9rem, 4.5vw, 2.75rem);
 	font-weight: 700;
-	line-height: 1.05;
-	letter-spacing: -0.02em;
+	text-transform: uppercase;
+	line-height: 1.08;
+	letter-spacing: -0.005em;
 	margin: 0.2rem 0 0.9rem;
 }
 .ytm-lede { font-size: 1.08rem; line-height: 1.6; color: var(--ink-dim); margin: 0 0 0.7rem; }
@@ -19,7 +20,7 @@
 	margin: 2rem 0 1.6rem;
 	background: var(--panel);
 	border: 1px solid var(--line);
-	border-radius: 12px;
+	border-radius: 0;
 	padding: 1.25rem 1.4rem;
 }
 .ytm-brief-head { font-family: var(--mono); font-size: 0.8rem; color: var(--acc); margin: 0 0 0.75rem; }
@@ -30,7 +31,7 @@
 	color: var(--acc-2);
 	background: color-mix(in srgb, var(--acc-2) 9%, transparent);
 	border: 1px solid color-mix(in srgb, var(--acc-2) 32%, transparent);
-	border-radius: 6px;
+	border-radius: 0;
 	padding: 0.25rem 0.55rem;
 }
 .ytm-brief-secret {
@@ -61,7 +62,7 @@
 .ytm-artifact {
 	background: var(--panel);
 	border: 1px solid var(--line);
-	border-radius: 12px;
+	border-radius: 0;
 	overflow: hidden;
 	box-shadow: 0 30px 70px -30px rgba(0, 0, 0, 0.8);
 }
@@ -82,7 +83,7 @@
 	text-transform: uppercase;
 	color: #06110c;
 	background: var(--ink-faint);
-	border-radius: 5px;
+	border-radius: 0;
 	padding: 0.15rem 0.5rem;
 }
 .ytm-artifact-from { font-family: var(--mono); font-size: 0.78rem; color: var(--acc-2); }
@@ -99,7 +100,7 @@
 }
 
 /* countdown */
-.ytm-timer { height: 4px; background: var(--line-soft); border-radius: 3px; overflow: hidden; margin: 0.9rem 0; }
+.ytm-timer { height: 4px; background: var(--line-soft); border-radius: 0; overflow: hidden; margin: 0.9rem 0; }
 .ytm-timer-bar {
 	height: 100%;
 	width: 100%;
@@ -115,7 +116,7 @@
 	font-size: 1rem;
 	font-weight: 600;
 	padding: 1rem 1.1rem;
-	border-radius: 10px;
+	border-radius: 0;
 	border: 1px solid var(--line);
 	background: var(--panel);
 	color: var(--ink);
@@ -138,7 +139,7 @@
 .ytm-verdict {
 	display: block;
 	padding: 0.85rem 1.1rem;
-	border-radius: 8px;
+	border-radius: 0;
 	font-weight: 500;
 	line-height: 1.55;
 	margin-top: 0.9rem;
@@ -153,13 +154,13 @@
 .ytm-reveal {
 	margin-top: 1.6rem;
 	border: 1px solid var(--line);
-	border-radius: 12px;
+	border-radius: 0;
 	background: var(--panel);
 	padding: 1.4rem 1.4rem 1.5rem;
 }
 .ytm-reveal-head { font-family: var(--mono); font-size: 0.82rem; color: var(--acc); margin: 0 0 1rem; }
 .ytm-reveal-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-.ytm-reveal-col { border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+.ytm-reveal-col { border: 1px solid var(--line); border-radius: 0; overflow: hidden; }
 .ytm-reveal-col-label {
 	font-family: var(--mono);
 	font-size: 0.74rem;
@@ -204,7 +205,7 @@
 .ytm-seg-opt { position: relative; display: inline-flex; margin-right: 0.4rem; }
 .ytm-seg-face {
 	border: 1px solid var(--line);
-	border-radius: 6px;
+	border-radius: 0;
 	padding: 0.3rem 0.85rem;
 	font-family: var(--mono);
 	font-size: 0.82rem;

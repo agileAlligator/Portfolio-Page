@@ -9,11 +9,12 @@
 .owasp-intro { max-width: 68ch; }
 .owasp-intro .section-label { font-family: var(--mono); font-size: 0.82rem; color: var(--acc); margin-bottom: 0.9rem; }
 .owasp-title {
-	font-family: var(--mono);
+	font-family: var(--disp);
 	font-weight: 700;
-	font-size: clamp(1.8rem, 5vw, 2.7rem);
-	letter-spacing: -0.03em;
-	line-height: 1.1;
+	font-size: clamp(1.8rem, 4.5vw, 2.6rem);
+	text-transform: uppercase;
+	letter-spacing: -0.005em;
+	line-height: 1.08;
 	margin-bottom: 1.1rem;
 }
 .owasp-lede { color: var(--ink); font-size: 1.12rem; margin-bottom: 0.9rem; }
@@ -71,7 +72,7 @@
 	background: transparent;
 	border: 0;
 	padding: 0;
-	border-radius: 12px;
+	border-radius: 0;
 	cursor: pointer;
 	-webkit-tap-highlight-color: transparent;
 	touch-action: manipulation;
@@ -122,7 +123,7 @@ html:not(.js) .asi-turn { display: none; }
 	-webkit-backface-visibility: hidden;
 	backface-visibility: hidden;
 	border: 1px solid var(--line-soft);
-	border-radius: 12px;
+	border-radius: 0;
 	padding: 1.4rem;
 	display: flex;
 	flex-direction: column;

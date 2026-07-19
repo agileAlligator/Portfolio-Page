@@ -41,41 +41,23 @@
 	align-items: center;
 }
 .mcp-hero-copy { min-width: 0; }
-.mcp-hero-glow {
-	position: absolute;
-	top: -14%;
-	right: -8%;
-	width: 540px;
-	height: 540px;
-	max-width: 90vw;
-	background: radial-gradient(circle, rgba(79, 227, 161, 0.16), transparent 66%);
-	filter: blur(18px);
-	pointer-events: none;
-	z-index: -1;
-}
+.mcp-hero-glow { display: none; }   /* the instrument doesn't glow (also fixes horizontal overflow) */
 .mcp-eyebrow {
 	display: inline-flex;
 	align-items: center;
 	margin-bottom: 1.4rem;
 }
 .mcp-title {
-	font-family: var(--mono);
+	font-family: var(--disp);
 	font-weight: 700;
-	font-size: clamp(2.6rem, 7.2vw, 5rem);
-	line-height: 0.96;
-	letter-spacing: -0.045em;
+	font-size: clamp(2.2rem, 5.5vw, 3.6rem);
+	line-height: 1.04;
+	text-transform: uppercase;
+	letter-spacing: -0.01em;
 	margin-bottom: 1.6rem;
-	background: linear-gradient(180deg, #ffffff 34%, #b9c4d4 100%);
-	-webkit-background-clip: text;
-	background-clip: text;
-	color: transparent;
+	color: var(--ink);
 }
-.mcp-title-hot {
-	background: linear-gradient(180deg, var(--acc) 0%, #2fae7a 100%);
-	-webkit-background-clip: text;
-	background-clip: text;
-	color: transparent;
-}
+.mcp-title-hot { color: var(--acc); }
 .mcp-lede {
 	max-width: 34rem;
 	color: var(--ink-dim);
@@ -100,7 +82,7 @@
 	background: var(--panel-2);
 	border: 1px solid var(--line);
 	border-left: 3px solid var(--acc);
-	border-radius: 10px;
+	border-radius: 0;
 	overflow-x: auto;
 }
 .mcp-cmd-prompt { color: var(--acc); font-family: var(--mono); font-weight: 600; flex-shrink: 0; }
@@ -192,7 +174,7 @@
 }
 .mcp-rung-card {
 	border: 1px solid var(--line);
-	border-radius: 14px;
+	border-radius: 0;
 	padding: 1.75rem 1.5rem 1.5rem;
 	background: var(--panel);
 	text-align: center;
@@ -213,7 +195,7 @@
 	letter-spacing: 0.14em;
 	text-transform: uppercase;
 	padding: 0.2rem 0.65rem;
-	border-radius: 999px;
+	border-radius: 0;
 	margin-bottom: 1rem;
 }
 .mcp-rung-label-l0 {
@@ -267,7 +249,7 @@
 	color: var(--acc-2);
 	background: var(--panel);
 	padding: 0.1em 0.4em;
-	border-radius: 4px;
+	border-radius: 0;
 }
 .mcp-toolset-head {
 	display: flex;
@@ -290,7 +272,7 @@
 	font-size: 0.72rem;
 	color: var(--acc);
 	border: 1px solid color-mix(in srgb, var(--acc) 45%, var(--line));
-	border-radius: 999px;
+	border-radius: 0;
 	padding: 0.18rem 0.65rem;
 	white-space: nowrap;
 	flex-shrink: 0;
@@ -322,7 +304,7 @@
 /* ══════════════════════════ TOOL SURFACE ══════════════════════════ */
 .mcp-tool-surface {
 	border: 1px solid color-mix(in srgb, var(--acc) 30%, var(--line));
-	border-radius: 12px;
+	border-radius: 0;
 	padding: 1.5rem 1.6rem;
 	background: linear-gradient(180deg, rgba(79, 227, 161, 0.04), transparent 40%), var(--panel);
 	max-width: 44rem;
@@ -334,7 +316,7 @@
 .mcp-toggle {
 	display: inline-flex;
 	border: 1px solid var(--line);
-	border-radius: 10px;
+	border-radius: 0;
 	overflow: hidden;
 	background: var(--panel);
 	margin-bottom: 1rem;
@@ -360,7 +342,7 @@
 	color: var(--bad);
 	font-weight: 600;
 	background: rgba(255, 107, 107, 0.07);
-	border-radius: 4px;
+	border-radius: 0;
 	padding: 0.1rem 0.35rem;
 	margin-left: -0.35rem;
 }
@@ -368,7 +350,7 @@
 	color: var(--acc);
 	font-weight: 500;
 	background: rgba(79, 227, 161, 0.07);
-	border-radius: 4px;
+	border-radius: 0;
 	padding: 0.1rem 0.35rem;
 	margin-left: -0.35rem;
 }
@@ -382,7 +364,7 @@
 }
 .mcp-diff-col {
 	border: 1px solid var(--line);
-	border-radius: 10px;
+	border-radius: 0;
 	overflow: hidden;
 	background: var(--panel);
 }
@@ -403,7 +385,7 @@
 	font-family: var(--mono);
 	font-size: 0.78rem;
 	padding: 0.4rem 0.8rem;
-	border-radius: 999px;
+	border-radius: 0;
 	border: 1px solid var(--line);
 	color: var(--ink-dim);
 	background: var(--panel);
@@ -444,7 +426,7 @@
 	color: var(--ink);
 	background: var(--bg-2);
 	border: 1px solid var(--line);
-	border-radius: 10px;
+	border-radius: 0;
 	padding: 0.85rem 1rem;
 	resize: vertical;
 	transition: border-color 0.2s var(--ease);
@@ -464,7 +446,7 @@
 /* ══════════════════════════ FEED ══════════════════════════ */
 .mcp-feed {
 	border: 1px solid var(--line);
-	border-radius: 12px;
+	border-radius: 0;
 	overflow: hidden;
 	background: var(--panel);
 }
@@ -487,7 +469,7 @@
 	font-weight: 700;
 	letter-spacing: 0.1em;
 	text-transform: uppercase;
-	border-radius: 4px;
+	border-radius: 0;
 	padding: 0.05rem 0.4rem;
 	white-space: nowrap;
 }
@@ -527,7 +509,7 @@
 .verdict {
 	display: block;
 	padding: 0.85rem 1.1rem;
-	border-radius: 8px;
+	border-radius: 0;
 	font-weight: 500;
 	line-height: 1.55;
 }
@@ -550,7 +532,7 @@
 	padding: 1.25rem 1.35rem;
 	background: var(--panel);
 	border: 1px solid var(--line-soft);
-	border-radius: 10px;
+	border-radius: 0;
 	transition: transform 0.25s var(--ease), border-color 0.25s var(--ease);
 }
 .mcp-wall-link:hover { transform: translateY(-3px); border-color: var(--acc); }

@@ -196,7 +196,7 @@ image: /assets/og/mcp.png
 		<!-- L0 naive -->
 		<div class="mcp-diff-col">
 			<div class="mcp-diff-head mcp-diff-head-l0">L0 · naive — leaks</div>
-			<pre class="term-body mcp-wall-code"><span class="c-dim">function</span> <span class="c-key">readDocument</span>(path) {
+			<pre class="term-body mcp-wall-code" tabindex="0"><span class="c-dim">function</span> <span class="c-key">readDocument</span>(path) {
   <span class="c-dim">const</span> full = normalize(ROOT + path);
   <span class="c-bad">return</span> store[full];  <span class="c-dim">// ✕ reads whatever it resolves to</span>
 }</pre>
@@ -204,7 +204,7 @@ image: /assets/og/mcp.png
 		<!-- L3 hardened -->
 		<div class="mcp-diff-col">
 			<div class="mcp-diff-head mcp-diff-head-l3">L3 · hardened — holds</div>
-			<pre class="term-body mcp-wall-code"><span class="c-dim">function</span> <span class="c-key">readDocument</span>(path) {
+			<pre class="term-body mcp-wall-code" tabindex="0"><span class="c-dim">function</span> <span class="c-key">readDocument</span>(path) {
   <span class="c-dim">const</span> full = normalize(ROOT + decode(path));
 <span class="mcp-wall-hl">  <span class="c-bad">if</span> (!(full + <span class="c-str">"/"</span>).startsWith(ROOT))
     <span class="c-bad">return</span> refuse(<span class="c-str">"path-confinement"</span>);</span>
