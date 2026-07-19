@@ -7,7 +7,7 @@
    ══════════════════════════════════════════════════════════════════ */
 
 .owasp-intro { max-width: 68ch; }
-.owasp-intro .section-label { font-family: var(--mono); font-size: 0.82rem; color: var(--acc); margin-bottom: 0.9rem; }
+.owasp-intro .section-label { font-family: var(--mono); font-size: var(--fs-1); color: var(--acc); margin-bottom: 0.9rem; }
 .owasp-title {
 	font-family: var(--disp);
 	font-weight: 700;
@@ -17,11 +17,11 @@
 	line-height: 1.08;
 	margin-bottom: 1.1rem;
 }
-.owasp-lede { color: var(--ink); font-size: 1.12rem; margin-bottom: 0.9rem; }
+.owasp-lede { color: var(--ink); font-size: var(--fs-3); margin-bottom: 0.9rem; }
 .owasp-intro p { color: var(--ink-dim); margin-bottom: 0.9rem; }
 .owasp-intro a { color: var(--acc); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--line); }
 .owasp-intro a:hover { text-decoration-color: var(--acc); }
-.owasp-hint { font-family: var(--mono); font-size: 0.8rem; color: var(--ink-faint); }
+.owasp-hint { font-family: var(--mono); font-size: var(--fs-1); color: var(--ink-faint); }
 .owasp-hint .k-risk { color: var(--bad); }
 .owasp-hint .k-detect { color: var(--warn); }
 .owasp-hint .k-control { color: var(--acc-2); }
@@ -93,7 +93,7 @@ html:not(.js) .asi-turn { display: none; }
 	bottom: 1rem;
 	z-index: 4;
 	font-family: var(--mono);
-	font-size: 1.5rem;
+	font-size: var(--fs-5);
 	line-height: 1;
 	color: var(--ink);
 	opacity: 0;
@@ -145,11 +145,11 @@ html:not(.js) .asi-turn { display: none; }
 	box-shadow: 0 0 0 1px rgba(var(--glow), 0.25);
 }
 
-.asi-code { font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.06em; color: rgb(var(--glow)); }
+.asi-code { font-family: var(--mono); font-size: var(--fs-0); letter-spacing: 0.06em; color: rgb(var(--glow)); }
 .asi-name {
 	font-family: var(--mono);
 	font-weight: 600;
-	font-size: 1.14rem;
+	font-size: var(--fs-3);
 	line-height: 1.25;
 	letter-spacing: -0.02em;
 	margin: 0.55rem 0;
@@ -159,14 +159,14 @@ html:not(.js) .asi-turn { display: none; }
 }
 .asi-label {
 	font-family: var(--mono);
-	font-size: 0.68rem;
+	font-size: var(--fs-00);
 	text-transform: uppercase;
 	letter-spacing: 0.09em;
 	margin-bottom: 0.45rem;
 	color: rgb(var(--glow));
 }
-.asi-attack { color: var(--ink-dim); font-size: 0.95rem; line-height: 1.5; }
-.asi-body { color: var(--ink-dim); font-size: 0.88rem; line-height: 1.55; }
+.asi-attack { color: var(--ink-dim); font-size: var(--fs-2); line-height: 1.5; }
+.asi-body { color: var(--ink-dim); font-size: var(--fs-2); line-height: 1.55; }
 .asi-body strong { color: var(--ink); font-weight: 600; }
 
 /* ── VFX ─────────────────────────────────────────────────────────── */

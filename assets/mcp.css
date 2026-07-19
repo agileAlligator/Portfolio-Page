@@ -61,7 +61,7 @@
 .mcp-lede {
 	max-width: 34rem;
 	color: var(--ink-dim);
-	font-size: 1.1rem;
+	font-size: var(--fs-3);
 	line-height: 1.6;
 	margin-bottom: 2rem;
 }
@@ -71,7 +71,7 @@
 
 .mcp-hero-side { min-width: 0; }
 /* .well supplies bg/border/mono/base-color/overflow-x; keep only readout layout */
-.mcp-term-body { font-size: 0.8rem; line-height: 1.72; white-space: pre; word-break: normal; }
+.mcp-term-body { font-size: var(--fs-1); line-height: 1.72; white-space: pre; word-break: normal; }
 
 /* ══════════════════════════ CONNECT ══════════════════════════ */
 .mcp-cmd {
@@ -95,7 +95,7 @@
 }
 .mcp-copy {
 	flex-shrink: 0;
-	font-size: 0.78rem;
+	font-size: var(--fs-0);
 	padding: 0.45rem 0.9rem;
 	cursor: pointer;
 }
@@ -104,7 +104,7 @@
 	margin-top: 1.15rem;
 	max-width: 60ch;
 	color: var(--ink-dim);
-	font-size: 0.98rem;
+	font-size: var(--fs-2);
 }
 .mcp-connect-note strong { color: var(--ink); font-weight: 600; }
 
@@ -153,12 +153,12 @@
 	max-width: 40ch;
 	margin: 0 auto 1.25rem;
 	color: var(--ink-dim);
-	font-size: 1.02rem;
+	font-size: var(--fs-3);
 	line-height: 1.6;
 }
 .mcp-count-meta {
 	font-family: var(--mono);
-	font-size: 0.85rem;
+	font-size: var(--fs-1);
 	color: var(--ink-faint);
 }
 .mcp-count-meta a { color: var(--acc-2); text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 3px; }
@@ -190,7 +190,7 @@
 .mcp-rung-label {
 	display: inline-block;
 	font-family: var(--mono);
-	font-size: 0.72rem;
+	font-size: var(--fs-0);
 	font-weight: 700;
 	letter-spacing: 0.14em;
 	text-transform: uppercase;
@@ -222,7 +222,7 @@
 .mcp-rung-num-held { color: var(--acc); }
 .mcp-rung-effect {
 	font-family: var(--mono);
-	font-size: 0.8rem;
+	font-size: var(--fs-1);
 	letter-spacing: 0.06em;
 	text-transform: uppercase;
 }
@@ -234,7 +234,7 @@
 	max-width: 64ch;
 	margin: -1.4rem 0 2.4rem;
 	color: var(--ink-dim);
-	font-size: 1.02rem;
+	font-size: var(--fs-3);
 }
 .mcp-tools-lede em { color: var(--ink); font-style: normal; }
 .mcp-tools-lede code, .mcp-connect-note code {
@@ -256,14 +256,14 @@
 }
 .mcp-toolset-title {
 	font-family: var(--mono);
-	font-size: 0.95rem;
+	font-size: var(--fs-2);
 	font-weight: 600;
 	color: var(--ink);
 	letter-spacing: -0.01em;
 }
 .mcp-toolset-count {
 	font-family: var(--mono);
-	font-size: 0.72rem;
+	font-size: var(--fs-0);
 	color: var(--acc);
 	border: 1px solid var(--acc);
 	border-radius: 0;
@@ -283,15 +283,15 @@
 .mcp-tool-item:last-child { border-bottom: 0; }
 .mcp-tool-name {
 	font-family: var(--mono);
-	font-size: 0.9rem;
+	font-size: var(--fs-2);
 	color: var(--acc);
 	font-weight: 500;
 }
-.mcp-tool-desc { color: var(--ink-faint); font-size: 0.85rem; }
+.mcp-tool-desc { color: var(--ink-faint); font-size: var(--fs-1); }
 .mcp-toolset-foot {
 	margin-top: 1.1rem;
 	color: var(--ink-dim);
-	font-size: 0.88rem;
+	font-size: var(--fs-2);
 	line-height: 1.55;
 }
 
@@ -317,7 +317,7 @@
 }
 .mcp-toggle-btn {
 	font-family: var(--mono);
-	font-size: 0.84rem;
+	font-size: var(--fs-1);
 	font-weight: 600;
 	padding: 0.55rem 1.2rem;
 	border: none;
@@ -361,7 +361,7 @@
 	padding: 0.6rem 1rem;
 	border-bottom: 1px solid var(--line);
 	font-family: var(--mono);
-	font-size: 0.78rem;
+	font-size: var(--fs-0);
 	font-weight: 600;
 	letter-spacing: 0.04em;
 }
@@ -372,7 +372,7 @@
 .mcp-presets { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
 .mcp-preset {
 	font-family: var(--mono);
-	font-size: 0.78rem;
+	font-size: var(--fs-0);
 	padding: 0.4rem 0.8rem;
 	border-radius: 0;
 	border: 1px solid var(--line);
@@ -388,7 +388,7 @@
 	min-height: 220px;
 	max-height: 48vh;
 	overflow-y: auto;
-	font-size: 0.84rem;
+	font-size: var(--fs-1);
 	line-height: 1.7;
 	white-space: normal;
 }
@@ -405,11 +405,11 @@
 .mcp-line-system { color: var(--warn); font-style: italic; }
 
 .mcp-attack { margin-top: 1.4rem; }
-.mcp-attack-label { display: block; font-family: var(--mono); font-size: 0.86rem; color: var(--ink-dim); margin-bottom: 0.6rem; }
+.mcp-attack-label { display: block; font-family: var(--mono); font-size: var(--fs-1); color: var(--ink-dim); margin-bottom: 0.6rem; }
 .mcp-input {
 	width: 100%;
 	font-family: var(--mono);
-	font-size: 0.88rem;
+	font-size: var(--fs-2);
 	line-height: 1.6;
 	color: var(--ink);
 	background: var(--bg-2);
@@ -426,7 +426,7 @@
 .mcp-attack-actions .btn:disabled { opacity: 0.5; cursor: wait; }
 .mcp-attack-hint {
 	font-family: var(--mono);
-	font-size: 0.78rem;
+	font-size: var(--fs-0);
 	color: var(--ink-faint);
 	margin-left: auto;
 }
@@ -439,7 +439,7 @@
 	overflow: hidden;
 	padding: 0;
 }
-.mcp-feed-empty { padding: 1.5rem; color: var(--ink-faint); font-size: 0.85rem; }
+.mcp-feed-empty { padding: 1.5rem; color: var(--ink-faint); font-size: var(--fs-1); }
 .mcp-feed-item {
 	display: grid;
 	grid-template-columns: auto auto auto 1.6fr auto;
@@ -448,13 +448,13 @@
 	padding: 0.75rem 1.15rem;
 	border-bottom: 1px solid var(--line-soft);
 	font-family: var(--mono);
-	font-size: 0.82rem;
+	font-size: var(--fs-1);
 }
 .mcp-feed-item:last-child { border-bottom: 0; }
 .mcp-feed-item:nth-child(even) { background: rgba(255, 255, 255, 0.012); }
 .mcp-feed-rung {
 	font-family: var(--mono);
-	font-size: 0.7rem;
+	font-size: var(--fs-00);
 	font-weight: 700;
 	letter-spacing: 0.1em;
 	text-transform: uppercase;
@@ -474,7 +474,7 @@
 }
 .mcp-feed-effect {
 	font-family: var(--mono);
-	font-size: 0.7rem;
+	font-size: var(--fs-00);
 	letter-spacing: 0.06em;
 	text-transform: uppercase;
 	white-space: nowrap;
@@ -504,9 +504,9 @@
 	line-height: 1.55;
 }
 .verdict-block { background: var(--field-acc-on); border: 1px solid var(--acc); color: var(--acc); }
-.mcp-wall-verdict { max-width: 46rem; margin: 1.5rem 0 2rem; font-size: 0.98rem; }
+.mcp-wall-verdict { max-width: 46rem; margin: 1.5rem 0 2rem; font-size: var(--fs-2); }
 .mcp-wall-body { max-width: 64ch; }
-.mcp-wall-body p { color: var(--ink-dim); font-size: 1.05rem; line-height: 1.65; }
+.mcp-wall-body p { color: var(--ink-dim); font-size: var(--fs-3); line-height: 1.65; }
 .mcp-wall-body strong { color: var(--ink); font-weight: 600; }
 
 .mcp-wall-links {
@@ -526,8 +526,8 @@
 	transition: background 0.25s var(--ease), border-color 0.25s var(--ease);
 }
 .mcp-wall-link:hover { border-color: var(--acc); background: var(--panel-2); }
-.mcp-wall-link-k { font-family: var(--mono); font-size: 0.75rem; color: var(--acc); }
-.mcp-wall-link-t { color: var(--ink); font-size: 1rem; line-height: 1.4; }
+.mcp-wall-link-k { font-family: var(--mono); font-size: var(--fs-0); color: var(--acc); }
+.mcp-wall-link-t { color: var(--ink); font-size: var(--fs-2); line-height: 1.4; }
 
 /* ══════════════════════════ RESPONSIVE ══════════════════════════ */
 @media (max-width: 860px) {

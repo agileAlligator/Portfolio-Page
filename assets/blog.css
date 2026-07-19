@@ -12,7 +12,7 @@
 /* ── shared section label (matches homepage) ── */
 .blog-index .section-label {
 	font-family: var(--mono);
-	font-size: 0.82rem;
+	font-size: var(--fs-1);
 	color: var(--acc);
 	margin-bottom: 0.75rem;
 }
@@ -26,7 +26,7 @@
 }
 .blog-intro {
 	color: var(--ink-dim);
-	font-size: 1.05rem;
+	font-size: var(--fs-3);
 	max-width: 60ch;
 	margin-bottom: 3rem;
 }
@@ -65,16 +65,16 @@
 .pli-main { display: flex; flex-direction: column; gap: 0.3rem; }
 .pli-title {
 	font-family: var(--mono);
-	font-size: 1.1rem;
+	font-size: var(--fs-3);
 	font-weight: 500;
 	color: var(--ink);
 	letter-spacing: -0.01em;
 }
 .post-list-item a:hover .pli-title { color: var(--acc); }
-.pli-sub { color: var(--ink-dim); font-size: 0.92rem; max-width: 52ch; }
+.pli-sub { color: var(--ink-dim); font-size: var(--fs-2); max-width: 52ch; }
 .post-list-item time {
 	font-family: var(--mono);
-	font-size: 0.78rem;
+	font-size: var(--fs-0);
 	color: var(--ink-faint);
 	white-space: nowrap;
 	flex-shrink: 0;
@@ -83,7 +83,7 @@
 /* ── single post ── */
 .post-header { margin-bottom: 2.5rem; }
 .post-kicker { margin-bottom: 1.25rem; }
-.post-kicker a { font-family: var(--mono); font-size: 0.82rem; color: var(--acc); }
+.post-kicker a { font-family: var(--mono); font-size: var(--fs-1); color: var(--acc); }
 .post-kicker a:hover { text-decoration: underline; }
 .post-title {
 	font-family: var(--disp);
@@ -95,13 +95,13 @@
 }
 .post-subtitle {
 	color: var(--ink-dim);
-	font-size: 1.15rem;
+	font-size: var(--fs-3);
 	line-height: 1.5;
 	margin-bottom: 1.25rem;
 }
 .post-meta {
 	font-family: var(--mono);
-	font-size: 0.8rem;
+	font-size: var(--fs-1);
 	color: var(--ink-faint);
 	display: flex;
 	flex-wrap: wrap;
@@ -114,11 +114,11 @@
 .post-tags { color: var(--acc-2); }
 
 /* ── prose ── */
-.post-body { font-size: 1.06rem; line-height: 1.75; color: var(--ink); }
+.post-body { font-size: var(--fs-3); line-height: 1.75; color: var(--ink); }
 .post-body > * + * { margin-top: 1.35rem; }
 .post-body h2 {
 	font-family: var(--mono);
-	font-size: 1.4rem;
+	font-size: var(--fs-4);
 	font-weight: 600;
 	letter-spacing: -0.02em;
 	margin-top: 3rem;
@@ -128,7 +128,7 @@
 .post-body h2::before { content: "# "; color: var(--acc); }
 .post-body h3 {
 	font-family: var(--mono);
-	font-size: 1.12rem;
+	font-size: var(--fs-3);
 	font-weight: 600;
 	margin-top: 2.25rem;
 	color: var(--ink);
@@ -171,7 +171,7 @@
 	border-radius: 0;
 	padding: 1.1rem 1.25rem;
 	overflow-x: auto;
-	font-size: 0.85rem;
+	font-size: var(--fs-1);
 	line-height: 1.65;
 }
 .post-body pre code {
@@ -199,7 +199,7 @@
 	padding-top: 1.5rem;
 	border-top: 1px solid var(--line-soft);
 	font-family: var(--mono);
-	font-size: 0.88rem;
+	font-size: var(--fs-2);
 }
 .post-footer a { color: var(--acc); }
 .post-footer a:hover { text-decoration: underline; }
