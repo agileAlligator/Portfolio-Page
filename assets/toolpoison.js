@@ -51,6 +51,25 @@
 		return s;
 	}
 
+	// focused retry affordance for the degraded/failure state — reuses .btn and
+	// re-runs the last submission, matching the you-are-the-model pattern.
+	function mkButton(label, onClick) {
+		var b = document.createElement("button");
+		b.type = "button";
+		b.className = "btn";
+		b.textContent = label;
+		b.addEventListener("click", onClick);
+		return b;
+	}
+	function showRetry() {
+		var wrap = document.createElement("div");
+		wrap.className = "tp-controls";
+		var btn = mkButton("serve the description again", function () { run(); });
+		wrap.appendChild(btn);
+		els.out.appendChild(wrap);
+		btn.focus();
+	}
+
 	function servedNote(action, rung) {
 		if (action === "withheld") return "control served: [withheld — failed the content scan]";
 		if (action === "reverted") return "control served: the approved description (your edit was reverted by the pin)";
@@ -149,6 +168,7 @@
 					clearNode(els.out);
 					(d.transcript || []).forEach(function (m) { outLine("tp-turn-role", m.text || ""); });
 					setVerdict("tp-verdict-luck", "The live model is unavailable right now, so this run didn't execute. The mechanism still holds: a poisoned description steers a compliant agent, and the L3 pin reverts it regardless of wording.");
+					showRetry();
 					return;
 				}
 				renderTranscript(d.transcript || []);
@@ -159,6 +179,7 @@
 				clearTimeout(to);
 				clearNode(els.out);
 				outLine("tp-turn-role", "// no response from the server — it may be waking or rate-limited. Try again in a moment.");
+				showRetry();
 			})
 			.then(function () {
 				state.running = false;

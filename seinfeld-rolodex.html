@@ -322,6 +322,9 @@
         font-size: 0.78rem;
         font-weight: 700;
         letter-spacing: 0.05em;
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
         padding: 0.45rem 0.7rem;
         border: 1px solid #2f2f2f;
         border-bottom: none;
@@ -427,7 +430,7 @@
         <button class="btn btn-spin" id="spin" type="button">↻ spin</button>
         <button class="btn" id="another" type="button">another excuse</button>
         <button class="btn" id="copy" type="button">copy</button>
-        <button class="btn" id="sound" type="button" aria-pressed="false">🔇 sound: off</button>
+        <button class="btn" id="sound" type="button" aria-pressed="false">sound: off</button>
     </div>
 
     <p class="hint">
@@ -722,7 +725,7 @@
         els.sound.addEventListener("click", function () {
             soundOn = !soundOn;
             els.sound.setAttribute("aria-pressed", soundOn ? "true" : "false");
-            els.sound.textContent = soundOn ? "🔊 sound: on" : "🔇 sound: off";
+            els.sound.textContent = soundOn ? "sound: on" : "sound: off";
             if (soundOn) { ctx(); startAmbient(); slapPreview(); }   // a taste, so you know it works
             else { stopAmbient(); }
         });
