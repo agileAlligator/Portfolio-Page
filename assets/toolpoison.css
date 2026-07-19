@@ -1,0 +1,135 @@
+/* ── POISON THE TOOL ───────────────────────────────────────────────────
+   Tool-description poisoning game. Dark phosphor theme; reuses site tokens
+   + .rungs/.rung/.term/.btn/.verdict/.game-* from style.css / game.css. */
+
+.tp-stage { margin: 1.75rem 0 0; display: flex; flex-direction: column; gap: 1.15rem; }
+
+/* rung selector (reuses .rungs/.rung/.rung-* but game.css scopes them to .game) */
+.tp-stage .rungs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; margin: 0; padding: 0; }
+.tp-stage .rung {
+	display: flex; flex-direction: column; gap: 0.25rem; text-align: left;
+	padding: 0.75rem 0.85rem; border: 1px solid var(--line); border-radius: 9px;
+	background: var(--panel); color: var(--ink-dim); cursor: pointer;
+	transition: border-color 0.15s var(--ease), background 0.15s var(--ease);
+}
+.tp-stage .rung:hover { border-color: var(--ink-faint); }
+.tp-stage .rung[aria-pressed="true"] { border-color: var(--acc); background: color-mix(in srgb, var(--acc) 8%, var(--panel)); }
+.tp-stage .rung-code { font-family: var(--mono); font-weight: 700; color: var(--acc); font-size: 0.8rem; }
+.tp-stage .rung-name { font-family: var(--mono); font-size: 0.86rem; color: var(--ink); }
+.tp-stage .rung-desc { font-family: var(--mono); font-size: 0.74rem; color: var(--ink-faint); line-height: 1.4; }
+@media (max-width: 560px) { .tp-stage .rungs { grid-template-columns: 1fr; } }
+
+/* the fixed user request */
+.tp-req {
+	font-family: var(--mono);
+	font-size: 0.92rem;
+	line-height: 1.6;
+	color: var(--ink);
+	background: var(--panel);
+	border: 1px solid var(--line);
+	border-left: 3px solid var(--acc-2);
+	border-radius: 8px;
+	padding: 0.85rem 1.05rem;
+}
+.tp-req-label {
+	display: block;
+	font-size: 0.72rem;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--ink-faint);
+	margin-bottom: 0.4rem;
+}
+
+/* the tool list the model reads */
+.tp-toolview {
+	background: var(--panel);
+	border: 1px solid var(--line);
+	border-radius: 10px;
+	padding: 1.1rem 1.15rem;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+.tp-tool { display: flex; flex-direction: column; gap: 0.4rem; }
+.tp-tool-sig { font-family: var(--mono); font-size: 0.9rem; color: var(--acc); font-weight: 600; }
+.tp-tool-desc { font-family: var(--mono); font-size: 0.85rem; line-height: 1.55; color: var(--ink-dim); }
+.tp-tool-desc code, .tp-req code { color: var(--acc-2); background: var(--bg-2); padding: 0.05em 0.35em; border-radius: 4px; }
+
+.tp-editor-label { font-family: var(--mono); font-size: 0.8rem; color: var(--warn); }
+.tp-editor {
+	width: 100%;
+	font-family: var(--mono);
+	font-size: 0.88rem;
+	line-height: 1.55;
+	color: var(--ink);
+	background: var(--bg-2);
+	border: 1px solid var(--line);
+	border-radius: 8px;
+	padding: 0.75rem 0.9rem;
+	resize: vertical;
+	min-height: 5.5rem;
+}
+.tp-editor:focus-visible { outline: 2px solid var(--acc); outline-offset: 1px; border-color: var(--acc); }
+
+.tp-presets { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.2rem; }
+.tp-preset {
+	font-family: var(--mono);
+	font-size: 0.76rem;
+	padding: 0.4rem 0.7rem;
+	border: 1px solid var(--line);
+	border-radius: 6px;
+	background: var(--panel-2);
+	color: var(--ink-dim);
+	cursor: pointer;
+	transition: border-color 0.15s, color 0.15s;
+}
+.tp-preset:hover { border-color: var(--acc-2); color: var(--ink); }
+
+.tp-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 0.9rem; }
+.tp-served { font-family: var(--mono); font-size: 0.78rem; color: var(--ink-faint); }
+
+/* terminal output */
+.tp-out { min-height: 4rem; display: flex; flex-direction: column; gap: 0.15rem; }
+.tp-turn { display: block; white-space: pre-wrap; word-break: break-word; }
+.tp-turn-role { color: var(--ink-faint); }
+.tp-turn-tool { color: var(--acc-2); }
+.tp-turn-args { color: var(--ink-dim); }
+.tp-turn-result { color: var(--ink-dim); }
+.tp-turn-leaked { color: var(--bad); font-weight: 600; }
+
+/* verdict — reuses .verdict shape via its own colors */
+.tp-verdict {
+	display: block;
+	font-family: var(--mono);
+	font-size: 0.9rem;
+	line-height: 1.55;
+	padding: 0.85rem 1.1rem;
+	border-radius: 8px;
+	margin-top: 0.2rem;
+}
+.tp-verdict-leaked { background: color-mix(in srgb, var(--bad) 12%, transparent); border: 1px solid var(--bad); color: var(--bad); }
+.tp-verdict-held { background: color-mix(in srgb, var(--acc) 10%, transparent); border: 1px solid var(--acc); color: var(--acc); }
+
+/* scoreboard: leaks by rung */
+.tp-board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.7rem; }
+.tp-board-card {
+	background: var(--panel);
+	border: 1px solid var(--line);
+	border-radius: 9px;
+	padding: 0.8rem 0.9rem;
+	text-align: center;
+}
+.tp-board-rung { font-family: var(--mono); font-size: 0.74rem; letter-spacing: 0.05em; color: var(--ink-faint); }
+.tp-board-count { font-family: var(--mono); font-size: 1.35rem; font-weight: 700; color: var(--ink); margin-top: 0.2rem; }
+.tp-board-label { font-family: var(--mono); font-size: 0.7rem; color: var(--ink-faint); }
+
+/* recent feed (optional) */
+.tp-feed { display: flex; flex-direction: column; gap: 0.3rem; font-family: var(--mono); font-size: 0.76rem; }
+.tp-feed-item { display: flex; gap: 0.6rem; align-items: baseline; color: var(--ink-dim); }
+.tp-feed-rung { color: var(--ink-faint); }
+.tp-feed-time { color: var(--ink-faint); margin-left: auto; }
+.tp-feed-snippet { color: var(--ink-dim); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+@media (max-width: 560px) {
+	.tp-board { grid-template-columns: 1fr; }
+}
