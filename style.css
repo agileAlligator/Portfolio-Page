@@ -324,6 +324,10 @@ p a:hover, li a:hover, .site-footer a:hover, .about-body a:hover, .tl-desc a:hov
 	font-weight: 600;
 	letter-spacing: 0.04em;
 	padding: 0.72rem 1.2rem;
+	min-height: 44px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
 	border: 1px solid var(--line-strong);
 	border-radius: 0;
 	color: var(--ink);
