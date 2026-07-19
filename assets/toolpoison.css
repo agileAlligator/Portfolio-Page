@@ -17,7 +17,7 @@
 	transition: border-color 0.15s var(--ease), background 0.15s var(--ease);
 }
 .tp-stage .rung:hover { border-color: var(--ink-faint); }
-.tp-stage .rung[aria-pressed="true"] { border-color: var(--acc); background: color-mix(in srgb, var(--acc) 8%, var(--panel)); }
+.tp-stage .rung[aria-pressed="true"] { border-color: var(--acc); background: var(--field-acc-on); }
 .tp-stage .rung-code { font-family: var(--mono); font-weight: 700; color: var(--acc); font-size: 0.8rem; }
 .tp-stage .rung-name { font-family: var(--mono); font-size: 0.86rem; color: var(--ink); }
 .tp-stage .rung-desc { font-family: var(--mono); font-size: 0.74rem; color: var(--ink-faint); line-height: 1.4; }
@@ -111,10 +111,10 @@
 	margin-top: 0.2rem;
 }
 .tp-stamp { font-family: var(--disp); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.76rem; margin-right: 0.6rem; }
-.tp-verdict-leaked { background: color-mix(in srgb, var(--bad) 12%, transparent); border: 1px solid var(--bad); color: var(--bad); }
-.tp-verdict-held { background: color-mix(in srgb, var(--acc) 10%, transparent); border: 1px solid var(--acc); color: var(--acc); }
+.tp-verdict-leaked { background: var(--field-bad); border: 1px solid var(--bad); color: var(--bad); }
+.tp-verdict-held { background: var(--field-acc); border: 1px solid var(--acc); color: var(--acc); }
 /* no leak, but no control credit either — luck, at a rung that didn't stop it */
-.tp-verdict-luck { background: color-mix(in srgb, var(--warn) 11%, transparent); border: 1px solid var(--warn); color: var(--warn); }
+.tp-verdict-luck { background: var(--field-warn); border: 1px solid var(--warn); color: var(--warn); }
 
 /* scoreboard: leaks by rung */
 .tp-board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.7rem; }
