@@ -130,15 +130,19 @@ html:not(.js) .asi-turn { display: none; }
 	overflow: hidden;
 	transition: border-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
 }
-/* three faces of the prism, 120° apart, pushed out by the apothem (≈86.6px), each colour-keyed */
-.face-risk    { --glow: 255, 107, 107; transform: rotateY(0deg)   translateZ(86.6px); background: linear-gradient(150deg, rgba(255, 107, 107, 0.07) 0%, var(--panel) 55%); }
-.face-detect  { --glow: 245, 181, 68;  transform: rotateY(120deg) translateZ(86.6px); background: linear-gradient(150deg, rgba(245, 181, 68, 0.08) 0%, var(--bg-2) 55%); }
-.face-control { --glow: 76, 201, 240;  transform: rotateY(240deg) translateZ(86.6px); background: linear-gradient(150deg, rgba(76, 201, 240, 0.08) 0%, var(--bg-2) 55%); }
+/* three faces of the prism, 120° apart, pushed out by the apothem (≈86.6px). Each is
+   colour-keyed by a single parametric --glow RGB triplet (a sanctioned exception to the
+   fixed --field ladder: the hue varies per face, so tints derive from --glow, not literals).
+   The triplets equal --bad / --warn / --acc-2 in rgb form. */
+.face-risk    { --glow: 255, 107, 107; transform: rotateY(0deg)   translateZ(86.6px); background: linear-gradient(150deg, rgba(var(--glow), 0.07) 0%, var(--panel) 55%); }
+.face-detect  { --glow: 245, 181, 68;  transform: rotateY(120deg) translateZ(86.6px); background: linear-gradient(150deg, rgba(var(--glow), 0.08) 0%, var(--bg-2) 55%); }
+.face-control { --glow: 76, 201, 240;  transform: rotateY(240deg) translateZ(86.6px); background: linear-gradient(150deg, rgba(var(--glow), 0.08) 0%, var(--bg-2) 55%); }
 
+/* hover feedback is a colour-keyed border + ring glow — no drop shadow (depth is value alone) */
 .asi-card:hover .asi-face,
 .asi-card:has(.asi-turn:focus-visible) .asi-face {
 	border-color: rgba(var(--glow), 0.7);
-	box-shadow: 0 0 0 1px rgba(var(--glow), 0.25), 0 22px 55px -34px rgba(0, 0, 0, 0.9);
+	box-shadow: 0 0 0 1px rgba(var(--glow), 0.25);
 }
 
 .asi-code { font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.06em; color: rgb(var(--glow)); }

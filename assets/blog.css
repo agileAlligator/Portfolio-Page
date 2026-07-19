@@ -146,7 +146,7 @@
 	padding: 0.4rem 0 0.4rem 1.2rem;
 	color: var(--ink-dim);
 	font-style: italic;
-	background: rgba(79, 227, 161, 0.03);
+	background: var(--field-acc);
 }
 
 /* inline code */
@@ -161,16 +161,16 @@
 	word-break: break-word;
 }
 
-/* code blocks */
+/* code blocks — the prose analogue of .well (Rouge generates the <pre>, so it
+   can't take the class; it mirrors the evidence-surface: deepest value, no shadow) */
 .post-body pre {
-	background: #0a0d13;
+	background: var(--bg-well);
 	border: 1px solid var(--line);
 	border-radius: 0;
 	padding: 1.1rem 1.25rem;
 	overflow-x: auto;
 	font-size: 0.85rem;
 	line-height: 1.65;
-	box-shadow: 0 20px 50px -30px rgba(0, 0, 0, 0.8);
 }
 .post-body pre code {
 	background: none;

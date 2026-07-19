@@ -63,7 +63,7 @@
 }
 .al-preset:hover { color: var(--ink); }
 .al-preset-in:hover { border-color: var(--acc); color: var(--acc); }
-.al-preset-out:hover { border-color: var(--bad); color: #ff9a9a; }
+.al-preset-out:hover { border-color: var(--bad); color: var(--bad-hi); }
 
 /* ── path visualizer ──────────────────────────────────────────── */
 .al-viz-wrap { margin-top: 1.75rem; max-width: 46rem; }
@@ -88,7 +88,7 @@
 .al-rail-glob { background: var(--bad); }
 .al-rail-anchor { background: var(--acc); }
 .al-rail-label { display: inline-block; vertical-align: middle; margin-left: 0.6rem; font-size: 0.72rem; color: var(--ink-faint); }
-.al-label-glob { color: #ff9a9a; }
+.al-label-glob { color: var(--bad-hi); }
 .al-label-anchor { color: var(--acc); }
 
 /* ── 02 · two matchers ────────────────────────────────────────── */
@@ -102,8 +102,8 @@
 	font-weight: 600;
 	letter-spacing: 0.03em;
 }
-.al-head-naive { color: var(--bad); background: rgba(255, 107, 107, 0.07); }
-.al-head-hard { color: var(--acc); background: rgba(79, 227, 161, 0.07); }
+.al-head-naive { color: var(--bad); background: var(--field-bad); }
+.al-head-hard { color: var(--acc); background: var(--field-acc); }
 .al-code {
 	margin: 0;
 	padding: 1.1rem 1.35rem;
@@ -114,8 +114,8 @@
 	white-space: pre;
 	overflow-x: auto;
 }
-.al-hl { background: rgba(79, 227, 161, 0.14); color: var(--ink); border-radius: 0; padding: 0.05em 0.25em; }
-.al-head-naive ~ .al-code .al-hl { background: rgba(255, 107, 107, 0.14); }
+.al-hl { background: var(--field-acc-on); color: var(--ink); border-radius: 0; padding: 0.05em 0.25em; }
+.al-head-naive ~ .al-code .al-hl { background: var(--field-bad-on); }
 .al-verdicts { padding: 0 1.35rem; margin-top: auto; }
 .al-verdict-pill {
 	display: inline-block;
@@ -128,8 +128,8 @@
 	border: 1px solid var(--line);
 	color: var(--ink-faint);
 }
-.al-verdict-safe { color: var(--acc); border-color: var(--acc); background: rgba(79, 227, 161, 0.1); }
-.al-verdict-danger { color: #ff9a9a; border-color: var(--bad); background: rgba(255, 107, 107, 0.1); }
+.al-verdict-safe { color: var(--acc); border-color: var(--acc); background: var(--field-acc); }
+.al-verdict-danger { color: var(--bad-hi); border-color: var(--bad); background: var(--field-bad); }
 .al-reason { padding: 0.7rem 1.35rem 1.2rem; font-family: var(--mono); font-size: 0.8rem; color: var(--ink-dim); line-height: 1.5; min-height: 1.5rem; }
 
 /* ── 03 · caveat ──────────────────────────────────────────────── */
@@ -138,7 +138,7 @@
 	margin: 1.1rem 0 0;
 	padding: 0.9rem 1.1rem;
 	border-left: 3px solid var(--warn);
-	background: rgba(245, 181, 68, 0.08);
+	background: var(--field-warn);
 	color: var(--ink);
 	font-size: 0.95rem;
 	line-height: 1.6;
