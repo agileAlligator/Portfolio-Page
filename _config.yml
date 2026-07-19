@@ -45,6 +45,12 @@ feed:
 # 👉 If you add another PDF or standalone asset, add a matching entry here or it
 #    will silently reappear in the sitemap.
 defaults:
+  # Blog posts are articles — tell jekyll-seo-tag to emit BlogPosting JSON-LD
+  # (headline, datePublished/Modified, author, image, publisher) from front matter.
+  - scope: { path: "", type: posts }
+    values:
+      seo:
+        type: BlogPosting
   - scope: { path: "resume.pdf" }
     values: { sitemap: false }
   - scope: { path: "research-draft2024.pdf" }
