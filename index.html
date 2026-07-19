@@ -10,7 +10,7 @@
 		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 		<meta
 			name="description"
-			content="Avneesh Kasture — security engineer on Gruve's professional-services team, building secure MCP servers for enterprise clients, plus internal LLM-powered apps. Agentic security, prompt-injection defense, and AI automation."
+			content="Avneesh Kasture — security engineer on Gruve's professional-services team, building secure MCP servers for enterprise clients, plus internal LLM-powered apps. Agentic security and prompt-injection defense."
 		/>
 		<link rel="canonical" href="https://avneeshk.me/" />
 		<!-- Open Graph / social -->
@@ -71,7 +71,7 @@
 				<a href="#contact">contact</a>
 				<a href="/lab/">lab</a>
 				<a href="/mcp/">mcp</a>
-				<a href="/blog/" class="nav-out">blog <span aria-hidden="true">↗</span></a>
+				<a href="/blog/" class="nav-out">blog</a>
 				<a class="nav-resume" href="resume.pdf" target="_blank" rel="noopener">résumé <span aria-hidden="true">↗</span></a>
 			</nav>
 			<button class="nav-toggle" type="button" aria-label="Toggle menu" aria-controls="primary-nav" aria-expanded="false">
@@ -103,7 +103,7 @@
 				</p>
 				<div class="hero-cta" data-reveal>
 					<a class="btn btn-primary" href="#work">selected work</a>
-					<a class="btn" href="/mcp/">my résumé is an MCP server ↗</a>
+					<a class="btn" href="/mcp/">my résumé is an MCP server</a>
 					<a class="btn" href="#contact">get in touch</a>
 				</div>
 			</div>
@@ -122,9 +122,9 @@
 
 <span class="c-ok">+ def read_file(path):</span>
 <span class="c-ok">+     p = safe_join(WORKSPACE, path)</span>
-<span class="c-ok">+     enforce_allowlist("read_file")</span>
+<span class="c-ok">+     enforce_allowlist(p)</span>
 <span class="c-ok">+     return dlp_scan(open(p).read())</span>
-<span class="c-dim">  # sandboxed · allowlisted · DLP-scanned</span>
+<span class="c-dim">  # confined · allowlisted · DLP-scanned</span>
 <span class="c-dim">$</span> <span class="cursor">▋</span></pre>
 			</div>
 		</section>
@@ -138,18 +138,17 @@
 				</h2>
 				<div class="about-body" data-reveal>
 					<p>
-						I build
-						<strong>secure MCP servers for enterprise clients</strong> —
-						scoping tools tightly, defending against prompt injection and privilege
-						abuse, and delivering agentic integrations they can actually run in
-						production.
+						Most "AI security" is a line in the system prompt asking the model
+						nicely. I don't buy it. Give an agent tools and the question that
+						matters isn't whether it behaves. It's what happens when it doesn't,
+						and whether anything in the actual code is there to stop it.
 					</p>
 					<p>
-						Alongside that client work, I build the <strong>internal apps</strong> that
-						remove friction inside the company — LLM-powered document generation,
-						pricing, and analytics tooling designed so every output is fast,
-						governed, and traceable back to its source. Security-trained,
-						detection-minded, product-focused.
+						So I build the boring half on purpose: the allowlist, the identity
+						check, the output scan, the audit line, all in the server where a
+						payload can't argue with them. Same rule for the internal tools I
+						ship for the company &mdash; doc generation, pricing, analytics &mdash;
+						every number tracing back to where it came from.
 					</p>
 				</div>
 			</div>
@@ -206,7 +205,7 @@
 			<p class="section-label" data-reveal>// <span class="u-accent">03</span> · case study</p>
 			<h2 class="section-title" data-reveal>A secure-by-default MCP framework, built for a client</h2>
 			<div class="cs" data-reveal>
-				<p class="cs-lede">The threat model starts from an uncomfortable premise: <strong>the model will be jailbroken.</strong> Researchers like <a href="https://pliny.gg" target="_blank" rel="noopener">Pliny the Liberator</a> break new frontier models within hours of release — so if a customer's data is protected only by the model choosing to behave, it isn't protected at all. I've measured this in my own lab: in <a href="https://github.com/agileAlligator/mcploitable" target="_blank" rel="noopener">mcploitable</a>, every guardrail that depends on the model recognizing an attack eventually falls to a good payload, while the server-side check behind them refused every one.</p>
+				<p class="cs-lede">The threat model starts from an uncomfortable premise: <strong>the model will be jailbroken.</strong> Researchers like <a href="https://pliny.gg" target="_blank" rel="noopener">Pliny the Liberator</a> break new frontier models within hours of release — so if a customer's data is protected only by the model choosing to behave, it isn't protected at all. I've measured this in my own lab: in <a href="https://github.com/agileAlligator/mcploitable" target="_blank" rel="noopener">mcploitable</a>, every guardrail that depends on the model recognizing an attack fell on at least one model I pointed at it. A control you escape by swapping models isn't one. The server-side check behind them refused every payload, whichever model was driving.</p>
 				<p>A client needed to connect internal AI agents to enterprise systems over MCP without betting company data on model compliance. I built them a <strong>secure-MCP development framework and a tested Python scaffold</strong> that makes the secure path the default one — driving every build through intake → auth design → endpoint governance → an auto-generated threat model → code from a hardened scaffold → a security-readiness gate before delivery.</p>
 				<p class="cs-sub">Threats it designs against, and the control that answers each:</p>
 				<ul class="cs-map">
@@ -234,13 +233,11 @@
 						<span class="tl-meta">Apr 2026 — Present · Pune</span>
 					</div>
 					<p class="tl-desc">
-						Design and deliver <strong>secure MCP servers for clients</strong> —
-						scoping tools, hardening the agentic layer against prompt injection and
-						privilege abuse, and shipping integrations they run in production.
-						Alongside client delivery I build internal apps that remove business
-						friction — including <strong>Helix</strong>, an AI sales-enablement
-						platform (a GPT-4o SOW-generation pipeline, automated pricing calculator,
-						engineering capability roadmap, and Service Navigator).
+						Design and deliver <strong>secure MCP servers for clients</strong>: the
+						threat model, a hardened Python scaffold, and a security-readiness gate
+						every build passes before it ships. Alongside delivery I build the
+						internal tools the company runs on, including <strong>Helix</strong>
+						(card below).
 					</p>
 				</li>
 				<li class="tl-item" data-reveal>
@@ -285,7 +282,7 @@
 					</div>
 					<h3 class="card-title">mcploitable</h3>
 					<p class="card-desc">
-						The "Metasploitable of MCP" — deliberately vulnerable MCP servers, one per class of the <strong>OWASP Top 10 for Agentic Applications</strong>. Seven are breakable boxes on an <strong>L0→L3 control ladder</strong> (open door → recognition signal → bypassable control → the deterministic wall), scored by real effect — you win only when a canary secret actually leaves via a tool call. The other three ship as guided simulations. Recognition and partial controls fall to a good payload; nothing got past the wall in <strong>105</strong> tries.
+						The "Metasploitable of MCP" — deliberately vulnerable MCP servers, one per class of the <strong>OWASP Top 10 for Agentic Applications</strong>. Seven are breakable boxes on an <strong>L0→L3 control ladder</strong> (open door → recognition signal → bypassable control → the deterministic wall), scored by real effect — you win only when a canary secret actually leaves via a tool call. The other three ship as guided simulations. Recognition and partial controls fall to a good payload; the wall holds by construction: <strong>105</strong> attempts, zero through, and no 106th changes that.
 					</p>
 					<div class="card-links">
 						<a href="/break-this-server/">play in-browser ↗</a>
@@ -377,7 +374,7 @@
 				</article>
 			</div>
 			<p class="approach-more" data-reveal>
-				<a href="/lab/">→ Six of these run in the lab: a live server, a sandbox, a matcher, a poisoned tool, the map, and a game where you play the model</a>
+				<a href="/lab/">→ The lab: six live exhibits — a server, a sandbox, a matcher, a poisoned tool, the map, and you as the model</a>
 			</p>
 		</section>
 

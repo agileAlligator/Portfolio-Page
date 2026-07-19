@@ -156,7 +156,7 @@
 		clearNode(el.artBody);
 		var msg = document.createElement("span");
 		msg.className = "ytm-gen";
-		msg.textContent = "the live model is unavailable right now — it may be waking or out of its free-tier quota.";
+		msg.textContent = "the live model is unavailable right now — give it a moment and try again.";
 		el.artBody.appendChild(msg);
 		clearNode(el.verdict); el.verdict.className = "";
 		clearNode(el.reveal);

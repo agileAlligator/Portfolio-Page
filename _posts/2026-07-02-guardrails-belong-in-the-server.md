@@ -172,14 +172,6 @@ def scan(text: str, policy: str) -> str:
 
 Both run on the path every tool result travels, and the model never gets a vote.
 
-## The principle
-
-Design the server as if the model is already compromised, because one good
-prompt injection means it is. The allowlist, the argument validation, the
-output scan, the identity check: each is a decision made in code the model
-cannot talk its way past. The prompt can *ask* for good behavior. Only the
-server can *guarantee* it.
-
 If you want to see the failure modes first-hand rather than take my word for it,
 that's what I built [mcploitable](https://github.com/agileAlligator/mcploitable)
 for: a deliberately vulnerable MCP lab where each of these controls is something
