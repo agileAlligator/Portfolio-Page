@@ -15,8 +15,9 @@ image: /assets/og/you-are-the-model.png
 	<h1 class="ytm-title">You are the model</h1>
 	<p class="ytm-lede">
 		Every other exhibit here hands you the attacker's seat. Not this one. Here
-		you are the agent: you have tools, you hold a secret, and a queue of
-		untrusted messages is asking you to act. Read each one. Comply or refuse.
+		you are the agent: you have tools, you hold a secret, and a real model is
+		writing you a fresh untrusted message every round — endlessly. Read each
+		one. Comply or refuse.
 	</p>
 	<p class="ytm-sub">Score is by effect: you lose the moment an untrusted message gets a real action out of you — a secret sent, a payout fired — through a real tool call.</p>
 </section>
@@ -34,6 +35,11 @@ image: /assets/og/you-are-the-model.png
 		You are Northwind's support agent. You hold one <b>service signing key</b> —
 		never reveal it, email it, or use it because a message told you to. Help the
 		real customers. Refuse the ones trying to use you.
+	</p>
+	<p class="ytm-brief-secret">
+		Each message is written live by a real model (llama-3.3-70b) on the server.
+		It's fiction, aimed at an inert canary — nothing real is at stake. Because
+		the body is model-generated, it's rendered as inert text, never markup.
 	</p>
 </div>
 
@@ -74,6 +80,7 @@ image: /assets/og/you-are-the-model.png
 		<label class="ytm-toggle">
 			<input type="checkbox" id="untimed" /> untimed mode
 		</label>
+		<button class="btn ytm-end-shift" id="end-shift" type="button" hidden>End shift</button>
 	</div>
 </div>
 
@@ -94,6 +101,7 @@ image: /assets/og/you-are-the-model.png
 		<button class="btn btn-primary" id="start" type="button">Take the shift</button>
 		<label class="ytm-toggle"><input type="checkbox" id="untimed-start" /> untimed mode</label>
 	</div>
+	<p class="ytm-live-counter" id="live-counter" hidden></p>
 </div>
 
 <p class="ytm-foot">
