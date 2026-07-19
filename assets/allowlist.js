@@ -102,7 +102,10 @@
 		var railWrap = document.createElement("div");
 		railWrap.className = "al-viz-rails";
 		railWrap.appendChild(rail("al-rail-glob", "al-label-glob", PREFIX.length, tail.length, "* accepts this"));
-		railWrap.appendChild(rail("al-rail-anchor", "al-label-anchor", PREFIX.length, segs[0].length, "[^/]+ accepts this"));
+		// the anchor matches a single segment: it accepts a lone segment, but a
+		// second segment (the traversal) makes the full match fail — that's a reject.
+		var anchorText = hardApprove(raw) ? "[^/]+ accepts this" : "[^/]+ stops at the / — rejects";
+		railWrap.appendChild(rail("al-rail-anchor", "al-label-anchor", PREFIX.length, segs[0].length, anchorText));
 		viz.appendChild(railWrap);
 	}
 
