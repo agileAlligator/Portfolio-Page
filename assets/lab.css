@@ -24,3 +24,8 @@
 	color: var(--ink);
 }
 .lab-lede { font-size: var(--fs-3); max-width: 46rem; color: var(--ink-dim); line-height: 1.65; }
+
+/* Whole card is one click target: the single-link exhibit cards stretch their
+   one link across the card (the feature card has two links, so it opts out). */
+.card:not(.card-feature) { cursor: pointer; }
+.card:not(.card-feature) .card-links a::after { content: ""; position: absolute; inset: 0; }

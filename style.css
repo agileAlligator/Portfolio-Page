@@ -254,7 +254,7 @@ p a:hover, li a:hover, .site-footer a:hover, .about-body a:hover, .tl-desc a:hov
 }
 .nav-resume:hover { border-color: var(--acc); background: var(--field-acc); }
 
-.nav-toggle { display: none; margin-left: auto; background: none; border: 0; cursor: pointer; flex-direction: column; gap: 5px; }
+.nav-toggle { display: none; margin-left: auto; width: 44px; height: 44px; align-items: center; justify-content: center; background: none; border: 0; cursor: pointer; flex-direction: column; gap: 5px; }
 .nav-toggle span { width: 22px; height: 2px; background: var(--ink); transition: 0.3s var(--ease); }
 
 /* ────────────────────────────── HERO ─────────────────────────────── */
@@ -566,6 +566,9 @@ p a:hover, li a:hover, .site-footer a:hover, .about-body a:hover, .tl-desc a:hov
 	font-size: var(--fs-1);
 	color: var(--ink-faint);
 }
+/* exhibit-page footers are full-bleed — give the row a gutter so links don't sit
+   flush to the viewport edge (blog.css overrides with its own centered width) */
+.site-footer { padding-left: clamp(1.25rem, 5vw, 3.5rem); padding-right: clamp(1.25rem, 5vw, 3.5rem); }
 /* the signature: a status readout that is true by construction — open devtools,
    see zero external requests, and remember the site. */
 .sys-status { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--mono); font-size: var(--fs-0); color: var(--ink-faint); }

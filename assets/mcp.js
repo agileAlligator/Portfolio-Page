@@ -146,12 +146,33 @@
 		else if (m.text) agentLine("mcp-line-result", m.text);
 	}
 
+	// a prominent in-transcript pending line (pulsing dot + text) so the wait is
+	// visible right where the user is reading, not only in the status far right.
+	var pendingLine = null;
+	function showPending() {
+		if (!agentLog) return;
+		var p = document.createElement("p");
+		p.className = "mcp-line mcp-line-system";
+		var dot = document.createElement("span");
+		dot.className = "mcp-live-dot";
+		p.appendChild(dot);
+		p.appendChild(document.createTextNode("running the agent…"));
+		agentLog.appendChild(p);
+		agentLog.scrollTop = agentLog.scrollHeight;
+		pendingLine = p;
+	}
+	function clearPending() {
+		if (pendingLine && pendingLine.parentNode) pendingLine.parentNode.removeChild(pendingLine);
+		pendingLine = null;
+	}
+
 	function runAgent(message) {
 		if (!message || !message.trim()) return;
 		message = message.trim();
 		if (agentRun) agentRun.disabled = true;
 		if (agentStatus) agentStatus.textContent = "running…";
 		agentLine("mcp-line-user asserted", message);
+		showPending();
 		fetch(API + "/console", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
@@ -159,12 +180,14 @@
 		})
 			.then(function (r) { return r.json(); })
 			.then(function (d) {
+				clearPending();
 				if (d && d.error) { agentLine("mcp-line-system", d.error); return; }
 				var t = (d && d.transcript) || [];
 				t.forEach(function (m) { if (m.role !== "user") renderTranscriptItem(m); });
 				refreshStats();
 			})
 			.catch(function () {
+				clearPending();
 				agentLine("mcp-line-system", "The in-browser model is unavailable right now. Connect an MCP client to keep attacking: claude mcp add --transport http avneesh-l0 https://mcp.apkasture02.workers.dev/mcp/l0");
 			})
 			.then(function () {

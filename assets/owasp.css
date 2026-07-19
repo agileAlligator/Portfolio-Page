@@ -96,7 +96,7 @@ html:not(.js) .asi-turn { display: none; }
 	font-size: var(--fs-5);
 	line-height: 1;
 	color: var(--ink);
-	opacity: 0;
+	opacity: 0.22;   /* persistent at-rest "this turns" affordance */
 	pointer-events: none;
 	transition: opacity 0.25s var(--ease);
 }
@@ -105,7 +105,7 @@ html:not(.js) .asi-turn { display: none; }
 .asi-card:hover::before,
 .asi-card:hover::after,
 .asi-card:has(.asi-turn:focus-visible)::before,
-.asi-card:has(.asi-turn:focus-visible)::after { opacity: 0.5; }
+.asi-card:has(.asi-turn:focus-visible)::after { opacity: 0.6; }
 
 .asi-prism {
 	display: block;

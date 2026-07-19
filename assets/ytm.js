@@ -32,7 +32,7 @@
 	var state = {
 		streak: 0, best: 0, caught: 0, survived: 0, mode: "off",
 		running: false, untimed: false, decided: false, busy: false, to: null,
-		curId: null, curArt: null
+		curId: null, curArt: null, firstFetch: true
 	};
 	var MODE_NOTE = {
 		off: "You are the only thing between the message and the tool. One wrong call and something real leaves.",
@@ -72,6 +72,8 @@
 	}
 
 	// "the machine is writing…" placeholder in the artifact body, announced politely via aria-live.
+	// On the FIRST fetch of a session the worker may cold-start (~20s on free tier), so we add a
+	// reassurance line so the wait doesn't read as "broken". Subsequent rounds keep the short copy.
 	function showGenerating() {
 		el.artKind.textContent = "LIVE";
 		el.artFrom.textContent = "llama-3.3-70b";
@@ -83,7 +85,11 @@
 		dot.className = "ytm-gen-dot";
 		dot.setAttribute("aria-hidden", "true");
 		wrap.appendChild(dot);
-		wrap.appendChild(document.createTextNode("the machine is writing your next message…"));
+		if (state.firstFetch) {
+			wrap.appendChild(document.createTextNode("waking the model — the first round can take up to ~20s"));
+		} else {
+			wrap.appendChild(document.createTextNode("the machine is writing your next message…"));
+		}
 		el.artBody.appendChild(wrap);
 	}
 
@@ -128,6 +134,7 @@
 		state.busy = true;
 		fetchRound(0).then(function (d) {
 			state.busy = false;
+			state.firstFetch = false;     // model is warm now — subsequent rounds use the short copy
 			if (!state.running) return;   // shift ended while fetching
 			state.curId = d.id;
 			state.curArt = d.artifact;
@@ -529,7 +536,7 @@
 	function startGame() {
 		state.streak = 0; state.best = 0; state.caught = 0; state.survived = 0;
 		state.running = true; state.decided = false; state.busy = false;
-		state.curId = null; state.curArt = null;
+		state.curId = null; state.curArt = null; state.firstFetch = true;
 		el.caughtN.textContent = "0";
 		setMode(state.mode);
 		el.brief.hidden = true;
