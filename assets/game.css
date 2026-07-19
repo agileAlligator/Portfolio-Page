@@ -69,7 +69,7 @@
 	color: var(--ink-dim);
 	background: var(--bg-2);
 }
-.tool-hot { border-color: color-mix(in srgb, var(--warn) 55%, var(--line)); color: var(--warn); }
+.tool-hot { border-color: var(--warn); color: var(--warn); }
 
 /* ── the session terminal ────────────────────────────────────────── */
 .game-term { min-height: 320px; }
@@ -89,8 +89,8 @@
 	white-space: pre-wrap;
 }
 .game-stamp { font-family: var(--disp); font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.72rem; }
-.verdict-win { background: color-mix(in srgb, var(--bad) 14%, transparent); border: 1px solid var(--bad); color: #ff9a9a; }
-.verdict-block { background: color-mix(in srgb, var(--acc) 12%, transparent); border: 1px solid var(--acc); color: var(--acc); }
+.verdict-win { background: var(--field-bad-on); border: 1px solid var(--bad); color: var(--bad-hi); }
+.verdict-block { background: var(--field-acc); border: 1px solid var(--acc); color: var(--acc); }
 
 /* ── attacker input ──────────────────────────────────────────────── */
 .attack { margin-top: 1.4rem; }
@@ -149,7 +149,7 @@
 	margin: 0.4rem 0 1rem;
 	line-height: 1.55;
 }
-.tool-locked { border-color: color-mix(in srgb, var(--acc) 55%, var(--line)); color: var(--acc); }
+.tool-locked { border-color: var(--acc); color: var(--acc); }
 
 /* ── progression pips ──────────────────────────────────────────────── */
 .game-progress { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0 0 1.25rem; }
@@ -163,8 +163,8 @@
 	color: var(--ink-faint);
 }
 .pip-pending { color: var(--ink-faint); }
-.pip-cleared { border-color: var(--bad); color: #ff9a9a; background: rgba(255, 107, 107, 0.08); }
-.pip-holding { border-color: var(--acc); color: var(--acc); background: rgba(79, 227, 161, 0.08); }
+.pip-cleared { border-color: var(--bad); color: var(--bad-hi); background: var(--field-bad); }
+.pip-holding { border-color: var(--acc); color: var(--acc); background: var(--field-acc); }
 
 /* ── clear / win-state card ────────────────────────────────────────── */
 .game-clear {
@@ -172,7 +172,7 @@
 	padding: 1.1rem 1.35rem;
 	border: 1px solid var(--acc);
 	border-radius: 0;
-	background: color-mix(in srgb, var(--acc) 8%, transparent);
+	background: var(--field-acc);
 	color: var(--ink);
 	font-size: 0.98rem;
 	line-height: 1.6;

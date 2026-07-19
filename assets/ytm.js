@@ -199,9 +199,9 @@
 		}
 	}
 
-	function col(labelText, callText, noteText) {
+	function col(labelText, callText, noteText, seamCls) {
 		var c = document.createElement("div");
-		c.className = "ytm-reveal-col";
+		c.className = "ytm-reveal-col" + (seamCls ? " " + seamCls : "");
 		var lab = document.createElement("div");
 		lab.className = "ytm-reveal-col-label";
 		lab.textContent = labelText;
@@ -230,12 +230,17 @@
 		head.className = "ytm-reveal-head";
 		head.textContent = "// the same call, twice";
 		box.appendChild(head);
+		// the seam: model's attempted call (dashed, asserted) | line | control (solid)
 		var cols = document.createElement("div");
-		cols.className = "ytm-reveal-cols";
+		cols.className = "ytm-reveal-cols seam";
 		cols.appendChild(col("You complied", r.toolCall,
-			"That call fired. The attacker got the effect they wanted — you were convinced, which is exactly the job working as designed."));
+			"That call fired. The attacker got the effect they wanted — you were convinced, which is exactly the job working as designed.", "seam-model"));
+		var line = document.createElement("div");
+		line.className = "seam-line";
+		line.setAttribute("aria-hidden", "true");
+		cols.appendChild(line);
 		cols.appendChild(col("The control", r.control,
-			"Same call. The control never read the message — it checked a rule and stopped it."));
+			"Same call. The control never read the message — it checked a rule and stopped it.", "seam-ctrl"));
 		box.appendChild(cols);
 		var cap = document.createElement("p");
 		cap.className = "ytm-reveal-caption";
