@@ -1,6 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="avneesh terminal prompt">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="dashed attack stopped at a solid wall">
 	<rect width="32" height="32" fill="#0a0b0d"/>
-	<rect x="1.5" y="1.5" width="29" height="29" fill="none" stroke="#39404a" stroke-width="1.5"/>
-	<polyline points="9,10.5 14.6,16 9,21.5" fill="none" stroke="#4fe3a1" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round"/>
-	<rect x="16.4" y="19.5" width="8.2" height="2.7" fill="#4fe3a1"/>
+	<line x1="2.5" y1="16" x2="18" y2="16" stroke="#ff6b6b" stroke-width="4" stroke-dasharray="3.6 3.1"/>
+	<rect x="20" y="5" width="4" height="22" fill="#4fe3a1"/>
 </svg>
