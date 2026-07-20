@@ -1,19 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" role="img" aria-label="an ellipsis of model-talk stopped at a solid wall; the amber asset intact on the far side">
-	<!-- The thesis in 256 pixels: the model is still mid-sentence (…, dashed = asserted)
-	     when it meets the mechanism (cyan, solid, one dumb bar — cyan never wins or loses,
-	     it just IS the boundary). The asset (amber: the insect in the amber, preserved)
-	     sits on the far side, untouched. The verdict already exists, so nothing moves —
-	     verdicts do not shimmer. Every coordinate is an integer on the 16-grid:
-	     crisp at 16, and 32/48/192/512 are exact multiples. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" role="img" aria-label="a solid green square seal, center punched clean through — the verdict, with nothing inside it">
+	<!-- v4: the seal. Three favicons in a row staged the trial — brackets, cursor,
+	     wall, canary — always the apparatus, always the attacker in frame. This one
+	     is the other thing the site produces: the verdict. Green is outcome-good,
+	     only what the server confirmed; verdicts punch square, axis-aligned, no
+	     rotation, and the instant one exists, motion stops. So: one hue, one closed
+	     form, nothing moving, nothing narrated. The punch shows bare ground because
+	     a verdict does not retell the attack — the emptiness is the finding.
+	     Every coordinate is an integer on the 16-grid: crisp at 16, and
+	     32/48/192/512 are exact multiples. -->
 	<rect width="16" height="16" fill="#0a0b0d"/>
-	<!-- the ghost, mid-persuasion: dashed is asserted, and an ellipsis is speech that
-	     hasn't finished. ink, no hue — the model is the medium, not a category. -->
-	<rect x="1" y="7" width="2" height="2" fill="#e9edf1"/>
-	<rect x="4" y="7" width="2" height="2" fill="#e9edf1"/>
-	<rect x="7" y="7" width="2" height="2" fill="#e9edf1"/>
-	<!-- the wall: the most boring mark it is possible to make on a screen.
-	     the control must look dumb. its plainness is the punchline. -->
-	<rect x="10" y="2" width="2" height="12" fill="#4cc9f0"/>
-	<!-- the canary, still on its perch. -->
-	<rect x="13" y="7" width="2" height="2" fill="#f5b544"/>
+	<!-- the stamp lands once. 3px of ring — heavy, because verdicts have weight. -->
+	<rect x="2" y="2" width="12" height="12" fill="#4fe3a1"/>
+	<!-- the punch: ground, all the way through. held space. -->
+	<rect x="5" y="5" width="6" height="6" fill="#0a0b0d"/>
 </svg>
