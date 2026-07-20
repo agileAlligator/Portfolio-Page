@@ -52,6 +52,7 @@
 	--mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 	--sans: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
 	--maxw: 1200px;
+	--gutter: clamp(1.25rem, 5vw, 3.5rem);   /* the one page gutter; nav, sections, and every exhibit column share it */
 
 	/* the type scale — a minor-third ladder (§1). Fixed sizes snap to these;
 	   fluid display type keeps its own clamp() (the scale bounds, doesn't replace). */
