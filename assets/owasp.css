@@ -6,13 +6,6 @@
    left half → back. Inherits tokens from style.css.
    ══════════════════════════════════════════════════════════════════ */
 
-/* page column: centered at the site width with the standard gutter, so the
-   intro + card row + foot align to the same axis as the nav and footer. */
-.owasp-page {
-	max-width: var(--maxw);
-	margin-inline: auto;
-	padding: clamp(1.75rem, 4vw, 2.5rem) var(--gutter) clamp(3rem, 6vw, 4rem);
-}
 .owasp-intro { max-width: 68ch; }
 .owasp-intro .section-label { font-family: var(--mono); font-size: var(--fs-1); color: var(--acc); margin-bottom: 0.9rem; }
 .owasp-title {
