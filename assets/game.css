@@ -3,7 +3,8 @@
    Built on the site's existing tokens (style.css :root). No new palette.
    ══════════════════════════════════════════════════════════════════ */
 
-.game-intro { max-width: var(--maxw); margin: 0 auto; padding: 3.5rem var(--gutter) 1.5rem; }
+/* .content owns the column + gutter; these just add vertical rhythm. */
+.game-intro { padding-bottom: 1.5rem; }
 .game-title {
 	font-family: var(--disp);
 	font-weight: 700;
@@ -17,7 +18,7 @@
 .game-sub a, .game-lede a, .game-foot a { color: var(--acc-2); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; text-decoration-color: var(--line-strong); }
 .game-sub a:hover, .game-lede a:hover, .game-foot a:hover { text-decoration-color: var(--acc-2); text-decoration-thickness: 2px; }
 
-.game { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--gutter) 1rem; }
+.game { padding-bottom: 1rem; }
 
 /* ── ladder selector ─────────────────────────────────────────────── */
 .rungs {

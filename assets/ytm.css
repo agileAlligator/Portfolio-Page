@@ -2,14 +2,8 @@
    Role-reversal exhibit: the visitor plays the LLM. Dark phosphor theme,
    reuses site tokens + .term/.btn/.verdict/.section-label from style.css. */
 
-/* page column: centered at the site width with the standard gutter, like the
-   sibling exhibits (game.css / allowlist.css). Interactive + reading blocks
-   inside cap to one tidy measure, left-aligned to the gutter. */
-.ytm-page {
-	max-width: var(--maxw);
-	margin-inline: auto;
-	padding: clamp(1.75rem, 4vw, 2.5rem) var(--gutter) clamp(3rem, 6vw, 4rem);
-}
+/* .content owns the page column; these interactive + reading blocks just cap
+   to one tidy measure, left-aligned to the gutter. */
 .ytm-intro,
 .ytm-brief,
 .ytm-stage,
