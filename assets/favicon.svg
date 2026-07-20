@@ -1,9 +1,18 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="an allowlist holding the asset — the boundary is defined by what it permits, not what it repels">
-	<rect width="32" height="32" fill="#0a0b0d"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" role="img" aria-label="a block cursor held inside the allowlist brackets — the operator, inside the mechanism">
+	<!-- $ whoami → this. Every coordinate is an integer on the 16-grid:
+	     crisp at 16, and 32/48/192/512 are exact multiples. -->
+	<style>
+		@media (prefers-reduced-motion: no-preference) {
+			.blink { animation: blink 1.15s steps(2) infinite; }
+			@keyframes blink { 0%, 50% { opacity: 1; } 50.001%, 100% { opacity: 0; } }
+		}
+	</style>
+	<rect width="16" height="16" fill="#0a0b0d"/>
 	<!-- the allowlist, written in code: two brackets.
 	     cyan is THE MECHANISM — the deterministic layer, never a verdict. -->
-	<path d="M4 6 h10 v4 h-6 v12 h6 v4 h-10 z"  fill="#4cc9f0"/>
-	<path d="M28 6 h-10 v4 h6 v12 h-6 v4 h10 z" fill="#4cc9f0"/>
-	<!-- the one permitted entry: the asset, amber, held. -->
-	<circle cx="16" cy="16" r="5" fill="#f5b544"/>
+	<path d="M2 2h4v2H4v8h2v2H2z" fill="#4cc9f0"/>
+	<path d="M14 2h-4v2h2v8h-2v2h4z" fill="#4cc9f0"/>
+	<!-- the one permitted entry: the cursor. green, live, his signature —
+	     the same blink the nav brand carries. the only loop the system allows. -->
+	<rect class="blink" x="6" y="4" width="4" height="8" fill="#4fe3a1"/>
 </svg>
