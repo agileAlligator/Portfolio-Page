@@ -111,6 +111,7 @@ re-inventing a surface.
 5. Full-strength colour is a verdict; 8% is a territory. Nothing in between.
 6. The seam is drawn, never blended. Gradients lie about architecture.
 7. The dressing never exceeds the evidence. Instrument chrome must be earned by a panel that actually runs.
+8. **Every page rides the column.** `main.content` does not constrain width — so **every top-level child of `<main>` must self-constrain**: `max-width: var(--maxw); margin-inline: auto; padding-inline: var(--gutter)` (or live inside a wrapper that does — `.section`, `.game`, `.owasp-page`, `.ytm-page`, `.tp-stage`). A block that forgets runs full-bleed, flush to `x=0`, misaligned with the nav and footer. `--gutter` is the **one** page gutter; nav, sections, and every exhibit column share it, so content aligns at all widths. Full-bleed bands (e.g. the mcp scoreboard) opt in explicitly by centering their inner content. Guard: `node scripts/check-lab-layout.mjs` renders every lab page at 1280/768/390 and fails if any text starts left of the gutter or the page overflows — run it after touching exhibit layout.
 
 ## Component catalogue
 

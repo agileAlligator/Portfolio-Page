@@ -16,6 +16,8 @@
   "classes": [
     "about-body",
     "about-grid",
+    "owasp-page",
+    "ytm-page",
     "al-caveat",
     "al-code",
     "al-diff",
