@@ -21,9 +21,9 @@
 	--line-seam: #43859d;   /* THE SEAM — cyan muted to structural weight; the boundary belongs to the mechanism */
 
 	/* ink — record voice is --paper */
-	--ink:       #e9edf1;
-	--ink-dim:   #a9b1bb;   /* ~7.4:1 on --panel */
-	--ink-faint: #94a0ad;   /* ~6:1 on --panel */
+	--ink:       #f2f5f9;   /* ~17:1 on --panel — crisp near-white, not glaring pure white */
+	--ink-dim:   #c6ccd5;   /* body/reading text — ~11.5:1 on --panel (lifted for legibility) */
+	--ink-faint: #aeb6c0;   /* meta/captions — ~9:1 on --panel */
 	--ink-on-acc:#06110c;   /* the one legal ink on solid green */
 	--plate:     #626b77;   /* faint plate numerals — clears 3:1 large-text on both panels */
 
