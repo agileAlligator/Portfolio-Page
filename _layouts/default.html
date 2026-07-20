@@ -9,6 +9,9 @@
 		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 		{% seo %}
 		{% feed_meta %}
+		{% if page.breadcrumb %}<script type="application/ld+json">
+		{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{% for c in page.breadcrumb %}{"@type":"ListItem","position":{{ forloop.index }},"name":{{ c.name | jsonify }},"item":"{{ site.url }}{{ c.url }}"}{% unless forloop.last %},{% endunless %}{% endfor %}]}
+		</script>{% endif %}
 		<link rel="stylesheet" href="/style.css" />
 		{% if page.url contains '/blog' or page.layout == 'post' %}<link rel="stylesheet" href="/assets/blog.css" />
 		<link rel="stylesheet" href="/assets/syntax.css" />{% endif %}

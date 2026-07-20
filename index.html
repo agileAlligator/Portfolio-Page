@@ -35,16 +35,32 @@
 		<script type="application/ld+json">
 		{
 			"@context": "https://schema.org",
-			"@type": "Person",
-			"name": "Avneesh Kasture",
-			"url": "https://avneeshk.me/",
-			"jobTitle": "Security Engineer",
-			"worksFor": { "@type": "Organization", "name": "Gruve" },
-			"alumniOf": { "@type": "CollegeOrUniversity", "name": "Vellore Institute of Technology" },
-			"knowsAbout": ["MCP security", "agentic security", "prompt-injection defense", "threat hunting", "detection engineering"],
-			"sameAs": [
-				"https://github.com/agileAlligator",
-				"https://www.linkedin.com/in/avneesh-kasture-491b651b6/"
+			"@graph": [
+				{
+					"@type": "Person",
+					"@id": "https://avneeshk.me/#person",
+					"name": "Avneesh Kasture",
+					"url": "https://avneeshk.me/",
+					"description": "Security engineer building secure MCP servers and hardening the agentic layer against prompt injection, tool misuse, and privilege abuse.",
+					"jobTitle": "Security Engineer",
+					"worksFor": { "@type": "Organization", "name": "Gruve" },
+					"alumniOf": { "@type": "CollegeOrUniversity", "name": "Vellore Institute of Technology" },
+					"knowsAbout": ["MCP security", "agentic security", "prompt-injection defense", "threat hunting", "detection engineering"],
+					"sameAs": [
+						"https://github.com/agileAlligator",
+						"https://www.linkedin.com/in/avneesh-kasture-491b651b6/"
+					]
+				},
+				{
+					"@type": "WebSite",
+					"@id": "https://avneeshk.me/#website",
+					"url": "https://avneeshk.me/",
+					"name": "Avneesh Kasture",
+					"description": "Agentic security, demonstrated — secure MCP servers, live exhibits, and field notes.",
+					"inLanguage": "en",
+					"author": { "@id": "https://avneeshk.me/#person" },
+					"publisher": { "@id": "https://avneeshk.me/#person" }
+				}
 			]
 		}
 		</script>
