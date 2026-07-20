@@ -1,18 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" role="img" aria-label="a block cursor held inside the allowlist brackets — the operator, inside the mechanism">
-	<!-- $ whoami → this. Every coordinate is an integer on the 16-grid:
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" role="img" aria-label="an ellipsis of model-talk stopped at a solid wall; the amber asset intact on the far side">
+	<!-- The thesis in 256 pixels: the model is still mid-sentence (…, dashed = asserted)
+	     when it meets the mechanism (cyan, solid, one dumb bar — cyan never wins or loses,
+	     it just IS the boundary). The asset (amber: the insect in the amber, preserved)
+	     sits on the far side, untouched. The verdict already exists, so nothing moves —
+	     verdicts do not shimmer. Every coordinate is an integer on the 16-grid:
 	     crisp at 16, and 32/48/192/512 are exact multiples. -->
-	<style>
-		@media (prefers-reduced-motion: no-preference) {
-			.blink { animation: blink 1.15s steps(2) infinite; }
-			@keyframes blink { 0%, 50% { opacity: 1; } 50.001%, 100% { opacity: 0; } }
-		}
-	</style>
 	<rect width="16" height="16" fill="#0a0b0d"/>
-	<!-- the allowlist, written in code: two brackets.
-	     cyan is THE MECHANISM — the deterministic layer, never a verdict. -->
-	<path d="M2 2h4v2H4v8h2v2H2z" fill="#4cc9f0"/>
-	<path d="M14 2h-4v2h2v8h-2v2h4z" fill="#4cc9f0"/>
-	<!-- the one permitted entry: the cursor. green, live, his signature —
-	     the same blink the nav brand carries. the only loop the system allows. -->
-	<rect class="blink" x="6" y="4" width="4" height="8" fill="#4fe3a1"/>
+	<!-- the ghost, mid-persuasion: dashed is asserted, and an ellipsis is speech that
+	     hasn't finished. ink, no hue — the model is the medium, not a category. -->
+	<rect x="1" y="7" width="2" height="2" fill="#e9edf1"/>
+	<rect x="4" y="7" width="2" height="2" fill="#e9edf1"/>
+	<rect x="7" y="7" width="2" height="2" fill="#e9edf1"/>
+	<!-- the wall: the most boring mark it is possible to make on a screen.
+	     the control must look dumb. its plainness is the punchline. -->
+	<rect x="10" y="2" width="2" height="12" fill="#4cc9f0"/>
+	<!-- the canary, still on its perch. -->
+	<rect x="13" y="7" width="2" height="2" fill="#f5b544"/>
 </svg>
