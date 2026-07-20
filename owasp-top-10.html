@@ -35,7 +35,7 @@ breadcrumb:
 				<span class="asi-code">ASI01 : 2026</span>
 				<h2 class="asi-name">Agent Goal Hijack</h2>
 				<span class="asi-label">Attack</span>
-				<span class="asi-attack">Injected text in a tool result rewrites the agent's objective.</span>
+				<span class="asi-attack">Injected text in a tool result or document rewrites the agent's objective.</span>
 			</div>
 			<div class="asi-face face-detect" aria-hidden="true">
 				<span class="asi-code">ASI01 : 2026</span>
@@ -47,7 +47,7 @@ breadcrumb:
 				<span class="asi-code">ASI01 : 2026</span>
 				<h2 class="asi-name">Agent Goal Hijack</h2>
 				<span class="asi-label">Control · prevent</span>
-				<span class="asi-body">Tool output is structured and isolated from the system prompt, never read as instructions, and DLP-scanned. Content can't rewrite the goal.</span>
+				<span class="asi-body">Tool output is structured, isolated from the system prompt, never read as instructions, and screened for injection patterns. Content can't rewrite the goal.</span>
 			</div>
 		</div>
 		<button class="asi-turn" type="button" aria-label="Turn to detection — ASI01 Agent Goal Hijack"></button>
@@ -122,7 +122,7 @@ breadcrumb:
 				<span class="asi-code">ASI04 : 2026</span>
 				<h2 class="asi-name">Agentic Supply Chain</h2>
 				<span class="asi-label">Control · prevent</span>
-				<span class="asi-body">Pinned, verified dependencies; vetted MCP servers and tool descriptors; secret scanning in CI; no silent tool installation.</span>
+				<span class="asi-body">Pinned, signature-verified dependencies; vetted MCP servers and signed tool descriptors; a maintained component inventory (SBOM); no silent tool installation.</span>
 			</div>
 		</div>
 		<button class="asi-turn" type="button" aria-label="Turn to detection — ASI04 Agentic Supply Chain"></button>
@@ -185,7 +185,7 @@ breadcrumb:
 				<span class="asi-code">ASI07 : 2026</span>
 				<h2 class="asi-name">Insecure Inter-Agent Comms</h2>
 				<span class="asi-label">Attack</span>
-				<span class="asi-attack">Agent-to-agent / MCP messages tampered, spoofed, or injected.</span>
+				<span class="asi-attack">Agent-to-agent / MCP messages spoofed, tampered, replayed, or injected.</span>
 			</div>
 			<div class="asi-face face-detect" aria-hidden="true">
 				<span class="asi-code">ASI07 : 2026</span>
@@ -197,7 +197,7 @@ breadcrumb:
 				<span class="asi-code">ASI07 : 2026</span>
 				<h2 class="asi-name">Insecure Inter-Agent Comms</h2>
 				<span class="asi-label">Control · prevent</span>
-				<span class="asi-body">Authenticated, structured channels (mTLS / scoped tokens); every message validated; peer output treated as data, never commands.</span>
+				<span class="asi-body">Authenticated, structured channels (mTLS / scoped tokens); every message schema-validated and replay-protected (nonces, timestamps); peer output treated as data, never commands.</span>
 			</div>
 		</div>
 		<button class="asi-turn" type="button" aria-label="Turn to detection — ASI07 Insecure Inter-Agent Comms"></button>
