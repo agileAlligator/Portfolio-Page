@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Hugging Face's Breach Wasn't Agentic. The Attacker Was."
-subtitle: "The July intrusion gets filed under AI security, but the AI was the attacker's tooling and the bug was ordinary code execution. The lesson worth taking is the one Hugging Face reached under pressure: your defensive AI should be local-first, open-weights, and wired to your own logs."
+subtitle: "The July intrusion gets filed under AI security, but the AI was the attacker's tooling and the bug was ordinary code execution. The move worth copying is the one Hugging Face was forced into mid-incident: run your defensive AI local-first, open-weights, and wired to your own logs."
 date: 2026-07-20
 permalink: /blog/hugging-face-agentic-breach/
 image: /assets/og/hugging-face-agentic-breach.png
