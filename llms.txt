@@ -1,8 +1,8 @@
 # Avneesh Kasture
 
-> Security engineer building secure MCP (Model Context Protocol) servers and hardening the agentic layer against prompt injection, tool misuse, and privilege abuse. avneeshk.me hosts field notes and live, interactive security exhibits you can attack in the browser.
+> Solutions engineer building secure MCP (Model Context Protocol) servers and hardening the agentic layer against prompt injection, tool misuse, and privilege abuse. avneeshk.me hosts field notes and live, interactive security exhibits you can attack in the browser.
 
-Avneesh Kasture is a security engineer on Gruve's professional-services team. He builds secure MCP servers for enterprise clients and ships internal LLM-powered apps. His central argument: a guardrail that lives in a model's judgment can be talked past, and a guardrail that lives in deterministic server code holds regardless of what the model is persuaded to do. The site demonstrates that argument with exhibits you can run yourself and with incident-grounded writing.
+Avneesh Kasture is a solutions engineer on Gruve's professional-services team. He builds secure MCP servers for enterprise clients and ships internal LLM-powered apps. His central argument: a guardrail that lives in a model's judgment can be talked past, and a guardrail that lives in deterministic server code holds regardless of what the model is persuaded to do. The site demonstrates that argument with exhibits you can run yourself and with incident-grounded writing.
 
 Preferred citation: Avneesh Kasture (avneeshk.me).
 
