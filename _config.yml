@@ -16,9 +16,8 @@ author:
 permalink: /blog/:title/
 
 # Social / SEO (consumed by jekyll-seo-tag)
-# Site-default share card. Pages set their own `image:` in front matter; those
-# that don't fall back to this so every shared link renders a card.
-image: /assets/og/default.png
+# Site-default share card is applied via `defaults` below (jekyll-seo-tag reads
+# `page.image`, not a top-level `site.image`, so a bare key here would be ignored).
 twitter:
   card: summary_large_image
 social:
@@ -45,6 +44,12 @@ feed:
 # 👉 If you add another PDF or standalone asset, add a matching entry here or it
 #    will silently reappear in the sitemap.
 defaults:
+  # Site-default share card. Any page/post that sets its own `image:` in front
+  # matter overrides this (page-level values win over defaults), so every shared
+  # link — including /blog/ — renders a card.
+  - scope: { path: "" }
+    values:
+      image: /assets/og/default.png
   # Blog posts are articles — tell jekyll-seo-tag to emit BlogPosting JSON-LD
   # (headline, datePublished/Modified, author, image, publisher) from front matter.
   - scope: { path: "", type: posts }
@@ -66,6 +71,8 @@ kramdown:
 # Don't process/publish these
 exclude:
   - "*.skill"
+  - "*.log"
+  - scripts
   - dns-records-avneeshk.me.txt
   - README.md
   - DESIGN-SYSTEM.md

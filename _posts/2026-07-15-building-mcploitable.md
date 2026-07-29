@@ -4,9 +4,9 @@ title: "Building mcploitable: A Lab Where Agent Guardrails Fail on Purpose"
 subtitle: "The model can't police itself, so the controls belong in the server. mcploitable is where I prove it: seven incidents from the wild, a four-rung control ladder, and a wall that holds by construction — 105 attempts, zero through."
 description: >-
   The thinking behind mcploitable, a lab of deliberately vulnerable MCP servers
-  covering the OWASP Agentic Top-10. How the boxes are built — faithful to real
-  incidents, a two-plane attacker/victim split, an L0-L3 control ladder, scoring
-  by effect — and a few things I learned building it.
+  covering the OWASP Agentic Top-10. How the boxes are built: faithful to real
+  incidents, a two-plane attacker/victim split, an L0-L3 control ladder, and
+  scoring by effect. Plus a few things I learned building it.
 date: 2026-07-15
 permalink: /blog/building-mcploitable/
 image: /assets/og/building-mcploitable.png
@@ -17,7 +17,7 @@ reading_time: "6 min read"
 A while back I made a claim here: [the model can't police itself, so the
 guardrails belong in the server](/blog/guardrails-belong-in-the-server/), in
 deterministic code the model can't talk its way past. That is easy to assert
-and harder to prove. So I built somewhere to test it —
+and harder to prove. So I built somewhere to test it:
 [mcploitable](https://github.com/agileAlligator/mcploitable), the
 "Metasploitable of MCP." It now covers the OWASP Top 10 for Agentic
 Applications, and this is how I thought about building it.
@@ -26,7 +26,7 @@ Applications, and this is how I thought about building it.
 
 Every box makes one argument: a control the model can be talked out of is not a
 control. Alignment (the model spotting an attack and refusing) is real, but it's
-probabilistic and it gets worse under pressure. A server-side check doesn't. The
+never guaranteed, and it gets worse under pressure. A server-side check doesn't. The
 lab is there so you can watch that difference happen instead of taking my word
 for it.
 
@@ -56,7 +56,7 @@ stops being reliable.
 
 **Scoring by effect.** You don't win because the model said something alarming.
 You win when a real canary secret leaves through a real tool call, caught
-server-side. The adjudicator never reads the model's prose, only whether the
+server-side. The judge never reads the model's prose, only whether the
 secret got out.
 
 ## What the ladder shows

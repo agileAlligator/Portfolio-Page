@@ -87,7 +87,7 @@ choke on a stray emoji or box-drawing character. One fewer platform surprise.
 The reason this bug is so common is that unit tests never see it. Your tests import
 functions and assert on return values. They never launch the server as a
 subprocess and read its stdout the way a real client does. So the one class of bug
-that actually breaks the integration is the one your suite is blind to.
+that breaks the integration is the one your suite is blind to.
 
 Add a tiny **stdio smoke test**: spawn the server as a subprocess, send an
 `initialize` then a `tools/list` request, and assert that what comes back on stdout

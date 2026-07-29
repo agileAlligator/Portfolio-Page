@@ -34,7 +34,7 @@ export const RESUME = {
 		"Education: B.Tech, Computer Science & Engineering — Vellore Institute of Technology, 2024.",
 
 	resume:
-		"Avneesh Kasture — Secure MCP Engineer / Agentic Security. " +
+		"Avneesh Kasture — Solutions Engineer / Agentic Security. " +
 		"Full résumé PDF: https://avneeshk.me/resume.pdf",
 
 	contact:
@@ -73,4 +73,6 @@ export const POSTS = [
 	  body: "In a stdio MCP server, stdout is the JSON-RPC wire, not a log. One stray print/log line makes the client reject the whole exchange with unrecognized_keys errors. Send logs to stderr (or a file); keep stdout for protocol. Full post: https://avneeshk.me/blog/stdout-is-not-yours/" },
 	{ slug: "building-mcploitable", title: "Building mcploitable: A Lab Where Agent Guardrails Fail on Purpose",
 	  body: "mcploitable tests one claim: a control the model can be talked out of is not a control. Each box is a real 2024–2026 incident (EchoLeak, Supabase MCP leak, Vanna.AI RCE, ChatGPT memory poisoning…), on an L0→L3 ladder, scored by whether a canary actually leaves. Recognition and partial controls fall to a good payload; the server-side control holds. Full post: https://avneeshk.me/blog/building-mcploitable/" },
+	{ slug: "hugging-face-agentic-breach", title: "Hugging Face's Breach Wasn't Agentic. The Attacker Was.",
+	  body: "Hugging Face's July 2026 intrusion gets filed under AI security, but the AI was the attacker's tooling and the bug was ordinary code execution through an over-privileged worker. The move worth copying is the one the defenders were forced into mid-incident: when commercial APIs refused to analyze logs full of attack payloads, they ran an open-weight model on their own infrastructure — local-first, open-weights, wired to your own logs — so forensics never get refused, leaked, or throttled. Full post: https://avneeshk.me/blog/hugging-face-agentic-breach/" },
 ];

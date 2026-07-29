@@ -24,12 +24,6 @@
 	letter-spacing: -0.005em;
 	margin-bottom: 1rem;
 }
-.blog-intro {
-	color: var(--ink-dim);
-	font-size: var(--fs-3);
-	max-width: 60ch;
-	margin-bottom: 3rem;
-}
 .blog-empty { color: var(--ink-faint); font-family: var(--mono); }
 
 /* ── post list (index) ── */

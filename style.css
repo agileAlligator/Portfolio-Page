@@ -19,6 +19,10 @@
 	--line:      #252a31;   /* default borders */
 	--line-strong: #39404a; /* frames, active borders, link underlines, dashed=asserted */
 	--line-seam: #43859d;   /* THE SEAM — cyan muted to structural weight; the boundary belongs to the mechanism */
+	/* neutral value-lifts — NOT accent fills, so they live in ground/structure, not the alpha ladder:
+	   the sticky-nav scrim (page ground held opaque under blur) and the barely-there even-row lift. */
+	--scrim:     rgba(10, 11, 13, 0.85);   /* --bg at scrim opacity behind the blurred nav */
+	--row-alt:   rgba(255, 255, 255, 0.012);/* zebra: a sub-substrate white lift on alternating rows */
 
 	/* ink — record voice is --paper */
 	--ink:       #f2f5f9;   /* ~17:1 on --panel — crisp near-white, not glaring pure white */
@@ -151,14 +155,14 @@ a { color: inherit; text-decoration: none; }
 /* prose links carry a non-color affordance (underline) so they're distinguishable
    without relying on colour. Link groups (nav, cards, buttons, contact) are evident
    controls with their own affordances and opt out. Retires axe link-in-text-block. */
-p a, li a, .site-footer a, .about-body a, .tl-desc a, .post-content a, .game-foot a, .ytm-foot a {
+p a, li a, .site-footer a, .about-body a, .tl-desc a, .game-foot a, .ytm-foot a {
 	text-decoration: underline;
 	text-decoration-thickness: 1px;
 	text-underline-offset: 3px;
 	text-decoration-color: var(--line-strong);
 	transition: text-decoration-color 0.2s var(--ease), text-decoration-thickness 0.2s var(--ease);
 }
-p a:hover, li a:hover, .site-footer a:hover, .about-body a:hover, .tl-desc a:hover, .post-content a:hover, .game-foot a:hover, .ytm-foot a:hover {
+p a:hover, li a:hover, .site-footer a:hover, .about-body a:hover, .tl-desc a:hover, .game-foot a:hover, .ytm-foot a:hover {
 	text-decoration-color: var(--acc);
 	text-decoration-thickness: 2px;
 }
@@ -173,8 +177,8 @@ p a:hover, li a:hover, .site-footer a:hover, .about-body a:hover, .tl-desc a:hov
 	display: flex;
 	align-items: center;
 	gap: 2rem;
-	padding: 1rem clamp(1.25rem, 5vw, 3.5rem);
-	background: rgba(10, 11, 13, 0.85);
+	padding: 1rem var(--gutter);
+	background: var(--scrim);
 	backdrop-filter: blur(12px);
 	border-bottom: 1px solid var(--line);
 }
@@ -263,13 +267,12 @@ p a:hover, li a:hover, .site-footer a:hover, .about-body a:hover, .tl-desc a:hov
 	position: relative;
 	max-width: var(--maxw);
 	margin: 0 auto;
-	padding: clamp(3.5rem, 9vw, 7rem) clamp(1.25rem, 5vw, 3.5rem) clamp(3rem, 7vw, 5rem);
+	padding: clamp(3.5rem, 9vw, 7rem) var(--gutter) clamp(3rem, 7vw, 5rem);
 	display: grid;
 	grid-template-columns: 1.05fr 0.95fr;
 	gap: clamp(2rem, 5vw, 4rem);
 	align-items: center;
 }
-.hero-glow { display: none; }   /* the instrument doesn't glow */
 
 .hero-kicker {
 	font-family: var(--mono);
@@ -286,12 +289,6 @@ p a:hover, li a:hover, .site-footer a:hover, .about-body a:hover, .tl-desc a:hov
 	text-transform: uppercase;
 	color: var(--ink);
 	margin-bottom: 1.1rem;
-}
-.hero-rev {
-	font-family: var(--mono);
-	font-size: var(--fs-1);
-	color: var(--ink-faint);
-	margin-bottom: 1.5rem;
 }
 .hero-role {
 	display: flex;
@@ -365,11 +362,6 @@ p a:hover, li a:hover, .site-footer a:hover, .about-body a:hover, .tl-desc a:hov
 	background: var(--panel-2);
 	border-bottom: 1px solid var(--line);
 }
-/* any legacy mac dots degrade to neutral squares until their page is upgraded */
-.term-bar .dot { width: 8px; height: 8px; border-radius: 0; background: var(--line-strong); }
-.term-bar .dot:nth-child(1),
-.term-bar .dot:nth-child(2),
-.term-bar .dot:nth-child(3) { background: var(--line-strong); }
 /* the upgraded readout: one square status LED + a figure nameplate */
 .term-led { width: 8px; height: 8px; border-radius: 0; background: var(--acc); flex-shrink: 0; }
 .term-fig { margin-left: auto; font-family: var(--disp); font-weight: 600; font-size: var(--fs-00); text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-faint); }
@@ -589,11 +581,7 @@ p a:hover, li a:hover, .site-footer a:hover, .about-body a:hover, .tl-desc a:hov
 }
 /* exhibit-page footers are full-bleed — give the row a gutter so links don't sit
    flush to the viewport edge (blog.css overrides with its own centered width) */
-.site-footer { padding-left: clamp(1.25rem, 5vw, 3.5rem); padding-right: clamp(1.25rem, 5vw, 3.5rem); }
-/* the signature: a status readout that is true by construction — open devtools,
-   see zero external requests, and remember the site. */
-.sys-status { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--mono); font-size: var(--fs-0); color: var(--ink-faint); }
-.sys-status-led { width: 8px; height: 8px; border-radius: 0; background: var(--acc); flex-shrink: 0; box-shadow: 0 0 0 0 rgba(79,227,161,0.55); animation: mcp-pulse 2.4s var(--ease) infinite; }
+.site-footer { padding-left: var(--gutter); padding-right: var(--gutter); }
 
 /* ─────────────────────────── REVEAL ANIM ─────────────────────────── */
 /* Only hide-until-revealed when JS is present (html.js). Without JS the
@@ -619,10 +607,10 @@ p a:hover, li a:hover, .site-footer a:hover, .about-body a:hover, .tl-desc a:hov
 		background: var(--bg-2);
 		border-bottom: 1px solid var(--line);
 	}
-	.nav.open .nav-links a { padding: 0.85rem clamp(1.25rem, 5vw, 3.5rem); }
+	.nav.open .nav-links a { padding: 0.85rem var(--gutter); }
 	.nav.open .nav-links .nav-out {
 		margin-left: 0;
-		padding-left: clamp(1.25rem, 5vw, 3.5rem);
+		padding-left: var(--gutter);
 		border-top: 1px solid var(--line-soft);
 		margin-top: 0.3rem;
 	}
@@ -679,7 +667,7 @@ p a:hover, li a:hover, .site-footer a:hover, .about-body a:hover, .tl-desc a:hov
 	border-radius: 0;
 	background: var(--acc);
 	vertical-align: baseline;
-	box-shadow: 0 0 0 0 rgba(79, 227, 161, 0.55);
+	box-shadow: 0 0 0 0 var(--field-acc-on);
 	animation: mcp-pulse 2.4s var(--ease) infinite;
 }
 @keyframes mcp-pulse {
@@ -737,7 +725,7 @@ p a:hover, li a:hover, .site-footer a:hover, .about-body a:hover, .tl-desc a:hov
 @media (prefers-reduced-motion: reduce) {
 	* { scroll-behavior: auto !important; }
 	[data-reveal] { opacity: 1; transform: none; transition: none; }
-	.blink, .cursor, .mcp-live-dot, .sys-status-led, .verdict, .ytm-verdict, .tp-verdict { animation: none; }
+	.blink, .cursor, .mcp-live-dot, .verdict, .ytm-verdict, .tp-verdict { animation: none; }
 	.card::before, .card::after, .btn::before, .btn::after { transition: none; }
 }
 

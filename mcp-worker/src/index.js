@@ -124,6 +124,7 @@ function vfs(env) {
 		"posts/guardrails-belong-in-the-server.md": post("guardrails-belong-in-the-server"),
 		"posts/building-mcploitable.md": post("building-mcploitable"),
 		"posts/stdout-is-not-yours.md": post("stdout-is-not-yours"),
+		"posts/hugging-face-agentic-breach.md": post("hugging-face-agentic-breach"),
 		"resume/summary.txt": RESUME.resume,
 		"internal/canary.txt": env.CANARY || "CANARY-not-configured",
 	};

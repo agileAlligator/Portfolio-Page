@@ -26,6 +26,9 @@ scripts/.fonts/
 __pycache__/
 *.pyc
 
+# TeX build logs (stray résumé compiles)
+*.log
+
 # Cloudflare wrangler local state
 mcp-worker/.wrangler/
 mcp-worker/node_modules/

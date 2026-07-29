@@ -33,12 +33,13 @@ source of truth the hook enforces; this file is the human reference; `:root` in
 | `--panel` `--panel-2` | `#101317` `#14181d` | raised surfaces / chrome on a panel |
 | `--line-soft` `--line` `--line-strong` | `#1a1e24` `#252a31` `#39404a` | dividers / borders / frames + dashed-asserted |
 | `--line-seam` | `#43859d` | **the seam** — cyan muted to structural weight; the boundary belongs to the mechanism |
+| `--scrim` `--row-alt` | `rgba(10,11,13,.85)` `rgba(255,255,255,.012)` | neutral value-lifts (nav scrim / zebra row) — ground, **not** accent fills, so exempt from the alpha ladder |
 
 ### Ink
 
 | Token | Value | Use |
 |-------|-------|-----|
-| `--ink` `--ink-dim` `--ink-faint` | `#e9edf1` `#a9b1bb` `#94a0ad` | text primary / secondary / tertiary (all ≥AA on `--panel`) |
+| `--ink` `--ink-dim` `--ink-faint` | `#f2f5f9` `#c6ccd5` `#aeb6c0` | text primary / secondary / tertiary (lifted for legibility; all ≥AA on `--panel`) |
 | `--ink-on-acc` | `#06110c` | the one legal ink on solid green |
 | `--plate` | `#626b77` | faint plate numerals (clears 3:1 large-text) |
 
@@ -66,8 +67,10 @@ vibe.** Every fill is one of these eight tokens; no bespoke `rgba()`/`color-mix(
 ### Type / space
 
 `--disp` Martian Mono (the instrument voice) · `--mono` IBM Plex Mono · `--sans`
-IBM Plex Sans · `--maxw 1200px`. *(A discrete `--fs`/`--sp` scale is being
-adopted across all files as a dedicated pass; until then, sizes are per-file.)*
+IBM Plex Sans · `--maxw 1200px`. A discrete `--fs`/`--sp` scale is defined in
+`style.css` `:root`: `--fs-*` is the target for all type sizing and is adopted
+across newer files (a few older per-file sizes remain, migrated opportunistically);
+`--sp-*` is defined but not yet consumed.
 
 ### Motion — *three verbs only; the ghost glides, the gate ticks*
 
@@ -122,15 +125,15 @@ Files: `style.css` (site-wide + primitives), `assets/mcp.css`, `assets/game.css`
 
 - **Layout** — `.section`, `.section-title`, `.section-label`, `.content`, `.section-contact`.
 - **Nav / footer** — `.nav`, `.nav-brand`, `.nav-links`, `.nav-resume`, `.nav-toggle`,
-  `.nav-out`; `.footer`, `.site-footer`, `.site-footer-links`, `.sys-status`. Brand uses `.prompt` + `.blink`.
+  `.nav-out`; `.footer`, `.site-footer`, `.site-footer-links`. Brand uses `.prompt` + `.blink`.
 - **Buttons** — `.btn`, `.btn-primary`. The only two.
 - **Cards** — `.cards` grid of `.card`; `.card-feature`, `.card-mini`; parts
   `.card-top` `.card-idx` `.card-tags` `.card-title` `.card-at` `.card-desc` `.card-links` `.card-lock`.
 - **The figure (instrument readout)** — `.term`, `.term-bar` (`.term-led`,
   `.term-fig`, `.term-title`), `.term-body`; spans `.c-dim` `.c-key` `.c-str`
   `.c-ok` `.c-bad`, `.cursor`.
-- **Hero** — `.hero`, `.hero-kicker`, `.hero-title`, `.hero-rev`, `.hero-role`
-  (`.tag`, `.slash`), `.hero-blurb`, `.hero-cta`, `.hero-glow`.
+- **Hero** — `.hero`, `.hero-kicker`, `.hero-title`, `.hero-role`
+  (`.tag`, `.slash`), `.hero-blurb`, `.hero-cta`.
 - **Approach / case study / timeline / skills / creds / contact** — as before
   (`.approach*`, `.cs*`, `.timeline`/`.tl-*`, `.skills-grid`/`.skill-group`,
   `.creds`/`.cred`, `.contact-title`/`.contact-links`).

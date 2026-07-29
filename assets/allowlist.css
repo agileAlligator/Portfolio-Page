@@ -8,7 +8,7 @@
 .al-intro {
 	max-width: var(--maxw);
 	margin: 0 auto;
-	padding: clamp(3rem, 7vw, 5rem) clamp(1.25rem, 5vw, 3.5rem) 0;
+	padding: clamp(3rem, 7vw, 5rem) var(--gutter) 0;
 }
 .al-intro .section-label { font-family: var(--mono); font-size: var(--fs-1); color: var(--acc); margin-bottom: 0.9rem; }
 .al-title {
