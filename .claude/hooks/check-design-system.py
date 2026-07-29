@@ -71,7 +71,7 @@ def main():
                 'inline style="…" — ad-hoc styling. Use a component class in '
                 'style.css (registered in the manifest) or a sanctioned .u-* utility.')
 
-    if fp.endswith(".css"):
+    if fp.endswith((".css", ".scss")):
         root = find_root(fp, data.get("cwd", ""))
         try:
             manifest = json.load(open(os.path.join(root, ".claude", "design-system.json")))

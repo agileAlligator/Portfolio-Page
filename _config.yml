@@ -68,6 +68,12 @@ highlighter: rouge
 kramdown:
   syntax_highlighter: rouge
 
+# Stylesheets are authored as .scss (with `---` front matter) so jekyll-sass-converter
+# minifies them on build. GitHub Pages ships this natively — source keeps its comments,
+# the served .css is compressed.
+sass:
+  style: compressed
+
 # Don't process/publish these
 exclude:
   - "*.skill"
