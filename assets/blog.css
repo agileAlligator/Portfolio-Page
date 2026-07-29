@@ -104,7 +104,7 @@
 	padding-bottom: 1.5rem;
 	border-bottom: 1px solid var(--line-soft);
 }
-.post-meta .dot-sep { color: var(--line); }
+.post-meta .dot-sep { color: var(--plate); }
 .post-tags { color: var(--acc-2); }
 
 /* ── prose ── */

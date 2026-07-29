@@ -19,8 +19,8 @@ layout: default
 		{% if page.subtitle %}<p class="post-subtitle">{{ page.subtitle }}</p>{% endif %}
 		<p class="post-meta">
 			<time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %-d, %Y" }}</time>
-			{% if page.reading_time %}<span class="dot-sep">·</span>{{ page.reading_time }}{% endif %}
-			{% if page.tags %}<span class="dot-sep">·</span><span class="post-tags">{% for t in page.tags %}#{{ t }} {% endfor %}</span>{% endif %}
+			{% if page.reading_time %}<span class="dot-sep" aria-hidden="true">·</span>{{ page.reading_time }}{% endif %}
+			{% if page.tags %}<span class="dot-sep" aria-hidden="true">·</span><span class="post-tags">{% for t in page.tags %}#{{ t }} {% endfor %}</span>{% endif %}
 		</p>
 	</header>
 

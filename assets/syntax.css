@@ -6,7 +6,7 @@
 .highlight .err { color: var(--bad); background: transparent; }
 
 /* comments */
-.highlight .c, .highlight .cm, .highlight .c1, .highlight .cs, .highlight .cd { color: #62708a; font-style: italic; }
+.highlight .c, .highlight .cm, .highlight .c1, .highlight .cs, .highlight .cd { color: #77869f; font-style: italic; }
 
 /* keywords */
 .highlight .k, .highlight .kd, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .kv { color: var(--acc-2); }
