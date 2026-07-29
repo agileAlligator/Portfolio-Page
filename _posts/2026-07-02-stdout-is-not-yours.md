@@ -7,7 +7,7 @@ description: >-
   client is almost always writing logs to stdout. Stdout is reserved for
   JSON-RPC. Here's why one log line corrupts the protocol, and the one-line
   structlog fix.
-date: 2026-07-02
+date: 2026-07-02 14:00:00 +0000
 permalink: /blog/stdout-is-not-yours/
 image: /assets/og/stdout-is-not-yours.png
 tags: [mcp, debugging]

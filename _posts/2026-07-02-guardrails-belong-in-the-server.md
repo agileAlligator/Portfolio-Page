@@ -7,7 +7,7 @@ description: >-
   where the real controls belong: a runtime endpoint allowlist, structured
   returns, and output scanning, all deterministic code between the model and the
   API. With the allowlist bug that re-opens the doors you closed.
-date: 2026-07-02
+date: 2026-07-02 09:00:00 +0000
 permalink: /blog/guardrails-belong-in-the-server/
 image: /assets/og/guardrails-belong-in-the-server.png
 tags: [mcp, security]
