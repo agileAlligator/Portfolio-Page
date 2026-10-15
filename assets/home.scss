@@ -46,14 +46,13 @@ main {
 }
 .row {
 	display: grid;
-	grid-template-columns: minmax(0, var(--main)) var(--margin);
-	column-gap: var(--gap);
+	/* main column | flexible gap | margin — the margin sits on the frame's right edge */
+	grid-template-columns: minmax(0, var(--main)) minmax(var(--gap), 1fr) var(--margin);
 	align-items: start;
 }
-.row-main { min-width: 0; }
+.row-main { min-width: 0; grid-column: 1; }
 
 .note {
-	position: relative;
 	margin: 0.15rem 0 0;
 	font-family: var(--serif);
 	font-style: italic;
@@ -61,13 +60,17 @@ main {
 	line-height: 1.42;
 	color: var(--pencil);
 }
-/* A pen stroke reaching back across the gap to the paragraph it annotates. */
-.note::before {
+/* In a row the note spans gap + margin: a pen stroke fills the gap, reaching
+   back to the paragraph it annotates, and the words sit in the margin. */
+.row > .note {
+	grid-column: 2 / 4;
+	display: grid;
+	grid-template-columns: 1fr var(--margin);
+	align-items: start;
+}
+.row > .note::before {
 	content: "";
-	position: absolute;
-	top: 0.72em;
-	right: calc(100% + 0.6rem);
-	width: calc(var(--gap) - 1.2rem);
+	margin: 0.72em 0.6rem 0 0.75rem;
 	border-top: 1.5px solid var(--pencil);
 }
 
@@ -168,13 +171,13 @@ main {
 
 /* ── Narrow screens: margin notes fold in under their paragraph ─── */
 @media (max-width: 920px) {
-	:root { --margin: 11rem; --gap: 2rem; }
+	:root { --margin: 11rem; --gap: 2.5rem; }
 }
 @media (max-width: 760px) {
 	body { font-size: 1.125rem; }
 	.row { grid-template-columns: minmax(0, 1fr); }
-	.row > .note { margin: 1rem 0 0; padding-left: 1.75rem; }
-	.row > .note::before { right: auto; left: 0; width: 1.1rem; }
+	.row > .note { grid-column: 1; grid-template-columns: 1.6rem 1fr; margin: 1rem 0 0; }
+	.row > .note::before { margin: 0.72em 0.55rem 0 0; }
 	.intro { padding-top: 1.5rem; }
 	.pair { grid-template-columns: 1fr; gap: 2rem; }
 	.path-extra { margin-top: 1.75rem; }
