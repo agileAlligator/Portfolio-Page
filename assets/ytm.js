@@ -235,7 +235,7 @@
 		box.className = "ytm-reveal";
 		var head = document.createElement("p");
 		head.className = "ytm-reveal-head";
-		head.textContent = "// the same call, twice";
+		head.textContent = "The same call, twice";
 		box.appendChild(head);
 		// the seam: model's attempted call (dashed, asserted) | line | control (solid)
 		var cols = document.createElement("div");

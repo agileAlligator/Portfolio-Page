@@ -45,7 +45,7 @@ the list and logs it as a security event.
 
 The subtlety that bites people is how you match paths with parameters. The
 naive version turns `{id}` into a shell-style `*` and calls `fnmatch`. That's an
-allowlist *bypass*, because `*` happily spans a `/`:
+[allowlist *bypass*](/allowlist-bypass/), because `*` happily spans a `/`:
 
 ```python
 # You approved exactly this:

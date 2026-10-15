@@ -192,7 +192,11 @@ h1, h2, h3, h4 { font-family: var(--grotesk); }
 	max-width: var(--maxw);
 	margin: 0 auto;
 	padding: clamp(3.5rem, 8vw, 6.5rem) var(--gutter);
-	border-top: 1px solid var(--line-soft);
+	/* divider on the content edges, not across the padded box */
+	background-image: linear-gradient(var(--line-soft), var(--line-soft));
+	background-repeat: no-repeat;
+	background-position: var(--gutter) 0;
+	background-size: calc(100% - 2 * var(--gutter)) 1px;
 }
 .section-label {
 	font-family: var(--disp);

@@ -22,13 +22,13 @@
 
 	var TOOLS = ["read_ticket", "get_order", "issue_refund", "post_reply"];
 	var RUNGS = {
-		0: { label: "// L0 · no control",
+		0: { label: "L0: no control",
 			explain: "Nothing stands between the ticket and the refund. If the ticket asks and the agent obeys, it fires." },
-		1: { label: "// L1 · untrusted-data warning",
+		1: { label: "L1: untrusted-data warning",
 			explain: "The system prompt tells the model the ticket is untrusted data and not to act on instructions inside it. It's a judgment call: a blunt demand gets caught, a refund phrased as ordinary support often slips through." },
-		2: { label: "// L2 · in-band authorization",
+		2: { label: "L2: in-band authorization",
 			explain: "issue_refund now checks for a valid approval code. Real code, real check, but it reads that code from the ticket — the same untrusted channel. Put the code in the ticket and the agent passes it along." },
-		3: { label: "// L3 · capability gate",
+		3: { label: "L3: capability gate",
 			explain: "issue_refund needs a capability the request context doesn't hold, and nothing a ticket says can grant it. The model can call the tool; the call is refused in code before anything happens." }
 	};
 

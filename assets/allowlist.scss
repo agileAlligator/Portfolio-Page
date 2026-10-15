@@ -12,9 +12,9 @@
 	margin: 0 auto;
 	padding: clamp(3rem, 7vw, 5rem) var(--gutter) 0;
 }
-.al-intro .section-label { font-family: var(--mono); font-size: var(--fs-1); color: var(--acc); margin-bottom: 0.9rem; }
+.al-intro .section-label { font-family: var(--grotesk); font-size: var(--fs-1); color: var(--acc); margin-bottom: 0.9rem; }
 .al-title {
-	font-family: var(--mono);
+	font-family: var(--grotesk);
 	font-weight: 600;
 	font-size: clamp(2rem, 5vw, 3.1rem);
 	letter-spacing: -0.02em;
@@ -50,7 +50,7 @@
 .al-row:focus-within { border-color: var(--acc); }
 
 .al-presets { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin: 1rem 0 0; max-width: 46rem; }
-.al-preset-label { font-family: var(--mono); font-size: var(--fs-0); color: var(--ink-faint); text-transform: none; letter-spacing: 0.08em; margin-right: 0.15rem; }
+.al-preset-label { font-family: var(--grotesk); font-size: var(--fs-0); color: var(--ink-faint); text-transform: none; letter-spacing: 0.08em; margin-right: 0.15rem; }
 .al-preset-label:not(:first-child) { margin-left: 0.75rem; }
 .al-preset {
 	font-family: var(--mono);
@@ -124,7 +124,7 @@
 .al-verdicts { padding: 0 1.35rem; margin-top: auto; }
 .al-verdict-pill {
 	display: inline-block;
-	font-family: var(--mono);
+	font-family: var(--grotesk);
 	font-size: var(--fs-1);
 	font-weight: 700;
 	letter-spacing: 0.06em;
@@ -135,7 +135,7 @@
 }
 .al-verdict-safe { color: var(--acc); border-color: var(--acc); background: var(--field-acc); }
 .al-verdict-danger { color: var(--bad-hi); border-color: var(--bad); background: var(--field-bad); }
-.al-reason { padding: 0.7rem 1.35rem 1.2rem; font-family: var(--mono); font-size: var(--fs-1); color: var(--ink-dim); line-height: 1.5; min-height: 1.5rem; }
+.al-reason { padding: 0.7rem 1.35rem 1.2rem; font-family: var(--grotesk); font-size: var(--fs-1); color: var(--ink-dim); line-height: 1.5; min-height: 1.5rem; }
 
 /* ── 03 · caveat ──────────────────────────────────────────────── */
 .al-caveat {

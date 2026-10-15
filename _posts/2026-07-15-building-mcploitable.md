@@ -21,8 +21,8 @@ guardrails belong in the server](/blog/guardrails-belong-in-the-server/), in
 deterministic code the model can't talk its way past. That is easy to assert
 and harder to prove. So I built somewhere to test it:
 [mcploitable](https://github.com/agileAlligator/mcploitable), the
-"Metasploitable of MCP." It now covers the OWASP Top 10 for Agentic
-Applications, and this is how I thought about building it.
+"Metasploitable of MCP." It now covers the [OWASP Top 10 for Agentic
+Applications](/owasp-top-10/), and this is how I thought about building it.
 
 ## What it actually tests
 
@@ -45,7 +45,7 @@ anything else.
 **You control one thing.** There is no insecure/hardened switch to flip. The
 victim agent, its tools, and its system prompt are fixed, the way a real
 deployment would ship them. The only thing you touch is a single untrusted
-artifact: an email, a support ticket, a published plugin, a planted memory, a
+artifact: an email, [a support ticket](/break-this-server/), a published plugin, a planted memory, a
 message from another agent. The vulnerability is latent, and you have to trigger
 it through the same surface a real attacker would.
 
