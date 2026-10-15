@@ -65,422 +65,207 @@
 			]
 		}
 		</script>
-		<link rel="stylesheet" href="style.css" />
-		<!-- Self-hosted IBM Plex (latin woff2). The site serves its own type; no third-party font request. -->
-		<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/IBMPlexSans-400.woff2" crossorigin />
-		<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/IBMPlexMono-400.woff2" crossorigin />
-		<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/MartianMono-700.woff2" crossorigin />
+		<link rel="stylesheet" href="/assets/home.css" />
+		<!-- Self-hosted type. Schibsted Grotesk for names and headings, Newsreader for reading and the margin notes. -->
+		<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/SchibstedGrotesk-var.woff2" crossorigin />
+		<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/Newsreader-var.woff2" crossorigin />
+		<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/Newsreader-var-italic.woff2" crossorigin />
 	</head>
 	<body>
 		<a class="skip-link" href="#main">Skip to content</a>
-		<div class="grain" aria-hidden="true"></div>
 
-		<header class="nav" id="top">
-			<a class="nav-brand" href="#top">
-				<span class="prompt">&gt;</span> avneesh<span class="blink">_</span>
-			</a>
-			<nav class="nav-links" id="primary-nav" aria-label="Primary">
-				<a href="#about">about</a>
-				<a href="#experience">experience</a>
-				<a href="#work">work</a>
-				<a href="#skills">skills</a>
-				<a href="#contact">contact</a>
-				<a href="/lab/">lab</a>
-				<a href="/mcp/">mcp</a>
-				<a href="/blog/" class="nav-out">blog</a>
-				<a class="nav-resume" href="resume.pdf" target="_blank" rel="noopener">résumé <span aria-hidden="true">↗</span></a>
+		<header class="masthead">
+			<a class="masthead-name" href="/">Avneesh Kasture</a>
+			<nav class="masthead-links" aria-label="Primary">
+				<a href="#work">Work</a>
+				<a href="/lab/">Lab</a>
+				<a href="/blog/">Writing</a>
+				<a href="/resume.pdf" target="_blank" rel="noopener">Résumé</a>
 			</nav>
-			<button class="nav-toggle" type="button" aria-label="Toggle menu" aria-controls="primary-nav" aria-expanded="false">
-				<span></span><span></span><span></span>
-			</button>
 		</header>
 
 		<main id="main">
-		<!-- ───────────────────────────── HERO ───────────────────────────── -->
-		<section class="hero" id="hero">
-			<div class="hero-inner">
-				<p class="hero-kicker" data-reveal>
-					<span class="prompt">$</span> whoami
-				</p>
-				<h1 class="hero-title" data-reveal>
-					Avneesh<br />Kasture
-				</h1>
-				<p class="hero-role" data-reveal>
-					<span class="tag">solutions engineer</span>
-					<span class="slash">/</span>
-					<span class="tag">agentic security</span>
-				</p>
-				<p class="hero-blurb" data-reveal>
-					I'm a solutions engineer on Gruve's professional-services team, building
-					<strong>secure MCP servers</strong> for enterprise clients — hardening the
-					agentic layer against prompt injection, tool misuse, and privilege abuse.
-					Alongside that, I ship <strong>internal apps</strong> the company's teams
-					use day to day.
-				</p>
-				<div class="hero-cta" data-reveal>
-					<a class="btn btn-primary" href="#work">selected work</a>
-					<a class="btn" href="/mcp/">my résumé is an MCP server</a>
-					<a class="btn" href="#contact">get in touch</a>
-				</div>
-			</div>
-
-			<div class="term" data-reveal aria-hidden="true">
-				<div class="term-bar">
-					<span class="term-led" aria-hidden="true"></span>
-					<span class="term-title">read_file.py — before / after</span>
-					<span class="term-fig">fig. 01 — hardened</span>
-				</div>
-				<pre class="term-body"><span class="c-dim"># hardening an MCP tool the model can call</span>
-
-<span class="c-bad">- def read_file(path):</span>
-<span class="c-bad">-     return open(path).read()</span>
-<span class="c-dim">  # path traversal + unscanned secret leak</span>
-
-<span class="c-ok">+ def read_file(path):</span>
-<span class="c-ok">+     p = safe_join(WORKSPACE, path)</span>
-<span class="c-ok">+     enforce_allowlist(p)</span>
-<span class="c-ok">+     return dlp_scan(open(p).read())</span>
-<span class="c-dim">  # confined · allowlisted · DLP-scanned</span>
-<span class="c-dim">$</span> <span class="cursor">▋</span></pre>
-			</div>
-		</section>
-
-		<!-- ───────────────────────────── ABOUT ───────────────────────────── -->
-		<section class="section" id="about">
-			<p class="section-label" data-reveal>// <span class="u-accent">01</span> · about</p>
-			<div class="about-grid">
-				<h2 class="section-title" data-reveal>
-					I make the agentic layer safe to ship.
-				</h2>
-				<div class="about-body" data-reveal>
-					<p>
-						Most "AI security" is a line in the system prompt asking the model
-						nicely. I don't buy it. Give an agent tools and the question that
-						matters isn't whether it behaves. It's what happens when it doesn't,
-						and whether anything in the actual code is there to stop it.
+			<!-- Each .row is a main column plus a margin. Margin notes are asides in my own voice. -->
+			<section class="intro row" aria-labelledby="intro-name">
+				<div class="row-main">
+					<h1 class="intro-name" id="intro-name">Avneesh Kasture</h1>
+					<p class="intro-lede">
+						Solutions engineer at Gruve in Pune. I build secure AI integrations for
+						clients, and the internal tools my colleagues use every day.
 					</p>
-					<p>
-						So I build the boring half on purpose: the allowlist, the identity
-						check, the output scan, the audit line, all in the server where a
-						payload can't argue with them. Same rule for the internal tools I
-						ship for the company &mdash; doc generation, pricing, analytics &mdash;
-						every number tracing back to where it came from.
+					<p class="intro-body">
+						I started in digital forensics at Deloitte, then spent a year as a SOC
+						analyst. Now I build the kind of systems I used to investigate. Most of my
+						work is MCP servers that connect AI agents to company data without leaking it.
+					</p>
+					<p class="intro-actions">
+						<a class="action" href="mailto:apkasture02@gmail.com">Email me</a>
+						<a class="action action-quiet" href="/resume.pdf" target="_blank" rel="noopener">Download résumé (PDF)</a>
 					</p>
 				</div>
-			</div>
-		</section>
+				<div class="intro-side">
+					<picture class="intro-photo">
+						<source type="image/webp" srcset="/assets/img/avneesh-360.webp 360w, /assets/img/avneesh-720.webp 720w" sizes="(min-width: 760px) 208px, 112px" />
+						<img src="/assets/img/avneesh-360.jpg" width="360" height="450" alt="Portrait of Avneesh Kasture" />
+					</picture>
+					<p class="note">I stick with a problem until it's solved, however long that takes.</p>
+				</div>
+			</section>
 
-		<!-- ─────────────────────────── HOW I WORK ─────────────────────────── -->
-		<section class="section" id="approach">
-			<p class="section-label" data-reveal>// <span class="u-accent">02</span> · how i work</p>
-			<h2 class="section-title" data-reveal>How I harden an MCP server</h2>
-			<ol class="approach">
-				<li class="approach-step" data-reveal>
-					<span class="approach-num">01</span>
-					<div>
-						<h3>Threat-model the agentic layer first</h3>
-						<p>Before any tool code: map what the model could be coerced into — prompt injection via tool results, tool misuse, privilege escalation, data exfiltration — and design controls against that, not against the happy path.</p>
-					</div>
-				</li>
-				<li class="approach-step" data-reveal>
-					<span class="approach-num">02</span>
-					<div>
-						<h3>Least privilege, enforced in code</h3>
-						<p>Scope the server to the minimum endpoints the use cases need, and reject everything else at runtime with a real allowlist — not a note in the prompt the model can be talked out of.</p>
-					</div>
-				</li>
-				<li class="approach-step" data-reveal>
-					<span class="approach-num">03</span>
-					<div>
-						<h3>Identity on every call</h3>
-						<p>Verify the caller's token — signature and claims — on every tool invocation, and bind that identity to every action so nothing runs anonymously.</p>
-					</div>
-				</li>
-				<li class="approach-step" data-reveal>
-					<span class="approach-num">04</span>
-					<div>
-						<h3>Untrusted output, scanned before the model sees it</h3>
-						<p>Tool output is structured, isolated from the system prompt, and DLP-scanned so PII and secrets never enter the conversation history.</p>
-					</div>
-				</li>
-				<li class="approach-step" data-reveal>
-					<span class="approach-num">05</span>
-					<div>
-						<h3>Audit every action to its cause</h3>
-						<p>Each tool call is a structured record — who, what, which endpoint, and a hash of the prompt that triggered it — so an incident can be reconstructed, not guessed at.</p>
-					</div>
-				</li>
-			</ol>
-			<p class="approach-more" data-reveal>
-				<a href="/owasp-top-10/">→ See all ten mapped: the OWASP Agentic Top 10, and the control that stops each</a>
-			</p>
-		</section>
+			<section class="block" id="work" aria-labelledby="work-title">
+				<h2 class="block-title" id="work-title">Things I've built</h2>
 
-		<!-- ─────────────────────────── CASE STUDY ─────────────────────────── -->
-		<section class="section" id="case-study">
-			<p class="section-label" data-reveal>// <span class="u-accent">03</span> · case study</p>
-			<h2 class="section-title" data-reveal>A secure-by-default MCP framework, built for a client</h2>
-			<div class="cs" data-reveal>
-				<p class="cs-lede">The threat model starts from an uncomfortable premise: <strong>the model will be jailbroken.</strong> Researchers like <a href="https://pliny.gg" target="_blank" rel="noopener">Pliny the Liberator</a> break new frontier models within hours of release — so if a customer's data is protected only by the model choosing to behave, it isn't protected at all. I've measured this in my own lab: in <a href="https://github.com/agileAlligator/mcploitable" target="_blank" rel="noopener">mcploitable</a>, every guardrail that depends on the model recognizing an attack fell on at least one model I pointed at it. A control you escape by swapping models isn't one. The server-side check behind them refused every payload, whichever model was driving.</p>
-				<p>A client needed to connect internal AI agents to enterprise systems over MCP without betting company data on model compliance. I built them a <strong>secure-MCP development framework and a tested Python scaffold</strong> that makes the secure path the default one — driving every build through intake → auth design → endpoint governance → an auto-generated threat model → code from a hardened scaffold → a security-readiness gate before delivery.</p>
-				<p class="cs-sub">Threats it designs against, and the control that answers each:</p>
-				<ul class="cs-map">
-				<li><span class="cs-threat">Prompt injection via tool results</span><span class="cs-ctrl">structured returns, output isolated from the system prompt, DLP-scanned</span></li>
-				<li><span class="cs-threat">Tool misuse / scope creep</span><span class="cs-ctrl">runtime endpoint allowlist — non-approved calls rejected in code</span></li>
-				<li><span class="cs-threat">Secret leakage</span><span class="cs-ctrl">OS keychain / vault only — never in .env or on disk</span></li>
-				<li><span class="cs-threat">Identity spoofing</span><span class="cs-ctrl">OAuth 2.1 + PKCE — JWT signature + claims verified on every call</span></li>
-				<li><span class="cs-threat">Untraceable actions</span><span class="cs-ctrl">structured audit log tying every action to a hash of the prompt that caused it</span></li>
-				</ul>
-				<p class="cs-outcome"><strong>Outcome:</strong> every MCP the framework produces ships with the same non-negotiable controls and must pass a security-readiness checklist before delivery — a repeatable, auditable process instead of per-project guesswork. <span class="cs-note">(Delivered through my professional-services role at Gruve. Client and proprietary internals anonymized.)</span></p>
-				<p class="cs-try" data-reveal><a href="/break-this-server/">→ Try to break one in your browser</a></p>
-			</div>
-		</section>
-
-		<!-- ─────────────────────────── EXPERIENCE ─────────────────────────── -->
-		<section class="section" id="experience">
-			<p class="section-label" data-reveal>// <span class="u-accent">04</span> · experience</p>
-			<h2 class="section-title" data-reveal>Where I've worked</h2>
-
-			<ol class="timeline">
-				<li class="tl-item" data-reveal>
-					<div class="tl-head">
-						<h3>Professional Services · Solutions Engineer</h3>
-						<span class="tl-org">Gruve</span>
-						<span class="tl-meta">Apr 2026 — Present · Pune</span>
+				<article class="row work">
+					<div class="row-main">
+						<h3 class="work-name">A secure-by-default MCP framework</h3>
+						<p class="work-meta">Client work at Gruve · Python · OAuth 2.1</p>
+						<p class="work-desc">
+							A client wanted internal AI agents talking to enterprise systems without
+							betting company data on the model behaving. I built a framework and a
+							tested Python scaffold that make the secure path the default: endpoint
+							allowlists, token checks on every call, scanned tool output, and an audit
+							trail. Every server it produces passes a readiness checklist before it ships.
+						</p>
 					</div>
-					<p class="tl-desc">
-						Design and deliver <strong>secure MCP servers for clients</strong>: the
-						threat model, a hardened Python scaffold, and a security-readiness gate
-						every build passes before it ships. Alongside delivery I build the
-						internal tools the company runs on, including <strong>Helix</strong>
-						(card below).
-					</p>
-				</li>
-				<li class="tl-item" data-reveal>
-					<div class="tl-head">
-						<h3>Security Operations Center Analyst</h3>
-						<span class="tl-org">Gruve</span>
-						<span class="tl-meta">Apr 2025 — Apr 2026 · Pune</span>
-					</div>
-					<p class="tl-desc">
-						Advanced triage and investigation of security alerts across network,
-						endpoint, and authentication telemetry using <strong>Splunk</strong> and
-						<strong>CrowdStrike Falcon</strong>. Conducted threat hunting that
-						identified a vulnerability and led to a customer-wide advisory report.
-					</p>
-				</li>
-				<li class="tl-item" data-reveal>
-					<div class="tl-head">
-						<h3>Digital Forensics Intern</h3>
-						<span class="tl-org">Deloitte</span>
-						<span class="tl-meta">Jul 2024 — Feb 2025 · Mumbai</span>
-					</div>
-					<p class="tl-desc">
-						Forensic acquisition and analysis of digital media using
-						industry-standard tools. Streamlined business-critical processes to
-						<strong>cut processing time by 80%</strong>, and automated virus
-						scanning and image documentation with Python (RPA).
-					</p>
-				</li>
-			</ol>
-		</section>
-
-		<!-- ────────────────────────────── WORK ────────────────────────────── -->
-		<section class="section" id="work">
-			<p class="section-label" data-reveal>// <span class="u-accent">05</span> · selected work</p>
-			<h2 class="section-title" data-reveal>Things I've built</h2>
-
-			<div class="cards">
-				<article class="card card-feature" data-reveal>
-					<div class="card-top">
-						<span class="card-idx" aria-hidden="true">01</span>
-						<span class="card-tags">agentic-security · CTF lab · Python</span>
-					</div>
-					<h3 class="card-title">mcploitable</h3>
-					<p class="card-desc">
-						The "Metasploitable of MCP" — deliberately vulnerable MCP servers, one per class of the <strong>OWASP Top 10 for Agentic Applications</strong>. Seven are breakable boxes on an <strong>L0→L3 control ladder</strong> (open door → recognition signal → bypassable control → the deterministic wall), scored by real effect — you win only when a canary secret actually leaves via a tool call. The other three ship as guided simulations. Recognition and partial controls fall to a good payload. The wall holds by construction: <strong>105</strong> attempts, zero through, and no 106th changes that.
-					</p>
-					<div class="card-links">
-						<a href="/break-this-server/">play in-browser</a>
-						<a href="https://github.com/agileAlligator/mcploitable" target="_blank" rel="noopener">github ↗</a>
-						<a href="/blog/building-mcploitable/">the thinking</a>
-					</div>
+					<aside class="note">The client and the internals stay anonymous. The checklist is still the part I'm proudest of.</aside>
 				</article>
 
-				<article class="card" data-reveal>
-					<div class="card-top">
-						<span class="card-idx" aria-hidden="true">02</span>
-						<span class="card-tags">agent-safety · provenance · Python</span>
+				<article class="row work">
+					<div class="row-main">
+						<h3 class="work-name">Helix</h3>
+						<p class="work-meta">Internal platform at Gruve · Express, PostgreSQL, Redis, Azure</p>
+						<p class="work-desc">
+							Gruve's sales-enablement platform. It drafts statements of work with GPT-4o,
+							prices engagements, and maps engineering capabilities, so the sales team
+							stops rebuilding the same documents by hand.
+						</p>
+						<p class="work-links"><a href="https://helix.gruveai.com" target="_blank" rel="noopener">helix.gruveai.com</a> <span class="work-aside">(sign-in required)</span></p>
 					</div>
-					<h3 class="card-title">d2c-analyst</h3>
-					<p class="card-desc">
-						A working AI analyst plus an autonomous <strong>Margin Watch</strong>
-						agent for D2C brands. Every number in an answer is server-side validated
-						against a provenance model before it reaches the user. A gpt-4o-mini →
-						gpt-4o router escalates on complexity, all over row-level-secure
-						multi-tenant data. Built, tested, and documented end to end.
-					</p>
-					<div class="card-links">
-						<a href="https://github.com/agileAlligator/d2c-analyst" target="_blank" rel="noopener">github ↗</a>
-					</div>
+					<aside class="note">Colleagues are a harder audience than clients. They tell you when it's broken.</aside>
 				</article>
 
-				<article class="card" data-reveal>
-					<div class="card-top">
-						<span class="card-idx" aria-hidden="true">03</span>
-						<span class="card-tags">platform · private</span>
+				<article class="row work">
+					<div class="row-main">
+						<h3 class="work-name">mcploitable</h3>
+						<p class="work-meta">Open source · Security training lab · Python</p>
+						<p class="work-desc">
+							Deliberately vulnerable MCP servers, one for each risk in the OWASP Top 10
+							for agentic apps. You attack them in the browser and score only when a
+							planted secret actually leaves. Guardrails that rely on the model noticing
+							an attack fall. The one in server code held for 105 attempts out of 105.
+						</p>
+						<p class="work-links">
+							<a href="/break-this-server/">Play it in your browser</a>
+							<a href="https://github.com/agileAlligator/mcploitable" target="_blank" rel="noopener">GitHub</a>
+							<a href="/blog/building-mcploitable/">How I built it</a>
+						</p>
 					</div>
-					<h3 class="card-title">Helix <span class="card-at">@ Gruve</span></h3>
-					<p class="card-desc">
-						Internal AI sales-enablement platform. A GPT-4o SOW generation pipeline,
-						automated pricing calculator, engineering capability roadmap, and Service
-						Navigator — Express.js, PostgreSQL, Redis, Prisma on Azure.
-					</p>
-					<div class="card-links">
-						<a href="https://helix.gruveai.com" target="_blank" rel="noopener">helix.gruveai.com ↗</a>
-						<span class="card-lock">live · Entra-gated</span>
-					</div>
+					<aside class="note">I wrote the attacks too. Losing to your own lab is a strange way to spend a weekend.</aside>
 				</article>
 
-				<article class="card" data-reveal>
-					<div class="card-top">
-						<span class="card-idx" aria-hidden="true">04</span>
-						<span class="card-tags">security tooling · NLP · Python</span>
+				<article class="row work">
+					<div class="row-main">
+						<h3 class="work-name">d2c-analyst</h3>
+						<p class="work-meta">Side project · Python · multi-tenant Postgres</p>
+						<p class="work-desc">
+							An AI analyst for direct-to-consumer brands, plus an agent that watches
+							margins on its own. Every number in an answer is checked against its source
+							before anyone sees it, and simple questions go to a cheaper model.
+						</p>
+						<p class="work-links"><a href="https://github.com/agileAlligator/d2c-analyst" target="_blank" rel="noopener">GitHub</a></p>
 					</div>
-					<h3 class="card-title">PIIDetector</h3>
-					<p class="card-desc">
-						A filesystem-level PII detection tool that scans images, text, Word docs,
-						and PDFs for sensitive-data exposure, enhanced with NLP-based entity
-						recognition for structured and unstructured PII patterns.
-					</p>
-					<div class="card-links">
-						<a href="https://github.com/agileAlligator/PIIDetector" target="_blank" rel="noopener">github ↗</a>
-					</div>
+					<aside class="note">If it says margin fell 4%, it has to show where the 4 came from.</aside>
 				</article>
 
-				<article class="card" data-reveal>
-					<div class="card-top">
-						<span class="card-idx" aria-hidden="true">05</span>
-						<span class="card-tags">research · cryptography</span>
+				<div class="row">
+					<div class="row-main">
+						<h3 class="minor-title">Smaller things</h3>
+						<ul class="minor">
+							<li>
+								<a href="https://github.com/agileAlligator/PIIDetector" target="_blank" rel="noopener">PIIDetector</a>
+								finds personal data in images, documents and PDFs across a file system.
+							</li>
+							<li>
+								<a href="/research-draft2024.pdf" target="_blank" rel="noopener">Randomness testing suites</a>
+								is a research paper comparing the tests used to judge random number generators.
+							</li>
+							<li>
+								<a href="/seinfeld-rolodex.html" target="_blank" rel="noopener">Seinfeld excuse rolodex</a>
+								gives you an excuse for every day of the week.
+							</li>
+						</ul>
 					</div>
-					<h3 class="card-title">Randomness Testing Suites</h3>
-					<p class="card-desc">
-						A comparative analysis of randomness-testing algorithms and suites —
-						methodology and results written up as a research draft.
-					</p>
-					<div class="card-links">
-						<a href="/research-draft2024.pdf" target="_blank" rel="noopener">read draft ↗</a>
-						<a href="https://github.com/agileAlligator/comparative-analysis" target="_blank" rel="noopener">github ↗</a>
-					</div>
-				</article>
-
-				<article class="card card-mini" data-reveal>
-					<div class="card-top">
-						<span class="card-idx" aria-hidden="true">·</span>
-						<span class="card-tags">for fun</span>
-					</div>
-					<h3 class="card-title">Seinfeld Excuse Rolodex</h3>
-					<p class="card-desc">
-						A tiny toy that generates an excuse for every day of the week. Kept
-						around because it still makes me laugh.
-					</p>
-					<div class="card-links">
-						<a href="seinfeld-rolodex.html" target="_blank" rel="noopener">open ↗</a>
-					</div>
-				</article>
-			</div>
-			<p class="approach-more" data-reveal>
-				<a href="/lab/">→ The lab: six interactive exhibits — a server, a sandbox, a matcher, a poisoned tool, the map, and you as the model</a>
-			</p>
-		</section>
-
-		<!-- ───────────────────────────── SKILLS ───────────────────────────── -->
-		<section class="section" id="skills">
-			<p class="section-label" data-reveal>// <span class="u-accent">06</span> · skills</p>
-			<h2 class="section-title" data-reveal>Toolkit</h2>
-
-			<div class="skills-grid">
-				<div class="skill-group" data-reveal>
-					<h3>Secure MCP &amp; Agentic</h3>
-					<ul>
-						<li>MCP server design</li>
-						<li>OWASP Agentic Top 10</li>
-						<li>Prompt-injection defense</li>
-						<li>Tool scoping &amp; sandboxing</li>
-						<li>Client delivery</li>
-					</ul>
+					<aside class="note">The rolodex is here because it still makes me laugh. That was the whole spec.</aside>
 				</div>
-				<div class="skill-group" data-reveal>
-					<h3>AI &amp; Automation</h3>
-					<ul>
-						<li>LLM workflow orchestration</li>
-						<li>Document-generation pipelines</li>
-						<li>Citation / provenance validation</li>
-						<li>Tool-use / function calling</li>
-						<li>SOAR / playbook automation</li>
-					</ul>
-				</div>
-				<div class="skill-group" data-reveal>
-					<h3>Build &amp; Ship</h3>
-					<ul>
-						<li>Python</li>
-						<li>Docker</li>
-						<li>Internal app development</li>
-						<li>REST &amp; API integration</li>
-						<li>LLM app plumbing</li>
-					</ul>
-				</div>
-				<div class="skill-group" data-reveal>
-					<h3>Security Foundations</h3>
-					<ul>
-						<li>Threat Hunting</li>
-						<li>Detection Engineering</li>
-						<li>Splunk · CrowdStrike Falcon</li>
-						<li>Windows Forensics</li>
-						<li>Malware Analysis</li>
-					</ul>
-				</div>
-			</div>
+			</section>
 
-			<div class="creds">
-				<div class="cred" data-reveal>
-					<h4>Certifications</h4>
-					<ul>
-						<li>ISC2 — Certified in Cybersecurity (CC)</li>
-						<li>
-							<a href="https://www.skills.google/public_profiles/40acf708-29df-4cc6-ac66-01c214f45dd9" target="_blank" rel="noopener">Google Cloud &amp; Data Science ↗</a>
+			<section class="block" id="experience" aria-labelledby="path-title">
+				<h2 class="block-title" id="path-title">How I got here</h2>
+				<div class="row">
+					<ol class="row-main path">
+						<li class="path-step">
+							<p class="path-when">Jul 2024 – Feb 2025 · Mumbai</p>
+							<h3 class="path-role">Digital forensics intern, Deloitte</h3>
+							<p class="path-desc">Acquired and analysed digital evidence. Automated scanning and documentation in Python, which cut processing time by 80%.</p>
 						</li>
-					</ul>
+						<li class="path-step">
+							<p class="path-when">Apr 2025 – Apr 2026 · Pune</p>
+							<h3 class="path-role">SOC analyst, Gruve</h3>
+							<p class="path-desc">Investigated alerts across network, endpoint and identity data in Splunk and CrowdStrike Falcon. A threat hunt of mine turned into a customer-wide advisory.</p>
+						</li>
+						<li class="path-step">
+							<p class="path-when">Apr 2026 – now · Pune</p>
+							<h3 class="path-role">Solutions engineer, Gruve</h3>
+							<p class="path-desc">Design and deliver secure MCP servers for clients, and build internal tools like Helix.</p>
+						</li>
+					</ol>
+					<aside class="note">Forensics taught me what attackers leave behind. The SOC taught me how fast. I build with both in mind.</aside>
 				</div>
-				<div class="cred" data-reveal>
-					<h4>Education</h4>
-					<ul>
-						<li>B.Tech, Computer Science &amp; Engineering</li>
-						<li>Vellore Institute of Technology · 2024</li>
-					</ul>
+				<div class="row">
+					<p class="row-main path-extra">
+						B.Tech in Computer Science, Vellore Institute of Technology, 2024. ISC2 Certified in Cybersecurity.
+						<a href="https://www.skills.google/public_profiles/40acf708-29df-4cc6-ac66-01c214f45dd9" target="_blank" rel="noopener">Google Cloud and data science badges</a>.
+						Enactus, VIT Chennai.
+					</p>
 				</div>
-				<div class="cred" data-reveal>
-					<h4>Community</h4>
-					<ul>
-						<li>Enactus — VIT Chennai Chapter</li>
-					</ul>
-				</div>
-			</div>
-		</section>
+			</section>
 
-		<!-- ──────────────────────────── CONTACT ──────────────────────────── -->
-		<section class="section section-contact" id="contact">
-			<p class="section-label" data-reveal>// <span class="u-accent">07</span> · contact</p>
-			<h2 class="contact-title" data-reveal>Get in touch.</h2>
-			<div class="contact-links" data-reveal>
-				<a href="mailto:apkasture02@gmail.com">apkasture02@gmail.com</a>
-				<a href="https://github.com/agileAlligator" target="_blank" rel="noopener">github / agileAlligator</a>
-				<a href="https://www.linkedin.com/in/avneesh-kasture-491b651b6/" target="_blank" rel="noopener">linkedin</a>
-				<a href="resume.pdf" target="_blank" rel="noopener">résumé (pdf)</a>
-			</div>
-		</section>
+			<section class="block" aria-labelledby="more-title">
+				<h2 class="block-title u-sr-only" id="more-title">The lab and writing</h2>
+				<div class="row">
+					<div class="row-main pair">
+						<div class="pair-col">
+							<h3 class="pair-title"><a href="/lab/">The lab</a></h3>
+							<p class="pair-desc">Six security exhibits you can use in your browser, including <a href="/mcp/">a live MCP server that serves my résumé</a> and a game where you play the AI.</p>
+						</div>
+						<div class="pair-col">
+							<h3 class="pair-title"><a href="/blog/">Writing</a></h3>
+							<ul class="pair-list">
+								<li><a href="/blog/hugging-face-agentic-breach/">Hugging Face's breach wasn't agentic. The attacker was.</a></li>
+								<li><a href="/blog/building-mcploitable/">Building mcploitable</a></li>
+								<li><a href="/blog/guardrails-belong-in-the-server/">The model can't police itself</a></li>
+								<li><a href="/blog/stdout-is-not-yours/">Your MCP server won't connect? Stop printing to stdout.</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section class="block contact" id="contact" aria-labelledby="contact-title">
+				<div class="row">
+					<div class="row-main">
+						<h2 class="contact-title" id="contact-title">Hiring, or just curious?</h2>
+						<p class="contact-mail"><a href="mailto:apkasture02@gmail.com">apkasture02@gmail.com</a></p>
+						<p class="contact-links">
+							<a href="https://www.linkedin.com/in/avneesh-kasture-491b651b6/" target="_blank" rel="noopener">LinkedIn</a>
+							<a href="https://github.com/agileAlligator" target="_blank" rel="noopener">GitHub</a>
+							<a href="/resume.pdf" target="_blank" rel="noopener">Résumé (PDF)</a>
+							<a href="/feed.xml">RSS</a>
+						</p>
+					</div>
+					<aside class="note">Email gets the fastest reply. I read all of it.</aside>
+				</div>
+			</section>
 		</main>
-
-		<script src="main.js" defer></script>
 	</body>
 </html>

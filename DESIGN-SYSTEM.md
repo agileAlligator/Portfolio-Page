@@ -1,4 +1,31 @@
-# Design system — avneeshk.me · **Instrument Grade v2**
+# Design system — avneeshk.me
+
+## Homepage (v3, "profile with margin notes") — `assets/home.scss`
+
+The homepage is about Avneesh, not about one idea. It has its own stylesheet and
+does not load `style.css`. The main column says the professional thing; a narrow
+margin carries short asides in his voice, in red italic, each with a pen-stroke
+rule reaching back to the paragraph it annotates. On phones the notes fold in
+under their paragraph.
+
+- **Colour** — `--paper #f7f7f4`, `--ink #1a1a1e`, `--ink-soft #55565c` (meta),
+  `--blue #2340a0` (links, actions), `--pencil #c8372d` (margin notes only), `--rule #d9d9d3`.
+- **Type** — Schibsted Grotesk (names, headings, nav, meta) and Newsreader
+  (reading text; its italic is the margin-note voice). Monospace only in code.
+- **Layout** — `.row` = `.row-main` (40rem) + margin (13.5rem). Left-aligned. No
+  card grids, no section eyebrows, no numbering except the career path (a real sequence).
+- **Components** — `.masthead*`, `.row`, `.row-main`, `.note`, `.intro*`, `.action`,
+  `.action-quiet`, `.block`, `.block-title`, `.work*`, `.minor*`, `.path*`, `.pair*`,
+  `.contact*`.
+- **Motion** — none beyond link hover. Keep it that way unless one moment earns it.
+
+The lab exhibits and the blog still use the Instrument Grade system below. They
+will move to the v3 chrome (masthead, footer, type) in later passes; the lab keeps
+its instrument look inside each exhibit.
+
+---
+
+## Lab and blog — **Instrument Grade v2** (`style.css`)
 
 One closed system. The site is calibrated test equipment, not a terminal
 costume: every mark is a claim, and the design *enacts* the security thesis
