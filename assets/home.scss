@@ -104,8 +104,10 @@ main {
 .action-quiet:hover { background: none; color: var(--blue-deep); }
 
 .intro-side { padding-top: 0.6rem; }
+.intro-photo { display: block; width: 9.5rem; }
 .intro-photo img {
 	display: block; width: 100%; height: auto;
+	border: 1.5px solid var(--ink);
 	border-radius: 3px;
 	filter: saturate(0.92);
 }
@@ -182,7 +184,7 @@ main {
 	.row > .note::before { right: auto; left: 0; width: 1.1rem; }
 	.intro { display: flex; flex-direction: column-reverse; padding-top: 1.5rem; }
 	.intro-side { display: flex; gap: 1rem; align-items: flex-end; padding: 0 0 1.75rem; }
-	.intro-photo { flex: 0 0 112px; }
+	.intro-photo { flex: 0 0 88px; width: 88px; }
 	.intro-side .note { margin: 0; padding-left: 0; }
 	.intro-side .note::before { display: none; }
 	.pair { grid-template-columns: 1fr; gap: 2rem; }
