@@ -27,3 +27,17 @@
 .highlight .gd { color: #b42318; background: rgba(180, 35, 24, 0.07); }
 .highlight .gi { color: #13744a; background: rgba(19, 116, 74, 0.08); }
 .highlight .gh, .highlight .gu { color: #2340a0; font-weight: 600; }
+
+@media (prefers-color-scheme: dark) {
+	.highlight .c, .highlight .cm, .highlight .c1, .highlight .cs, .highlight .cd, .highlight .ch, .highlight .cp { color: #8e8f96; }
+	.highlight .k, .highlight .kd, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .kv, .highlight .ow, .highlight .nt { color: #e39ac8; }
+	.highlight .kc, .highlight .m, .highlight .mi, .highlight .mf, .highlight .mh, .highlight .mo, .highlight .il, .highlight .nd, .highlight .na { color: #e0a845; }
+	.highlight .kt, .highlight .nb, .highlight .bp { color: #7cb3d9; }
+	.highlight .s, .highlight .s1, .highlight .s2, .highlight .sb, .highlight .sc,
+	.highlight .sd, .highlight .se, .highlight .sh, .highlight .si, .highlight .sx,
+	.highlight .sr, .highlight .ss, .highlight .dl { color: #6fd39c; }
+	.highlight .nf, .highlight .fm, .highlight .nc, .highlight .nn, .highlight .gh, .highlight .gu { color: #93a9f2; }
+	.highlight .o, .highlight .p { color: #c4c3c0; }
+	.highlight .gd { color: #f07a6e; background: rgba(240, 122, 110, 0.10); }
+	.highlight .gi { color: #6fd39c; background: rgba(79, 201, 138, 0.10); }
+}

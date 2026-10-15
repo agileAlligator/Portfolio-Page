@@ -27,6 +27,21 @@
 	--frame: 70rem;                       /* content width shared by masthead, pages and footer */
 }
 
+/* Dark mode follows the visitor's system setting. Same roles, lighter inks;
+   the pencil red and link blue are lifted to keep contrast on the dark page. */
+@media (prefers-color-scheme: dark) {
+	:root {
+		--paper: #141518;
+		--ink: #ecebe6;
+		--ink-soft: #a5a6ad;
+		--blue: #93a9f2;
+		--blue-deep: #b8c7f8;
+		--pencil: #f08a7e;
+		--rule: #34353b;
+		color-scheme: dark;
+	}
+}
+
 body {
 	background: var(--paper);
 	color: var(--ink);
@@ -35,7 +50,7 @@ body {
 	-webkit-font-smoothing: auto;
 }
 
-::selection { background: #ffe58a; color: var(--ink); }
+::selection { background: #ffe58a; color: #1a1a1e; }
 
 .skip-link {
 	position: absolute; left: var(--gutter); top: -3rem; z-index: 300;

@@ -72,6 +72,40 @@
 	--t-sweep:  480ms;
 }
 
+@media (prefers-color-scheme: dark) {
+	:root {
+		--bg:        #141518;
+		--bg-2:      #1b1c20;
+		--bg-well:   #101114;
+		--panel:     #1c1d21;
+		--panel-2:   #222328;
+		--line-soft: #2a2b30;
+		--line:      #34353b;
+		--line-strong: #5a5b62;
+		--line-seam: #6a9cc0;
+		--scrim:     rgba(20, 21, 24, 0.92);
+		--row-alt:   rgba(255, 255, 255, 0.03);
+		--ink-dim:   #d4d3d0;
+		--ink-faint: #a5a6ad;
+		--ink-on-acc:#06140d;
+		--plate:     #6b6c72;
+		--acc:       #4fc98a;
+		--acc-hi:    #72dca5;
+		--acc-2:     #7cb3d9;
+		--warn:      #e0a845;
+		--bad:       #f07a6e;
+		--bad-hi:    #f59a90;
+		--field-acc:      rgba(79,201,138,0.10);
+		--field-acc-on:   rgba(79,201,138,0.18);
+		--field-acc2:     rgba(124,179,217,0.10);
+		--field-acc2-on:  rgba(124,179,217,0.18);
+		--field-warn:     rgba(224,168,69,0.10);
+		--field-warn-on:  rgba(224,168,69,0.18);
+		--field-bad:      rgba(240,122,110,0.10);
+		--field-bad-on:   rgba(240,122,110,0.18);
+	}
+}
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 html { scroll-behavior: smooth; scroll-padding-top: 24px; }

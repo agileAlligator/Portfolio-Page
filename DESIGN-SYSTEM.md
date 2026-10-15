@@ -32,6 +32,12 @@ then write the CSS.
 | `--pencil` | `#c8372d` | **margin notes only** |
 | `--rule` | `#d9d9d3` | dividers |
 
+**Dark mode** follows `prefers-color-scheme` (no toggle). Every token above, and
+every instrument token in `style.scss`, has a dark value in a
+`@media (prefers-color-scheme: dark)` block next to its light definition. Never
+write a raw colour in a component: add or reuse a token so both themes get it.
+`assets/syntax.scss` carries its own dark palette.
+
 ## Type
 
 - **Schibsted Grotesk** (`--grotesk`) — names, headings, nav, meta, UI.
@@ -59,6 +65,16 @@ then write the CSS.
 
 To add an exhibit: add it to `_data/exhibits.yml` and `scripts/check-lab-layout.mjs`.
 To add a post: give it `short_title:` and, where one fits, `exhibits:`.
+Then run `python3 scripts/make_og.py` to regenerate the share cards (default,
+lab, every exhibit, every post) in the v3 look.
+
+## Building like GitHub Pages does
+
+Pages builds with the github-pages gem (Jekyll 3.10, **Ruby Sass 3.7**). Old Sass
+evaluates bare arithmetic, so write `clamp(1rem, calc(1rem + 2vw), 3rem)`, never
+`clamp(1rem, 1rem + 2vw, 3rem)`, and avoid `/` inside shorthands. Check a
+change with the github-pages gem set before pushing, then confirm the build
+via the Pages API.
 
 ## Lab instrument kit (`style.scss`)
 
