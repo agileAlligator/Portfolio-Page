@@ -74,14 +74,14 @@ main {
 /* ── Intro ───────────────────────────────────────────────────────── */
 .intro { padding: clamp(2.5rem, 8vw, 6rem) 0 clamp(3rem, 7vw, 5.5rem); }
 .intro-name {
-	font-size: clamp(3rem, 1.6rem + 6vw, 5.25rem);
+	font-size: clamp(3rem, calc(1.6rem + 6vw), 5.25rem);
 	font-weight: 800;
 	line-height: 0.95;
 	letter-spacing: -0.035em;
 	margin-bottom: 1.6rem;
 }
 .intro-lede {
-	font-size: clamp(1.4rem, 1.15rem + 0.9vw, 1.75rem);
+	font-size: clamp(1.4rem, calc(1.15rem + 0.9vw), 1.75rem);
 	line-height: 1.32;
 	max-width: 33ch;
 	margin-bottom: 1.1rem;
@@ -114,7 +114,7 @@ main {
 /* ── Sections ────────────────────────────────────────────────────── */
 .block { padding: 3.5rem 0 1rem; border-top: 1px solid var(--rule); }
 .block-title {
-	font-size: clamp(1.6rem, 1.3rem + 1vw, 2.1rem);
+	font-size: clamp(1.6rem, calc(1.3rem + 1vw), 2.1rem);
 	font-weight: 700;
 	letter-spacing: -0.02em;
 	margin-bottom: 2.25rem;
@@ -167,8 +167,8 @@ main {
 .pair-list li { margin-bottom: 0.55rem; line-height: 1.4; }
 
 .contact { padding-bottom: 4rem; }
-.contact-title { font-size: clamp(1.9rem, 1.4rem + 2vw, 2.75rem); letter-spacing: -0.03em; line-height: 1.05; margin-bottom: 1rem; }
-.contact-mail { font-family: var(--grotesk); font-size: clamp(1.25rem, 1rem + 1.2vw, 1.75rem); font-weight: 600; margin-bottom: 1rem; }
+.contact-title { font-size: clamp(1.9rem, calc(1.4rem + 2vw), 2.75rem); letter-spacing: -0.03em; line-height: 1.05; margin-bottom: 1rem; }
+.contact-mail { font-family: var(--grotesk); font-size: clamp(1.25rem, calc(1rem + 1.2vw), 1.75rem); font-weight: 600; margin-bottom: 1rem; }
 .contact-links { display: flex; flex-wrap: wrap; gap: 0.4rem 1.4rem; font-family: var(--grotesk); font-size: 1rem; }
 
 /* ── Narrow screens: margin notes fold in under their paragraph ─── */

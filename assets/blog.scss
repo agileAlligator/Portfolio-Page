@@ -12,7 +12,7 @@
 
 /* ── Index ── */
 .blog-title {
-	font-size: clamp(2.2rem, 1.6rem + 2.5vw, 3.25rem);
+	font-size: clamp(2.2rem, calc(1.6rem + 2.5vw), 3.25rem);
 	font-weight: 800;
 	letter-spacing: -0.03em;
 	line-height: 1;
@@ -45,7 +45,7 @@
 .post-kicker a { color: var(--ink-faint); text-decoration: none; }
 .post-kicker a:hover { color: var(--blue); text-decoration: underline; }
 .post-title {
-	font-size: clamp(2rem, 1.4rem + 2.4vw, 2.9rem);
+	font-size: clamp(2rem, calc(1.4rem + 2.4vw), 2.9rem);
 	font-weight: 800;
 	line-height: 1.08;
 	letter-spacing: -0.03em;
