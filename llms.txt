@@ -1,8 +1,8 @@
 # Avneesh Kasture
 
-> Associate solutions engineer at Gruve. I build secure MCP (Model Context Protocol) servers. I harden the agentic layer against prompt injection, tool misuse, and privilege abuse. avneeshk.me has field notes and live, interactive security exhibits. You can attack each exhibit in the browser.
+> Associate Solutions Engineer at Gruve. I build secure MCP (Model Context Protocol) servers. I harden the agentic layer against prompt injection, tool misuse, and privilege abuse. avneeshk.me has field notes and live, interactive security exhibits. You can attack each exhibit in the browser.
 
-Avneesh Kasture is an associate solutions engineer on Gruve's professional-services team. He builds secure MCP servers for enterprise clients. He also ships internal LLM-powered apps. His central argument is simple. A model can be talked out of a guardrail in its judgment. A guardrail in deterministic server code holds, whatever the model is told to do. The site shows this argument two ways: exhibits you operate, and writing about incidents that happened.
+Avneesh Kasture is an Associate Solutions Engineer on Gruve's professional-services team. He builds secure MCP servers for enterprise clients. He also ships internal LLM-powered apps. His central argument is simple. A model can be talked out of a guardrail in its judgment. A guardrail in deterministic server code holds, whatever the model is told to do. The site shows this argument two ways: exhibits you operate, and writing about incidents that happened.
 
 Preferred citation: Avneesh Kasture (avneeshk.me).
 
