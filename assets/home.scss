@@ -81,6 +81,7 @@ main {
 	margin-bottom: 1.6rem;
 }
 .intro-lede {
+	margin-top: 0;
 	font-size: clamp(1.4rem, calc(1.15rem + 0.9vw), 1.75rem);
 	line-height: 1.32;
 	max-width: 33ch;
@@ -103,15 +104,7 @@ main {
 .action-quiet { background: none; color: var(--blue); padding: 0; font-weight: 500; text-decoration: underline; text-underline-offset: 0.2em; }
 .action-quiet:hover { background: none; color: var(--blue-deep); }
 
-.intro-side { padding-top: 0.6rem; }
-.intro-photo { display: block; width: 9.5rem; }
-.intro-photo img {
-	display: block; width: 100%; height: auto;
-	border: 1.5px solid var(--ink);
-	border-radius: 3px;
-	filter: saturate(0.92);
-}
-.intro-side .note { margin-top: 1rem; }
+
 
 /* ── Sections ────────────────────────────────────────────────────── */
 .block { padding: 3.5rem 0 1rem; border-top: 1px solid var(--rule); }
@@ -182,11 +175,7 @@ main {
 	.row { grid-template-columns: minmax(0, 1fr); }
 	.row > .note { margin: 1rem 0 0; padding-left: 1.75rem; }
 	.row > .note::before { right: auto; left: 0; width: 1.1rem; }
-	.intro { display: flex; flex-direction: column-reverse; padding-top: 1.5rem; }
-	.intro-side { display: flex; gap: 1rem; align-items: flex-end; padding: 0 0 1.75rem; }
-	.intro-photo { flex: 0 0 88px; width: 88px; }
-	.intro-side .note { margin: 0; padding-left: 0; }
-	.intro-side .note::before { display: none; }
+	.intro { padding-top: 1.5rem; }
 	.pair { grid-template-columns: 1fr; gap: 2rem; }
 	.path-extra { margin-top: 1.75rem; }
 	.masthead-links { gap: 1.1rem; }
