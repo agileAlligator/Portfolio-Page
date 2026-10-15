@@ -70,6 +70,9 @@ main {
 }
 .row > .note::before {
 	content: "";
+	justify-self: end;          /* a short stroke beside the note, not across the whole gap */
+	width: 3.5rem;
+	max-width: calc(100% - 1.35rem);
 	margin: 0.72em 0.6rem 0 0.75rem;
 	border-top: 1.5px solid var(--pencil);
 }
@@ -177,7 +180,7 @@ main {
 	body { font-size: 1.125rem; }
 	.row { grid-template-columns: minmax(0, 1fr); }
 	.row > .note { grid-column: 1; grid-template-columns: 1.6rem 1fr; margin: 1rem 0 0; }
-	.row > .note::before { margin: 0.72em 0.55rem 0 0; }
+	.row > .note::before { justify-self: stretch; width: auto; max-width: none; margin: 0.72em 0.55rem 0 0; }
 	.intro { padding-top: 1.5rem; }
 	.pair { grid-template-columns: 1fr; gap: 2rem; }
 	.path-extra { margin-top: 1.75rem; }
