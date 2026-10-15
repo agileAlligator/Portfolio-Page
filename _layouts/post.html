@@ -14,13 +14,11 @@ layout: default
 </script>
 <article class="post">
 	<header class="post-header">
-		<p class="post-kicker"><a href="/blog/">// blog</a></p>
+		<p class="post-kicker"><a href="/blog/">Writing</a></p>
 		<h1 class="post-title">{{ page.title }}</h1>
 		{% if page.subtitle %}<p class="post-subtitle">{{ page.subtitle }}</p>{% endif %}
 		<p class="post-meta">
-			<time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %-d, %Y" }}</time>
-			{% if page.reading_time %}<span class="dot-sep" aria-hidden="true">·</span>{{ page.reading_time }}{% endif %}
-			{% if page.tags %}<span class="dot-sep" aria-hidden="true">·</span><span class="post-tags">{% for t in page.tags %}#{{ t }} {% endfor %}</span>{% endif %}
+			<time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %-d, %Y" }}</time>{% if page.reading_time %}, {{ page.reading_time }}{% endif %}
 		</p>
 	</header>
 
@@ -28,8 +26,20 @@ layout: default
 		{{ content }}
 	</div>
 
-	<footer class="post-footer">
-		<a href="/blog/">← all posts</a>
-		<a href="/feed.xml">subscribe (RSS)</a>
-	</footer>
+	{% if page.exhibits %}
+	<aside class="post-try" aria-labelledby="post-try-title">
+		<h2 class="post-try-title" id="post-try-title">Try it yourself</h2>
+		<ul class="post-try-list">
+			{% for u in page.exhibits %}{% for e in site.data.exhibits %}{% if e.url == u %}
+			<li><a href="{{ e.url }}">{{ e.title }}</a> <span class="post-try-desc">{{ e.short }}</span></li>
+			{% endif %}{% endfor %}{% endfor %}
+		</ul>
+	</aside>
+	{% endif %}
 </article>
+
+<nav class="wayfind wayfind-post" aria-label="More writing">
+	{% if page.previous %}<a class="wayfind-link wayfind-prev" href="{{ page.previous.url }}"><span class="wayfind-dir">Older post</span><span class="wayfind-title">{{ page.previous.short_title | default: page.previous.title }}</span></a>{% endif %}
+	{% if page.next %}<a class="wayfind-link wayfind-next" href="{{ page.next.url }}"><span class="wayfind-dir">Newer post</span><span class="wayfind-title">{{ page.next.short_title | default: page.next.title }}</span></a>
+	{% else %}<a class="wayfind-link wayfind-next" href="/blog/"><span class="wayfind-dir">That's the latest</span><span class="wayfind-title">All writing</span></a>{% endif %}
+</nav>

@@ -1,34 +1,37 @@
+---
+# Standalone page (own <head>); front matter only so Liquid includes render.
+---
 <!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<script>document.documentElement.classList.add("js");</script>
-		<title>Avneesh Kasture — Solutions Engineer / Agentic Security</title>
+		<title>Avneesh Kasture — Associate Solutions Engineer at Gruve</title>
 		<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
 		<link rel="icon" href="/favicon.ico" sizes="any" />
 		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 		<link rel="manifest" href="/site.webmanifest" />
 		<meta
 			name="description"
-			content="Avneesh Kasture — solutions engineer on Gruve's professional-services team, building secure MCP servers for enterprise clients, plus internal LLM-powered apps. Agentic security and prompt-injection defense."
+			content="Avneesh Kasture — associate solutions engineer on Gruve's professional-services team, building secure MCP servers for enterprise clients, plus internal LLM-powered apps. Agentic security and prompt-injection defense."
 		/>
 		<link rel="canonical" href="https://avneeshk.me/" />
 		<!-- Open Graph / social -->
 		<meta property="og:type" content="website" />
-		<meta property="og:title" content="Avneesh Kasture — Solutions Engineer / Agentic Security" />
+		<meta property="og:title" content="Avneesh Kasture — Associate Solutions Engineer at Gruve" />
 		<meta
 			property="og:description"
-			content="Solutions engineer on Gruve's professional-services team, building secure MCP servers for enterprise clients — hardening the agentic layer against prompt injection, tool misuse, and privilege abuse. Plus internal LLM-powered apps."
+			content="Associate solutions engineer on Gruve's professional-services team, building secure MCP servers for enterprise clients — hardening the agentic layer against prompt injection, tool misuse, and privilege abuse. Plus internal LLM-powered apps."
 		/>
 		<meta property="og:url" content="https://avneeshk.me/" />
 		<meta property="og:image" content="https://avneeshk.me/assets/og/default.png" />
 		<meta property="og:image:width" content="1200" />
 		<meta property="og:image:height" content="630" />
-		<meta property="og:image:alt" content="Avneesh Kasture — solutions engineer / agentic security" />
+		<meta property="og:image:alt" content="Avneesh Kasture, associate solutions engineer at Gruve" />
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:image" content="https://avneeshk.me/assets/og/default.png" />
-		<meta name="twitter:title" content="Avneesh Kasture — Solutions Engineer / Agentic Security" />
+		<meta name="twitter:title" content="Avneesh Kasture — Associate Solutions Engineer at Gruve" />
 		<meta
 			name="twitter:description"
 			content="Building secure MCP servers for enterprise clients on Gruve's professional-services team — agentic security, prompt-injection defense, and AI automation."
@@ -42,8 +45,8 @@
 					"@id": "https://avneeshk.me/#person",
 					"name": "Avneesh Kasture",
 					"url": "https://avneeshk.me/",
-					"description": "Solutions engineer building secure MCP servers and hardening the agentic layer against prompt injection, tool misuse, and privilege abuse.",
-					"jobTitle": "Solutions Engineer",
+					"description": "Associate solutions engineer building secure MCP servers and hardening the agentic layer against prompt injection, tool misuse, and privilege abuse.",
+					"jobTitle": "Associate Solutions Engineer",
 					"worksFor": { "@type": "Organization", "name": "Gruve" },
 					"alumniOf": { "@type": "CollegeOrUniversity", "name": "Vellore Institute of Technology" },
 					"knowsAbout": ["MCP security", "agentic security", "prompt-injection defense", "threat hunting", "detection engineering"],
@@ -74,15 +77,7 @@
 	<body>
 		<a class="skip-link" href="#main">Skip to content</a>
 
-		<header class="masthead">
-			<a class="masthead-name" href="/">Avneesh Kasture</a>
-			<nav class="masthead-links" aria-label="Primary">
-				<a href="#work">Work</a>
-				<a href="/lab/">Lab</a>
-				<a href="/blog/">Writing</a>
-				<a href="/resume.pdf" target="_blank" rel="noopener">Résumé</a>
-			</nav>
-		</header>
+		{% include masthead.html %}
 
 		<main id="main">
 			<!-- Each .row is a main column plus a margin. Margin notes are asides in my own voice. -->
@@ -90,7 +85,7 @@
 				<div class="row-main">
 					<h1 class="intro-name" id="intro-name">Avneesh Kasture</h1>
 					<p class="intro-lede">
-						Solutions engineer at Gruve in Pune. I build secure AI integrations for
+						Associate solutions engineer at Gruve in Pune. I build secure AI integrations for
 						clients, and the internal tools my colleagues use every day.
 					</p>
 					<p class="intro-body">
@@ -215,7 +210,7 @@
 						</li>
 						<li class="path-step">
 							<p class="path-when">Apr 2026 – now · Pune</p>
-							<h3 class="path-role">Solutions engineer, Gruve</h3>
+							<h3 class="path-role">Associate solutions engineer, Gruve</h3>
 							<p class="path-desc">Design and deliver secure MCP servers for clients, and build internal tools like Helix.</p>
 						</li>
 					</ol>
@@ -236,15 +231,17 @@
 					<div class="row-main pair">
 						<div class="pair-col">
 							<h3 class="pair-title"><a href="/lab/">The lab</a></h3>
-							<p class="pair-desc">Six security exhibits you can use in your browser, including <a href="/mcp/">a live MCP server that serves my résumé</a> and a game where you play the AI.</p>
+							<p class="pair-desc">Six security exhibits you can use in your browser. Most run against a live AI model.</p>
+							<ul class="pair-list">
+								{% for e in site.data.exhibits %}<li><a href="{{ e.url }}">{{ e.title }}</a></li>
+								{% endfor %}
+							</ul>
 						</div>
 						<div class="pair-col">
 							<h3 class="pair-title"><a href="/blog/">Writing</a></h3>
 							<ul class="pair-list">
-								<li><a href="/blog/hugging-face-agentic-breach/">Hugging Face's breach wasn't agentic. The attacker was.</a></li>
-								<li><a href="/blog/building-mcploitable/">Building mcploitable</a></li>
-								<li><a href="/blog/guardrails-belong-in-the-server/">The model can't police itself</a></li>
-								<li><a href="/blog/stdout-is-not-yours/">Your MCP server won't connect? Stop printing to stdout.</a></li>
+								{% for post in site.posts limit: 5 %}<li><a href="{{ post.url }}">{{ post.short_title | default: post.title }}</a></li>
+								{% endfor %}
 							</ul>
 						</div>
 					</div>
@@ -267,5 +264,6 @@
 				</div>
 			</section>
 		</main>
+
 	</body>
 </html>

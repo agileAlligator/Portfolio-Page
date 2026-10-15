@@ -1,0 +1,138 @@
+/* Shared by every page: type, palette, base, masthead, footer index,
+   breadcrumbs and exhibit/post wayfinding. Imported by assets/home.scss
+   (homepage) and style.scss (lab + blog). See DESIGN-SYSTEM.md. */
+
+@font-face { font-family: 'Schibsted Grotesk'; font-style: normal; font-weight: 400 900; font-display: swap; src: url('/assets/fonts/SchibstedGrotesk-var.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Newsreader'; font-style: normal; font-weight: 200 800; font-display: swap; src: url('/assets/fonts/Newsreader-var.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Newsreader'; font-style: italic; font-weight: 200 800; font-display: swap; src: url('/assets/fonts/Newsreader-var-italic.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'IBM Plex Mono'; font-style: normal; font-weight: 400; font-display: swap; src: url('/assets/fonts/IBMPlexMono-400.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'IBM Plex Mono'; font-style: normal; font-weight: 600; font-display: swap; src: url('/assets/fonts/IBMPlexMono-600.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'IBM Plex Mono'; font-style: normal; font-weight: 500; font-display: swap; src: url('/assets/fonts/IBMPlexMono-500.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'IBM Plex Mono'; font-style: normal; font-weight: 700; font-display: swap; src: url('/assets/fonts/IBMPlexMono-700.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+
+:root {
+	--paper: #f7f7f4;
+	--ink: #1a1a1e;
+	--ink-soft: #55565c;   /* meta lines — 7:1 on paper */
+	--blue: #2340a0;       /* links and actions */
+	--blue-deep: #172b70;  /* hover */
+	--pencil: #c8372d;     /* margin notes only — 4.9:1 on paper */
+	--rule: #d9d9d3;
+
+	--grotesk: 'Schibsted Grotesk', 'Helvetica Neue', Arial, sans-serif;
+	--serif: 'Newsreader', Georgia, 'Times New Roman', serif;
+	--mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+	--gutter: clamp(1rem, 4vw, 2.5rem);   /* the one page gutter */
+	--frame: 70rem;                       /* content width shared by masthead, pages and footer */
+}
+
+body {
+	background: var(--paper);
+	color: var(--ink);
+	font-family: var(--serif);
+	font-optical-sizing: auto;
+	-webkit-font-smoothing: auto;
+}
+
+::selection { background: #ffe58a; color: var(--ink); }
+
+.skip-link {
+	position: absolute; left: var(--gutter); top: -3rem; z-index: 300;
+	background: var(--ink); color: var(--paper); padding: 0.5rem 0.9rem;
+	font-family: var(--grotesk); font-size: 0.95rem; text-decoration: none;
+}
+.skip-link:focus { top: 0.75rem; }
+
+.u-sr-only {
+	position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+	overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; border: 0;
+}
+
+/* ── Masthead ─────────────────────────────────────────────────────── */
+.masthead {
+	max-width: calc(var(--frame) + 2 * var(--gutter));
+	margin: 0 auto;
+	padding: 1.5rem var(--gutter);
+	display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between;
+	gap: 0.5rem 1.5rem;
+	font-family: var(--grotesk);
+	line-height: 1.4;
+}
+.masthead-name {
+	color: var(--ink); text-decoration: none;
+	font-weight: 700; font-size: 1.05rem; letter-spacing: -0.01em;
+}
+.masthead-links { display: flex; gap: 1.4rem; font-size: 1rem; }
+.masthead-links a { color: var(--ink); text-decoration: none; }
+.masthead-links a:hover { color: var(--blue); text-decoration: underline; text-underline-offset: 0.2em; }
+.masthead-links a[aria-current] { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.35em; }
+
+/* ── Breadcrumb (lab exhibits) ────────────────────────────────────── */
+.crumbs {
+	max-width: calc(var(--frame) + 2 * var(--gutter));
+	margin: 0 auto;
+	padding: 0 var(--gutter);
+	font-family: var(--grotesk); font-size: 0.95rem; color: var(--ink-soft);
+	line-height: 1.4;
+}
+.crumbs a { color: var(--ink-soft); }
+.crumbs a:hover { color: var(--blue); }
+
+/* ── Wayfinding at the end of an exhibit or post ──────────────────── */
+.wayfind {
+	max-width: calc(var(--frame) + 2 * var(--gutter));
+	margin: 0 auto;
+	padding: 2.5rem var(--gutter) 0;
+	display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem 2.5rem;
+	font-family: var(--grotesk);
+	line-height: 1.35;
+}
+.wayfind-link {
+	display: block; text-decoration: none;
+	border-top: 2px solid var(--ink);
+	padding-top: 0.9rem;
+	color: var(--ink);
+}
+.wayfind-link:hover .wayfind-title { color: var(--blue); text-decoration: underline; text-underline-offset: 0.2em; }
+.wayfind-next { text-align: right; grid-column: 2; }
+.wayfind-dir { display: block; font-size: 0.9rem; color: var(--ink-soft); margin-bottom: 0.25rem; }
+.wayfind-title { display: block; font-size: 1.2rem; font-weight: 700; letter-spacing: -0.01em; }
+.wayfind-desc { display: block; font-family: var(--serif); font-size: 1rem; color: var(--ink-soft); margin-top: 0.3rem; }
+
+/* ── Footer: an index of the whole site, on every page ────────────── */
+.site-index {
+	max-width: calc(var(--frame) + 2 * var(--gutter));
+	margin: 5rem auto 0;
+	padding: 2.5rem var(--gutter) 3rem;
+	/* the rule sits on the content edges, not the padded box */
+	background: linear-gradient(var(--rule), var(--rule)) no-repeat var(--gutter) 0 / calc(100% - 2 * var(--gutter)) 1px;
+	display: grid;
+	grid-template-columns: 1.1fr 1.3fr 1.3fr 0.8fr;
+	gap: 2rem 2.5rem;
+	font-family: var(--grotesk);
+	font-size: 0.95rem;
+	line-height: 1.45;
+	color: var(--ink-soft);
+}
+.site-index-title {
+	font-family: var(--grotesk); font-size: 0.95rem; font-weight: 700;
+	color: var(--ink); margin: 0 0 0.6rem; letter-spacing: 0; text-transform: none;
+}
+.site-index-title a { color: var(--ink); text-decoration: none; }
+.site-index-title a:hover { color: var(--blue); text-decoration: underline; }
+.site-index ul { list-style: none; margin: 0; padding: 0; }
+.site-index li { margin: 0 0 0.4rem; padding: 0; }
+.site-index a { color: var(--ink-soft); text-decoration: none; }
+.site-index li a:hover, .site-index-me a:hover { color: var(--blue); text-decoration: underline; text-underline-offset: 0.2em; }
+.site-index-me p { margin: 0 0 0.35rem; }
+
+@media (max-width: 900px) {
+	.site-index { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 560px) {
+	.site-index { grid-template-columns: 1fr; gap: 1.75rem; }
+	.wayfind { grid-template-columns: 1fr; }
+	.wayfind-next { grid-column: 1; text-align: left; }
+	.masthead-links { gap: 1.1rem; }
+}

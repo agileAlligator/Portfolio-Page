@@ -1,0 +1,10 @@
+{% assign ex = site.data.exhibits %}{% assign n = ex.size %}
+{% for e in ex %}{% if e.url == page.url %}{% assign i = forloop.index0 %}{% endif %}{% endfor %}
+{% if i != nil %}
+{% assign pi = i | minus: 1 %}{% assign ni = i | plus: 1 %}
+<nav class="wayfind" aria-label="More exhibits">
+	{% if pi >= 0 %}{% assign p = ex[pi] %}<a class="wayfind-link wayfind-prev" href="{{ p.url }}"><span class="wayfind-dir">Previous exhibit</span><span class="wayfind-title">{{ p.title }}</span><span class="wayfind-desc">{{ p.short }}</span></a>{% endif %}
+	{% if ni < n %}{% assign q = ex[ni] %}<a class="wayfind-link wayfind-next" href="{{ q.url }}"><span class="wayfind-dir">Next exhibit</span><span class="wayfind-title">{{ q.title }}</span><span class="wayfind-desc">{{ q.short }}</span></a>
+	{% else %}<a class="wayfind-link wayfind-next" href="/lab/"><span class="wayfind-dir">That's all six</span><span class="wayfind-title">Back to the lab</span><span class="wayfind-desc">See every exhibit on one page.</span></a>{% endif %}
+</nav>
+{% endif %}

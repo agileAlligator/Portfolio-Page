@@ -17,46 +17,21 @@
 		{% if page.url contains '/blog' or page.layout == 'post' %}<link rel="stylesheet" href="/assets/blog.css" />
 		<link rel="stylesheet" href="/assets/syntax.css" />{% endif %}
 		{% if page.extra_css %}<link rel="stylesheet" href="{{ page.extra_css }}" />{% endif %}
-		<!-- Self-hosted IBM Plex (latin woff2). The site serves its own type; no third-party font request. -->
-		<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/IBMPlexSans-400.woff2" crossorigin />
-		<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/IBMPlexMono-400.woff2" crossorigin />
-		<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/MartianMono-700.woff2" crossorigin />
+		<!-- Self-hosted type: Schibsted Grotesk (headings, UI), Newsreader (reading), IBM Plex Mono (code and evidence). -->
+		<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/SchibstedGrotesk-var.woff2" crossorigin />
+		<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/Newsreader-var.woff2" crossorigin />
 	</head>
 	<body>
+		{% assign is_exhibit = false %}{% for e in site.data.exhibits %}{% if e.url == page.url %}{% assign is_exhibit = true %}{% endif %}{% endfor %}
 		<a class="skip-link" href="#main">Skip to content</a>
-		<div class="grain" aria-hidden="true"></div>
-
-		<header class="nav" id="top">
-			<a class="nav-brand" href="/"><span class="prompt">&gt;</span> avneesh<span class="blink">_</span></a>
-			<nav class="nav-links" id="primary-nav" aria-label="Primary">
-				<a href="/#about">about</a>
-				<a href="/#experience">experience</a>
-				<a href="/#work">work</a>
-				<a href="/#skills">skills</a>
-				<a href="/#contact">contact</a>
-				<a href="/lab/">lab</a>
-				<a href="/mcp/">mcp</a>
-				<a href="/blog/" class="nav-out"{% if page.url contains '/blog' %} aria-current="page"{% endif %}>blog</a>
-				<a class="nav-resume" href="/resume.pdf" target="_blank" rel="noopener">résumé <span aria-hidden="true">↗</span></a>
-			</nav>
-			<button class="nav-toggle" type="button" aria-label="Toggle menu" aria-controls="primary-nav" aria-expanded="false">
-				<span></span><span></span><span></span>
-			</button>
-		</header>
+		{% include masthead.html %}
+		{% if is_exhibit %}<p class="crumbs"><a href="/lab/">The lab</a> / {{ page.short_title | default: page.title | split: ' — ' | first }}</p>{% endif %}
 
 		<main class="content" id="main">
 			{{ content }}
 		</main>
 
-		<footer class="footer site-footer" aria-label="Site">
-			<span><span class="prompt">&gt;</span> built by Avneesh Kasture</span>
-			<span class="site-footer-links">
-				<a href="/feed.xml">RSS</a>
-				<a href="https://github.com/agileAlligator" target="_blank" rel="noopener">github</a>
-				<a href="https://www.linkedin.com/in/avneesh-kasture-491b651b6/" target="_blank" rel="noopener">linkedin</a>
-			</span>
-		</footer>
-
-		<script src="/assets/nav.js" defer></script>
+		{% if is_exhibit %}{% include exhibit-nav.html %}{% endif %}
+		{% include site-index.html %}
 	</body>
 </html>

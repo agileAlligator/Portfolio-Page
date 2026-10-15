@@ -12,6 +12,8 @@ permalink: /blog/building-mcploitable/
 image: /assets/og/building-mcploitable.png
 tags: [mcp, security, agentic]
 reading_time: "6 min read"
+short_title: "Building mcploitable"
+exhibits: [/break-this-server/, /owasp-top-10/]
 ---
 
 A while back I made a claim here: [the model can't police itself, so the

@@ -12,6 +12,8 @@ permalink: /blog/stdout-is-not-yours/
 image: /assets/og/stdout-is-not-yours.png
 tags: [mcp, debugging]
 reading_time: "4 min read"
+short_title: "Stop printing to stdout"
+exhibits: [/mcp/]
 ---
 
 You built an MCP server. It starts cleanly in a terminal. `uv run my-mcp` prints

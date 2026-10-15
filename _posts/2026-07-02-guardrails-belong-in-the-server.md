@@ -12,6 +12,8 @@ permalink: /blog/guardrails-belong-in-the-server/
 image: /assets/og/guardrails-belong-in-the-server.png
 tags: [mcp, security]
 reading_time: "6 min read"
+short_title: "The model can't police itself"
+exhibits: [/break-this-server/, /mcp/, /allowlist-bypass/]
 ---
 
 Here's a pattern I see in almost every first-draft MCP server: the security

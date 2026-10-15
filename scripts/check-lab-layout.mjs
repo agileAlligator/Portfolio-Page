@@ -11,7 +11,7 @@
  *   baseUrl defaults to https://avneeshk.me   (checks the live site)
  * Playwright is resolved from PLAYWRIGHT_PATH or the local a11y-tools install.
  */
-const PW = process.env.PLAYWRIGHT_PATH || '/home/admino/a11y-tools/node_modules/playwright/index.js';
+const PW = process.env.PLAYWRIGHT_PATH || '/home/admino/gruve-ai-innovations/node_modules/playwright/index.js';
 const { chromium } = (await import(PW)).default;
 
 const BASE = process.argv[2] || 'https://avneeshk.me';
@@ -33,7 +33,7 @@ for (const path of PATHS) {
 			const de = document.documentElement;
 			const overflow = de.scrollWidth > de.clientWidth + 1;
 			// gutter reference: the nav brand's left edge (the site's content axis)
-			const brand = document.querySelector('.nav-brand');
+			const brand = document.querySelector('.masthead-name');
 			const gx = brand ? brand.getBoundingClientRect().left : 0;
 			const main = document.querySelector('main.content, main#main, main');
 			// The invariant is about TEXT, not boxes: an intentional full-bleed band

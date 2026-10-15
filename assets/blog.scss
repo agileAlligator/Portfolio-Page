@@ -1,212 +1,119 @@
 ---
 ---
-/* ══════════════════════════════════════════════════════════════════
-   Blog layer — inherits the design tokens (:root vars) from style.css
-   ══════════════════════════════════════════════════════════════════ */
+/* Blog layer — loads after style.css. A reading column in Newsreader with
+   Schibsted Grotesk headings, matching the homepage. */
 
 .content {
-	max-width: 760px;
+	max-width: calc(40rem + 2 * var(--gutter));
 	margin: 0 auto;
-	padding: clamp(2.5rem, 6vw, 4.5rem) clamp(1.25rem, 5vw, 2rem) 3rem;
-	min-height: 60vh;
+	padding: clamp(2rem, 5vw, 3.5rem) var(--gutter) 0;
+	min-height: 0;
 }
 
-/* ── shared section label (matches homepage) ── */
-.blog-index .section-label {
-	font-family: var(--mono);
-	font-size: var(--fs-1);
-	color: var(--acc);
-	margin-bottom: 0.75rem;
-}
+/* ── Index ── */
 .blog-title {
-	font-family: var(--disp);
-	font-weight: 700;
-	font-size: clamp(1.8rem, 4.5vw, 2.6rem);
-	text-transform: uppercase;
-	letter-spacing: -0.005em;
+	font-size: clamp(2.2rem, 1.6rem + 2.5vw, 3.25rem);
+	font-weight: 800;
+	letter-spacing: -0.03em;
+	line-height: 1;
 	margin-bottom: 1rem;
 }
-.blog-empty { color: var(--ink-faint); font-family: var(--mono); }
+.blog-lede { font-size: 1.1875rem; color: var(--ink-dim); margin-bottom: 2.5rem; }
+.blog-empty { color: var(--ink-faint); }
 
-/* ── post list (index) ── */
 .post-list { list-style: none; }
-.post-list-item { border-top: 1px solid var(--line-soft); }
-.post-list-item:last-child { border-bottom: 1px solid var(--line-soft); }
+.post-list-item { border-top: 1px solid var(--rule); }
+.post-list-item:last-child { border-bottom: 1px solid var(--rule); }
 .post-list-item a {
 	display: flex;
 	align-items: baseline;
 	justify-content: space-between;
 	gap: 1.5rem;
-	padding: 1.4rem 0.85rem;
-	position: relative;
-	transition: color 0.2s var(--ease);
-	/* the post row is a nav control, not prose — no underline (overrides the global li a rule) */
+	padding: 1.5rem 0;
 	text-decoration: none;
-}
-/* left accent bar grows in place on hover — no layout shift, no bg wash */
-.post-list-item a::before {
-	content: "";
-	position: absolute;
-	left: 0;
-	top: 0.6rem;
-	bottom: 0.6rem;
-	width: 2px;
-	background: var(--acc);
-	transform: scaleY(0);
-	transform-origin: center;
-	transition: transform 0.25s var(--ease);
-}
-.post-list-item a:hover::before,
-.post-list-item a:focus-visible::before { transform: scaleY(1); }
-.pli-main { display: flex; flex-direction: column; gap: 0.3rem; }
-.pli-title {
-	font-family: var(--mono);
-	font-size: var(--fs-3);
-	font-weight: 500;
 	color: var(--ink);
-	letter-spacing: -0.01em;
 }
-.post-list-item a:hover .pli-title { color: var(--acc); }
-.pli-sub { color: var(--ink-dim); font-size: var(--fs-2); max-width: 52ch; }
-.post-list-item time {
-	font-family: var(--mono);
-	font-size: var(--fs-0);
-	color: var(--ink-faint);
-	white-space: nowrap;
-	flex-shrink: 0;
-}
+.pli-main { display: flex; flex-direction: column; gap: 0.35rem; }
+.pli-title { font-family: var(--grotesk); font-size: 1.3rem; font-weight: 700; letter-spacing: -0.015em; line-height: 1.25; }
+.post-list-item a:hover .pli-title { color: var(--blue); text-decoration: underline; text-underline-offset: 0.18em; }
+.pli-sub { color: var(--ink-faint); font-size: 1.0625rem; line-height: 1.5; }
+.post-list-item time { font-family: var(--grotesk); font-size: 0.95rem; color: var(--ink-faint); white-space: nowrap; flex-shrink: 0; }
 
-/* ── single post ── */
+/* ── Single post ── */
 .post-header { margin-bottom: 2.5rem; }
-.post-kicker { margin-bottom: 1.25rem; }
-.post-kicker a { font-family: var(--mono); font-size: var(--fs-1); color: var(--acc); }
-.post-kicker a:hover { text-decoration: underline; }
+.post-kicker { font-family: var(--grotesk); font-size: 1rem; margin-bottom: 1rem; }
+.post-kicker a { color: var(--ink-faint); text-decoration: none; }
+.post-kicker a:hover { color: var(--blue); text-decoration: underline; }
 .post-title {
-	font-family: var(--disp);
-	font-weight: 700;
-	font-size: clamp(1.6rem, 4vw, 2.3rem);
-	line-height: 1.18;
-	letter-spacing: -0.01em;
-	margin-bottom: 0.9rem;
+	font-size: clamp(2rem, 1.4rem + 2.4vw, 2.9rem);
+	font-weight: 800;
+	line-height: 1.08;
+	letter-spacing: -0.03em;
+	margin-bottom: 1rem;
 }
-.post-subtitle {
-	color: var(--ink-dim);
-	font-size: var(--fs-3);
-	line-height: 1.5;
-	margin-bottom: 1.25rem;
-}
+.post-subtitle { font-size: 1.3rem; line-height: 1.45; color: var(--ink-dim); margin-bottom: 1.25rem; }
 .post-meta {
-	font-family: var(--mono);
-	font-size: var(--fs-1);
+	font-family: var(--grotesk);
+	font-size: 0.95rem;
 	color: var(--ink-faint);
-	display: flex;
-	flex-wrap: wrap;
-	gap: 0.5rem;
-	align-items: center;
 	padding-bottom: 1.5rem;
-	border-bottom: 1px solid var(--line-soft);
+	border-bottom: 1px solid var(--rule);
 }
-.post-meta .dot-sep { color: var(--plate); }
-.post-tags { color: var(--acc-2); }
 
-/* ── prose ── */
-.post-body { font-size: var(--fs-3); line-height: 1.75; color: var(--ink); }
-.post-body > * + * { margin-top: 1.35rem; }
-.post-body h2 {
-	font-family: var(--mono);
-	font-size: var(--fs-4);
-	font-weight: 600;
-	letter-spacing: -0.02em;
-	margin-top: 3rem;
-	padding-top: 0.5rem;
-	color: var(--ink);
-}
-.post-body h2::before { content: "# "; color: var(--acc); }
-.post-body h3 {
-	font-family: var(--mono);
-	font-size: var(--fs-3);
-	font-weight: 600;
-	margin-top: 2.25rem;
-	color: var(--ink);
-}
-.post-body h3::before { content: "## "; color: var(--ink-faint); }
-.post-body p { color: var(--ink-dim); }
-.post-body strong { color: var(--ink); font-weight: 600; }
-.post-body a { color: var(--acc); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--line); transition: text-decoration-color 0.2s var(--ease); }
-.post-body a:hover { text-decoration-color: var(--acc); }
-
-.post-body ul, .post-body ol { padding-left: 1.4rem; color: var(--ink-dim); }
-.post-body li { margin-top: 0.5rem; }
-.post-body li::marker { color: var(--acc); }
+.post-body { font-size: 1.1875rem; line-height: 1.68; color: var(--ink); }
+.post-body > * + * { margin-top: 1.3rem; }
+.post-body h2 { font-size: 1.55rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; margin-top: 2.75rem; }
+.post-body h3 { font-size: 1.25rem; font-weight: 700; letter-spacing: -0.01em; margin-top: 2.25rem; }
+.post-body p, .post-body ul, .post-body ol { color: var(--ink); }
+.post-body strong { font-weight: 650; }
+.post-body ul, .post-body ol { padding-left: 1.35rem; }
+.post-body li { margin-top: 0.45rem; }
+.post-body li::marker { color: var(--ink-faint); }
 
 .post-body blockquote {
-	border-left: 2px solid var(--acc);
-	padding: 0.4rem 0 0.4rem 1.2rem;
+	border-left: 2px solid var(--ink);
+	padding: 0.1rem 0 0.1rem 1.2rem;
 	color: var(--ink-dim);
 	font-style: italic;
-	background: var(--field-acc);
 }
 
-/* inline code */
 .post-body code {
 	font-family: var(--mono);
-	font-size: 0.86em;
-	background: var(--panel-2);
-	border: 1px solid var(--line-soft);
-	border-radius: 0;
-	padding: 0.1em 0.4em;
-	color: var(--acc);
+	font-size: 0.82em;
+	background: var(--bg-2);
+	border-radius: 3px;
+	padding: 0.12em 0.38em;
+	color: var(--ink);
 	word-break: break-word;
 }
-
-/* code blocks — the prose analogue of .well (Rouge generates the <pre>, so it
-   can't take the class; it mirrors the evidence-surface: deepest value, no shadow) */
 .post-body pre {
 	background: var(--bg-well);
-	border: 1px solid var(--line);
-	border-radius: 0;
+	border-radius: 4px;
 	padding: 1.1rem 1.25rem;
 	overflow-x: auto;
-	font-size: var(--fs-1);
+	font-size: 0.875rem;
 	line-height: 1.65;
 }
-.post-body pre code {
-	background: none;
-	border: none;
-	padding: 0;
-	color: var(--ink);
-	font-size: inherit;
-	word-break: normal;
-}
-.post-body pre.highlight, .post-body figure.highlight { margin-top: 1.35rem; }
+.post-body pre code { background: none; padding: 0; font-size: inherit; word-break: normal; }
+.post-body pre.highlight, .post-body figure.highlight { margin-top: 1.3rem; }
 .post-body figure.highlight pre { margin: 0; }
+.post-body hr { border: 0; border-top: 1px solid var(--rule); margin: 2.5rem 0; }
+.post-body img { max-width: 100%; border-radius: 4px; }
+.post-body table { border-collapse: collapse; font-size: 1rem; width: 100%; }
+.post-body th, .post-body td { text-align: left; padding: 0.5rem 0.75rem 0.5rem 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+.post-body th { font-family: var(--grotesk); font-weight: 700; }
 
-.post-body hr { border: 0; border-top: 1px solid var(--line-soft); margin: 2.5rem 0; }
-
-.post-body img { max-width: 100%; border-radius: 0; border: 1px solid var(--line); }
-
-/* post footer nav */
-.post-footer {
-	display: flex;
-	justify-content: space-between;
-	gap: 1rem;
-	flex-wrap: wrap;
-	margin-top: 3.5rem;
-	padding-top: 1.5rem;
-	border-top: 1px solid var(--line-soft);
-	font-family: var(--mono);
-	font-size: var(--fs-2);
+/* ── "Try it yourself" — links each post to the exhibits that demonstrate it ── */
+.post-try {
+	margin-top: 3rem;
+	padding: 1.4rem 1.5rem;
+	background: var(--panel-2);
+	border-radius: 4px;
 }
-.post-footer a { color: var(--acc); }
-.post-footer a:hover { text-decoration: underline; }
+.post-try-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.7rem; }
+.post-try-list { list-style: none; }
+.post-try-list li { margin-top: 0.5rem; line-height: 1.45; }
+.post-try-list a { font-family: var(--grotesk); font-weight: 600; }
+.post-try-desc { display: block; color: var(--ink-faint); font-size: 1rem; }
 
-/* site footer on blog pages */
-.site-footer {
-	max-width: 760px;
-	margin: 0 auto;
-	padding-left: clamp(1.25rem, 5vw, 2rem);
-	padding-right: clamp(1.25rem, 5vw, 2rem);
-}
-.site-footer-links { display: flex; gap: 1rem; }
-.site-footer-links a { color: var(--ink-faint); }
-.site-footer-links a:hover { color: var(--acc); }
+.wayfind-post { max-width: calc(40rem + 2 * var(--gutter)); }

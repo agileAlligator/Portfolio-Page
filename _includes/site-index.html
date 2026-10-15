@@ -1,0 +1,32 @@
+<footer class="site-index" aria-label="Site index">
+	<div class="site-index-me">
+		<h2 class="site-index-title"><a href="/">Avneesh Kasture</a></h2>
+		<p>Associate solutions engineer at Gruve, Pune.</p>
+		<p><a href="/#work">Things I've built</a></p>
+		<p><a href="/#experience">How I got here</a></p>
+	</div>
+	<nav aria-label="The lab">
+		<h2 class="site-index-title"><a href="/lab/">The lab</a></h2>
+		<ul>
+			{% for e in site.data.exhibits %}<li><a href="{{ e.url }}">{{ e.title }}</a></li>
+			{% endfor %}
+		</ul>
+	</nav>
+	<nav aria-label="Writing">
+		<h2 class="site-index-title"><a href="/blog/">Writing</a></h2>
+		<ul>
+			{% for post in site.posts limit: 5 %}<li><a href="{{ post.url }}">{{ post.short_title | default: post.title }}</a></li>
+			{% endfor %}
+		</ul>
+	</nav>
+	<nav aria-label="Contact">
+		<h2 class="site-index-title">Contact</h2>
+		<ul>
+			<li><a href="mailto:apkasture02@gmail.com">Email</a></li>
+			<li><a href="https://www.linkedin.com/in/avneesh-kasture-491b651b6/" target="_blank" rel="noopener">LinkedIn</a></li>
+			<li><a href="https://github.com/agileAlligator" target="_blank" rel="noopener">GitHub</a></li>
+			<li><a href="/resume.pdf" target="_blank" rel="noopener">Résumé (PDF)</a></li>
+			<li><a href="/feed.xml">RSS</a></li>
+		</ul>
+	</nav>
+</footer>

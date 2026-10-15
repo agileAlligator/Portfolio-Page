@@ -12,6 +12,8 @@ description: >-
   code-exec through an over-privileged worker. The defender's real takeaway:
   local-first, open-weights AI, integrated with your log sources and security
   tools, so your own forensics never get refused, leaked, or throttled.
+short_title: "Hugging Face's breach wasn't agentic"
+exhibits: [/owasp-top-10/, /you-are-the-model/]
 ---
 To reconstruct [their July intrusion](https://huggingface.co/blog/security-incident-july-2026), Hugging Face had more than 17,000 recorded attacker events to sift, so they pointed a frontier model at the logs. The commercial APIs refused. The events were full of real attack commands, exploit payloads, and C2 artifacts, and to a safety filter an incident responder submitting those looks the same as the attacker who authored them. The refusal locked the defenders out of their own investigation. They pivoted to GLM-5.2, an open-weight model run on their own infrastructure, which also kept the attacker's data and the harvested credentials inside the building.
 

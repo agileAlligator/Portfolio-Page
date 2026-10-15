@@ -50,7 +50,7 @@
 .al-row:focus-within { border-color: var(--acc); }
 
 .al-presets { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin: 1rem 0 0; max-width: 46rem; }
-.al-preset-label { font-family: var(--mono); font-size: var(--fs-0); color: var(--ink-faint); text-transform: uppercase; letter-spacing: 0.08em; margin-right: 0.15rem; }
+.al-preset-label { font-family: var(--mono); font-size: var(--fs-0); color: var(--ink-faint); text-transform: none; letter-spacing: 0.08em; margin-right: 0.15rem; }
 .al-preset-label:not(:first-child) { margin-left: 0.75rem; }
 .al-preset {
 	font-family: var(--mono);

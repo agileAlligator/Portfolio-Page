@@ -11,7 +11,7 @@
 	font-family: var(--disp);
 	font-weight: 700;
 	font-size: clamp(1.9rem, 4.5vw, 2.75rem);
-	text-transform: uppercase;
+	text-transform: none;
 	letter-spacing: -0.005em;
 	margin: 0.6rem 0 1rem;
 }
@@ -91,7 +91,7 @@
 	font-weight: 600;
 	white-space: pre-wrap;
 }
-.game-stamp { font-family: var(--disp); font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; font-size: var(--fs-0); }
+.game-stamp { font-family: var(--disp); font-weight: 700; text-transform: none; letter-spacing: 0.06em; font-size: var(--fs-0); }
 .verdict-win { background: var(--field-bad-on); border: 1px solid var(--bad); color: var(--bad-hi); }
 .verdict-block { background: var(--field-acc); border: 1px solid var(--acc); color: var(--acc); }
 
@@ -197,7 +197,7 @@
 	border-radius: 0;
 	background: var(--bg-2);
 }
-.game-share-label { font-family: var(--mono); font-size: var(--fs-0); text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-faint); }
+.game-share-label { font-family: var(--mono); font-size: var(--fs-0); text-transform: none; letter-spacing: 0.08em; color: var(--ink-faint); }
 .game-share-note { width: 100%; font-size: var(--fs-1); color: var(--ink-dim); margin: 0.2rem 0 0; }
 
 /* ── responsive ──────────────────────────────────────────────────── */

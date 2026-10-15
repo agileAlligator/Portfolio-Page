@@ -1,192 +1,82 @@
-# Design system — avneeshk.me
+# Design system — avneeshk.me (v3)
 
-## Homepage (v3, "profile with margin notes") — `assets/home.scss`
+The site is about Avneesh, a person, not about one idea. It reads like a
+well-edited profile: a light page, a reading serif, a confident grotesk, and
+on the homepage a margin of short asides in his voice. The lab exhibits keep
+their instrument grammar inside each exhibit, drawn in the same palette and type.
 
-The homepage is about Avneesh, not about one idea. It has its own stylesheet and
-does not load `style.css`. The main column says the professional thing; a narrow
-margin carries short asides in his voice, in red italic, each with a pen-stroke
-rule reaching back to the paragraph it annotates. On phones the notes fold in
-under their paragraph.
+`.claude/design-system.json` is the machine-readable class registry the
+PreToolUse hook enforces (`.claude/hooks/check-design-system.py`): no inline
+`style=`, and no CSS class definition that isn't registered. Register first,
+then write the CSS.
 
-- **Colour** — `--paper #f7f7f4`, `--ink #1a1a1e`, `--ink-soft #55565c` (meta),
-  `--blue #2340a0` (links, actions), `--pencil #c8372d` (margin notes only), `--rule #d9d9d3`.
-- **Type** — Schibsted Grotesk (names, headings, nav, meta) and Newsreader
-  (reading text; its italic is the margin-note voice). Monospace only in code.
-- **Layout** — `.row` = `.row-main` (40rem) + margin (13.5rem). Left-aligned. No
-  card grids, no section eyebrows, no numbering except the career path (a real sequence).
-- **Components** — `.masthead*`, `.row`, `.row-main`, `.note`, `.intro*`, `.action`,
-  `.action-quiet`, `.block`, `.block-title`, `.work*`, `.minor*`, `.path*`, `.pair*`,
-  `.contact*`.
-- **Motion** — none beyond link hover. Keep it that way unless one moment earns it.
+## Files
 
-The lab exhibits and the blog still use the Instrument Grade system below. They
-will move to the v3 chrome (masthead, footer, type) in later passes; the lab keeps
-its instrument look inside each exhibit.
+| File | Role |
+|------|------|
+| `_sass/_site.scss` | Shared by every page: fonts, palette, base, masthead, breadcrumb, wayfinding, footer index |
+| `assets/home.scss` | Homepage only (`index.html`): the row + margin layout and margin notes |
+| `style.scss` | Lab + blog: the instrument kit (tokens, `.card`, `.btn`, `.term`, `.well`, verdicts, primitives) |
+| `assets/blog.scss` | Blog index and posts (reading column) |
+| `assets/syntax.scss` | Rouge highlighting, light |
+| `assets/{mcp,game,owasp,allowlist,toolpoison,ytm,lab}.scss` | One per exhibit, composing `style.scss` |
 
----
-
-## Lab and blog — **Instrument Grade v2** (`style.css`)
-
-One closed system. The site is calibrated test equipment, not a terminal
-costume: every mark is a claim, and the design *enacts* the security thesis
-rather than illustrating it. New one-off styles are not allowed — a PreToolUse
-hook (`.claude/hooks/check-design-system.py`) blocks inline `style=` and
-unregistered CSS classes. `.claude/design-system.json` is the machine-readable
-source of truth the hook enforces; this file is the human reference; `:root` in
-`style.css` is where the tokens live. All three must agree.
-
-> The full argument behind v2 lives in `_design-notes/instrument-grade-v2-manifesto.txt`.
-> This file is the buildable contract distilled from it.
-
-## How to change styles
-
-- **Restyle an existing component** — edit its rules. No registration needed.
-- **Add a new component** — add its class name(s) to `.claude/design-system.json`
-  and document it here, *then* write the CSS. (The hook blocks the reverse order.)
-- **One-off token application** — use a sanctioned utility (`.u-*`), registered
-  the same way.
-- **Never** compose a new colour with a raw literal or a fresh `rgba()`/`color-mix()`.
-  Reach for a token. Tinted fills come **only** from the closed alpha ladder.
-- **Never** use inline `style=`. Move it to a class.
-
-## Foundations (tokens — `:root` in `style.css`)
-
-### Ground & structure — *depth is value alone; no shadows, darker = deeper*
+## Palette (`_sass/_site.scss`)
 
 | Token | Value | Use |
 |-------|-------|-----|
-| `--bg` `--bg-2` | `#0a0b0d` `#0e1013` | page / inset panels |
-| `--bg-well` | `#07080a` | recessed **evidence wells** — the deepest surface |
-| `--panel` `--panel-2` | `#101317` `#14181d` | raised surfaces / chrome on a panel |
-| `--line-soft` `--line` `--line-strong` | `#1a1e24` `#252a31` `#39404a` | dividers / borders / frames + dashed-asserted |
-| `--line-seam` | `#43859d` | **the seam** — cyan muted to structural weight; the boundary belongs to the mechanism |
-| `--scrim` `--row-alt` | `rgba(10,11,13,.85)` `rgba(255,255,255,.012)` | neutral value-lifts (nav scrim / zebra row) — ground, **not** accent fills, so exempt from the alpha ladder |
+| `--paper` | `#f7f7f4` | page background (cool, not cream) |
+| `--ink` | `#1a1a1e` | text |
+| `--ink-soft` | `#55565c` | meta lines, footer |
+| `--blue` / `--blue-deep` | `#2340a0` / `#172b70` | links and actions / hover |
+| `--pencil` | `#c8372d` | **margin notes only** |
+| `--rule` | `#d9d9d3` | dividers |
 
-### Ink
+## Type
 
-| Token | Value | Use |
-|-------|-------|-----|
-| `--ink` `--ink-dim` `--ink-faint` | `#f2f5f9` `#c6ccd5` `#aeb6c0` | text primary / secondary / tertiary (lifted for legibility; all ≥AA on `--panel`) |
-| `--ink-on-acc` | `#06110c` | the one legal ink on solid green |
-| `--plate` | `#626b77` | faint plate numerals (clears 3:1 large-text) |
+- **Schibsted Grotesk** (`--grotesk`) — names, headings, nav, meta, UI.
+- **Newsreader** (`--serif`) — reading text. Its italic in `--pencil` is the margin-note voice.
+- **IBM Plex Mono** (`--mono`) — code and machine evidence only. Never as personality.
+- Sentence case everywhere. No all-caps labels, no `// eyebrow` labels above headings.
 
-### Accent semantics — *load-bearing; never decoration*
+## Layout
 
-| Token | Value | Meaning |
-|-------|-------|---------|
-| `--acc` / `--acc-hi` | `#4fe3a1` / `#6bf0b4` | **green · outcome-good**: verified / live / held / primary. Only what the *server* confirmed. `-hi` = hover/active. |
-| `--acc-2` | `#4cc9f0` | **cyan · the mechanism**: the deterministic layer, the blueprint. Owns the seam, tool chrome, sweep. **Never a verdict.** |
-| `--warn` | `#f5b544` | **amber · the asset**: the thing at stake — preserved, or in caution. |
-| `--bad` / `--bad-hi` | `#ff6b6b` / `#ff9a9a` | **red · outcome-bad**: leak / breach / attack. `-hi` = red text needing contrast on dark. |
-| `--paper` | `#e3e1d1` | **the record**: stamps, timestamps, `::selection` (selecting is citing). |
-| *(the model)* | *— no token —* | The model is the medium, not a category, so it has **no hue**. Its register is texture: `.asserted` (dashed). |
+- `--frame: 70rem` + `--gutter` is the one content width. Masthead, exhibits,
+  wayfinding and the footer index all use it, so every page shares a left edge.
+- Homepage `.row` = `.row-main` (40rem) + margin (13.5rem), left-aligned in the frame.
+- Blog uses a centred 40rem reading column under the same masthead.
+- Numbering only where content is a real sequence (the career path).
 
-### The closed alpha ladder — *the only tinted-territory fills*
+## Wayfinding (how buried pages surface)
 
-`100%` is a verdict · `14%` is an active zone · `8%` is a resting zone · `5%` is
-the substrate grid. **Nothing between 15% and 99% — half-committed colour is a
-vibe.** Every fill is one of these eight tokens; no bespoke `rgba()`/`color-mix()`.
+- **Footer index** (`_includes/site-index.html`) on every page except the homepage (which lists the lab and writing itself and ends on contact): all six exhibits,
+  the five latest posts, contact. Every page is one click from anywhere.
+- **Exhibits** get a breadcrumb back to the lab and previous/next exhibit links,
+  driven by `_data/exhibits.yml` (order, title, one-line description).
+- **Posts** list related exhibits ("Try it yourself", via `exhibits:` front matter)
+  and link to the older/newer post. `short_title:` is used in compact lists.
+- The homepage lab and writing lists render from the same data.
 
-| Resting (8%) | Active (14%) |
-|--------------|--------------|
-| `--field-acc` `--field-acc2` `--field-warn` `--field-bad` | `--field-acc-on` `--field-acc2-on` `--field-warn-on` `--field-bad-on` |
+To add an exhibit: add it to `_data/exhibits.yml` and `scripts/check-lab-layout.mjs`.
+To add a post: give it `short_title:` and, where one fits, `exhibits:`.
 
-### Type / space
+## Lab instrument kit (`style.scss`)
 
-`--disp` Martian Mono (the instrument voice) · `--mono` IBM Plex Mono · `--sans`
-IBM Plex Sans · `--maxw 1200px`. A discrete `--fs`/`--sp` scale is defined in
-`style.css` `:root`: `--fs-*` is the target for all type sizing and is adopted
-across newer files (a few older per-file sizes remain, migrated opportunistically);
-`--sp-*` is defined but not yet consumed.
+Exhibit tokens keep their meanings; their values are re-cut for the light page.
 
-### Motion — *three verbs only; the ghost glides, the gate ticks*
+| Token | Meaning |
+|-------|---------|
+| `--acc` `#13744a` | outcome-good: verified, held, primary action |
+| `--acc-2` `#1f5f8b` | the mechanism (the deterministic layer). Never a verdict |
+| `--warn` `#8a5a00` | the asset at stake |
+| `--bad` `#b42318` | outcome-bad: leak, breach, attack |
+| `--bg-well` / `--panel` / `--panel-2` | recessed evidence / raised surface / chrome on a panel |
+| `--field-*` / `--field-*-on` | the only tinted fills: resting / active |
 
-| Token | Value | Verb |
-|-------|-------|------|
-| `--ease` | `cubic-bezier(.22,1,.36,1)` | model-side / continuous / human-input affordances |
-| `--ease-strike` | `cubic-bezier(.2,0,0,1)` | **the strike** — verdict lands, hard decel, no overshoot |
-| `--step` | `steps(6,end)` | **the tick** — the control is never *between* states |
-| `--t-strike` `--t-tick` `--t-sweep` | `120ms` `200ms` `480ms` | strike / tick / one measurement pass |
+Primitives, defined once: `.well` (evidence surface), `.asserted` (dashed =
+model-generated), `.seam` (model output meets a control), `.reg` (registration
+ticks on working instruments), `.verdict` + the strike animation. Motion stays
+minimal and is gated behind `prefers-reduced-motion`.
 
-**Motion laws:** default is stillness (no parallax, scroll-reveals kept minimal,
-no hover-lifts). Smooth easing is model-side; anything the *control* does moves
-in `steps()` or not at all. Nothing loops but the cursor blink and a pending
-sweep. The instant a verdict exists, motion in that panel stops — verdicts do
-not shimmer. All motion is gated behind `@media (prefers-reduced-motion: reduce)`.
-
-## Primitives (v2) — the shared instrument grammar
-
-Defined **once** in `style.css`; every exhibit composes them instead of
-re-inventing a surface.
-
-- **`.well`** — a recessed evidence surface (`--bg-well`, mono): raw logs,
-  transcripts, machine readouts. Replaces all bespoke dark log/terminal-body fills.
-- **`.asserted`** — the model's register: `1px dashed`. Put it on any surface
-  showing model-generated / unverified text. Solid borders = proven.
-- **`.seam`** (`.seam-model` / `.seam-line` / `.seam-ctrl`) — the boundary where
-  model output meets a control. One line in `--line-seam`; the model side dashed,
-  the control side solid; never a gradient across it.
-- **`.reg`** — persistent registration ticks marking a panel as a working
-  instrument. Earned by interactivity; never on prose/marketing panels.
-- **Verdict `.stamp`/strike** — verdicts land once via `--t-strike`/`--ease-strike`
-  (`.verdict` strikes block-level; per-exhibit stamp glyphs punch square). Square,
-  axis-aligned, no rotation — identical-every-time is the testimony.
-
-## Design laws
-
-1. Every mark is a claim. If it asserts nothing, it comes off the page.
-2. Solid is proven; dashed is asserted. The model gets dashes.
-3. The ghost glides; the gate ticks. Continuous motion is model-side; the control moves in steps.
-4. Cyan never wins or loses. Outcomes are green or red; cyan is the mechanism.
-5. Full-strength colour is a verdict; 8% is a territory. Nothing in between.
-6. The seam is drawn, never blended. Gradients lie about architecture.
-7. The dressing never exceeds the evidence. Instrument chrome must be earned by a panel that actually runs.
-8. **The column is the default; bleeding is opt-in.** `main.content` is constrained to the site column (`max-width: var(--maxw); margin-inline: auto; padding-inline: var(--gutter)`) in `style.css`, so any content dropped into it is aligned to the nav/footer axis *without the page doing anything*. You cannot accidentally run full-bleed. To go wider you must **explicitly opt out**: un-cap `.content` (`max-width: 100%; padding: 0`) in the page's `extra_css` and let each section self-constrain — that's how mcp/lab/allowlist run full-bleed bands, and how blog.css narrows to a reading measure. Those overrides load after `style.css` and win. `--gutter` is the **one** page gutter; nav, sections, and `.content` share it, so everything aligns at all widths. Defense-in-depth: `node scripts/check-lab-layout.mjs` renders every lab page at 1280/768/390 and fails if any text starts left of the gutter or the page overflows — but the constraint above is what makes the failure structurally impossible in the first place.
-
-## Component catalogue
-
-Files: `style.css` (site-wide + primitives), `assets/mcp.css`, `assets/game.css`,
-`assets/ytm.css`, `assets/toolpoison.css`, `assets/allowlist.css`,
-`assets/owasp.css`, `assets/lab.css`, `assets/blog.css`, `assets/syntax.css`
-(Rouge highlighting — generated).
-
-- **Layout** — `.section`, `.section-title`, `.section-label`, `.content`, `.section-contact`.
-- **Nav / footer** — `.nav`, `.nav-brand`, `.nav-links`, `.nav-resume`, `.nav-toggle`,
-  `.nav-out`; `.footer`, `.site-footer`, `.site-footer-links`. Brand uses `.prompt` + `.blink`.
-- **Buttons** — `.btn`, `.btn-primary`. The only two.
-- **Cards** — `.cards` grid of `.card`; `.card-feature`, `.card-mini`; parts
-  `.card-top` `.card-idx` `.card-tags` `.card-title` `.card-at` `.card-desc` `.card-links` `.card-lock`.
-- **The figure (instrument readout)** — `.term`, `.term-bar` (`.term-led`,
-  `.term-fig`, `.term-title`), `.term-body`; spans `.c-dim` `.c-key` `.c-str`
-  `.c-ok` `.c-bad`, `.cursor`.
-- **Hero** — `.hero`, `.hero-kicker`, `.hero-title`, `.hero-role`
-  (`.tag`, `.slash`), `.hero-blurb`, `.hero-cta`.
-- **Approach / case study / timeline / skills / creds / contact** — as before
-  (`.approach*`, `.cs*`, `.timeline`/`.tl-*`, `.skills-grid`/`.skill-group`,
-  `.creds`/`.cred`, `.contact-title`/`.contact-links`).
-- **Exhibits** — OWASP prism (`.asi-*`, `.owasp-*`), Break-this-server
-  (`.game-*`, `.rung*`, `.rig*`, `.attack*`, `.presets`, `.score`, `.game-stamp`),
-  You-are-the-model (`.ytm-*`), Tool-poisoning (`.tp-*`), Allowlist (`.al-*`),
-  MCP console (`.mcp-*`). Each composes the v2 primitives above for its wells,
-  seams, verdicts and registration marks.
-- **Verdicts** — base `.verdict` (+ `.verdict-block`, `.verdict-win`); per-exhibit
-  variants compose the strike.
-- **Utilities** — `.u-accent`, `.u-warn`, `.u-mt-lg`, `.u-sr-only`. The complete set; keep it tiny.
-- **Runtime/state** (JS-added) — `.js` `.active` `.on` `.in` `.spin` `.open`.
-
-## Conversion status (v2 rollout)
-
-Refactor-and-delete, never add-in-parallel. Each commit fully converts what it touches.
-
-- ✅ **Foundation** — `:root` locked; `style.css` converted (literals→tokens,
-  alpha ladder, radii→0, verdict strike, primitives defined).
-- ⬜ Exhibit files → convert bespoke fills to the ladder, surfaces to `.well`,
-  verdicts to the strike, model text to `.asserted`, add seams / reg marks.
-- ⬜ `--fs`/`--sp` scale — adopt across all files in one consistent sweep.
-
-## Enforcement
-
-`.claude/settings.json` registers the PreToolUse hook on `Edit|Write|MultiEdit`.
-It reads `.claude/design-system.json` and blocks (exit 2) any edit adding an
-inline `style=` to HTML or a CSS class not on the list. Register intentional new
-classes there first.
+`node scripts/check-lab-layout.mjs [baseUrl]` renders every exhibit at
+1280/768/390 and fails on horizontal overflow or text left of the masthead.

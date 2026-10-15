@@ -1,0 +1,20 @@
+# The lab's exhibits, in the order the lab index presents them. Drives the
+# footer index, the homepage lab list, and next/previous links on each exhibit.
+- url: /mcp/
+  title: My résumé is an MCP server
+  short: A live MCP server. Try to make it leak a file.
+- url: /break-this-server/
+  title: Break this server
+  short: Hide an instruction in a support ticket and trick an agent into a refund.
+- url: /owasp-top-10/
+  title: The OWASP Agentic Top 10
+  short: Each risk, the control that prevents it, and how to spot a failure.
+- url: /allowlist-bypass/
+  title: The wildcard that spans a slash
+  short: Why the glob /files/* lets ../../etc/passwd through.
+- url: /tool-poisoning/
+  title: Poison the tool
+  short: Rewrite a tool description and steer an agent into leaking a note.
+- url: /you-are-the-model/
+  title: You are the model
+  short: You play the AI agent, with tools and a secret to protect.

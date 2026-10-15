@@ -4,7 +4,7 @@
 
 export const RESUME = {
 	whoami:
-		"Avneesh Kasture — security engineer working as a Solutions Engineer on Gruve's " +
+		"Avneesh Kasture — security engineer working as an Associate Solutions Engineer on Gruve's " +
 		"professional-services team. " +
 		"He builds secure MCP servers for enterprise clients (hardening the agentic layer against " +
 		"prompt injection, tool misuse, and privilege abuse) and ships internal LLM-powered apps. " +
@@ -12,7 +12,7 @@ export const RESUME = {
 
 	experience:
 		"EXPERIENCE\n" +
-		"• Solutions Engineer, Professional Services — Gruve (Apr 2026–present, Pune). " +
+		"• Associate Solutions Engineer, Professional Services — Gruve (Apr 2026–present, Pune). " +
 		"Designs and delivers secure MCP servers for clients; hardens the agentic layer; builds internal apps.\n" +
 		"• Security Operations Center Analyst — Gruve (Apr 2025–Apr 2026, Pune). " +
 		"Advanced triage across network/endpoint/auth telemetry with Splunk and CrowdStrike Falcon; " +
@@ -34,7 +34,7 @@ export const RESUME = {
 		"Education: B.Tech, Computer Science & Engineering — Vellore Institute of Technology, 2024.",
 
 	resume:
-		"Avneesh Kasture — Solutions Engineer / Agentic Security. " +
+		"Avneesh Kasture — Associate Solutions Engineer at Gruve. " +
 		"Full résumé PDF: https://avneeshk.me/resume.pdf",
 
 	contact:

@@ -1,337 +1,107 @@
 ---
 ---
 /* ══════════════════════════════════════════════════════════════════
-   Avneesh Kasture — portfolio
-   Refined dark "engineer" theme · IBM Plex Mono + IBM Plex Sans
+   Lab + blog stylesheet. Shared chrome (type, palette, masthead, footer
+   index) lives in _sass/_site.scss. This file is the instrument kit the
+   exhibits compose, re-cut for the light site. Tokens keep their meanings
+   (DESIGN-SYSTEM.md); only their values changed.
    ══════════════════════════════════════════════════════════════════ */
-
-/* Self-hosted @font-face (latin woff2), inlined here rather than a separate
-   fonts.css so the critical path has one fewer render-blocking request. The
-   three above-the-fold weights are <link rel=preload>ed in the document head.
-   IBM Plex Sans is one variable file (wght 100–700); Plex Mono is per-weight. */
-@font-face { font-family: 'IBM Plex Sans'; font-style: normal; font-weight: 100 700; font-display: swap; src: url('/assets/fonts/IBMPlexSans-400.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
-@font-face { font-family: 'IBM Plex Sans'; font-style: italic; font-weight: 400; font-display: swap; src: url('/assets/fonts/IBMPlexSans-400i.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
-@font-face { font-family: 'Martian Mono'; font-style: normal; font-weight: 600; font-display: swap; src: url('/assets/fonts/MartianMono-600.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+2000-206F, U+2122, U+2191, U+2193, U+2212, U+FEFF, U+FFFD; }
-@font-face { font-family: 'Martian Mono'; font-style: normal; font-weight: 700; font-display: swap; src: url('/assets/fonts/MartianMono-700.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+2000-206F, U+2122, U+2191, U+2193, U+2212, U+FEFF, U+FFFD; }
-@font-face { font-family: 'IBM Plex Mono'; font-style: normal; font-weight: 400; font-display: swap; src: url('/assets/fonts/IBMPlexMono-400.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
-@font-face { font-family: 'IBM Plex Mono'; font-style: normal; font-weight: 500; font-display: swap; src: url('/assets/fonts/IBMPlexMono-500.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
-@font-face { font-family: 'IBM Plex Mono'; font-style: normal; font-weight: 600; font-display: swap; src: url('/assets/fonts/IBMPlexMono-600.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
-@font-face { font-family: 'IBM Plex Mono'; font-style: normal; font-weight: 700; font-display: swap; src: url('/assets/fonts/IBMPlexMono-700.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
-@font-face { font-family: 'IBM Plex Mono'; font-style: italic; font-weight: 400; font-display: swap; src: url('/assets/fonts/IBMPlexMono-400i.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@import "site";
 
 :root {
-	/* ═══ INSTRUMENT GRADE v2 — one closed system ═══
-	   Calibrated test equipment, not a terminal costume. Every hue is a category
-	   the *instrument* cares about; the model is the medium, not a category, so it
-	   gets no hue (texture only — see .asserted). Full reference: DESIGN-SYSTEM.md. */
+	/* ground & structure — on paper, recessed = slightly darker, raised = lighter */
+	--bg:        #f7f7f4;   /* the page (= --paper) */
+	--bg-2:      #efefea;   /* inset panels */
+	--bg-well:   #edede7;   /* recessed evidence wells */
+	--panel:     #fcfcfa;   /* raised surfaces — cards, instruments */
+	--panel-2:   #f1f1ec;   /* chrome on a panel — bars, heads */
+	--line-soft: #e6e6e0;
+	--line:      #d9d9d3;
+	--line-strong: #a9a9a1;
+	--line-seam: #3f6f8f;   /* the seam — the mechanism's hue at structural weight */
+	--scrim:     rgba(247, 247, 244, 0.92);
+	--row-alt:   rgba(26, 26, 30, 0.025);
 
-	/* ground & structure — depth is value alone (no shadows): darker = deeper */
-	--bg:        #0a0b0d;   /* the page */
-	--bg-2:      #0e1013;   /* inset panels (nav dropdown, etc.) */
-	--bg-well:   #07080a;   /* recessed evidence wells — the deepest surface */
-	--panel:     #101317;   /* raised surfaces — cards, instruments */
-	--panel-2:   #14181d;   /* chrome on a panel — bars, heads */
-	--line-soft: #1a1e24;   /* faint dividers */
-	--line:      #252a31;   /* default borders */
-	--line-strong: #39404a; /* frames, active borders, link underlines, dashed=asserted */
-	--line-seam: #43859d;   /* THE SEAM — cyan muted to structural weight; the boundary belongs to the mechanism */
-	/* neutral value-lifts — NOT accent fills, so they live in ground/structure, not the alpha ladder:
-	   the sticky-nav scrim (page ground held opaque under blur) and the barely-there even-row lift. */
-	--scrim:     rgba(10, 11, 13, 0.85);   /* --bg at scrim opacity behind the blurred nav */
-	--row-alt:   rgba(255, 255, 255, 0.012);/* zebra: a sub-substrate white lift on alternating rows */
+	/* ink */
+	--ink-dim:   #34353a;   /* body/reading text */
+	--ink-faint: #55565c;   /* meta/captions — 7:1 on paper */
+	--ink-on-acc:#ffffff;   /* the one legal ink on solid green */
+	--plate:     #8c8d92;   /* faint plate numerals */
 
-	/* ink — record voice is --paper */
-	--ink:       #f2f5f9;   /* ~17:1 on --panel — crisp near-white, not glaring pure white */
-	--ink-dim:   #c6ccd5;   /* body/reading text — ~11.5:1 on --panel (lifted for legibility) */
-	--ink-faint: #aeb6c0;   /* meta/captions — ~9:1 on --panel */
-	--ink-on-acc:#06110c;   /* the one legal ink on solid green */
-	--plate:     #626b77;   /* faint plate numerals — clears 3:1 large-text on both panels */
+	/* accent semantics — same meanings, darkened to read on paper */
+	--acc:       #13744a;   /* green · outcome-good: verified / held / primary */
+	--acc-hi:    #0e5c3a;
+	--acc-2:     #1f5f8b;   /* blue-teal · the mechanism. Never a verdict. */
+	--warn:      #8a5a00;   /* amber · the asset at stake */
+	--bad:       #b42318;   /* red · leak / breach / attack */
+	--bad-hi:    #9a1c13;
+	--record:    #ffe58a;   /* the record: stamps, selection */
 
-	/* accent SEMANTICS — load-bearing, never decoration */
-	--acc:       #4fe3a1;   /* green  · outcome-good: verified / live / held / primary. Only what the SERVER confirmed. */
-	--acc-hi:    #6bf0b4;   /* green, lifted — hover/active of a green control */
-	--acc-2:     #4cc9f0;   /* cyan   · THE MECHANISM: the deterministic layer, the blueprint. Never a verdict. */
-	--warn:      #f5b544;   /* amber  · THE ASSET: the thing at stake — preserved, or in caution */
-	--bad:       #ff6b6b;   /* red    · outcome-bad: leak / breach / successful attack */
-	--bad-hi:    #ff9a9a;   /* red, lifted — red text needing contrast on dark */
-	--paper:     #e3e1d1;   /* THE RECORD: stamps, timestamps, ::selection (selecting is citing) */
+	/* the closed alpha ladder — 8% resting, 14% active */
+	--field-acc:      rgba(19,116,74,0.08);
+	--field-acc-on:   rgba(19,116,74,0.14);
+	--field-acc2:     rgba(31,95,139,0.08);
+	--field-acc2-on:  rgba(31,95,139,0.14);
+	--field-warn:     rgba(196,132,0,0.10);
+	--field-warn-on:  rgba(196,132,0,0.16);
+	--field-bad:      rgba(180,35,24,0.07);
+	--field-bad-on:   rgba(180,35,24,0.13);
 
-	/* the CLOSED alpha ladder — the only tinted-territory fills. 100% is a verdict;
-	   14% is an active zone; 8% is a resting zone; 5% is the substrate grid.
-	   Nothing between 15% and 99% — half-committed colour is a vibe. */
-	--field-acc:      rgba(79,227,161,0.08);
-	--field-acc-on:   rgba(79,227,161,0.14);
-	--field-acc2:     rgba(76,201,240,0.08);
-	--field-acc2-on:  rgba(76,201,240,0.14);
-	--field-warn:     rgba(245,181,68,0.08);
-	--field-warn-on:  rgba(245,181,68,0.14);
-	--field-bad:      rgba(255,107,107,0.08);
-	--field-bad-on:   rgba(255,107,107,0.14);
+	--disp: var(--grotesk);   /* exhibit display voice */
+	--sans: var(--serif);     /* exhibit prose */
+	--maxw: calc(var(--frame) + 2 * var(--gutter));   /* = the shared frame, so exhibits align with the masthead */
 
-	--disp: "Martian Mono", "IBM Plex Mono", ui-monospace, monospace; /* the instrument voice */
-	--mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-	--sans: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
-	--maxw: 1200px;
-	--gutter: clamp(1.25rem, 5vw, 3.5rem);   /* the one page gutter; nav, sections, and every exhibit column share it */
+	--fs-00: 0.75rem;
+	--fs-0:  0.8125rem;
+	--fs-1:  0.875rem;
+	--fs-2:  1rem;
+	--fs-3:  1.125rem;
+	--fs-4:  1.375rem;
+	--fs-5:  1.75rem;
+	--fs-6:  2.25rem;
+	--fs-7:  2.875rem;
 
-	/* the type scale — a minor-third ladder (§1). Fixed sizes snap to these;
-	   fluid display type keeps its own clamp() (the scale bounds, doesn't replace). */
-	--fs-00: 0.6875rem;  /* 11 — registration labels, axis text */
-	--fs-0:  0.75rem;    /* 12 — kickers, chips, section-label */
-	--fs-1:  0.8125rem;  /* 13 — machine text, mono bodies */
-	--fs-2:  0.9375rem;  /* 15 — dense body, card descriptions */
-	--fs-3:  1.0625rem;  /* 17 — body prose */
-	--fs-4:  1.3125rem;  /* 21 — h3, card titles */
-	--fs-5:  1.6875rem;  /* 27 — section titles */
-	--fs-6:  2.125rem;   /* 34 — page titles */
-	--fs-7:  2.75rem;    /* 44 — hero */
-
-	/* the space scale — base-8, terminating at the 64px graticule period */
 	--sp-0: 4px;  --sp-1: 8px;  --sp-2: 12px; --sp-3: 16px;
 	--sp-4: 24px; --sp-5: 32px; --sp-6: 48px; --sp-7: 64px;
 
-	/* motion — three verbs only (§8). The ghost glides; the gate ticks. */
-	--ease:        cubic-bezier(0.22, 1, 0.36, 1);  /* model-side / continuous / human-input affordances */
-	--ease-strike: cubic-bezier(0.2, 0, 0, 1);      /* the strike — hard decel, no overshoot; machines don't bounce */
-	--step:        steps(6, end);                    /* the tick — the control is never *between* states */
-	--t-strike: 120ms;   /* verdict lands */
-	--t-tick:   200ms;   /* deterministic state change */
-	--t-sweep:  480ms;   /* one measurement pass */
+	--ease:        cubic-bezier(0.22, 1, 0.36, 1);
+	--ease-strike: cubic-bezier(0.2, 0, 0, 1);
+	--step:        steps(6, end);
+	--t-strike: 120ms;
+	--t-tick:   200ms;
+	--t-sweep:  480ms;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
-html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+html { scroll-behavior: smooth; scroll-padding-top: 24px; }
 
 body {
-	background: var(--bg);
-	color: var(--ink);
-	font-family: var(--sans);
+	font-size: 1.0625rem;
 	font-weight: 400;
-	line-height: 1.65;
-	-webkit-font-smoothing: antialiased;
+	line-height: 1.6;
 	overflow-x: hidden;
 }
 
-/* subtle dot grid + vignette — a fixed layer rather than
-   background-attachment:fixed, which forces full repaints on scroll
-   in some mobile browsers */
-body::before {
-	content: "";
-	position: fixed;
-	inset: 0;
-	z-index: -1;
-	pointer-events: none;
-	/* drafting cross-grid: a faint + at each 64px intersection — graph paper for
-	   an engineering drawing, no colour cast (self-hosted data-URI, 0 requests) */
-	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Cg stroke='%23eef2f6' stroke-opacity='0.05' stroke-width='1'%3E%3Cpath d='M32 28v8M28 32h8'/%3E%3C/g%3E%3C/svg%3E");
-	background-size: 64px 64px;
-}
-
-/* film-grain overlay */
-.grain {
-	position: fixed;
-	inset: 0;
-	z-index: 999;
-	pointer-events: none;
-	opacity: 0.035;
-	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-::selection { background: var(--paper); color: var(--bg); }
-
-/* ── a11y: visible keyboard focus everywhere ── */
-:focus-visible {
-	outline: 2px solid var(--acc);
-	outline-offset: 3px;
-	/* zero-radius is 100% true — an instrument with one rounded corner is a costume */
-	border-radius: 0;
-}
-
-/* ── a11y: skip-to-content link (visible only when focused) ── */
-.skip-link {
-	position: absolute;
-	top: 0.6rem;
-	left: 0.6rem;
-	z-index: 300;
-	padding: 0.6rem 1rem;
-	background: var(--acc);
-	color: var(--ink-on-acc);
-	font-family: var(--mono);
-	font-size: var(--fs-1);
-	font-weight: 600;
-	border-radius: 0;
-	transform: translateY(-160%);
-	transition: transform 0.2s var(--ease);
-}
-.skip-link:focus { transform: translateY(0); }
+:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
 
 a { color: inherit; text-decoration: none; }
 
-/* prose links carry a non-color affordance (underline) so they're distinguishable
-   without relying on colour. Link groups (nav, cards, buttons, contact) are evident
-   controls with their own affordances and opt out. Retires axe link-in-text-block. */
-p a, li a, .site-footer a, .about-body a, .tl-desc a, .game-foot a, .ytm-foot a {
+/* prose links carry an underline so they're distinguishable without colour */
+p a, li a, .game-foot a, .ytm-foot a {
+	color: var(--blue);
 	text-decoration: underline;
 	text-decoration-thickness: 1px;
-	text-underline-offset: 3px;
-	text-decoration-color: var(--line-strong);
-	transition: text-decoration-color 0.2s var(--ease), text-decoration-thickness 0.2s var(--ease);
+	text-underline-offset: 0.18em;
+	text-decoration-color: color-mix(in srgb, var(--blue) 40%, transparent);
 }
-p a:hover, li a:hover, .site-footer a:hover, .about-body a:hover, .tl-desc a:hover, .game-foot a:hover, .ytm-foot a:hover {
-	text-decoration-color: var(--acc);
-	text-decoration-thickness: 2px;
-}
+p a:hover, li a:hover, .game-foot a:hover, .ytm-foot a:hover { color: var(--blue-deep); text-decoration-color: currentColor; }
+.site-index li a, .crumbs a { text-decoration: none; }
+
+h1, h2, h3, h4 { font-family: var(--grotesk); }
 
 .prompt { color: var(--acc); font-family: var(--mono); }
 
-/* ─────────────────────────────── NAV ─────────────────────────────── */
-.nav {
-	position: sticky;
-	top: 0;
-	z-index: 100;
-	display: flex;
-	align-items: center;
-	gap: 2rem;
-	padding: 1rem var(--gutter);
-	background: var(--scrim);
-	backdrop-filter: blur(12px);
-	border-bottom: 1px solid var(--line);
-}
-
-.nav-brand {
-	font-family: var(--mono);
-	font-weight: 600;
-	font-size: var(--fs-2);
-	letter-spacing: -0.02em;
-	white-space: nowrap;
-}
-.blink { animation: blink 1.15s steps(2) infinite; color: var(--acc); }
-@keyframes blink { 0%, 50% { opacity: 1; } 50.01%, 100% { opacity: 0; } }
-
-.nav-links {
-	display: flex;
-	align-items: center;
-	gap: 1.75rem;
-	margin-left: auto;
-	font-family: var(--mono);
-	font-size: var(--fs-1);
-}
-.nav-links a {
-	color: var(--ink-dim);
-	position: relative;
-	padding: 0.2rem 0;
-	transition: color 0.25s var(--ease);
-}
-.nav-links a:not(.nav-resume)::after {
-	content: "";
-	position: absolute;
-	left: 0; bottom: -2px;
-	width: 100%; height: 1px;
-	background: var(--acc);
-	transform: scaleX(0);
-	transform-origin: left;
-	transition: transform 0.3s var(--ease);
-}
-.nav-links a:not(.nav-resume):hover,
-.nav-links a.active { color: var(--ink); }
-.nav-links a.active::after,
-.nav-links a:not(.nav-resume):hover::after { transform: scaleX(1); }
-
-/* Off-SPA destination: a separate page, not an in-page scroll anchor.
-   Divider + accent colour + ↗ signal it leaves the single-page site. */
-.nav-links .nav-out {
-	color: var(--acc);
-	margin-left: 0.55rem;
-	padding-left: 1.2rem;
-	position: relative;
-}
-.nav-links .nav-out::before {
-	content: "";
-	position: absolute;
-	left: 0;
-	top: 50%;
-	transform: translateY(-50%);
-	width: 1px;
-	height: 1em;
-	background: var(--line);
-}
-.nav-links .nav-out:hover { color: var(--acc-hi); }
-/* no hover underline on the blog link — it has its own divider + accent treatment,
-   and the underline would run under the padding gap to the left of the word */
-.nav-links .nav-out::after { display: none; }
-
-.nav-resume {
-	font-family: var(--disp);
-	font-size: var(--fs-0);
-	font-weight: 600;
-	text-transform: uppercase;
-	letter-spacing: 0.06em;
-	color: var(--acc);
-	border: 1px solid var(--line-strong);
-	padding: 0.42rem 0.85rem;
-	border-radius: 0;
-	transition: border-color 0.25s var(--ease), background 0.25s var(--ease);
-}
-.nav-resume:hover { border-color: var(--acc); background: var(--field-acc); }
-
-.nav-toggle { display: none; margin-left: auto; width: 44px; height: 44px; align-items: center; justify-content: center; background: none; border: 0; cursor: pointer; flex-direction: column; gap: 5px; }
-.nav-toggle span { width: 22px; height: 2px; background: var(--ink); transition: 0.3s var(--ease); }
-
-/* ────────────────────────────── HERO ─────────────────────────────── */
-.hero {
-	position: relative;
-	max-width: var(--maxw);
-	margin: 0 auto;
-	padding: clamp(3.5rem, 9vw, 7rem) var(--gutter) clamp(3rem, 7vw, 5rem);
-	display: grid;
-	grid-template-columns: 1.05fr 0.95fr;
-	gap: clamp(2rem, 5vw, 4rem);
-	align-items: center;
-}
-
-.hero-kicker {
-	font-family: var(--mono);
-	color: var(--ink-dim);
-	font-size: var(--fs-2);
-	margin-bottom: 1.25rem;
-}
-.hero-title {
-	font-family: var(--disp);
-	font-weight: 700;
-	font-size: clamp(2.5rem, 6.5vw, 4.4rem);
-	line-height: 1.04;
-	letter-spacing: 0;
-	text-transform: uppercase;
-	color: var(--ink);
-	margin-bottom: 1.1rem;
-}
-.hero-role {
-	display: flex;
-	flex-wrap: wrap;
-	align-items: center;
-	gap: 0.6rem;
-	margin-bottom: 1.75rem;
-}
-.hero-role .tag {
-	font-family: var(--mono);
-	font-size: var(--fs-2);
-	color: var(--acc-2);
-	border: 1px solid var(--line);
-	border-radius: 2px;
-	padding: 0.3rem 0.85rem;
-	background: var(--panel);
-}
-.hero-role .slash { color: var(--ink-faint); font-family: var(--mono); }
-.hero-blurb {
-	max-width: 30rem;
-	color: var(--ink-dim);
-	font-size: var(--fs-3);
-	margin-bottom: 2rem;
-}
-.hero-blurb strong { color: var(--ink); font-weight: 500; }
-
-.hero-cta { display: flex; gap: 0.9rem; flex-wrap: wrap; }
 .btn {
 	font-family: var(--disp);
 	font-size: var(--fs-0);
@@ -361,6 +131,7 @@ p a:hover, li a:hover, .site-footer a:hover, .about-body a:hover, .tl-desc a:hov
 }
 .btn-primary:hover, .btn-primary:focus-visible { background: var(--acc-hi); border-color: var(--acc-hi); color: var(--ink-on-acc); }
 
+
 /* the figure — a framed instrument readout (was a mac-window terminal) */
 .term {
 	background: var(--panel);
@@ -380,7 +151,7 @@ p a:hover, li a:hover, .site-footer a:hover, .about-body a:hover, .tl-desc a:hov
 }
 /* the upgraded readout: one square status LED + a figure nameplate */
 .term-led { width: 8px; height: 8px; border-radius: 0; background: var(--acc); flex-shrink: 0; }
-.term-fig { margin-left: auto; font-family: var(--disp); font-weight: 600; font-size: var(--fs-00); text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-faint); }
+.term-fig { margin-left: auto; font-family: var(--disp); font-weight: 600; font-size: var(--fs-00); text-transform: none; letter-spacing: 0.1em; color: var(--ink-faint); }
 .term-title { font-family: var(--mono); font-size: var(--fs-0); color: var(--ink-faint); }
 .term-body {
 	font-family: var(--mono);
@@ -390,6 +161,7 @@ p a:hover, li a:hover, .site-footer a:hover, .about-body a:hover, .tl-desc a:hov
 	color: var(--ink-dim);
 	white-space: pre-wrap;
 	word-break: break-word;
+	overflow-wrap: anywhere;
 }
 .c-dim { color: var(--ink-faint); }
 .c-key { color: var(--acc-2); }
@@ -397,6 +169,7 @@ p a:hover, li a:hover, .site-footer a:hover, .about-body a:hover, .tl-desc a:hov
 .c-ok  { color: var(--acc); font-weight: 500; }
 .c-bad { color: var(--bad); font-weight: 500; }
 .cursor { color: var(--acc); animation: blink 1.1s steps(2) infinite; }
+@keyframes blink { 0%, 50% { opacity: 1; } 50.01%, 100% { opacity: 0; } }
 
 /* ── The page column is the DEFAULT ────────────────────────────────────
    main.content is constrained to the site column with the shared gutter, so
@@ -425,7 +198,7 @@ p a:hover, li a:hover, .site-footer a:hover, .about-body a:hover, .tl-desc a:hov
 	font-family: var(--disp);
 	font-weight: 600;
 	font-size: var(--fs-0);
-	text-transform: uppercase;
+	text-transform: none;
 	letter-spacing: 0.14em;
 	color: var(--ink-faint);
 	margin-bottom: 1rem;
@@ -437,83 +210,6 @@ p a:hover, li a:hover, .site-footer a:hover, .about-body a:hover, .tl-desc a:hov
 	font-size: clamp(1.45rem, 3.2vw, 2.05rem);
 	letter-spacing: -0.01em;
 	margin-bottom: 2.5rem;
-}
-
-/* about */
-.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.5rem, 5vw, 4rem); }
-.about-grid .section-title { margin-bottom: 0; align-self: start; }
-.about-body p { color: var(--ink-dim); margin-bottom: 1.1rem; font-size: var(--fs-3); }
-.about-body strong { color: var(--ink); font-weight: 500; }
-
-/* timeline */
-.timeline { list-style: none; position: relative; padding-left: 1.75rem; }
-.timeline::before {
-	content: "";
-	position: absolute;
-	left: 4px; top: 6px; bottom: 6px;
-	width: 1px;
-	background: linear-gradient(180deg, var(--acc), var(--line) 60%);
-}
-.tl-item { position: relative; padding-bottom: 2.5rem; }
-.tl-item:last-child { padding-bottom: 0; }
-.tl-item::before {
-	content: "";
-	position: absolute;
-	left: -1.75rem; top: 7px;
-	width: 9px; height: 9px;
-	border-radius: 0;
-	background: var(--acc);
-	transform: translateX(0.5px);
-}
-.tl-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.5rem 0.9rem; margin-bottom: 0.6rem; }
-.tl-head h3 { font-size: var(--fs-3); font-weight: 600; }
-.tl-org { font-family: var(--mono); color: var(--acc-2); font-size: var(--fs-2); }
-.tl-meta { font-family: var(--mono); color: var(--ink-faint); font-size: var(--fs-1); margin-left: auto; }
-.tl-desc { color: var(--ink-dim); max-width: 62ch; }
-.tl-desc strong { color: var(--ink); font-weight: 500; }
-
-/* how i work */
-.approach { list-style: none; display: grid; gap: 1.6rem; max-width: 60rem; }
-.approach-step { display: flex; gap: 1.25rem; align-items: flex-start; }
-.approach-num {
-	font-family: var(--mono);
-	color: var(--acc);
-	font-size: var(--fs-2);
-	line-height: 1.55;
-	flex-shrink: 0;
-	width: 2.2rem;
-}
-.approach-step h3 { font-size: var(--fs-3); font-weight: 600; margin-bottom: 0.35rem; }
-.approach-step p { color: var(--ink-dim); max-width: 64ch; }
-.approach-more { margin-top: 1.75rem; font-family: var(--mono); font-size: var(--fs-2); }
-.approach-more a { color: var(--acc); text-decoration: none; transition: opacity 0.2s var(--ease); }
-.approach-more a:hover { text-decoration: underline; text-underline-offset: 3px; }
-
-/* case study */
-.cs { max-width: 62rem; }
-.cs p { color: var(--ink-dim); margin-bottom: 1.1rem; max-width: 68ch; }
-.cs .cs-lede { color: var(--ink); font-size: var(--fs-3); }
-.cs strong { color: var(--ink); font-weight: 600; }
-.cs a { color: var(--acc); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--line); }
-.cs a:hover { text-decoration-color: var(--acc); }
-.cs-sub { font-family: var(--mono); font-size: var(--fs-1); color: var(--ink-faint) !important; margin-top: 1.75rem; }
-.cs-map { list-style: none; display: grid; gap: 0; margin-bottom: 1.6rem; }
-.cs-map li {
-	display: grid;
-	grid-template-columns: 1fr 1.4fr;
-	gap: 1.25rem;
-	padding: 0.75rem 0;
-	border-bottom: 1px solid var(--line-soft);
-	align-items: baseline;
-}
-.cs-threat { color: var(--bad); font-family: var(--mono); font-size: var(--fs-2); }
-.cs-ctrl { color: var(--ink-dim); font-size: var(--fs-2); }
-.cs-note { color: var(--ink-faint); font-size: var(--fs-2); }
-.cs-try { margin-top: 1.4rem; font-family: var(--mono); font-size: var(--fs-2); }
-.cs-try a { color: var(--acc); text-decoration: none; transition: opacity 0.2s var(--ease); }
-.cs-try a:hover { text-decoration: underline; text-underline-offset: 3px; }
-@media (max-width: 640px) {
-	.cs-map li { grid-template-columns: 1fr; gap: 0.3rem; }
 }
 
 /* cards */
@@ -547,113 +243,18 @@ p a:hover, li a:hover, .site-footer a:hover, .about-body a:hover, .tl-desc a:hov
 .card-feature::before, .card-feature::after { opacity: 0.4; }
 .card-top { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; padding-right: 3rem; }
 /* the plate numeral — exhibit as a numbered instrument */
-.card-idx { position: absolute; top: 0.9rem; right: 1.1rem; font-family: var(--disp); font-weight: 700; font-size: var(--fs-6); line-height: 1; color: var(--plate); }
-.card-tags { font-family: var(--mono); font-size: var(--fs-0); color: var(--acc-2); text-transform: lowercase; letter-spacing: 0.02em; }
+.card-idx { display: none; position: absolute; top: 0.9rem; right: 1.1rem; font-family: var(--disp); font-weight: 700; font-size: var(--fs-6); line-height: 1; color: var(--plate); }
+.card-tags { font-family: var(--grotesk); font-size: var(--fs-1); color: var(--ink-faint); }
 .card-title { font-family: var(--disp); font-weight: 600; font-size: var(--fs-4); letter-spacing: -0.01em; margin-bottom: 0.7rem; }
 .card-feature .card-title { font-size: var(--fs-5); }
 .card-at { color: var(--ink-faint); font-weight: 400; font-size: var(--fs-2); }
 .card-desc { color: var(--ink-dim); font-size: var(--fs-2); flex: 1; }
 .card-desc strong { color: var(--ink); font-weight: 500; }
-.card-links { display: flex; gap: 1.1rem; margin-top: 1.25rem; font-family: var(--mono); font-size: var(--fs-1); }
-.card-links a { color: var(--acc); transition: color 0.2s var(--ease); }
-.card-links a:hover { color: var(--acc-hi); }
-.card-lock { font-family: var(--mono); font-size: var(--fs-1); color: var(--ink-faint); }
+.card-links { display: flex; flex-wrap: wrap; gap: 0.4rem 1.1rem; margin-top: 1.25rem; font-family: var(--grotesk); font-size: var(--fs-2); }
+.card-links a { color: var(--blue); text-decoration: underline; text-underline-offset: 0.18em; }
+.card-links a:hover { color: var(--blue-deep); }
+.card-lock { font-family: var(--grotesk); font-size: var(--fs-1); color: var(--ink-faint); }
 .card-mini { background: transparent; border-style: dashed; }
-
-/* skills */
-.skills-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; margin-bottom: 3rem; }
-.skill-group { border: 1px solid var(--line); border-radius: 0; padding: 1.35rem; background: var(--panel); }
-.skill-group h3 { font-family: var(--disp); font-size: var(--fs-0); text-transform: uppercase; letter-spacing: 0.08em; color: var(--acc); margin-bottom: 1rem; font-weight: 600; }
-.skill-group ul { list-style: none; }
-.skill-group li { color: var(--ink-dim); font-size: var(--fs-2); padding: 0.28rem 0; border-bottom: 1px solid var(--line-soft); }
-.skill-group li:last-child { border-bottom: 0; }
-
-.creds { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-.cred h4 { font-family: var(--mono); font-size: var(--fs-1); color: var(--ink-faint); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.8rem; }
-.cred ul { list-style: none; }
-.cred li { color: var(--ink-dim); font-size: var(--fs-2); padding: 0.22rem 0; }
-.cred a { color: var(--acc-2); }
-.cred a:hover { text-decoration: underline; }
-
-/* contact */
-.section-contact { text-align: center; }
-.contact-title { font-family: var(--disp); font-weight: 700; font-size: clamp(1.7rem, 5vw, 3rem); text-transform: uppercase; letter-spacing: -0.005em; margin-bottom: 2.5rem; }
-.contact-links { display: flex; flex-direction: column; gap: 0.5rem; align-items: center; font-family: var(--mono); font-size: clamp(1rem, 2.5vw, 1.3rem); }
-.contact-links a { color: var(--ink-dim); padding: 0.3rem 0; transition: color 0.25s var(--ease), letter-spacing 0.25s var(--ease); }
-.contact-links a:hover { color: var(--acc); letter-spacing: 0.02em; }
-
-.footer {
-	margin-top: 4rem;
-	padding-top: 1.5rem;
-	border-top: 1px solid var(--line);
-	display: flex;
-	justify-content: space-between;
-	flex-wrap: wrap;
-	gap: 0.5rem 1.5rem;
-	align-items: center;
-	font-family: var(--mono);
-	font-size: var(--fs-1);
-	color: var(--ink-faint);
-}
-/* exhibit-page footers are full-bleed — give the row a gutter so links don't sit
-   flush to the viewport edge (blog.css overrides with its own centered width) */
-.site-footer { padding-left: var(--gutter); padding-right: var(--gutter); }
-
-/* ─────────────────────────── REVEAL ANIM ─────────────────────────── */
-/* Only hide-until-revealed when JS is present (html.js). Without JS the
-   content stays visible instead of a blank page. */
-.js [data-reveal] {
-	opacity: 0;
-	transform: translateY(18px);
-	transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
-}
-.js [data-reveal].in { opacity: 1; transform: none; }
-
-/* ─────────────────────────── RESPONSIVE ──────────────────────────── */
-@media (max-width: 860px) {
-	.nav-links { display: none; }
-	.nav-toggle { display: flex; }
-	.nav.open .nav-links {
-		display: flex;
-		position: absolute;
-		top: 100%; left: 0; right: 0;
-		flex-direction: column;
-		gap: 0;
-		padding: 0.5rem 0;
-		background: var(--bg-2);
-		border-bottom: 1px solid var(--line);
-	}
-	.nav.open .nav-links a { padding: 0.85rem var(--gutter); }
-	.nav.open .nav-links .nav-out {
-		margin-left: 0;
-		padding-left: var(--gutter);
-		border-top: 1px solid var(--line-soft);
-		margin-top: 0.3rem;
-	}
-	.nav.open .nav-links .nav-out::before { display: none; }
-	/* résumé button becomes a normal dropdown row on mobile */
-	.nav.open .nav-links .nav-resume {
-		border: 0;
-		border-top: 1px solid var(--line-soft);
-		border-radius: 0;
-		background: none;
-		color: var(--acc);
-		font-size: var(--fs-1);
-	}
-	/* it's a plain centered row here, not a button — drop the ↗ so the word
-	   centers on the column like every other item (the arrow only skewed it) */
-	.nav.open .nav-links .nav-resume span { display: none; }
-	.hero { grid-template-columns: 1fr; }
-	.about-grid { grid-template-columns: 1fr; }
-	.cards { grid-template-columns: 1fr; }
-	.card-feature { grid-column: auto; }
-	.skills-grid { grid-template-columns: repeat(2, 1fr); }
-	.creds { grid-template-columns: 1fr; }
-	.tl-meta { margin-left: 0; width: 100%; }
-}
-@media (max-width: 460px) {
-	.skills-grid { grid-template-columns: 1fr; }
-}
 
 /* Shared result callout + a pulsing "live" dot. Page stylesheets that load
    after this one (mcp.css, game.css via extra_css) may override .verdict for
@@ -688,8 +289,8 @@ p a:hover, li a:hover, .site-footer a:hover, .about-body a:hover, .tl-desc a:hov
 }
 @keyframes mcp-pulse {
 	0%   { box-shadow: 0 0 0 0 var(--field-acc-on); }
-	70%  { box-shadow: 0 0 0 0.5em rgba(79, 227, 161, 0); }
-	100% { box-shadow: 0 0 0 0 rgba(79, 227, 161, 0); }
+	70%  { box-shadow: 0 0 0 0.5em rgba(19, 116, 74, 0); }
+	100% { box-shadow: 0 0 0 0 rgba(19, 116, 74, 0); }
 }
 
 /* ══════════════════════════════════════════════════════════════════
@@ -740,8 +341,7 @@ p a:hover, li a:hover, .site-footer a:hover, .about-body a:hover, .tl-desc a:hov
 
 @media (prefers-reduced-motion: reduce) {
 	* { scroll-behavior: auto !important; }
-	[data-reveal] { opacity: 1; transform: none; transition: none; }
-	.blink, .cursor, .mcp-live-dot, .verdict, .ytm-verdict, .tp-verdict { animation: none; }
+	.cursor, .mcp-live-dot, .verdict, .ytm-verdict, .tp-verdict { animation: none; }
 	.card::before, .card::after, .btn::before, .btn::after { transition: none; }
 }
 
@@ -754,5 +354,9 @@ p a:hover, li a:hover, .site-footer a:hover, .about-body a:hover, .tl-desc a:hov
 .u-accent { color: var(--acc); }
 .u-warn   { color: var(--warn); }
 .u-mt-lg  { margin-top: 2rem; }
-/* visually hidden, still in the accessibility tree */
-.u-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; border: 0; }
+
+@media (max-width: 860px) {
+	.cards { grid-template-columns: 1fr; }
+	.card-feature { grid-column: auto; }
+}
+.card-desc code { overflow-wrap: anywhere; }

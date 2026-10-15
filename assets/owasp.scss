@@ -14,7 +14,7 @@
 	font-family: var(--disp);
 	font-weight: 700;
 	font-size: clamp(1.8rem, 4.5vw, 2.6rem);
-	text-transform: uppercase;
+	text-transform: none;
 	letter-spacing: -0.005em;
 	line-height: 1.08;
 	margin-bottom: 1.1rem;
@@ -136,9 +136,9 @@ html:not(.js) .asi-turn { display: none; }
    colour-keyed by a single parametric --glow RGB triplet (a sanctioned exception to the
    fixed --field ladder: the hue varies per face, so tints derive from --glow, not literals).
    The triplets equal --bad / --warn / --acc-2 in rgb form. */
-.face-risk    { --glow: 255, 107, 107; transform: rotateY(0deg)   translateZ(86.6px); background: linear-gradient(150deg, rgba(var(--glow), 0.07) 0%, var(--panel) 55%); }
-.face-detect  { --glow: 245, 181, 68;  transform: rotateY(120deg) translateZ(86.6px); background: linear-gradient(150deg, rgba(var(--glow), 0.08) 0%, var(--bg-2) 55%); }
-.face-control { --glow: 76, 201, 240;  transform: rotateY(240deg) translateZ(86.6px); background: linear-gradient(150deg, rgba(var(--glow), 0.08) 0%, var(--bg-2) 55%); }
+.face-risk    { --glow: 180, 35, 24; transform: rotateY(0deg)   translateZ(86.6px); background: linear-gradient(150deg, rgba(var(--glow), 0.07) 0%, var(--panel) 55%); }
+.face-detect  { --glow: 196, 132, 0;   transform: rotateY(120deg) translateZ(86.6px); background: linear-gradient(150deg, rgba(var(--glow), 0.08) 0%, var(--bg-2) 55%); }
+.face-control { --glow: 31, 95, 139;  transform: rotateY(240deg) translateZ(86.6px); background: linear-gradient(150deg, rgba(var(--glow), 0.08) 0%, var(--bg-2) 55%); }
 
 /* hover feedback is a colour-keyed border + ring glow — no drop shadow (depth is value alone) */
 .asi-card:hover .asi-face,
@@ -162,7 +162,7 @@ html:not(.js) .asi-turn { display: none; }
 .asi-label {
 	font-family: var(--mono);
 	font-size: var(--fs-00);
-	text-transform: uppercase;
+	text-transform: none;
 	letter-spacing: 0.09em;
 	margin-bottom: 0.45rem;
 	color: rgb(var(--glow));

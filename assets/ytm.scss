@@ -15,7 +15,7 @@
 	font-family: var(--disp);
 	font-size: clamp(1.9rem, 4.5vw, 2.75rem);
 	font-weight: 700;
-	text-transform: uppercase;
+	text-transform: none;
 	line-height: 1.08;
 	letter-spacing: -0.005em;
 	margin: 0.2rem 0 0.9rem;
@@ -63,7 +63,7 @@
 }
 .ytm-hud-item { display: flex; align-items: baseline; gap: 0.5rem; }
 .ytm-hud-item[hidden] { display: none; }   /* the class's display:flex otherwise beats [hidden] */
-.ytm-hud-label { font-size: var(--fs-0); color: var(--ink-faint); text-transform: uppercase; letter-spacing: 0.08em; }
+.ytm-hud-label { font-size: var(--fs-0); color: var(--ink-faint); text-transform: none; letter-spacing: 0.08em; }
 .ytm-hud-val { font-size: var(--fs-3); font-weight: 700; color: var(--ink); }
 
 /* the untrusted artifact — a terminal-ish card */
@@ -89,7 +89,7 @@
 	font-size: var(--fs-0);
 	font-weight: 700;
 	letter-spacing: 0.1em;
-	text-transform: uppercase;
+	text-transform: none;
 	color: var(--ink-on-acc);
 	background: var(--ink-faint);
 	border-radius: 0;
@@ -158,7 +158,7 @@
 }
 .ytm-verdict-safe { background: var(--field-acc-on); border: 1px solid var(--acc); color: var(--acc); }
 .ytm-verdict-leak { background: var(--field-bad-on); border: 1px solid var(--bad); color: var(--bad); }
-.ytm-stamp { font-family: var(--disp); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; font-size: var(--fs-0); margin-right: 0.6rem; }
+.ytm-stamp { font-family: var(--disp); font-weight: 700; text-transform: none; letter-spacing: 0.08em; font-size: var(--fs-0); margin-right: 0.6rem; }
 .ytm-note { color: var(--ink-dim); font-weight: 400; display: block; margin-top: 0.4rem; }
 
 /* the reveal */
@@ -179,7 +179,7 @@
 	font-family: var(--mono);
 	font-size: var(--fs-0);
 	letter-spacing: 0.06em;
-	text-transform: uppercase;
+	text-transform: none;
 	padding: 0.55rem 0.85rem;
 	border-bottom: 1px solid var(--line);
 }
@@ -215,7 +215,7 @@
 /* the server-side controls switch — the thesis, as a toggle you can flip */
 #start-wrap[hidden] { display: none; }
 .ytm-seg { border: 0; padding: 0; margin: 1.6rem 0 0; }
-.ytm-seg-legend { font-family: var(--mono); font-size: var(--fs-0); text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-faint); padding: 0; margin-bottom: 0.5rem; }
+.ytm-seg-legend { font-family: var(--mono); font-size: var(--fs-0); text-transform: none; letter-spacing: 0.08em; color: var(--ink-faint); padding: 0; margin-bottom: 0.5rem; }
 .ytm-seg-opt { position: relative; display: inline-flex; margin-right: 0.4rem; }
 .ytm-seg-face {
 	border: 1px solid var(--line);
