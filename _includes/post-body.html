@@ -1,0 +1,52 @@
+{%- comment -%}
+  Renders a post's body with a "#" link inside every h2 and h3, and a
+  "Contents" list of the h2s on long posts (reading_time of 7+ minutes, or
+  `toc: true`). Pure Liquid: it post-processes the rendered `content`, so posts
+  need no markers. The anchors live only in the layout output, so the feed and
+  SEO tags (which read the raw post content) never see them.
+  Usage: {% include post-body.html html=rendered_html %} (defaults to `content`;
+  the post layout passes in the output of incident-facts.html).
+{%- endcomment -%}
+{%- assign minutes = page.reading_time | split: ' ' | first | plus: 0 -%}
+{%- assign toc_html = '' -%}
+{%- assign toc_count = 0 -%}
+
+{%- assign out = '' -%}
+{%- assign source = include.html | default: content -%}
+{%- assign parts = source | split: '<h2 id="' -%}
+{%- for part in parts -%}
+  {%- if forloop.first -%}
+    {%- assign out = part -%}
+  {%- else -%}
+    {%- assign head = part | split: '</h2>' | first -%}
+    {%- assign tail = part | remove_first: head | remove_first: '</h2>' -%}
+    {%- assign hid = head | split: '"' | first -%}
+    {%- assign label = head | remove_first: hid | remove_first: '">' -%}
+    {%- assign toc_count = toc_count | plus: 1 -%}
+    {%- capture toc_item -%}<li><a href="#{{ hid }}">{{ label | strip_html }}</a></li>{%- endcapture -%}
+    {%- assign toc_html = toc_html | append: toc_item -%}
+    {%- capture out -%}{{ out }}<h2 id="{{ head }}<a class="heading-anchor" href="#{{ hid }}" aria-label="Link to this section">#</a></h2>{{ tail }}{%- endcapture -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- assign body = out -%}
+{%- assign parts = body | split: '<h3 id="' -%}
+{%- for part in parts -%}
+  {%- if forloop.first -%}
+    {%- assign out = part -%}
+  {%- else -%}
+    {%- assign head = part | split: '</h3>' | first -%}
+    {%- assign tail = part | remove_first: head | remove_first: '</h3>' -%}
+    {%- assign hid = head | split: '"' | first -%}
+    {%- capture out -%}{{ out }}<h3 id="{{ head }}<a class="heading-anchor" href="#{{ hid }}" aria-label="Link to this section">#</a></h3>{{ tail }}{%- endcapture -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- if toc_count > 1 and minutes >= 7 or toc_count > 1 and page.toc -%}
+<details class="post-toc" open>
+	<summary class="post-toc-title">Contents</summary>
+	<ol class="post-toc-list">{{ toc_html }}</ol>
+</details>
+<script src="/assets/post-toc.js" defer></script>
+{%- endif -%}
+{{ out }}
