@@ -28,8 +28,9 @@ sizes to the attacker over DNS.
 
 Why would a sales agent take orders from a stranger's form submission?
 
-![Numbered flowchart of SalesBleed. 1: a stranger submits a web form. 2: it becomes a lead in the CRM. 3: an employee later asks the agent about leads. The question, the system prompt and the stranger's lead text share one context window. 4: the model follows the injected text. 5: it reads Accounts. 6: it writes a link with the data in the hostname. 7: the URL redactor misses it. 8: the chat or Slack fetches it. 9: the DNS lookup carries the data. 10: it reaches the attacker's name server.](/assets/blog/why-does-agentforce-take-orders-from-a-web-form/salesbleed-path.svg)
-*SalesBleed end to end. Solid steps are from Zenity's write-up; dashed ones are undisclosed or my inference.*
+{% capture alt %}Numbered flowchart of SalesBleed. 1: a stranger submits a web form. 2: it becomes a lead in the CRM. 3: an employee later asks the agent about leads. The question, the system prompt and the stranger's lead text share one context window. 4: the model follows the injected text. 5: it reads Accounts. 6: it writes a link with the data in the hostname. 7: the URL redactor misses it. 8: the chat or Slack fetches it. 9: the DNS lookup carries the data. 10: it reaches the attacker's name server.{% endcapture %}
+{% capture caption %}SalesBleed end to end. Solid steps are from Zenity's write-up; dashed ones are undisclosed or my inference.{% endcapture %}
+{% include figure.html src="/assets/blog/why-does-agentforce-take-orders-from-a-web-form/salesbleed-path.svg" alt=alt caption=caption %}
 
 ## The model sees one stream of text
 
@@ -53,8 +54,9 @@ puts you in that seat. If you want to play the attacker,
 [/break-this-server/](/break-this-server/) is nearly the same scenario with a
 support ticket in place of a sales lead.
 
-![Two sailors in a wood-paneled mail room around 1918, one reading letters at a slanted desk, the other at a wall of pigeonhole sorting boxes](/assets/blog/why-does-agentforce-take-orders-from-a-web-form/navy-mail-room-1918.jpg)
-*Two clerks, a wall of pigeonholes, and nobody checking whose envelope it was. [Mail room at the Naval Training Station, Seattle, circa 1918](https://commons.wikimedia.org/wiki/File:Mail_room_at_the_Naval_Training_Station,_Seattle,_circa_1918_%28MOHAI_9102%29.jpg) by Webster & Stevens, MOHAI, [public domain](https://commons.wikimedia.org/wiki/Template:PD-US-expired).*
+{% capture alt %}Two sailors in a wood-paneled mail room around 1918, one reading letters at a slanted desk, the other at a wall of pigeonhole sorting boxes{% endcapture %}
+{% capture caption %}Two clerks, a wall of pigeonholes, and nobody checking whose envelope it was. [Mail room at the Naval Training Station, Seattle, circa 1918](https://commons.wikimedia.org/wiki/File:Mail_room_at_the_Naval_Training_Station,_Seattle,_circa_1918_%28MOHAI_9102%29.jpg) by Webster & Stevens, MOHAI, [public domain](https://commons.wikimedia.org/wiki/Template:PD-US-expired).{% endcapture %}
+{% include figure.html src="/assets/blog/why-does-agentforce-take-orders-from-a-web-form/navy-mail-room-1918.jpg" alt=alt caption=caption %}
 
 Notice also what the attacker didn't need. Zenity says the default General CRM
 subagent's Query Records tool could already read Leads and Accounts: "The

@@ -68,6 +68,24 @@ To add a post: give it `short_title:` and, where one fits, `exhibits:`.
 Then run `python3 scripts/make_og.py` to regenerate the share cards (default,
 lab, every exhibit, every post) in the v3 look.
 
+## Images in posts
+
+Every post image goes through `_includes/figure.html`, which renders a
+`<figure class="post-figure">` with a `<figcaption>`. Images and diagrams live in
+`assets/blog/<slug>/`.
+
+```liquid
+{% capture alt %}What the image shows.{% endcapture %}
+{% capture caption %}Caption in markdown, [links](https://…) allowed.{% endcapture %}
+{% include figure.html src="/assets/blog/<slug>/name.svg" alt=alt caption=caption %}
+```
+
+Never write a raw `![alt](src)` with an italic caption line under it. Markdown
+merges the two into one paragraph with an inline `<img>`, and the caption flows
+beside any image narrower than the 40rem column. The PreToolUse hook blocks raw
+markdown images in `_posts/` and `_drafts/`, and `.post-body img` is
+`display: block` as a backstop.
+
 ## Building like GitHub Pages does
 
 Pages builds with the github-pages gem (Jekyll 3.10, **Ruby Sass 3.7**). Old Sass

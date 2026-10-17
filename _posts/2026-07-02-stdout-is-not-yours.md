@@ -37,8 +37,9 @@ to read. In a terminal, that's what it is. But when the client launches your
 server, nobody is looking at stdout except a parser with very firm opinions about
 what a line should contain.
 
-![A cream-colored Teletype ASR-33 terminal with a roll of paper and a punched-tape reader, on display at the Computer History Museum](/assets/blog/stdout-is-not-yours/teletype-asr-33.jpg)
-*The human stdout was built for: a Teletype ASR-33. Photo: [ASR-33 at CHM](https://commons.wikimedia.org/wiki/File:ASR-33_at_CHM.agr.jpg) by ArnoldReinhold, [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/).*
+{% capture alt %}A cream-colored Teletype ASR-33 terminal with a roll of paper and a punched-tape reader, on display at the Computer History Museum{% endcapture %}
+{% capture caption %}The human stdout was built for: a Teletype ASR-33. Photo: [ASR-33 at CHM](https://commons.wikimedia.org/wiki/File:ASR-33_at_CHM.agr.jpg) by ArnoldReinhold, [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/).{% endcapture %}
+{% include figure.html src="/assets/blog/stdout-is-not-yours/teletype-asr-33.jpg" alt=alt caption=caption %}
 
 Now trace what happens when your server logs something. Maybe it's a `structlog`
 line, or a stray `print()`, or a dependency announcing "loaded model
@@ -57,8 +58,9 @@ malformed reply. So if you see a burst of `invalid_union` and `unrecognized_keys
 errors from a server that starts perfectly in a shell, this is the first thing to
 check.
 
-![Diagram: the client writes a tools/list request to the server's stdin and parses every line of the server's stdout as JSON-RPC. A JSON-RPC result frame is accepted; a structlog line with event and level keys is rejected. The same log line sent to stderr lands in the client log or your terminal, where nobody parses it.](/assets/blog/stdout-is-not-yours/stdio-pipes.svg)
-*Three pipes, one parser. Only stdout is read as protocol, so a log line there is a malformed reply.*
+{% capture alt %}Diagram: the client writes a tools/list request to the server's stdin and parses every line of the server's stdout as JSON-RPC. A JSON-RPC result frame is accepted; a structlog line with event and level keys is rejected. The same log line sent to stderr lands in the client log or your terminal, where nobody parses it.{% endcapture %}
+{% capture caption %}Three pipes, one parser. Only stdout is read as protocol, so a log line there is a malformed reply.{% endcapture %}
+{% include figure.html src="/assets/blog/stdout-is-not-yours/stdio-pipes.svg" alt=alt caption=caption %}
 
 This is one of those cases where running the program by hand actively misleads
 you. In the terminal, the log line lands on your screen and looks harmless. Under

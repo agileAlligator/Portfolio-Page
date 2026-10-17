@@ -74,8 +74,9 @@ Hugging Face left the exploit map out of the writeup. But you can reconstruct a 
 
 [PR #3368](https://github.com/huggingface/dataset-viewer/pull/3368) turns off automatic service-account-token mounting on the worker pods, applies a `RuntimeDefault` seccomp profile, and drops all Linux capabilities, noting that the worker "never interact[s] with the Kubernetes API." Read that again. The worker had been carrying a Kubernetes API token it never used. That is a key to an office you never visit, carried around in case someone wants to borrow it.
 
-![A large bundle of old rusty keys on several rings, spread on a wooden table](/assets/blog/hugging-face-agentic-breach/key-ring.jpg)
-*Ambient authority, rendered in iron. "[Rusty keys on key rings](https://commons.wikimedia.org/wiki/File:Rusty_keys_Schl%C3%BCssel_Keys_on_key_rings_Schl%C3%BCsselbund_01.JPG)" by Iswoar, [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/), via Wikimedia Commons.*
+{% capture alt %}A large bundle of old rusty keys on several rings, spread on a wooden table{% endcapture %}
+{% capture caption %}Ambient authority, rendered in iron. "[Rusty keys on key rings](https://commons.wikimedia.org/wiki/File:Rusty_keys_Schl%C3%BCssel_Keys_on_key_rings_Schl%C3%BCsselbund_01.JPG)" by Iswoar, [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/), via Wikimedia Commons.{% endcapture %}
+{% include figure.html src="/assets/blog/hugging-face-agentic-breach/key-ring.jpg" alt=alt caption=caption %}
 
 [PR #3367](https://github.com/huggingface/dataset-viewer/pull/3367) restricts the dataset loader's `fsspec` backends to an allowlist and removes the implementations that widen the read surface.
 
@@ -87,8 +88,9 @@ Put those together and you get the picture before the fixes: a parser that runs 
 
 So the code execution was the match, and the worker's ambient authority was the accelerant. The match alone gets you an ingestion incident. The accelerant is what turns it into a credential harvest across clusters.
 
-![Diagram: a malicious dataset gets code execution on a processing worker; the worker's ambient authority (auto-mounted service-account token, open fsspec loader, static secrets, and an inferred wider reach) leads to node-level access, harvested credentials, and lateral movement across clusters; red walls mark PRs #3368, #3367, and #3375 on the three stated paths](/assets/blog/hugging-face-agentic-breach/match-and-accelerant.svg)
-*The match and the accelerant. Red walls are the fix PRs on each path they close; the dashed path is my inference, not Hugging Face's statement.*
+{% capture alt %}Diagram: a malicious dataset gets code execution on a processing worker; the worker's ambient authority (auto-mounted service-account token, open fsspec loader, static secrets, and an inferred wider reach) leads to node-level access, harvested credentials, and lateral movement across clusters; red walls mark PRs #3368, #3367, and #3375 on the three stated paths{% endcapture %}
+{% capture caption %}The match and the accelerant. Red walls are the fix PRs on each path they close; the dashed path is my inference, not Hugging Face's statement.{% endcapture %}
+{% include figure.html src="/assets/blog/hugging-face-agentic-breach/match-and-accelerant.svg" alt=alt caption=caption %}
 
 None of this is new advice. The [NSA/CISA Kubernetes Hardening Guide](https://media.defense.gov/2022/Aug/29/2003066362/-1/-1/0/CTR_KUBERNETES_HARDENING_GUIDANCE_1.2_20220829.PDF) has said for years to disable the service-account token where a pod stays off the API, scope RBAC to least privilege, and use network policies so a compromise in one namespace stays in one namespace. Hugging Face's remediation is that guide, applied after the fact. Standard controls, switched on after the breach, in places where they belonged before it.
 

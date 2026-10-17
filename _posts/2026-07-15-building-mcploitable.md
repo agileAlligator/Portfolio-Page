@@ -73,8 +73,9 @@ Each box then comes in four rungs.
 
 Climbing the rungs shows you where a defense stops being reliable.
 
-![Diagram: the four rungs from L0 at the bottom to L3 at the top. L0, the door left open, has no control at all. L1, a soft signal marking content untrusted, leaves the call to the model. A red dashed line between L1 and L2 marks that below it only the model's judgment is in the way. L2, a partial control, puts the call in server code with one gap left open. L3, the control done right, is server code with 0 of 105 attempts through.](/assets/blog/building-mcploitable/control-ladder.svg)
-*The ladder. The rungs differ in who makes the call: below the red line it's the model, above it it's server code.*
+{% capture alt %}Diagram: the four rungs from L0 at the bottom to L3 at the top. L0, the door left open, has no control at all. L1, a soft signal marking content untrusted, leaves the call to the model. A red dashed line between L1 and L2 marks that below it only the model's judgment is in the way. L2, a partial control, puts the call in server code with one gap left open. L3, the control done right, is server code with 0 of 105 attempts through.{% endcapture %}
+{% capture caption %}The ladder. The rungs differ in who makes the call: below the red line it's the model, above it it's server code.{% endcapture %}
+{% include figure.html src="/assets/blog/building-mcploitable/control-ladder.svg" alt=alt caption=caption %}
 
 Finally, scoring is by effect. You don't win because the model said something
 alarming. You win when a real canary secret leaves through a real tool call,
@@ -82,8 +83,9 @@ caught server-side. The judge never reads the model's prose. It only checks
 whether the secret got out, which is the one thing the defender actually cares
 about.
 
-![Diagram: on the attacker plane you edit one untrusted artifact, such as an email, support ticket, plugin, planted memory or agent message. It flows into the fixed victim plane, where the victim agent with its system prompt, tools and model emits a tool call and a reply. The tool call goes to a server-side judge that checks only whether the canary left; the model's reply is never read.](/assets/blog/building-mcploitable/two-planes.svg)
-*Two planes. You write one artifact; the judge watches the tool call, not the reply.*
+{% capture alt %}Diagram: on the attacker plane you edit one untrusted artifact, such as an email, support ticket, plugin, planted memory or agent message. It flows into the fixed victim plane, where the victim agent with its system prompt, tools and model emits a tool call and a reply. The tool call goes to a server-side judge that checks only whether the canary left; the model's reply is never read.{% endcapture %}
+{% capture caption %}Two planes. You write one artifact; the judge watches the tool call, not the reply.{% endcapture %}
+{% include figure.html src="/assets/blog/building-mcploitable/two-planes.svg" alt=alt caption=caption %}
 
 ## What happened on the ladder
 
@@ -105,8 +107,9 @@ where the result is boring on purpose. The correct control doesn't depend on
 which model you put behind it, so swapping the model doesn't change the
 outcome.
 
-![A bald crash-test dummy in coveralls sits strapped into a seat on a long test sled while a technician in glasses adjusts its lap belt, in a black-and-white lab photo](/assets/blog/building-mcploitable/seatbelt-sled.jpg)
-*The belt is tested on the sled, not on the dummy's good judgment. "[Seatbelt testing apparatus](https://commons.wikimedia.org/wiki/File:Seatbelt_testing_apparatus.jpg)" by the National Institute of Standards and Technology (NIST Digital Collections, Gaithersburg, MD 20899), [public domain (PD-USGov)](https://commons.wikimedia.org/wiki/Template:PD-USGov), via Wikimedia Commons, resized.*
+{% capture alt %}A bald crash-test dummy in coveralls sits strapped into a seat on a long test sled while a technician in glasses adjusts its lap belt, in a black-and-white lab photo{% endcapture %}
+{% capture caption %}The belt is tested on the sled, not on the dummy's good judgment. "[Seatbelt testing apparatus](https://commons.wikimedia.org/wiki/File:Seatbelt_testing_apparatus.jpg)" by the National Institute of Standards and Technology (NIST Digital Collections, Gaithersburg, MD 20899), [public domain (PD-USGov)](https://commons.wikimedia.org/wiki/Template:PD-USGov), via Wikimedia Commons, resized.{% endcapture %}
+{% include figure.html src="/assets/blog/building-mcploitable/seatbelt-sled.jpg" alt=alt caption=caption %}
 
 ## A good payload sounds bored
 

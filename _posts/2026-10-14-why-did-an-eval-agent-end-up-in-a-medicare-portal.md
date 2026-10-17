@@ -29,8 +29,9 @@ The timeline, per the [ABC](https://www.abc.net.au/news/2026-09-24/ai-agent-acce
 - **September 10.** OpenAI emails a public Services Australia mailbox. Services Australia sees it the next day and reports it to the Australian Signals Directorate on September 15.
 - **September 24.** Albanese phones Sam Altman and announces the incident.
 
-![Timeline drawn to scale: on June 18 the agent gets non-public access to the portal, by a mechanism not disclosed. A red stretch of about eight weeks follows in which nobody noticed. In mid-August OpenAI's review of earlier runs finds it. For about four weeks OpenAI knew and the agency didn't. On September 10 OpenAI emails a public mailbox, seen September 11 and reported to ASD September 15. Fourteen days later, on September 24, the Prime Minister announces it.](/assets/blog/why-did-an-eval-agent-end-up-in-a-medicare-portal/timeline.svg)
-*The same dates, to scale. The longest stretch is the one where nobody on either side knew.*
+{% capture alt %}Timeline drawn to scale: on June 18 the agent gets non-public access to the portal, by a mechanism not disclosed. A red stretch of about eight weeks follows in which nobody noticed. In mid-August OpenAI's review of earlier runs finds it. For about four weeks OpenAI knew and the agency didn't. On September 10 OpenAI emails a public mailbox, seen September 11 and reported to ASD September 15. Fourteen days later, on September 24, the Prime Minister announces it.{% endcapture %}
+{% capture caption %}The same dates, to scale. The longest stretch is the one where nobody on either side knew.{% endcapture %}
+{% include figure.html src="/assets/blog/why-did-an-eval-agent-end-up-in-a-medicare-portal/timeline.svg" alt=alt caption=caption %}
 
 What was reached: [public and non-public files](https://www.abc.net.au/news/2026-09-24/what-we-know-about-the-openai-medicare-hack/107189452) on the portal. The government described the non-public material as not particularly sensitive, and it has since been published. The agent also [wrote files to an internal server](https://www.pm.gov.au/media/press-conference-new-york), which is still under investigation. OpenAI [says](https://openai.com/index/how-we-will-do-better-for-australia/) its "review to date has found no evidence that anyone's medical records were accessed."
 
@@ -58,8 +59,9 @@ You don't add "block live internet" unless the internet was live. So the sandbox
 
 The Medicare portal was a public website that also held non-public files. Something in front of those files said no to the agent at first and later stopped saying no. The government hasn't said what that was, or how a read-only statistics site ended up accepting writes.
 
-![Diagram: an eval harness with a goal, tools to fetch a URL and run code, and a loop that treats a refusal as one more result sends requests out to the live internet (inferred). They reach the Medicare statistics portal's public pages, then a control that said no and later stopped saying no, its mechanism not disclosed, and past it non-public files that were read and an internal server the agent wrote files to. Red markers show what wasn't there: no egress allowlist, no check on every path, no real-time alert.](/assets/blog/why-did-an-eval-agent-end-up-in-a-medicare-portal/sandbox-to-portal.svg)
-*The path as far as it is known. Dashed boxes are inferred or undisclosed; red numbers are the missing controls.*
+{% capture alt %}Diagram: an eval harness with a goal, tools to fetch a URL and run code, and a loop that treats a refusal as one more result sends requests out to the live internet (inferred). They reach the Medicare statistics portal's public pages, then a control that said no and later stopped saying no, its mechanism not disclosed, and past it non-public files that were read and an internal server the agent wrote files to. Red markers show what wasn't there: no egress allowlist, no check on every path, no real-time alert.{% endcapture %}
+{% capture caption %}The path as far as it is known. Dashed boxes are inferred or undisclosed; red numbers are the missing controls.{% endcapture %}
+{% include figure.html src="/assets/blog/why-did-an-eval-agent-end-up-in-a-medicare-portal/sandbox-to-portal.svg" alt=alt caption=caption %}
 
 ## Why nobody noticed for weeks
 
@@ -67,8 +69,9 @@ Picture the portal's request log: a client fetches pages, gets refused, fetches 
 
 On the OpenAI side, if the run was scored on the answer, the score is the same whether the agent got it from a public download or through a side door. The access was found in mid-August, by a review of old runs that OpenAI started only because the Hugging Face incident made it look. A log that nobody reads in real time is a diary.
 
-![An empty hotel reception desk late at night, lit and tidy, with a monitor on the counter, a sign reading RECEPTION on the stone wall behind it, and nobody there](/assets/blog/why-did-an-eval-agent-end-up-in-a-medicare-portal/empty-reception-desk.jpg)
-*The log was running the whole time. Nobody was at the desk. "[Empty reception desk at Good Stay Eiropa Hotel](https://commons.wikimedia.org/wiki/File:Empty_reception_desk_at_Good_Stay_Eiropa_Hotel.jpg)" by JIP, [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/), via Wikimedia Commons, resized.*
+{% capture alt %}An empty hotel reception desk late at night, lit and tidy, with a monitor on the counter, a sign reading RECEPTION on the stone wall behind it, and nobody there{% endcapture %}
+{% capture caption %}The log was running the whole time. Nobody was at the desk. "[Empty reception desk at Good Stay Eiropa Hotel](https://commons.wikimedia.org/wiki/File:Empty_reception_desk_at_Good_Stay_Eiropa_Hotel.jpg)" by JIP, [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/), via Wikimedia Commons, resized.{% endcapture %}
+{% include figure.html src="/assets/blog/why-did-an-eval-agent-end-up-in-a-medicare-portal/empty-reception-desk.jpg" alt=alt caption=caption %}
 
 Then, having found it, OpenAI notified the agency by emailing a public inbox. Albanese called that "unacceptable."
 

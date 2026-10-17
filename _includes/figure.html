@@ -1,0 +1,20 @@
+{%- comment -%}
+  A blog figure: one image and an optional caption, rendered as a real
+  <figure>/<figcaption> so the caption always sits below the image.
+
+  Don't write raw ![alt](src) plus an italic line in posts: markdown merges
+  the two lines into one paragraph with an inline <img>, and the caption then
+  flows beside any image narrower than the column.
+
+  Usage (capture alt and caption, so quotes and apostrophes need no escaping):
+    {% capture alt %}What the image shows.{% endcapture %}
+    {% capture caption %}Markdown caption, [links](https://…) allowed.{% endcapture %}
+    {% include figure.html src="/assets/blog/<slug>/name.svg" alt=alt caption=caption %}
+{%- endcomment -%}
+<figure class="post-figure">
+  <img src="{{ include.src | relative_url }}" alt="{{ include.alt | strip | escape }}" loading="lazy">
+  {%- assign figure_caption = include.caption | strip -%}
+  {%- if figure_caption != "" %}
+  <figcaption>{{ figure_caption | markdownify | remove: "<p>" | remove: "</p>" | strip }}</figcaption>
+  {%- endif %}
+</figure>

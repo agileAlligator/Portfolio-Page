@@ -45,15 +45,17 @@ between a hijacked model and your API is another sentence in the same prompt
 the attacker just rewrote, you have taped a note to the door of an unlocked
 room. (The note says "please don't come in." It is very polite.)
 
-![A massive round steel bank vault door, swung open on its hinge behind a brass railing](/assets/blog/guardrails-belong-in-the-server/vault-door.jpg)
-*What a check that does not depend on cooperation looks like. "[Cleveland FRB Vault Door - brightened](https://commons.wikimedia.org/wiki/File:Cleveland_FRB_Vault_Door_-_brightened.jpg)" by Spamguy, [CC BY 2.5](https://creativecommons.org/licenses/by/2.5/), via Wikimedia Commons, resized.*
+{% capture alt %}A massive round steel bank vault door, swung open on its hinge behind a brass railing{% endcapture %}
+{% capture caption %}What a check that does not depend on cooperation looks like. "[Cleveland FRB Vault Door - brightened](https://commons.wikimedia.org/wiki/File:Cleveland_FRB_Vault_Door_-_brightened.jpg)" by Spamguy, [CC BY 2.5](https://creativecommons.org/licenses/by/2.5/), via Wikimedia Commons, resized.{% endcapture %}
+{% include figure.html src="/assets/blog/guardrails-belong-in-the-server/vault-door.jpg" alt=alt caption=caption %}
 
 So the checks go in the server, in deterministic code that runs after the model
 makes its decision and before the side effect happens. That code doesn't care
 what the model was convinced to do. These are the ones I'd put in first.
 
-![Diagram: the system prompt feeds only the model. A tool call passes a caller check and an allowlist in server code before reaching the API, and the response passes an output scan and returns as a typed object on the tool channel. No server step reads the prompt.](/assets/blog/guardrails-belong-in-the-server/call-path.svg)
-*The prompt only reaches the model. The checks run in code on the path every call takes.*
+{% capture alt %}Diagram: the system prompt feeds only the model. A tool call passes a caller check and an allowlist in server code before reaching the API, and the response passes an output scan and returns as a typed object on the tool channel. No server step reads the prompt.{% endcapture %}
+{% capture caption %}The prompt only reaches the model. The checks run in code on the path every call takes.{% endcapture %}
+{% include figure.html src="/assets/blog/guardrails-belong-in-the-server/call-path.svg" alt=alt caption=caption %}
 
 ## The allowlist has to run on every call
 
@@ -77,8 +79,9 @@ doesn't treat `/` as special, and so `*` happily spans it:
 #   GET /files/{id}/comments
 ```
 
-![Diagram: for the request GET /files/42/content, fnmatch's star matches "42/content" across the slash and allows it, while the regex segment matches only "42", leaving "/content" over so the $ anchor fails and the request is blocked.](/assets/blog/guardrails-belong-in-the-server/segment-match.svg)
-*The same request against both matchers: `*` keeps going past the slash, `[^/]+` stops at it.*
+{% capture alt %}Diagram: for the request GET /files/42/content, fnmatch's star matches "42/content" across the slash and allows it, while the regex segment matches only "42", leaving "/content" over so the $ anchor fails and the request is blocked.{% endcapture %}
+{% capture caption %}The same request against both matchers: `*` keeps going past the slash, `[^/]+` stops at it.{% endcapture %}
+{% include figure.html src="/assets/blog/guardrails-belong-in-the-server/segment-match.svg" alt=alt caption=caption %}
 
 You approved one endpoint and got three. A `{param}` must match exactly **one**
 path segment. Compile each approved route to an anchored regex where `{param}`

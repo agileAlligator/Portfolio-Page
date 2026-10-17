@@ -6,6 +6,8 @@ Blocks edits that create ad-hoc components on avneeshk.me:
   1. inline style="…" in any .html file
   2. a new CSS class definition (.foo { … }) whose name is not registered
      in .claude/design-system.json
+  3. a raw markdown image ![…](…) in _posts/ or _drafts/ (use
+     _includes/figure.html so captions render as <figcaption>)
 
 The escape hatch is intentional friction: register the class in
 .claude/design-system.json (and document it in DESIGN-SYSTEM.md) FIRST, then
@@ -70,6 +72,16 @@ def main():
             violations.append(
                 'inline style="…" — ad-hoc styling. Use a component class in '
                 'style.css (registered in the manifest) or a sanctioned .u-* utility.')
+
+    parts = pathlib.PurePath(fp).parts
+    if fp.endswith((".md", ".markdown")) and ("_posts" in parts or "_drafts" in parts):
+        if re.search(r'(?m)^\s*!\[', new):
+            violations.append(
+                'raw markdown image ![…](…) in a post. Markdown puts an image and '
+                'the caption line under it in one paragraph, so the caption flows '
+                'beside any image narrower than the column. Use '
+                '{% include figure.html src="…" alt=alt caption=caption %} '
+                '(see _includes/figure.html).')
 
     if fp.endswith((".css", ".scss")):
         root = find_root(fp, data.get("cwd", ""))
