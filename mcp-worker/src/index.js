@@ -43,8 +43,34 @@ function rungFromPath(pathname) {
 	return (m[1] ? m[1].toUpperCase() : "L3");
 }
 
+// Security headers, added to every response (JSON, plain text, 204, 202).
+// CORS is untouched: CORS headers are set where each response is built and
+// this wrapper never overwrites a header the handler already set.
+const SECURITY_HEADERS = {
+	"X-Content-Type-Options": "nosniff",
+	"Referrer-Policy": "no-referrer",
+	"Strict-Transport-Security": "max-age=63072000; includeSubDomains",
+	// The Worker serves JSON and plain text only, never a document a browser
+	// should render, so nothing is allowed to load or run if one is opened.
+	"Content-Security-Policy": "default-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'",
+	"X-Frame-Options": "DENY",
+	"Cross-Origin-Opener-Policy": "same-origin",
+};
+
+function withSecurityHeaders(res) {
+	const out = new Response(res.body, res);
+	for (const [k, v] of Object.entries(SECURITY_HEADERS)) if (!out.headers.has(k)) out.headers.set(k, v);
+	return out;
+}
+
 export default {
 	async fetch(req, env, ctx) {
+		return withSecurityHeaders(await route(req, env, ctx));
+	},
+};
+
+async function route(req, env, ctx) {
+	{
 		const url = new URL(req.url);
 		if (req.method === "OPTIONS") return new Response(null, { status: 204, headers: CORS });
 		const rung = rungFromPath(url.pathname);
@@ -65,8 +91,8 @@ export default {
 			rungs: { l0: "/mcp/l0 (leaks)", l3: "/mcp (holds)" },
 			site: "https://avneeshk.me/mcp/",
 		}), { status: 200, headers: { "Content-Type": "application/json", ...CORS } });
-	},
-};
+	}
+}
 
 // ── JSON-RPC / MCP ───────────────────────────────────────────────────────────
 const rpc = (id, result) => ({ jsonrpc: "2.0", id, result });

@@ -6,7 +6,8 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<script>document.documentElement.classList.add("js");</script>
+		{% include csp.html %}
+		<script src="/assets/js-flag.js"></script>
 		<title>Avneesh Kasture — Associate Solutions Engineer at Gruve</title>
 		<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
 		<link rel="icon" href="/favicon.ico" sizes="any" />
@@ -254,6 +255,7 @@
 							<a href="https://github.com/agileAlligator" target="_blank" rel="noopener">GitHub</a>
 							<a href="/resume.pdf" target="_blank" rel="noopener">Résumé (PDF)</a>
 							<a href="/feed.xml">RSS</a>
+							<a href="/colophon/">Colophon</a>
 						</p>
 					</div>
 					<aside class="note">I'm in Pune, India (IST, UTC+5:30).</aside>
