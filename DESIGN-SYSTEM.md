@@ -68,6 +68,37 @@ To add a post: give it `short_title:` and, where one fits, `exhibits:`.
 Then run `python3 scripts/make_og.py` to regenerate the share cards (default,
 lab, every exhibit, every post) in the v3 look.
 
+## Tags, series and Start here
+
+- **Tags** are lowercase and hyphenated, set in each post's `tags:` front matter. The
+  current set: `incident`, `mcp`, `agentic`, `guardrails`, `prompt-injection`,
+  `least-privilege`, `debugging`. Reuse one before inventing another. Post pages show
+  them in the meta line (`_includes/post-tags.html`).
+- **To add a tag:** tag a post, then add a stub page `blog/tags/<tag>.html`:
+
+  ```yaml
+  ---
+  layout: tag
+  title: "Posts tagged <tag>"
+  tag: <tag>
+  permalink: /blog/tags/<tag>/
+  ---
+  ```
+
+  `_layouts/tag.html` filters `site.tags`, and `/blog/tags/` lists every tag on its own.
+  Without the stub the tag still shows on the index but its link 404s.
+- **Tag feeds:** `feed: tags:` in `_config.yml` makes jekyll-feed 0.17 write
+  `/feed/by_tag/<tag>.xml`. It skips any tag containing a hyphen, so those tags get
+  no feed, and `tag.html` only links a feed for tags without one.
+- **Series:** add the series to `_data/series.yml` (slug, title, description, order),
+  put `series: <slug>` in each member post, and add `blog/series/<slug>.html` with
+  `layout: series`, `series: <slug>` and `permalink: /blog/series/<slug>/`. Part
+  order is post date, oldest first. Posts show the box through
+  `_includes/series-note.html`.
+- **Start here:** `featured: true` on a post lists it at the top of `/blog/`.
+  Keep it to three or four.
+- Post rows on every list come from `_includes/post-list-item.html` (exact dates).
+
 ## Exercise answers
 
 A post that ends with an **Exercise** gets a collapsed answer under it, through

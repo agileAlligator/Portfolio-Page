@@ -1,0 +1,11 @@
+# Series of posts. A post joins one with `series: <slug>` in its front matter.
+# Parts are listed oldest first, so the post date is the part order.
+# `order` sets the order of the series themselves on /blog/.
+- slug: guardrails
+  title: Guardrails belong in the server
+  description: A model can be talked out of a rule, so the checks live in server code. The argument, then the lab built to test it.
+  order: 1
+- slug: incidents
+  title: Incident writeups
+  description: Three 2026 incidents where an AI agent was involved, and the ordinary controls that would have limited each one.
+  order: 2

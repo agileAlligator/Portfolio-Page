@@ -1,0 +1,9 @@
+<li class="post-list-item">
+	<a href="{{ include.post.url }}">
+		<span class="pli-main">
+			<span class="pli-title">{% if include.part %}<span class="pli-part">Part {{ include.part }}</span> {% endif %}{{ include.post.title }}</span>
+			{% if include.post.subtitle %}<span class="pli-sub">{{ include.post.subtitle }}</span>{% endif %}
+		</span>
+		<time datetime="{{ include.post.date | date_to_xmlschema }}">{{ include.post.date | date: "%b %-d, %Y" }}</time>
+	</a>
+</li>

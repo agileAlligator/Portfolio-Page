@@ -1,0 +1,18 @@
+---
+layout: default
+title: Tags
+description: Every topic on the blog, with the posts under each.
+permalink: /blog/tags/
+---
+{% assign tag_names = site.tags | sort %}
+<section class="blog-index">
+	<p class="post-kicker"><a href="/blog/">Writing</a></p>
+	<h1 class="blog-title">Tags</h1>
+	<p class="blog-lede">Every topic on the blog, with the posts under each.</p>
+	{% for entry in tag_names %}
+	<h2 class="tag-group-title" id="{{ entry[0] }}"><a href="/blog/tags/{{ entry[0] }}/">{{ entry[0] }}</a> <span class="tag-group-count">{{ entry[1].size }}</span></h2>
+	<ul class="post-list">
+		{% for post in entry[1] %}{% include post-list-item.html post=post %}{% endfor %}
+	</ul>
+	{% endfor %}
+</section>

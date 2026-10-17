@@ -8,19 +8,22 @@ permalink: /blog/
 	<h1 class="blog-title">Writing</h1>
 	<p class="blog-lede">Notes from the things I build. Several posts have an exhibit in <a href="/lab/">the lab</a> you can try in your browser.</p>
 
+	{% assign featured = site.posts | where: "featured", true %}
+	{% if featured.size > 0 %}
+	<section class="start-here" aria-labelledby="start-here-title">
+		<h2 class="start-here-title" id="start-here-title">Start here</h2>
+		<ul class="start-here-list">
+			{% for post in featured %}<li><a href="{{ post.url }}">{{ post.short_title | default: post.title }}</a> <span class="start-here-meta">{{ post.reading_time }}</span></li>
+			{% endfor %}
+		</ul>
+	</section>
+	{% endif %}
+
+	<p class="blog-browse">Browse by <a href="/blog/tags/">tag</a>{% for s in site.data.series %}{% if forloop.first %} or by series: {% elsif forloop.last %} and {% else %}, {% endif %}<a href="/blog/series/{{ s.slug }}/">{{ s.title }}</a>{% endfor %}.</p>
+
 	{% if site.posts.size > 0 %}
 	<ul class="post-list">
-		{% for post in site.posts %}
-		<li class="post-list-item">
-			<a href="{{ post.url }}">
-				<span class="pli-main">
-					<span class="pli-title">{{ post.title }}</span>
-					{% if post.subtitle %}<span class="pli-sub">{{ post.subtitle }}</span>{% endif %}
-				</span>
-				<time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %Y" }}</time>
-			</a>
-		</li>
-		{% endfor %}
+		{% for post in site.posts %}{% include post-list-item.html post=post %}{% endfor %}
 	</ul>
 	{% else %}
 	<p class="blog-empty">First post landing shortly.</p>

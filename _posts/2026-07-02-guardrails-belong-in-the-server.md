@@ -11,7 +11,9 @@ description: >-
 date: 2026-07-02 09:00:00 +0000
 permalink: /blog/guardrails-belong-in-the-server/
 image: /assets/og/guardrails-belong-in-the-server.png
-tags: [mcp, security]
+tags: [mcp, guardrails, prompt-injection]
+series: guardrails
+featured: true
 reading_time: "6 min read"
 short_title: "Why the model ignores your rules"
 exhibits: [/break-this-server/, /mcp/, /allowlist-bypass/]
