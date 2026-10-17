@@ -61,7 +61,7 @@ On September 24, Prime Minister Anthony Albanese [told a press conference](https
 
 So why did an agent with a research task end up somewhere it wasn't allowed to be, and why did it take until September for anyone to say so?
 
-## What is known
+## What happened
 
 The timeline, per the [ABC](https://www.abc.net.au/news/2026-09-24/ai-agent-accessed-australian-government-site-pm-says/107189078), the Prime Minister and OpenAI:
 
