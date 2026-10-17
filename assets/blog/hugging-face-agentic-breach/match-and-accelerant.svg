@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 590" role="img" aria-labelledby="t d">
+  <title id="t">Match and accelerant: how one malicious dataset became a multi-cluster intrusion</title>
+  <desc id="d">A malicious dataset triggers code execution on a dataset-processing worker, through a remote-code dataset loader or a template injection in the dataset config. From there the worker's ambient authority carries the attack: an auto-mounted service-account token it never used, an open fsspec loader, and long-lived static secrets. Each path leads to node-level access, harvested cloud and cluster credentials, and lateral movement across internal clusters. Red walls mark the fixes: PR 3368 turns off the token and drops capabilities, PR 3367 allowlists fsspec backends, PR 3375 replaces the static database password with IAM auth. A fourth, dashed path labelled inferred covers wider reach through cloud metadata, the control plane, and open egress, which Hugging Face did not state.</desc>
+  <style>
+    .bg { fill: #f7f7f4; }
+    .box { fill: #f7f7f4; stroke: #1a1a1e; stroke-width: 1.5; }
+    .group { fill: none; stroke: #d9d9d3; stroke-width: 1.5; }
+    .dash { fill: #f7f7f4; stroke: #55565c; stroke-width: 1.5; stroke-dasharray: 6 5; }
+    .rule { fill: none; stroke: #d9d9d3; stroke-width: 1.5; }
+    .flow { fill: none; stroke: #2340a0; stroke-width: 2; }
+    .flow-inf { fill: none; stroke: #55565c; stroke-width: 2; stroke-dasharray: 6 5; }
+    .head { fill: #2340a0; }
+    .head-inf { fill: #55565c; }
+    .wall { fill: #c8372d; }
+    text { font-family: "Schibsted Grotesk", sans-serif; fill: #1a1a1e; }
+    .b16 { font-size: 16px; font-weight: 700; }
+    .b15 { font-size: 15px; font-weight: 700; }
+    .t14 { font-size: 14px; }
+    .s13 { font-size: 13px; fill: #55565c; }
+    .s14 { font-size: 14px; fill: #55565c; }
+    .cap { font-size: 12px; font-weight: 700; letter-spacing: 1.2px; fill: #55565c; }
+    .cap-red { font-size: 12px; font-weight: 700; letter-spacing: 1.2px; fill: #c8372d; }
+    .mono { font-family: "IBM Plex Mono", monospace; }
+    .m13 { font-family: "IBM Plex Mono", monospace; font-size: 13px; fill: #1a1a1e; }
+    .inf { font-size: 13px; font-style: italic; fill: #55565c; }
+    @media (prefers-color-scheme: dark) {
+      .bg, .box { fill: #16171a; }
+      .box { stroke: #e8e8e3; }
+      .dash { fill: #16171a; stroke: #a3a4a9; }
+      .group, .rule { stroke: #34353a; }
+      .flow { stroke: #8aa2ff; }
+      .flow-inf { stroke: #a3a4a9; }
+      .head { fill: #8aa2ff; }
+      .head-inf { fill: #a3a4a9; }
+      text, .m13 { fill: #e8e8e3; }
+      .s13, .s14, .cap, .inf { fill: #a3a4a9; }
+    }
+  </style>
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path class="head" d="M0 0 L10 5 L0 10 z"/>
+    </marker>
+    <marker id="arr-inf" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path class="head-inf" d="M0 0 L10 5 L0 10 z"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="800" height="590"/>
+
+  <!-- The match -->
+  <rect class="box" x="40" y="20" width="440" height="48" rx="4"/>
+  <text class="b16" x="260" y="50" text-anchor="middle">Malicious dataset</text>
+  <line class="flow" x1="260" y1="68" x2="260" y2="90" marker-end="url(#arr)"/>
+  <rect class="box" x="40" y="92" width="440" height="84" rx="4"/>
+  <text class="b16" x="260" y="119" text-anchor="middle">Code execution on a processing worker</text>
+  <text class="s14" x="260" y="143" text-anchor="middle">via the remote-code dataset loader</text>
+  <text class="s14" x="260" y="163" text-anchor="middle">or a template injection in the dataset config</text>
+
+  <path class="rule" d="M500 20 H510 V176 H500"/>
+  <text class="cap-red" x="526" y="84">THE MATCH</text>
+  <text class="s14" x="526" y="108">Contained, this is an</text>
+  <text class="s14" x="526" y="128">ingestion incident.</text>
+  <text class="s14" x="526" y="148">Throw the worker away.</text>
+
+  <line class="flow" x1="176" y1="176" x2="176" y2="208" marker-end="url(#arr)"/>
+
+  <!-- The accelerant -->
+  <rect class="group" x="24" y="210" width="312" height="358" rx="6"/>
+  <text class="cap-red" x="40" y="234">THE ACCELERANT</text>
+  <text class="b15" x="40" y="256">Worker's ambient authority</text>
+
+  <rect class="box" x="40" y="270" width="280" height="60" rx="4"/>
+  <text class="b15" x="52" y="294">Auto-mounted SA token</text>
+  <text class="s13" x="52" y="316">API token it never used</text>
+
+  <rect class="box" x="40" y="344" width="280" height="60" rx="4"/>
+  <text class="b15" x="52" y="368">Open <tspan class="mono">fsspec</tspan> loader</text>
+  <text class="s13" x="52" y="390">fetches from nearly anywhere</text>
+
+  <rect class="box" x="40" y="418" width="280" height="60" rx="4"/>
+  <text class="b15" x="52" y="442">Long-lived static secrets</text>
+  <text class="s13" x="52" y="464">e.g. the production DB password</text>
+
+  <rect class="dash" x="40" y="492" width="280" height="60" rx="4"/>
+  <text class="b15" x="52" y="516">Wider reach <tspan class="inf">(inferred)</tspan></text>
+  <text class="s13" x="52" y="538">metadata, control plane, egress</text>
+
+  <!-- Paths and walls -->
+  <text class="cap" x="362" y="234">WALLS (FIX PRS)</text>
+
+  <line class="flow" x1="320" y1="300" x2="578" y2="300" marker-end="url(#arr)"/>
+  <rect class="wall" x="346" y="278" width="8" height="44"/>
+  <text class="m13" x="366" y="292">PR #3368</text>
+  <text class="s13" x="366" y="320">SA token off, caps dropped</text>
+
+  <line class="flow" x1="320" y1="374" x2="578" y2="374" marker-end="url(#arr)"/>
+  <rect class="wall" x="346" y="352" width="8" height="44"/>
+  <text class="m13" x="366" y="366">PR #3367</text>
+  <text class="s13" x="366" y="394"><tspan class="mono">fsspec</tspan> allowlist</text>
+
+  <line class="flow" x1="320" y1="448" x2="578" y2="448" marker-end="url(#arr)"/>
+  <rect class="wall" x="346" y="426" width="8" height="44"/>
+  <text class="m13" x="366" y="440">PR #3375</text>
+  <text class="s13" x="366" y="468">IAM auth replaces password</text>
+
+  <line class="flow-inf" x1="320" y1="522" x2="578" y2="522" marker-end="url(#arr-inf)"/>
+  <text class="inf" x="366" y="514">inferred</text>
+
+  <!-- The result -->
+  <text class="cap" x="580" y="234">THE RESULT</text>
+  <rect class="box" x="580" y="270" width="200" height="282" rx="4"/>
+  <text class="b15" x="680" y="304" text-anchor="middle">Node-level access</text>
+  <text class="t14" x="680" y="328" text-anchor="middle">cloud and cluster</text>
+  <text class="t14" x="680" y="348" text-anchor="middle">credentials harvested</text>
+  <line class="flow" x1="680" y1="364" x2="680" y2="404" marker-end="url(#arr)"/>
+  <text class="b15" x="680" y="432" text-anchor="middle">Lateral movement</text>
+  <text class="t14" x="680" y="456" text-anchor="middle">across several</text>
+  <text class="t14" x="680" y="476" text-anchor="middle">internal clusters</text>
+  <text class="s13" x="680" y="516" text-anchor="middle">over one weekend</text>
+</svg>

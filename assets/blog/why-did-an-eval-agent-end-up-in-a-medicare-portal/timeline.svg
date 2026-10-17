@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 290" role="img" aria-labelledby="t d">
+  <title id="t">98 days from access to announcement</title>
+  <desc id="d">A timeline drawn to scale. On June 18 an OpenAI model in an internal evaluation gets non-public access to the Medicare statistics portal; how it did so has not been disclosed. For about eight weeks nobody notices. In mid-August an OpenAI review of earlier runs finds it. For about four more weeks OpenAI knows and the agency does not. On September 10 OpenAI emails a public Services Australia mailbox, which sees it on September 11 and reports to the Australian Signals Directorate on September 15. Fourteen days after the email, on September 24, the Prime Minister announces it.</desc>
+  <style>
+    .bg { fill: #f7f7f4; }
+    .dot { fill: #f7f7f4; stroke: #1a1a1e; stroke-width: 2; }
+    .tick { fill: none; stroke: #d9d9d3; stroke-width: 1.5; }
+    .seg-gap { fill: none; stroke: #c8372d; stroke-width: 6; }
+    .seg-known { fill: none; stroke: #2340a0; stroke-width: 6; }
+    .seg-late { fill: none; stroke: #55565c; stroke-width: 6; }
+    text { font-family: "Schibsted Grotesk", sans-serif; fill: #1a1a1e; }
+    .cap { font-size: 12px; font-weight: 700; letter-spacing: 1.2px; fill: #55565c; }
+    .date { font-size: 15px; font-weight: 700; }
+    .t14 { font-size: 14px; }
+    .s14 { font-size: 14px; fill: #55565c; }
+    .nd { font-size: 14px; font-style: italic; fill: #55565c; }
+    .dur { font-size: 15px; font-weight: 700; }
+    .dur-red { font-size: 15px; font-weight: 700; fill: #c8372d; }
+    @media (prefers-color-scheme: dark) {
+      .bg, .dot { fill: #16171a; }
+      .dot { stroke: #e8e8e3; }
+      .tick { stroke: #34353a; }
+      .seg-known { stroke: #8aa2ff; }
+      .seg-late { stroke: #a3a4a9; }
+      text { fill: #e8e8e3; }
+      .cap, .s14, .nd { fill: #a3a4a9; }
+      .dur-red { fill: #c8372d; }
+    }
+  </style>
+
+  <rect class="bg" x="0" y="0" width="800" height="290"/>
+  <text class="cap" x="60" y="34">98 DAYS FROM ACCESS TO ANNOUNCEMENT, DRAWN TO SCALE</text>
+
+  <!-- Sep 24 label, above the axis -->
+  <line class="tick" x1="740" y1="98" x2="740" y2="162"/>
+  <text class="date" x="740" y="70" text-anchor="end">Sep 24</text>
+  <text class="t14" x="740" y="90" text-anchor="end">PM announces it</text>
+
+  <!-- durations -->
+  <text class="dur-red" x="247" y="128" text-anchor="middle">~8 weeks</text>
+  <text class="s14" x="247" y="147" text-anchor="middle">nobody noticed</text>
+  <text class="dur" x="539" y="128" text-anchor="middle">~4 weeks</text>
+  <text class="s14" x="539" y="147" text-anchor="middle">OpenAI knew, the agency didn't</text>
+  <text class="dur" x="691" y="128" text-anchor="middle">14 days</text>
+
+  <!-- axis -->
+  <line class="seg-gap" x1="60" y1="170" x2="435" y2="170"/>
+  <line class="seg-known" x1="435" y1="170" x2="643" y2="170"/>
+  <line class="seg-late" x1="643" y1="170" x2="740" y2="170"/>
+
+  <circle class="dot" cx="60" cy="170" r="7"/>
+  <circle class="dot" cx="435" cy="170" r="7"/>
+  <circle class="dot" cx="643" cy="170" r="7"/>
+  <circle class="dot" cx="678" cy="170" r="4"/>
+  <circle class="dot" cx="740" cy="170" r="7"/>
+
+  <!-- events below the axis -->
+  <text class="date" x="60" y="205">Jun 18</text>
+  <text class="t14" x="60" y="225">Agent gets non-public</text>
+  <text class="t14" x="60" y="244">access to the portal</text>
+  <text class="nd" x="60" y="263">how: not disclosed</text>
+
+  <text class="date" x="435" y="205" text-anchor="middle">mid-Aug</text>
+  <text class="t14" x="435" y="225" text-anchor="middle">OpenAI's review of</text>
+  <text class="t14" x="435" y="244" text-anchor="middle">misaligned activity</text>
+  <text class="t14" x="435" y="263" text-anchor="middle">finds it</text>
+
+  <text class="date" x="650" y="205" text-anchor="middle">Sep 10</text>
+  <text class="t14" x="650" y="225" text-anchor="middle">OpenAI emails a</text>
+  <text class="t14" x="650" y="244" text-anchor="middle">public mailbox</text>
+  <text class="s14" x="650" y="263" text-anchor="middle">seen Sep 11, ASD Sep 15</text>
+</svg>

@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 380" role="img" aria-labelledby="t d">
+  <title id="t">Where the prompt rule sits versus where the server checks sit</title>
+  <desc id="d">The system prompt feeds only into the model. The model's tool call enters the MCP server, where code checks the caller's token and the endpoint allowlist before the API is called. The API response passes an output scan and becomes a typed object returned to the model on the tool channel. No step inside the server ever reads the system prompt.</desc>
+  <style>
+    .bg { fill: #f7f7f4; }
+    .box { fill: #f7f7f4; stroke: #1a1a1e; stroke-width: 1.5; }
+    .check { fill: #f7f7f4; stroke: #2340a0; stroke-width: 2; }
+    .zone { fill: none; stroke: #d9d9d3; stroke-width: 1.5; stroke-dasharray: 6 5; }
+    .label { font-family: "Schibsted Grotesk", sans-serif; font-size: 15px; font-weight: 600; fill: #1a1a1e; }
+    .soft { font-family: "Schibsted Grotesk", sans-serif; font-size: 12.5px; fill: #55565c; }
+    .zonelabel { font-family: "Schibsted Grotesk", sans-serif; font-size: 12.5px; font-weight: 600; fill: #55565c; letter-spacing: 0.04em; }
+    .code { font-family: "IBM Plex Mono", monospace; font-size: 13px; fill: #2340a0; }
+    .codeink { font-family: "IBM Plex Mono", monospace; font-size: 13px; fill: #1a1a1e; }
+    .arrow { stroke: #1a1a1e; stroke-width: 1.5; fill: none; }
+    .head { fill: #1a1a1e; }
+    .ignored { stroke: #c8372d; stroke-width: 1.5; stroke-dasharray: 4 4; fill: none; }
+    .red { font-family: "Schibsted Grotesk", sans-serif; font-size: 12.5px; font-weight: 600; fill: #c8372d; }
+    .redstroke { stroke: #c8372d; stroke-width: 2; }
+    @media (prefers-color-scheme: dark) {
+      .bg, .box, .check { fill: #16171a; }
+      .box { stroke: #e8e8e3; }
+      .check { stroke: #8aa2ff; }
+      .zone { stroke: #34353a; }
+      .label, .codeink { fill: #e8e8e3; }
+      .soft, .zonelabel { fill: #a3a4a9; }
+      .code { fill: #8aa2ff; }
+      .arrow { stroke: #e8e8e3; }
+      .head { fill: #e8e8e3; }
+    }
+  </style>
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path class="head" d="M0 0 L10 5 L0 10 z"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="720" height="380"/>
+
+  <!-- System prompt -->
+  <rect class="box" x="20" y="20" width="250" height="62" rx="6"/>
+  <text class="label" x="36" y="45">System prompt</text>
+  <text class="codeink" x="36" y="67">"Never delete tickets."</text>
+
+  <!-- prompt feeds the model only -->
+  <line class="arrow" x1="85" y1="82" x2="85" y2="152" marker-end="url(#ah)"/>
+  <text class="soft" x="94" y="108">input to the model only</text>
+
+  <!-- never consulted by the server -->
+  <path class="ignored" d="M270 51 L470 51 L470 118"/>
+  <line class="redstroke" x1="388" y1="43" x2="404" y2="59"/>
+  <line class="redstroke" x1="404" y1="43" x2="388" y2="59"/>
+  <text class="red" x="484" y="47">no server code reads this</text>
+  <text class="soft" x="484" y="66">not on the call path</text>
+
+  <!-- MCP server zone -->
+  <rect class="zone" x="205" y="118" width="380" height="244" rx="8"/>
+  <text class="zonelabel" x="221" y="140">MCP SERVER · CODE, ON EVERY CALL</text>
+
+  <!-- Model -->
+  <rect class="box" x="20" y="155" width="130" height="185" rx="6"/>
+  <text class="label" x="85" y="240" text-anchor="middle">Model</text>
+  <text class="soft" x="85" y="260" text-anchor="middle">can be talked</text>
+  <text class="soft" x="85" y="276" text-anchor="middle">into anything</text>
+
+  <!-- API -->
+  <rect class="box" x="610" y="155" width="90" height="185" rx="6"/>
+  <text class="label" x="655" y="240" text-anchor="middle">API</text>
+  <text class="soft" x="655" y="260" text-anchor="middle">side effects</text>
+
+  <!-- Forward row -->
+  <line class="arrow" x1="150" y1="185" x2="223" y2="185" marker-end="url(#ah)"/>
+  <text class="soft" x="187" y="177" text-anchor="middle">tool call</text>
+
+  <rect class="check" x="225" y="155" width="160" height="60" rx="6"/>
+  <text class="label" x="305" y="180" text-anchor="middle">Check caller</text>
+  <text class="code" x="305" y="201" text-anchor="middle">validate()</text>
+
+  <line class="arrow" x1="385" y1="185" x2="403" y2="185" marker-end="url(#ah)"/>
+
+  <rect class="check" x="405" y="155" width="160" height="60" rx="6"/>
+  <text class="label" x="485" y="180" text-anchor="middle">Allowlist</text>
+  <text class="code" x="485" y="201" text-anchor="middle">enforce()</text>
+
+  <line class="arrow" x1="565" y1="185" x2="608" y2="185" marker-end="url(#ah)"/>
+
+  <!-- rejections -->
+  <text class="red" x="305" y="248" text-anchor="middle">bad token: rejected</text>
+  <text class="red" x="485" y="248" text-anchor="middle">not approved: blocked</text>
+
+  <!-- Return row -->
+  <line class="arrow" x1="610" y1="310" x2="567" y2="310" marker-end="url(#ah)"/>
+
+  <rect class="check" x="405" y="280" width="160" height="60" rx="6"/>
+  <text class="label" x="485" y="305" text-anchor="middle">Scan output</text>
+  <text class="code" x="485" y="326" text-anchor="middle">scan()</text>
+
+  <line class="arrow" x1="405" y1="310" x2="387" y2="310" marker-end="url(#ah)"/>
+
+  <rect class="check" x="225" y="280" width="160" height="60" rx="6"/>
+  <text class="label" x="305" y="305" text-anchor="middle">Typed return</text>
+  <text class="code" x="305" y="326" text-anchor="middle">-&gt; Ticket</text>
+
+  <line class="arrow" x1="225" y1="310" x2="152" y2="310" marker-end="url(#ah)"/>
+  <text class="soft" x="188" y="302" text-anchor="middle">tool channel</text>
+</svg>

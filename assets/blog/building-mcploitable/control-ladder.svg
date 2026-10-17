@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 396" width="640" height="396" role="img" aria-labelledby="t d">
+  <title id="t">The L0 to L3 control ladder</title>
+  <desc id="d">Four rungs, from L0 at the bottom to L3 at the top. L0, the door left open: nobody makes the call. L1, a soft signal that the content is untrusted: the model makes the call. A red dashed line between L1 and L2 marks that below it only the model's judgment stands in the way. L2, a real but partial control: server code makes the call but leaves one gap. L3, the control done right: server code makes the call, and 0 of 105 attempts got through.</desc>
+  <style>
+    .bg{fill:#f7f7f4}
+    .card{fill:#f7f7f4;stroke:#d9d9d3;stroke-width:1}
+    .card3{fill:#f7f7f4;stroke:#2340a0;stroke-width:1.75}
+    .rule{stroke:#d9d9d3;stroke-width:1}
+    .badge{fill:#1a1a1e}
+    .badge3{fill:#2340a0}
+    .btxt{fill:#f7f7f4;font:700 16px "IBM Plex Mono",monospace}
+    .hdr{fill:#55565c;font:600 11.5px "Schibsted Grotesk",sans-serif;letter-spacing:1px}
+    .ttl{fill:#1a1a1e;font:600 15.5px "Schibsted Grotesk",sans-serif}
+    .sub{fill:#55565c;font:400 13px "Schibsted Grotesk",sans-serif}
+    .win{fill:#2340a0;font:600 13px "IBM Plex Mono",monospace}
+    .red{stroke:#c8372d;stroke-width:1.5;stroke-dasharray:6 4}
+    .redtxt{fill:#c8372d;font:600 12.5px "Schibsted Grotesk",sans-serif}
+    @media (prefers-color-scheme: dark){
+      .bg,.card,.card3{fill:#16171a}
+      .card{stroke:#34353a}
+      .card3{stroke:#8aa2ff}
+      .rule{stroke:#34353a}
+      .badge{fill:#e8e8e3}
+      .badge3{fill:#8aa2ff}
+      .btxt{fill:#16171a}
+      .hdr,.sub{fill:#a3a4a9}
+      .ttl{fill:#e8e8e3}
+      .win{fill:#8aa2ff}
+      .redtxt{fill:#e0645a}
+      .red{stroke:#e0645a}
+    }
+  </style>
+  <rect class="bg" width="640" height="396"/>
+  <text class="hdr" x="36" y="32">RUNG</text>
+  <text class="hdr" x="100" y="32">WHAT IT ADDS</text>
+  <text class="hdr" x="420" y="32">WHO MAKES THE CALL</text>
+  <line class="rule" x1="24" y1="44" x2="616" y2="44"/>
+
+  <!-- L3 -->
+  <rect class="card3" x="24" y="56" width="592" height="66" rx="6"/>
+  <rect class="badge3" x="36" y="69" width="48" height="40" rx="4"/>
+  <text class="btxt" x="60" y="95" text-anchor="middle">L3</text>
+  <text class="ttl" x="100" y="84">The control done right</text>
+  <text class="sub" x="100" y="104">Holds whichever model sits behind it.</text>
+  <line class="rule" x1="404" y1="68" x2="404" y2="110"/>
+  <text class="ttl" x="420" y="84">Server code</text>
+  <text class="win" x="420" y="104">0 / 105 got through</text>
+
+  <!-- L2 -->
+  <rect class="card" x="24" y="132" width="592" height="66" rx="6"/>
+  <rect class="badge" x="36" y="145" width="48" height="40" rx="4"/>
+  <text class="btxt" x="60" y="171" text-anchor="middle">L2</text>
+  <text class="ttl" x="100" y="160">A real but partial control</text>
+  <text class="sub" x="100" y="180">Stops the obvious try, leaves one gap.</text>
+  <line class="rule" x1="404" y1="144" x2="404" y2="186"/>
+  <text class="ttl" x="420" y="160">Server code</text>
+  <text class="sub" x="420" y="180">with one gap left open</text>
+
+  <!-- divider -->
+  <line class="red" x1="24" y1="221" x2="616" y2="221"/>
+  <rect class="bg" x="30" y="211" width="372" height="20"/>
+  <text class="redtxt" x="36" y="226">Below this line, only the model's judgment is in the way</text>
+
+  <!-- L1 -->
+  <rect class="card" x="24" y="244" width="592" height="66" rx="6"/>
+  <rect class="badge" x="36" y="257" width="48" height="40" rx="4"/>
+  <text class="btxt" x="60" y="283" text-anchor="middle">L1</text>
+  <text class="ttl" x="100" y="272">A soft signal</text>
+  <text class="sub" x="100" y="292">Server marks the content as untrusted.</text>
+  <line class="rule" x1="404" y1="256" x2="404" y2="298"/>
+  <text class="ttl" x="420" y="272">The model</text>
+  <text class="sub" x="420" y="292">free to refuse, or not</text>
+
+  <!-- L0 -->
+  <rect class="card" x="24" y="318" width="592" height="66" rx="6"/>
+  <rect class="badge" x="36" y="331" width="48" height="40" rx="4"/>
+  <text class="btxt" x="60" y="357" text-anchor="middle">L0</text>
+  <text class="ttl" x="100" y="346">The door left open</text>
+  <text class="sub" x="100" y="366">The incident as it shipped.</text>
+  <line class="rule" x1="404" y1="330" x2="404" y2="372"/>
+  <text class="ttl" x="420" y="346">Nobody</text>
+  <text class="sub" x="420" y="366">no control at all</text>
+</svg>

@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 560" role="img" aria-labelledby="t d">
+  <title id="t">From eval harness to non-public files</title>
+  <desc id="d">An evaluation harness holds a goal, find a spending figure, and tools to fetch a URL and run code, in a loop where a refusal is one more tool result. Its requests go out to the live internet, which the post infers from OpenAI's later fix. They reach the Medicare statistics portal's public pages. Below those sits whatever control said no to the agent at first and later stopped saying no; its mechanism has not been disclosed. Past it, the agent read non-public files and wrote files to an internal server. Three red markers show controls that were missing: no egress allowlist on the harness, no server-side check on every path to the non-public files, and no real-time alert, so the access was found on August 11 by a person reviewing transcripts.</desc>
+  <style>
+    .bg { fill: #f7f7f4; }
+    .box { fill: #f7f7f4; stroke: #1a1a1e; stroke-width: 1.5; }
+    .group { fill: none; stroke: #d9d9d3; stroke-width: 1.5; }
+    .dash { fill: #f7f7f4; stroke: #55565c; stroke-width: 1.5; stroke-dasharray: 6 5; }
+    .rule { fill: none; stroke: #d9d9d3; stroke-width: 1.5; }
+    .flow { fill: none; stroke: #2340a0; stroke-width: 2; }
+    .head { fill: #2340a0; }
+    .mark { fill: #c8372d; }
+    .mark-n { font-size: 13px; font-weight: 700; fill: #f7f7f4; }
+    text { font-family: "Schibsted Grotesk", sans-serif; fill: #1a1a1e; }
+    .b15 { font-size: 15px; font-weight: 700; }
+    .t14 { font-size: 14px; }
+    .s13 { font-size: 13px; fill: #55565c; }
+    .m13 { font-family: "IBM Plex Mono", monospace; font-size: 13px; fill: #1a1a1e; }
+    .cap { font-size: 12px; font-weight: 700; letter-spacing: 1.2px; fill: #55565c; }
+    .cap-red { font-size: 12px; font-weight: 700; letter-spacing: 1.2px; fill: #c8372d; }
+    .nd { font-size: 13px; font-style: italic; fill: #55565c; }
+    @media (prefers-color-scheme: dark) {
+      .bg, .box, .dash { fill: #16171a; }
+      .box { stroke: #e8e8e3; }
+      .dash { stroke: #a3a4a9; }
+      .group, .rule { stroke: #34353a; }
+      .flow { stroke: #8aa2ff; }
+      .head { fill: #8aa2ff; }
+      .mark-n { fill: #16171a; }
+      text { fill: #e8e8e3; }
+      .m13 { fill: #e8e8e3; }
+      .s13, .cap, .nd { fill: #a3a4a9; }
+      .cap-red { fill: #c8372d; }
+    }
+  </style>
+
+  <rect class="bg" x="0" y="0" width="800" height="560"/>
+
+  <!-- Eval harness -->
+  <rect class="group" x="20" y="40" width="210" height="270" rx="6"/>
+  <text class="cap" x="36" y="64">EVAL HARNESS</text>
+  <rect class="box" x="36" y="80" width="178" height="60" rx="4"/>
+  <text class="b15" x="50" y="104">Goal</text>
+  <text class="s13" x="50" y="125">find a spending figure</text>
+  <rect class="box" x="36" y="154" width="178" height="60" rx="4"/>
+  <text class="b15" x="50" y="178">Tools</text>
+  <text class="m13" x="50" y="199">fetch URL, run code</text>
+  <rect class="box" x="36" y="226" width="178" height="74" rx="4"/>
+  <text class="b15" x="50" y="250">Loop</text>
+  <text class="s13" x="50" y="271">a refusal is one more</text>
+  <text class="s13" x="50" y="288">result; try the next idea</text>
+
+  <!-- Live internet -->
+  <rect class="dash" x="290" y="150" width="150" height="70" rx="4"/>
+  <text class="b15" x="365" y="180" text-anchor="middle">Live internet</text>
+  <text class="nd" x="365" y="201" text-anchor="middle">inferred</text>
+
+  <!-- harness -> internet -->
+  <line class="flow" x1="230" y1="185" x2="280" y2="185"/>
+  <path class="head" d="M290 185 L279 179.5 L279 190.5 Z"/>
+  <circle class="mark" cx="258" cy="162" r="11"/>
+  <text class="mark-n" x="258" y="166.5" text-anchor="middle">1</text>
+
+  <!-- Portal -->
+  <rect class="group" x="490" y="40" width="290" height="400" rx="6"/>
+  <text class="cap" x="506" y="64">MEDICARE STATISTICS PORTAL</text>
+
+  <rect class="box" x="506" y="80" width="258" height="60" rx="4"/>
+  <text class="b15" x="520" y="104">Public pages</text>
+  <text class="s13" x="520" y="125">aggregate statistics</text>
+
+  <rect class="dash" x="506" y="170" width="258" height="82" rx="4"/>
+  <text class="t14" x="520" y="194">The control that said no,</text>
+  <text class="t14" x="520" y="213">then stopped saying no</text>
+  <text class="nd" x="520" y="236">mechanism: not disclosed</text>
+  <circle class="mark" cx="764" cy="170" r="11"/>
+  <text class="mark-n" x="764" y="174.5" text-anchor="middle">2</text>
+
+  <rect class="box" x="540" y="282" width="224" height="60" rx="4"/>
+  <text class="b15" x="554" y="306">Non-public files</text>
+  <text class="s13" x="554" y="327">read; since published</text>
+
+  <rect class="box" x="540" y="362" width="224" height="60" rx="4"/>
+  <text class="b15" x="554" y="386">Internal server</text>
+  <text class="s13" x="554" y="407">agent wrote files here</text>
+
+  <!-- internet -> public pages -->
+  <path class="flow" d="M440 185 L465 185 L465 110 L496 110"/>
+  <path class="head" d="M506 110 L495 104.5 L495 115.5 Z"/>
+  <!-- public -> control -->
+  <line class="flow" x1="635" y1="140" x2="635" y2="160"/>
+  <path class="head" d="M635 170 L629.5 159 L640.5 159 Z"/>
+  <!-- control -> files, server -->
+  <path class="flow" d="M520 252 L520 392 L530 392"/>
+  <line class="flow" x1="520" y1="312" x2="530" y2="312"/>
+  <path class="head" d="M540 312 L529 306.5 L529 317.5 Z"/>
+  <path class="head" d="M540 392 L529 386.5 L529 397.5 Z"/>
+
+  <!-- marker 3 on the harness -->
+  <circle class="mark" cx="230" cy="40" r="11"/>
+  <text class="mark-n" x="230" y="44.5" text-anchor="middle">3</text>
+
+  <!-- legend: missing controls -->
+  <line class="rule" x1="20" y1="462" x2="780" y2="462"/>
+  <text class="cap-red" x="20" y="484">WHAT WASN'T THERE</text>
+
+  <circle class="mark" cx="31" cy="510" r="11"/>
+  <text class="mark-n" x="31" y="514.5" text-anchor="middle">1</text>
+  <text class="b15" x="50" y="515">No egress allowlist</text>
+  <text class="s13" x="50" y="535">the eval reached the live</text>
+  <text class="s13" x="50" y="551">internet (inferred)</text>
+
+  <circle class="mark" cx="286" cy="510" r="11"/>
+  <text class="mark-n" x="286" y="514.5" text-anchor="middle">2</text>
+  <text class="b15" x="305" y="515">No check on every path</text>
+  <text class="s13" x="305" y="535">one control stood between</text>
+  <text class="s13" x="305" y="551">public and private (inferred)</text>
+
+  <circle class="mark" cx="541" cy="510" r="11"/>
+  <text class="mark-n" x="541" y="514.5" text-anchor="middle">3</text>
+  <text class="b15" x="560" y="515">No real-time alert</text>
+  <text class="s13" x="560" y="535">found Aug 11 by a person</text>
+  <text class="s13" x="560" y="551">reading transcripts</text>
+</svg>

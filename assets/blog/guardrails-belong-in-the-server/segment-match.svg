@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 250" role="img" aria-labelledby="t d">
+  <title id="t">Why fnmatch's star crosses a slash and a one-segment regex does not</title>
+  <desc id="d">The approved route is GET /files/{id} and the request is GET /files/42/content. With fnmatch, the star matches "42/content" across the slash, so the request is allowed. With the compiled regex, [^/]+ matches only "42", the "/content" part is left over, the $ anchor fails, and the request is blocked.</desc>
+  <style>
+    .bg { fill: #f7f7f4; }
+    .rule { stroke: #d9d9d3; stroke-width: 1; }
+    .label { font-family: "Schibsted Grotesk", sans-serif; font-size: 15px; font-weight: 600; fill: #1a1a1e; }
+    .soft { font-family: "Schibsted Grotesk", sans-serif; font-size: 12.5px; fill: #55565c; }
+    .path { font-family: "IBM Plex Mono", monospace; font-size: 18px; fill: #1a1a1e; }
+    .pathsoft { font-family: "IBM Plex Mono", monospace; font-size: 18px; fill: #55565c; }
+    .code { font-family: "IBM Plex Mono", monospace; font-size: 13px; fill: #55565c; }
+    .codeink { font-family: "IBM Plex Mono", monospace; font-size: 13px; fill: #1a1a1e; }
+    .blue { font-family: "Schibsted Grotesk", sans-serif; font-size: 13px; font-weight: 600; fill: #2340a0; }
+    .bluestroke { stroke: #2340a0; stroke-width: 2; fill: none; }
+    .red { font-family: "Schibsted Grotesk", sans-serif; font-size: 13px; font-weight: 600; fill: #c8372d; }
+    .redstroke { stroke: #c8372d; stroke-width: 2; fill: none; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #16171a; }
+      .rule { stroke: #34353a; }
+      .label, .path, .codeink { fill: #e8e8e3; }
+      .soft, .pathsoft, .code { fill: #a3a4a9; }
+      .blue { fill: #8aa2ff; }
+      .bluestroke { stroke: #8aa2ff; }
+    }
+  </style>
+
+  <rect class="bg" x="0" y="0" width="720" height="250"/>
+
+  <!-- Header -->
+  <text class="soft" x="20" y="32">Approved</text>
+  <text class="codeink" x="90" y="32">GET /files/{id}</text>
+  <text class="soft" x="300" y="32">Request</text>
+  <text class="codeink" x="362" y="32">GET /files/42/content</text>
+  <line class="rule" x1="20" y1="52" x2="700" y2="52"/>
+
+  <!-- Row A: fnmatch -->
+  <text class="label" x="20" y="100">fnmatch</text>
+  <text class="code" x="20" y="120">/files/*</text>
+
+  <text class="path" x="200" y="100" textLength="118.8" lengthAdjust="spacingAndGlyphs">GET /files/</text>
+  <text class="path" x="319" y="100" textLength="21.6" lengthAdjust="spacingAndGlyphs">42</text>
+  <text class="path" x="341" y="100" textLength="86.4" lengthAdjust="spacingAndGlyphs">/content</text>
+  <path class="redstroke" d="M319 110 L319 116 L427 116 L427 110"/>
+  <text class="red" x="373" y="136" text-anchor="middle">* spans the slash</text>
+
+  <text class="red" x="470" y="100">matches: allowed</text>
+  <text class="soft" x="470" y="120">the raw download you excluded</text>
+
+  <line class="rule" x1="20" y1="158" x2="700" y2="158"/>
+
+  <!-- Row B: anchored regex -->
+  <text class="label" x="20" y="200">regex</text>
+  <text class="code" x="20" y="220">[^/]+ then $</text>
+
+  <text class="path" x="200" y="200" textLength="118.8" lengthAdjust="spacingAndGlyphs">GET /files/</text>
+  <text class="path" x="319" y="200" textLength="21.6" lengthAdjust="spacingAndGlyphs">42</text>
+  <text class="pathsoft" x="341" y="200" textLength="86.4" lengthAdjust="spacingAndGlyphs">/content</text>
+  <path class="bluestroke" d="M319 210 L319 216 L341 216 L341 210"/>
+  <text class="blue" x="330" y="236" text-anchor="middle">one segment</text>
+
+  <text class="blue" x="470" y="200">no match: blocked</text>
+  <text class="soft" x="470" y="220">"/content" is left over, so $ fails</text>
+</svg>
