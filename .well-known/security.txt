@@ -1,5 +1,9 @@
-Contact: mailto:apkasture02@gmail.com
-Expires: 2027-09-17T00:00:00.000Z
+---
+layout: null
+permalink: /.well-known/security.txt
+---
+Contact: mailto:{{ site.author.email }}
+Expires: {{ site.time | date: "%s" | plus: 15552000 | date: "%Y-%m-%dT%H:%M:%SZ" }}
 Preferred-Languages: en
-Canonical: https://avneeshk.me/.well-known/security.txt
-Policy: https://avneeshk.me/colophon/#report
+Canonical: {{ site.url }}/.well-known/security.txt
+Policy: {{ site.url }}/colophon/#report

@@ -1,13 +1,14 @@
 {%- comment -%}
   Renders a post's body with a "#" link inside every h2 and h3, and a
-  "Contents" list of the h2s on long posts (reading_time of 7+ minutes, or
+  "Contents" list of the h2s on long posts (computed reading time of 7+ minutes, or
   `toc: true`). Pure Liquid: it post-processes the rendered `content`, so posts
   need no markers. The anchors live only in the layout output, so the feed and
   SEO tags (which read the raw post content) never see them.
   Usage: {% include post-body.html html=rendered_html %} (defaults to `content`;
   the post layout passes in the output of incident-facts.html).
 {%- endcomment -%}
-{%- assign minutes = page.reading_time | split: ' ' | first | plus: 0 -%}
+{%- capture minutes -%}{% include reading-time.html post=page minutes=true %}{%- endcapture -%}
+{%- assign minutes = minutes | plus: 0 -%}
 {%- assign toc_html = '' -%}
 {%- assign toc_count = 0 -%}
 

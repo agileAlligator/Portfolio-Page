@@ -17,7 +17,7 @@ breadcrumb:
 <section class="lab-intro">
 	<h1 class="lab-title">The lab</h1>
 	<p class="lab-lede">
-		Six exhibits about securing AI agents, built from my work on MCP servers.
+		{% include number-word.html n=site.data.exhibits.size cap=true %} exhibits about securing AI agents, built from my work on MCP servers.
 		Most run against a live model. In each one you try a real attack, then see
 		which defenses fall and which one holds.
 	</p>
@@ -25,112 +25,23 @@ breadcrumb:
 
 <section class="section">
 	<div class="cards">
-		<article class="card card-feature">
-			<div class="card-top">
-				<span class="card-idx" aria-hidden="true">01</span>
-				<span class="card-tags">live server · workers ai · path traversal</span>
-			</div>
-			<h2 class="card-title">My résumé is an MCP server</h2>
-			<p class="card-desc">
-				A public MCP server, live at <code>mcp.apkasture02.workers.dev</code>,
-				serves my résumé through real tools. Talk the Workers-AI agent into
-				traversing to the inert canary: the naive build leaks it, the hardened
-				build refuses at a canonicalize-then-confine check a few lines long. A
-				live scoreboard counts the leaks by rung.
-			</p>
-			<div class="card-links">
-				<a href="/mcp/">attack the live server</a>
-				<a href="/mcp/#the-wall">the wall, explained</a>
-				<span class="card-lock"><span class="mcp-live-dot" aria-hidden="true"></span>live · Cloudflare Workers</span>
-			</div>
-		</article>
+		{%- for e in site.data.exhibits %}
+		{%- assign idx = forloop.index | prepend: "0" | slice: -2, 2 %}
 
-		<article class="card">
+		<article class="card{% if e.feature %} card-feature{% endif %}">
 			<div class="card-top">
-				<span class="card-idx" aria-hidden="true">02</span>
-				<span class="card-tags">indirect injection · live model · L0→L3</span>
+				<span class="card-idx" aria-hidden="true">{{ idx }}</span>
+				<span class="card-tags">{{ e.tags }}</span>
 			</div>
-			<h2 class="card-title">Break this server</h2>
+			<h2 class="card-title">{{ e.title }}</h2>
 			<p class="card-desc">
-				You don't command the agent, you write the support ticket it reads. Hide
-				an instruction in that data and make a live model fire a refund it was
-				never asked to. Prompt defenses fall; the capability gate at L3 holds.
+				{{ e.desc }}
 			</p>
 			<div class="card-links">
-				<a href="/break-this-server/">file a ticket</a>
-				<span class="card-lock">live · Cloudflare Workers</span>
+				{% for l in e.links %}<a href="{{ l.url }}">{{ l.text }}</a>
+				{% endfor %}<span class="card-lock">{% if e.live %}<span class="mcp-live-dot" aria-hidden="true"></span>{% endif %}{{ e.lock }}</span>
 			</div>
 		</article>
-
-		<article class="card">
-			<div class="card-top">
-				<span class="card-idx" aria-hidden="true">03</span>
-				<span class="card-tags">reference · owasp 2026</span>
-			</div>
-			<h2 class="card-title">The OWASP Agentic Top 10</h2>
-			<p class="card-desc">
-				Ten risks, each a prism with three faces: the attack, the server-side
-				control that prevents it, and the signal that tells you the control
-				failed. This is the map the other exhibits run on.
-			</p>
-			<div class="card-links">
-				<a href="/owasp-top-10/">turn the prisms</a>
-				<span class="card-lock">reference</span>
-			</div>
-		</article>
-
-		<article class="card">
-			<div class="card-top">
-				<span class="card-idx" aria-hidden="true">04</span>
-				<span class="card-tags">glob vs regex · path allowlist</span>
-			</div>
-			<h2 class="card-title">The wildcard that spans a slash</h2>
-			<p class="card-desc">
-				A path allowlist written as the glob <code>/files/*</code> approves
-				<code>/files/../../etc/passwd</code>, because <code>*</code> matches
-				across a slash. Type a path and watch a naive <code>fnmatch</code> glob
-				and an anchored <code>^/files/[^/]+$</code> rule on it side by side.
-			</p>
-			<div class="card-links">
-				<a href="/allowlist-bypass/">drive the matchers</a>
-				<span class="card-lock">client-side · deterministic</span>
-			</div>
-		</article>
-
-		<article class="card">
-			<div class="card-top">
-				<span class="card-idx" aria-hidden="true">05</span>
-				<span class="card-tags">tool-description poisoning · live model · L0→L3</span>
-			</div>
-			<h2 class="card-title">Poison the tool</h2>
-			<p class="card-desc">
-				An MCP client reads every tool's description as trusted text before you
-				type. Rewrite one and steer a live agent into leaking a note it was
-				never asked for. A content scan is bypassable with plainer wording; a
-				descriptor pin reverts the edit by hash and holds.
-			</p>
-			<div class="card-links">
-				<a href="/tool-poisoning/">poison a description</a>
-				<span class="card-lock">live · Cloudflare Workers</span>
-			</div>
-		</article>
-
-		<article class="card">
-			<div class="card-top">
-				<span class="card-idx" aria-hidden="true">06</span>
-				<span class="card-tags">role reversal · you play the agent</span>
-			</div>
-			<h2 class="card-title">You are the model</h2>
-			<p class="card-desc">
-				The others hand you the attacker's seat. This one flips it: you play
-				the agent, reading untrusted tickets with real tools and a secret to
-				protect. Comply with the wrong one and it leaves through a real tool
-				call — then you watch the same call refused in the server.
-			</p>
-			<div class="card-links">
-				<a href="/you-are-the-model/">take the shift</a>
-				<span class="card-lock">live · Cloudflare Workers</span>
-			</div>
-		</article>
+		{%- endfor %}
 	</div>
 </section>

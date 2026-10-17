@@ -7,9 +7,15 @@ description: >-
 url: "https://avneeshk.me"
 lang: en
 
+# Identity. The single source for the job title and employer: index.html's
+# <head> and JSON-LD, llms.txt and the footer index read these. Keep `tagline`
+# in step with job_title + employer.
 author:
   name: Avneesh Kasture
   email: apkasture02@gmail.com
+  job_title: Associate Solutions Engineer
+  employer: Gruve
+  location: Pune
 
 # Stable, dateless blog URLs (e.g. /blog/stdout-is-not-yours/).
 # Individual posts may override this with a shorter slug in their front matter.

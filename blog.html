@@ -13,7 +13,7 @@ permalink: /blog/
 	<section class="start-here" aria-labelledby="start-here-title">
 		<h2 class="start-here-title" id="start-here-title">Start here</h2>
 		<ul class="start-here-list">
-			{% for post in featured %}<li><a href="{{ post.url }}">{{ post.short_title | default: post.title }}</a> <span class="start-here-meta">{{ post.reading_time }}</span></li>
+			{% for post in featured %}<li><a href="{{ post.url }}">{{ post.short_title | default: post.title }}</a> <span class="start-here-meta">{% include reading-time.html post=post %}</span></li>
 			{% endfor %}
 		</ul>
 	</section>

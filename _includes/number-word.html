@@ -1,0 +1,8 @@
+{%- comment -%}
+  Spells a small count as a word: {% include number-word.html n=site.data.exhibits.size %}
+  prints "six". Pass cap=true for "Six". Counts above twenty fall back to digits.
+{%- endcomment -%}
+{%- assign nw_words = "zero,one,two,three,four,five,six,seven,eight,nine,ten,eleven,twelve,thirteen,fourteen,fifteen,sixteen,seventeen,eighteen,nineteen,twenty" | split: "," -%}
+{%- assign nw_n = include.n | plus: 0 -%}
+{%- assign nw_word = nw_words[nw_n] | default: nw_n -%}
+{%- if include.cap -%}{{ nw_word | capitalize }}{%- else -%}{{ nw_word }}{%- endif -%}

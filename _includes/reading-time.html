@@ -1,0 +1,10 @@
+{%- comment -%}
+  Prints "N min read" for a post, computed from its words at 230 per minute
+  (rounded, minimum 1). Usage: {% include reading-time.html post=post %}.
+  Pass minutes=true to print only the number (post-body.html uses it for the
+  Contents threshold). Reads the post's rendered content, so markup is
+  stripped before counting.
+{%- endcomment -%}
+{%- assign rt_words = include.post.content | strip_html | number_of_words -%}
+{%- assign rt_minutes = rt_words | divided_by: 230.0 | round | at_least: 1 -%}
+{%- if include.minutes -%}{{ rt_minutes }}{%- else -%}{{ rt_minutes }} min read{%- endif -%}

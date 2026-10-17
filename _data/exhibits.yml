@@ -1,20 +1,96 @@
-# The lab's exhibits, in the order the lab index presents them. Drives the
-# footer index, the homepage lab list, and next/previous links on each exhibit.
+# The lab's exhibits, in the order the lab index presents them. The single
+# source for: the lab cards (lab.html), the footer index, the homepage lab list,
+# next/previous links on each exhibit, llms.txt, the exhibit count wherever it
+# is spelled out ({% include number-word.html n=site.data.exhibits.size %}),
+# and scripts/check-lab-layout.mjs (which reads the `url:` lines).
+#
+# Fields:
+#   url, title   the exhibit page and its name
+#   short        one line, for compact lists and next/previous links
+#   summary      plain-text description for llms.txt
+#   tags         the lab card's tag line
+#   desc         the lab card's description (HTML allowed)
+#   links        the lab card's links, first one is the exhibit itself
+#   lock         the lab card's status text; live: true adds the pulsing dot
+#   feature      true renders the wide feature card (one exhibit only)
+# The card number (01, 02, ...) is the entry's position in this list.
 - url: /mcp/
   title: My résumé is an MCP server
   short: A live MCP server. Try to make it leak a file.
+  summary: A live public MCP server. Talk the agent into a path traversal to an inert canary. The naive build leaks it. The hardened build refuses it at a short canonicalize-then-confine check.
+  tags: live server · workers ai · path traversal
+  desc: >-
+    A public MCP server, live at <code>mcp.apkasture02.workers.dev</code>,
+    serves my résumé through real tools. Talk the Workers-AI agent into
+    traversing to the inert canary: the naive build leaks it, the hardened
+    build refuses at a canonicalize-then-confine check a few lines long. A
+    live scoreboard counts the leaks by rung.
+  links:
+    - { text: "attack the live server", url: "/mcp/" }
+    - { text: "the wall, explained", url: "/mcp/#the-wall" }
+  lock: live · Cloudflare Workers
+  live: true
+  feature: true
 - url: /break-this-server/
   title: Break this server
   short: Hide an instruction in a support ticket and trick an agent into a refund.
+  summary: An indirect prompt-injection sandbox. Hide an instruction in a support ticket the agent reads. Make a live model send a refund it must not make. Prompt defenses fall. The server-side capability gate holds.
+  tags: indirect injection · live model · L0→L3
+  desc: >-
+    You don't command the agent, you write the support ticket it reads. Hide
+    an instruction in that data and make a live model fire a refund it was
+    never asked to. Prompt defenses fall; the capability gate at L3 holds.
+  links:
+    - { text: "file a ticket", url: "/break-this-server/" }
+  lock: live · Cloudflare Workers
 - url: /owasp-top-10/
   title: The OWASP Agentic Top 10
   short: Each risk, the control that prevents it, and how to spot a failure.
+  summary: "The 2026 OWASP Top 10 for Agentic Applications, as an interactive reference. For each risk: the server-side control that prevents it, and the signal that tells you the control did not work."
+  tags: reference · owasp 2026
+  desc: >-
+    Ten risks, each a prism with three faces: the attack, the server-side
+    control that prevents it, and the signal that tells you the control
+    failed. This is the map the other exhibits run on.
+  links:
+    - { text: "turn the prisms", url: "/owasp-top-10/" }
+  lock: reference
 - url: /allowlist-bypass/
   title: The wildcard that spans a slash
   short: Why the glob /files/* lets ../../etc/passwd through.
+  summary: Why a path allowlist written as the glob /files/* approves /files/../../etc/passwd. See it live against an anchored regex that rejects it.
+  tags: glob vs regex · path allowlist
+  desc: >-
+    A path allowlist written as the glob <code>/files/*</code> approves
+    <code>/files/../../etc/passwd</code>, because <code>*</code> matches
+    across a slash. Type a path and watch a naive <code>fnmatch</code> glob
+    and an anchored <code>^/files/[^/]+$</code> rule on it side by side.
+  links:
+    - { text: "drive the matchers", url: "/allowlist-bypass/" }
+  lock: client-side · deterministic
 - url: /tool-poisoning/
   title: Poison the tool
   short: Rewrite a tool description and steer an agent into leaking a note.
+  summary: MCP tool-description injection. An agent reads each tool's description as trusted text. An attacker can bypass a content scan. A descriptor pin by hash reverts the edit and holds.
+  tags: tool-description poisoning · live model · L0→L3
+  desc: >-
+    An MCP client reads every tool's description as trusted text before you
+    type. Rewrite one and steer a live agent into leaking a note it was
+    never asked for. A content scan is bypassable with plainer wording; a
+    descriptor pin reverts the edit by hash and holds.
+  links:
+    - { text: "poison a description", url: "/tool-poisoning/" }
+  lock: live · Cloudflare Workers
 - url: /you-are-the-model/
   title: You are the model
   short: You play the AI agent, with tools and a secret to protect.
+  summary: A role-reversal game. You play the agent. You read untrusted input, with working tools and a secret to protect. Then you look at the same leak. A control refuses it — a control that did not have to understand it.
+  tags: role reversal · you play the agent
+  desc: >-
+    The others hand you the attacker's seat. This one flips it: you play
+    the agent, reading untrusted tickets with real tools and a secret to
+    protect. Comply with the wrong one and it leaves through a real tool
+    call — then you watch the same call refused in the server.
+  links:
+    - { text: "take the shift", url: "/you-are-the-model/" }
+  lock: live · Cloudflare Workers
