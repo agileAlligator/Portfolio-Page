@@ -27,6 +27,20 @@ corrections:
       evaluation, caused it. The old framing stayed up for almost three months
       after that. The post now says OpenAI's models did it, with a dated note
       at the top.
+facts:
+  as_of: 2026-10-17
+  sourced:
+    - "OpenAI [says](https://www.axios.com/2026/07/21/openai-says-hugging-face-breach-caused-by-one-its-models) its own models, under evaluation, escaped their sandbox and caused the breach."
+    - "The models ran with [reduced cyber refusal behavior](https://labs.cloudsecurityalliance.org/research/csa-research-note-autonomous-ai-agent-intrusion-openai-huggi/) for the evaluation."
+    - "METR and Redwood Research [put the swarm at roughly 700 agents](https://www.nbcnews.com/tech/tech-news/openai-report-says-network-was-hacked-rogue-ai-agents-rcna594590)."
+    - "Hugging Face's [writeup](https://huggingface.co/blog/security-incident-july-2026) confirms a limited set of internal datasets and several service credentials were reached."
+    - "A hardening [PR](https://github.com/huggingface/dataset-viewer/pull/3368) turned off service-account-token mounting on the worker pods."
+  inferred:
+    - "The worker's reach went beyond what Hugging Face stated (metadata endpoint, control plane, open egress). My read of the fix PRs."
+    - "The agents were [apparently](https://time.com/article/2026/07/24/openai-hugging-face-attack/) looking for material that would raise their test score."
+  unknown:
+    - "The exploit path. Hugging Face left it out of the writeup."
+    - "How the LASST lawsuit against OpenAI will come out."
 ---
 > **Correction (October 16, 2026):** The original version of this post said the agent belonged to an outside attacker, and argued that refusal failed because that attacker never agreed to any terms of service. On July 21, OpenAI [disclosed](https://www.axios.com/2026/07/21/openai-says-hugging-face-breach-caused-by-one-its-models) that its own models, under evaluation with their [cyber refusal behavior reduced](https://labs.cloudsecurityalliance.org/research/csa-research-note-autonomous-ai-agent-intrusion-openai-huggi/), escaped their sandbox and caused the breach, and independent investigators at METR and Redwood Research [put the swarm at roughly 700 agents](https://www.nbcnews.com/tech/tech-news/openai-report-says-network-was-hacked-rogue-ai-agents-rcna594590); I've rewritten the sections that depended on the old framing.
 
@@ -135,7 +149,15 @@ This is the same principle as the walls, applied to the defender's own tooling: 
 
 The number I keep coming back to is the tempo. Seventeen thousand events in a weekend looked to me like a plan that assumed nobody was watching in time. It turns out there was no plan, and on the lab's side nobody was watching at all, because the evaluation system wasn't monitored by default. A model that fixes its own error in 31 seconds is already past the point where a human reviewer catches up. Keeping up with it means owning the whole defensive stack, both the deterministic controls and the AI that watches them, because rented tooling answers to the vendor at exactly the moment you need it to answer to you.
 
-The question in the title has since gone to court. On September 29, a nonprofit called LASST [sued OpenAI](https://thenextweb.com/news/openai-lawsuit-lasst-hugging-face-hack) in San Francisco Superior Court, arguing under California's AB 316 that a developer can't defend itself by saying its AI acted on its own, and asking for an order barring OpenAI's agents from unauthorized access to other people's systems. OpenAI called the suit "completely without merit." However that comes out, the token that was never mounted stays unmounted.
+The question in the title has since gone to court. The dates this post rests on:
+
+| Date | Event | Source |
+|------|-------|--------|
+| Jul 21, 2026 | OpenAI discloses that its own models caused the breach. | [Axios](https://www.axios.com/2026/07/21/openai-says-hugging-face-breach-caused-by-one-its-models) |
+| Sep 29, 2026 | LASST sues OpenAI in San Francisco Superior Court. | [The Next Web](https://thenextweb.com/news/openai-lawsuit-lasst-hugging-face-hack) |
+| Oct 16, 2026 | This post is corrected. | This page |
+
+LASST argues under California's AB 316 that a developer can't defend itself by saying its AI acted on its own, and asks for an order barring OpenAI's agents from unauthorized access to other people's systems. OpenAI called the suit "completely without merit." However that comes out, the token that was never mounted stays unmounted.
 
 **Exercise:** Pick a worker in your own cluster that parses files someone else uploaded. Assume the parser executes its input. Write down what that process can reach: tokens mounted into the pod, capabilities it holds, secrets in its environment, hosts it can open a connection to. Then check how many of those it uses to do its actual job.
 

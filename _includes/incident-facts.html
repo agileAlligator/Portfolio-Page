@@ -1,0 +1,31 @@
+{%- comment -%}
+Renders the body of a post. If the post has `facts:` front matter, a "what's known" box
+goes in just before the first h2 (after the intro). Without `facts:`, outputs content unchanged.
+Front matter: facts.as_of (date), facts.sourced / inferred / unknown (lists of one-line markdown strings).
+{%- endcomment -%}
+{%- if page.facts -%}
+{%- capture facts_box -%}
+<aside class="incident-facts" aria-labelledby="incident-facts-title">
+	<h2 class="incident-facts-title" id="incident-facts-title">What's known, as of {{ page.facts.as_of | date: "%b %-d, %Y" }}</h2>
+	{%- assign groups = "sourced|inferred|unknown" | split: "|" -%}
+	{%- for g in groups -%}
+	{%- assign items = page.facts[g] -%}
+	{%- if items.size > 0 %}
+	<div class="incident-facts-group">
+		<p class="incident-facts-label">{% case g %}{% when "sourced" %}Sourced{% when "inferred" %}Inferred{% else %}Unknown{% endcase %}</p>
+		<ul class="incident-facts-list">
+			{%- for item in items %}
+			<li>{{ item | markdownify | remove: "<p>" | remove: "</p>" | strip }}</li>
+			{%- endfor %}
+		</ul>
+	</div>
+	{%- endif -%}
+	{%- endfor %}
+</aside>
+{%- endcapture -%}
+{%- assign parts = content | split: "<h2" -%}
+{{ parts[0] }}{{ facts_box }}
+{%- for part in parts offset: 1 %}<h2{{ part }}{% endfor %}
+{%- else -%}
+{{ content }}
+{%- endif -%}

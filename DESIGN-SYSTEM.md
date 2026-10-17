@@ -182,3 +182,29 @@ The page groups entries by `kind` and gives each an anchor,
 A dated blockquote at the top of the post is optional and is for corrections
 that change the post's main claim. Classes: `corrections-*` and
 `post-corrected`, in `assets/blog.scss`.
+
+## Incident facts box
+
+Every incident post separates what is confirmed from what is not, with a
+`facts:` block in front matter. `_includes/incident-facts.html`, included once
+from `_layouts/post.html`, renders it as "What's known, as of <date>" just
+before the post's first `##` heading, so the intro stays above it. A post
+without `facts:` is unchanged.
+
+```yaml
+facts:
+  as_of: 2026-10-17          # bump it whenever the facts change
+  sourced:                   # a claim the post can source, with the link in the item
+    - "Zenity [published the report](https://…) on September 24."
+  inferred:                  # the author's reading; say so in the item
+    - "The worker could reach the metadata endpoint. My read of the fix."
+  unknown:                   # stated gaps: no CVE, no technique, no outcome yet
+    - "Which field carried the payload."
+```
+
+Rules: one line per item, markdown allowed, and only claims the post itself
+makes. Roughly 3 to 5 sourced, 1 to 4 inferred, 1 to 4 unknown. Any group
+may be omitted. Where the post has dates, add a kramdown table with columns
+`Date | Event | Source` using only dates already in the post, placed where the
+timeline is discussed. Tables take the `.post-body table` rules. Classes:
+`.incident-facts`, `-title`, `-group`, `-label`, `-list` (end of `assets/blog.scss`).
