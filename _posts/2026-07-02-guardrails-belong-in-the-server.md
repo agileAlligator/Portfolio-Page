@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Why does my MCP server call the tool I told it never to call?"
-subtitle: "Because nothing between the model and the API ever reads the system prompt. The checks have to live in code."
+subtitle: "The system prompt is advice to the model. Nothing between the model and the API ever reads it, so the checks have to live in code."
 description: >-
   Security rules written into an MCP server's system prompt are enforced by
   nothing. A walk through what actually happens on a tool call, and where the

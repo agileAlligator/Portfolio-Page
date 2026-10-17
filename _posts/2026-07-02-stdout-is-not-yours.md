@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Why does my MCP server run fine in a terminal but refuse to connect?"
-subtitle: "Because the client parses everything on your stdout as JSON-RPC, and your log lines are not JSON-RPC."
+subtitle: "The client parses everything on your stdout as JSON-RPC. Your log lines are not JSON-RPC."
 description: >-
   A stdio MCP server that starts cleanly in a terminal but fails under the
   client is almost always writing logs to stdout. Stdout carries the JSON-RPC

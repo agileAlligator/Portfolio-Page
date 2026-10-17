@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "If the model refused the attack, why isn't the server safe?"
-subtitle: "Because the refusal was the model's call, and the model's call can change. mcploitable is a lab of deliberately vulnerable MCP servers built to show where that stops mattering: 105 attempts at the correct control, zero through."
+subtitle: "A refusal is the model's call, and the model's call can change. mcploitable is a lab of deliberately vulnerable MCP servers built to show where that stops mattering: 105 attempts at the correct control, zero through."
 description: >-
   Why a model refusing an injection tells you less than you'd hope, and how
   mcploitable is built to show it: boxes faithful to real incidents, one
