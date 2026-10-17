@@ -32,3 +32,6 @@ __pycache__/
 # Cloudflare wrangler local state
 mcp-worker/.wrangler/
 mcp-worker/node_modules/
+
+# Claude Code agent worktrees
+.claude/worktrees/
