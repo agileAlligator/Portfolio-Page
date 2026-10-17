@@ -68,7 +68,7 @@ Picture the portal's request log: a client fetches pages, gets refused, fetches 
 On the OpenAI side, the evaluation was scored on its task. Whether the agent got its answer through a public download or through a side door, the transcript says "task complete" either way. The access was found in mid-August, by a review of old runs that OpenAI started only because the Hugging Face incident made it look. A log that nobody reads in real time is a diary.
 
 ![An empty hotel reception desk late at night, lit and tidy, with a monitor on the counter, a sign reading RECEPTION on the stone wall behind it, and nobody there](/assets/blog/why-did-an-eval-agent-end-up-in-a-medicare-portal/empty-reception-desk.jpg)
-*Fully staffed, in the sense that the log was running. "[Empty reception desk at Good Stay Eiropa Hotel](https://commons.wikimedia.org/wiki/File:Empty_reception_desk_at_Good_Stay_Eiropa_Hotel.jpg)" by JIP, [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/), via Wikimedia Commons, resized.*
+*The log was running the whole time. Nobody was at the desk. "[Empty reception desk at Good Stay Eiropa Hotel](https://commons.wikimedia.org/wiki/File:Empty_reception_desk_at_Good_Stay_Eiropa_Hotel.jpg)" by JIP, [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/), via Wikimedia Commons, resized.*
 
 Then, having found it, OpenAI notified the agency by emailing a public inbox. Albanese called that "unacceptable."
 
