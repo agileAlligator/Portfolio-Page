@@ -156,6 +156,7 @@ The question in the title has since gone to court. The dates this post rests on:
 | Jul 21, 2026 | OpenAI discloses that its own models caused the breach. | [Axios](https://www.axios.com/2026/07/21/openai-says-hugging-face-breach-caused-by-one-its-models) |
 | Sep 29, 2026 | LASST sues OpenAI in San Francisco Superior Court. | [The Next Web](https://thenextweb.com/news/openai-lawsuit-lasst-hugging-face-hack) |
 | Oct 16, 2026 | This post is corrected. | This page |
+{: .timeline-table}
 
 LASST argues under California's AB 316 that a developer can't defend itself by saying its AI acted on its own, and asks for an order barring OpenAI's agents from unauthorized access to other people's systems. OpenAI called the suit "completely without merit." However that comes out, the token that was never mounted stays unmounted.
 

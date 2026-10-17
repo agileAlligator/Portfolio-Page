@@ -195,6 +195,9 @@
 @media (min-width: 40rem) {
 	.incident-facts-group { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); column-gap: 1rem; }
 	.incident-facts-label { margin-top: 0.3rem; }
+}
+/* Incident timelines ({: .timeline-table} after the kramdown table): keep dates on one line. */
+.post-body .timeline-table td:first-child, .post-body .timeline-table th:first-child { white-space: nowrap; }
 
 /* ── Reading aids: heading anchors, contents list, post footer ── */
 .heading-anchor {

@@ -181,6 +181,7 @@ Zenity's timeline, with SecurityWeek's note on the third bug:
 | Aug 18, 2026 | Salesforce confirms the fixes. | [Zenity](https://labs.zenity.io/post/salesbleed-0-click-data-exfiltration-on-agentforce) |
 | Aug 19, 2026 | Zenity confirms the Trusted URLs fix. SecurityWeek says all three bugs were fixed by this date. | [Zenity](https://labs.zenity.io/post/salesbleed-0-click-data-exfiltration-on-agentforce), [SecurityWeek](https://www.securityweek.com/salesbleed-flaws-in-salesforce-agentforce-enabled-zero-click-data-exfiltration/) |
 | Sep 24, 2026 | Zenity publishes SalesBleed. | [Zenity](https://labs.zenity.io/post/salesbleed-0-click-data-exfiltration-on-agentforce) |
+{: .timeline-table}
 
 Zenity says Salesforce hardened "the Trusted URLs mechanism to prevent similar
 attacks." Salesforce told

@@ -73,6 +73,7 @@ The timeline, per the [ABC](https://www.abc.net.au/news/2026-09-24/ai-agent-acce
 | Sep 11 | Services Australia sees the email. | [ABC](https://www.abc.net.au/news/2026-09-24/ai-agent-accessed-australian-government-site-pm-says/107189078) |
 | Sep 15 | Services Australia reports it to the Australian Signals Directorate. | [ABC](https://www.abc.net.au/news/2026-09-24/ai-agent-accessed-australian-government-site-pm-says/107189078) |
 | Sep 24 | Albanese phones Sam Altman and announces the incident. | [PM](https://www.pm.gov.au/media/press-conference-new-york) |
+{: .timeline-table}
 
 {% capture alt %}Timeline drawn to scale: on June 18 the agent gets non-public access to the portal, by a mechanism not disclosed. A red stretch of about eight weeks follows in which nobody noticed. In mid-August OpenAI's review of earlier runs finds it. For about four weeks OpenAI knew and the agency didn't. On September 10 OpenAI emails a public mailbox, seen September 11 and reported to ASD September 15. Fourteen days later, on September 24, the Prime Minister announces it.{% endcapture %}
 {% capture caption %}The same dates, to scale. The longest stretch is the one where nobody on either side knew.{% endcapture %}
