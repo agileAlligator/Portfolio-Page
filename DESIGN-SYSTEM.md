@@ -65,8 +65,9 @@ write a raw colour in a component: add or reuse a token so both themes get it.
 
 To add an exhibit: add it to `_data/exhibits.yml` and `scripts/check-lab-layout.mjs`.
 To add a post: give it `short_title:` and, where one fits, `exhibits:`.
-Then run `python3 scripts/make_og.py` to regenerate the share cards (default,
-lab, every exhibit, every post) in the v3 look.
+Share cards (default, lab, every exhibit, every post) regenerate on their own
+after you push; see Automation. `python3 scripts/make_og.py` still works locally
+for a preview.
 
 ## Tags, series and Start here
 
@@ -141,6 +142,19 @@ evaluates bare arithmetic, so write `clamp(1rem, calc(1rem + 2vw), 3rem)`, never
 `clamp(1rem, 1rem + 2vw, 3rem)`, and avoid `/` inside shorthands. Check a
 change with the github-pages gem set before pushing, then confirm the build
 via the Pages API.
+
+## Automation (`.github/workflows/`)
+
+- **`og.yml`, share cards.** Runs on a push to master that touches `_posts/**`,
+  `_data/exhibits.yml`, `scripts/make_og.py` or `_config.yml` (or by hand). It
+  runs `make_og.py` and, if `assets/og/` changed, commits it as
+  github-actions[bot] and requests a Pages build. No manual run needed. Output is
+  byte-deterministic with the pinned Pillow, so unchanged inputs never commit.
+- **`rebuild.yml`, weekly rebuild.** Mondays 04:17 UTC (or by hand) it requests a
+  Pages build through the REST API, so build-time values (security.txt
+  `Expires`, dates, counts) stay fresh without a commit.
+- Both use only `GITHUB_TOKEN`. Pushes made with it start no workflows (no
+  loops) and no Pages build, hence the explicit build request.
 
 ## Lab instrument kit (`style.scss`)
 

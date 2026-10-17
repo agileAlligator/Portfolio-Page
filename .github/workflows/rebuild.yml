@@ -1,0 +1,28 @@
+# Weekly Pages rebuild, so build-time values (security.txt Expires, dates,
+# counts) stay fresh even when nobody pushes. Same effect as a push to the
+# default branch, without a commit.
+# POST /repos/{owner}/{repo}/pages/builds accepts installation access tokens
+# (which GITHUB_TOKEN is) with Pages: write.
+name: Weekly Pages rebuild
+
+on:
+  schedule:
+    - cron: "17 4 * * 1" # Mondays 04:17 UTC
+  workflow_dispatch:
+
+permissions:
+  pages: write
+
+concurrency:
+  group: pages-rebuild
+  cancel-in-progress: false
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Request a Pages build
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api --method POST "repos/${GITHUB_REPOSITORY}/pages/builds"

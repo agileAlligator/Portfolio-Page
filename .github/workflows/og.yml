@@ -1,0 +1,68 @@
+# Regenerate share cards (assets/og/*.png) whenever their inputs change.
+# Loop guard: the bot commit only touches assets/og/, which is not in the
+# path filter, and pushes made with GITHUB_TOKEN never start workflow runs.
+# Those pushes also do NOT trigger a Pages build (GitHub docs, "GITHUB_TOKEN"),
+# so after pushing we request one through the REST API.
+name: Share cards
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - "_posts/**"
+      - "_data/exhibits.yml"
+      - "scripts/make_og.py"
+      - "_config.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+
+concurrency:
+  group: og-cards
+  cancel-in-progress: false
+
+jobs:
+  cards:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # Fonts are downloaded by make_og.py into scripts/.fonts (gitignored).
+      - uses: actions/cache@v4
+        with:
+          path: scripts/.fonts
+          key: og-fonts-${{ hashFiles('scripts/make_og.py') }}
+
+      # Pillow is pinned: a different Pillow/FreeType can shift anti-aliasing
+      # and turn every run into a noise commit. Bump deliberately.
+      - run: pip install pillow==12.1.1
+
+      - run: python3 scripts/make_og.py
+
+      - name: Commit changed cards
+        id: commit
+        run: |
+          git add assets/og
+          if git diff --cached --quiet; then
+            echo "No share card changes."
+            echo "pushed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Regenerate share cards (assets/og)" -m "Automated by .github/workflows/og.yml for ${GITHUB_SHA}."
+          git push
+          echo "pushed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Request a Pages build
+        if: steps.commit.outputs.pushed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api --method POST "repos/${GITHUB_REPOSITORY}/pages/builds"
