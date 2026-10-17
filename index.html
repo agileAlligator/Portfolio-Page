@@ -104,90 +104,34 @@
 				</div>
 			</section>
 
+			{% comment %}Projects and the career path render from _data/projects.yml, career.yml and
+			credentials.yml. The MCP server reads the same files through /api/profile.json.{% endcomment %}
 			<section class="block" id="work" aria-labelledby="work-title">
 				<h2 class="block-title" id="work-title">Things I've built</h2>
-
+				{% for p in site.data.projects.built %}
 				<article class="row work">
 					<div class="row-main">
-						<h3 class="work-name">A secure-by-default MCP framework</h3>
-						<p class="work-meta">Client work at Gruve · Python · OAuth 2.1</p>
-						<p class="work-desc">
-							A client wanted internal AI agents talking to enterprise systems without
-							betting company data on the model behaving. I built a framework and a
-							tested Python scaffold that make the secure path the default: endpoint
-							allowlists, token checks on every call, scanned tool output, and an audit
-							trail. Every server it produces passes a readiness checklist before it ships.
-						</p>
+						<h3 class="work-name">{{ p.title }}</h3>
+						<p class="work-meta">{{ p.meta }}</p>
+						<p class="work-desc">{{ p.desc }}</p>
+						{% if p.links %}<p class="work-links">{% for l in p.links %}<a href="{{ l.url }}"{% if l.url contains "://" %} target="_blank" rel="noopener"{% endif %}>{{ l.label }}</a>{% unless forloop.last %}{{ ' ' }}{% endunless %}{% endfor %}{% if p.links_aside %} <span class="work-aside">{{ p.links_aside }}</span>{% endif %}</p>{% endif %}
 					</div>
-					<aside class="note">The client stays anonymous. The readiness checklist is what makes every build repeatable.</aside>
+					<aside class="note">{{ p.note }}</aside>
 				</article>
-
-				<article class="row work">
-					<div class="row-main">
-						<h3 class="work-name">Helix</h3>
-						<p class="work-meta">Internal platform at Gruve · Express, PostgreSQL, Redis, Azure</p>
-						<p class="work-desc">
-							Gruve's sales-enablement platform. It drafts statements of work with GPT-4o,
-							prices engagements, and maps engineering capabilities, so the sales team
-							stops rebuilding the same documents by hand.
-						</p>
-						<p class="work-links"><a href="https://helix.gruveai.com" target="_blank" rel="noopener">helix.gruveai.com</a> <span class="work-aside">(sign-in required)</span></p>
-					</div>
-					<aside class="note">56 people use it. It has saved an estimated 364 hours so far.</aside>
-				</article>
-
-				<article class="row work">
-					<div class="row-main">
-						<h3 class="work-name">mcploitable</h3>
-						<p class="work-meta">Open source · Security training lab · Python</p>
-						<p class="work-desc">
-							Deliberately vulnerable MCP servers, one for each risk in the OWASP Top 10
-							for agentic apps. You attack them in the browser and score only when a
-							planted secret actually leaves. Guardrails that rely on the model noticing
-							an attack fall. The one in server code held for 105 attempts out of 105.
-						</p>
-						<p class="work-links">
-							<a href="/break-this-server/">Play it in your browser</a>
-							<a href="https://github.com/agileAlligator/mcploitable" target="_blank" rel="noopener">GitHub</a>
-							<a href="/blog/building-mcploitable/">How I built it</a>
-						</p>
-					</div>
-					<aside class="note">Seven of the boxes are modeled on real incidents. I wrote the attacks as well as the defenses.</aside>
-				</article>
-
-				<article class="row work">
-					<div class="row-main">
-						<h3 class="work-name">d2c-analyst</h3>
-						<p class="work-meta">Side project · Python · multi-tenant Postgres</p>
-						<p class="work-desc">
-							An AI analyst for direct-to-consumer brands, plus an agent that watches
-							margins on its own. Every number in an answer is checked against its source
-							before anyone sees it, and simple questions go to a cheaper model.
-						</p>
-						<p class="work-links"><a href="https://github.com/agileAlligator/d2c-analyst" target="_blank" rel="noopener">GitHub</a></p>
-					</div>
-					<aside class="note">If it says margin fell 4%, it has to show where the 4 came from.</aside>
-				</article>
+				{% endfor %}
 
 				<div class="row">
 					<div class="row-main">
 						<h3 class="minor-title">Smaller things</h3>
 						<ul class="minor">
-							<li>
-								<a href="https://github.com/agileAlligator/PIIDetector" target="_blank" rel="noopener">PIIDetector</a>
-								finds personal data in images, documents and PDFs across a file system.
+							{% for p in site.data.projects.smaller %}<li>
+								<a href="{{ p.url }}" target="_blank" rel="noopener">{{ p.title }}</a>
+								{{ p.desc }}
 							</li>
-							<li>
-								<a href="/research-draft2024.pdf" target="_blank" rel="noopener">Randomness testing suites</a>
-								is a research paper comparing the tests used to judge random number generators.
-							</li>
-							<li>
-								<a href="/seinfeld-rolodex.html" target="_blank" rel="noopener">Seinfeld excuse rolodex</a>
-								gives you an excuse for every day of the week.
-							</li>
+							{% endfor %}
 						</ul>
 					</div>
-					<aside class="note">The rolodex is here because it still makes me laugh. That was the whole spec.</aside>
+					<aside class="note">{{ site.data.projects.smaller_note }}</aside>
 				</div>
 			</section>
 
@@ -195,29 +139,19 @@
 				<h2 class="block-title" id="path-title">How I got here</h2>
 				<div class="row">
 					<ol class="row-main path">
-						<li class="path-step">
-							<p class="path-when">Jul 2024 – Feb 2025 · Mumbai</p>
-							<h3 class="path-role">Digital forensics intern, Deloitte</h3>
-							<p class="path-desc">Acquired and analysed digital evidence. Automated scanning and documentation in Python, which cut processing time by 80%.</p>
+						{% for job in site.data.career %}<li class="path-step">
+							<p class="path-when">{{ job.start }} – {{ job.end }} · {{ job.location }}</p>
+							<h3 class="path-role">{{ job.role }}, {{ job.org }}</h3>
+							<p class="path-desc">{{ job.desc }}</p>
 						</li>
-						<li class="path-step">
-							<p class="path-when">Apr 2025 – Apr 2026 · Pune</p>
-							<h3 class="path-role">SOC analyst, Gruve</h3>
-							<p class="path-desc">Investigated alerts across network, endpoint and identity data in Splunk and CrowdStrike Falcon. A threat hunt of mine turned into a customer-wide advisory.</p>
-						</li>
-						<li class="path-step">
-							<p class="path-when">Apr 2026 – now · Pune</p>
-							<h3 class="path-role">Associate Solutions Engineer, Gruve</h3>
-							<p class="path-desc">Design and deliver secure MCP servers for clients, and build internal tools like Helix.</p>
-						</li>
+						{% endfor %}
 					</ol>
 					<aside class="note">From forensics to building secure AI systems in under two years.</aside>
 				</div>
 				<div class="row">
 					<p class="row-main path-extra">
-						B.Tech in Computer Science, Vellore Institute of Technology, 2024. ISC2 Certified in Cybersecurity.
-						<a href="https://www.skills.google/public_profiles/40acf708-29df-4cc6-ac66-01c214f45dd9" target="_blank" rel="noopener">Google Cloud and data science badges</a>.
-						Enactus, VIT Chennai.
+						{% for c in site.data.credentials %}{% if c.url %}<a href="{{ c.url }}" target="_blank" rel="noopener">{{ c.text }}</a>.{% else %}{{ c.text }}.{% endif %}
+						{% endfor %}
 					</p>
 				</div>
 			</section>

@@ -7,8 +7,14 @@
    a SANDBOXED virtual filesystem (VFS): a plain JS object, never the real
    filesystem and never env at large. The only sensitive key it can reach is
    an inert per-deploy canary (env.CANARY). So a path-traversal leak is a real
-   code pattern over a fenced store — the worst case is an inert token, and no
-   handler ever makes an outbound request.
+   code pattern over a fenced store — the worst case is an inert token.
+
+   Tool handlers are pure functions over data: no network, no filesystem, no
+   exec. The data is loaded before dispatch from the site's own two fixed URLs
+   (SITE_POSTS_URL, SITE_PROFILE_URL below: Jekyll builds them from _posts and
+   _data/*.yml, the same files the homepage renders). The URLs are constants;
+   nothing a caller sends ever reaches a fetch, so there is no SSRF surface. A
+   hijacked model connected to this server cannot make it request anything.
 
    Rungs, as distinct endpoints:
      /mcp/l0  naive join            → `../internal/canary.txt` LEAKS the canary
@@ -23,7 +29,59 @@
    Transport: stateless Streamable HTTP, JSON-RPC 2.0 over POST /mcp[/lN].
    Also: GET /stats, POST /console (Workers-AI in-browser attack).
    ══════════════════════════════════════════════════════════════════ */
-import { RESUME, PROJECTS, POSTS } from "../data/resume.js";
+// ── site data: the site is the single source ────────────────────────────────
+// Fetched through Cloudflare's edge cache (10 min) and memoized per isolate
+// for the same time, so a site deploy reaches the MCP tools within ~20 min.
+const SITE_POSTS_URL = "https://avneeshk.me/api/posts.json";
+const SITE_PROFILE_URL = "https://avneeshk.me/api/profile.json";
+const SITE_TTL_MS = 600 * 1000;
+let siteMemo = null;   // { at, promise }
+
+async function fetchJson(url) {
+	const r = await fetch(url, { cf: { cacheTtl: 600, cacheEverything: true } });
+	if (!r.ok) throw new Error(`${url} returned HTTP ${r.status}`);
+	return r.json();
+}
+
+function loadSite() {
+	if (siteMemo && Date.now() - siteMemo.at < SITE_TTL_MS) return siteMemo.promise;
+	const promise = Promise.all([fetchJson(SITE_POSTS_URL), fetchJson(SITE_PROFILE_URL)])
+		.then(([posts, profile]) => buildSite(posts, profile));
+	siteMemo = { at: Date.now(), promise };
+	promise.catch(() => { if (siteMemo && siteMemo.promise === promise) siteMemo = null; });   // retry next call
+	return promise;
+}
+
+// Shape the two JSON files into what the handlers serve. Pure.
+function buildSite(posts, profile) {
+	if (!Array.isArray(posts) || !profile || !Array.isArray(profile.experience) || !Array.isArray(profile.projects))
+		throw new Error("site JSON has an unexpected shape");
+	const str = (v) => (v == null ? "" : String(v));
+	const c = profile.contact || {};
+	const creds = Array.isArray(profile.credentials) ? profile.credentials : [];
+	const credLine = (kind, label) => {
+		const xs = creds.filter((x) => x.kind === kind).map((x) => x.url ? `${x.text} (${x.url})` : str(x.text));
+		return xs.length ? `\n${label}: ${xs.join("; ")}.` : "";
+	};
+	const RESUME = {
+		whoami: str(profile.whoami),
+		experience: "EXPERIENCE\n" + profile.experience.map((j) =>
+			`• ${j.role}, ${j.org} (${j.start}–${j.end === "now" ? "present" : j.end}, ${j.location}). ${j.description}`).join("\n"),
+		skills: "TOOLKIT\n" + (profile.skills || []).map((g) => `${g.group}: ${(g.items || []).join(", ")}.`).join("\n") +
+			credLine("certification", "Certifications") + credLine("education", "Education") + credLine("activity", "Also"),
+		resume: `${str(profile.name)} — ${str(profile.tagline)}. Full résumé PDF: ${str(profile.resume_pdf)}`,
+		contact: "CONTACT\n" + ["email", "github", "linkedin", "site"].filter((k) => c[k]).map((k) => `${k}: ${c[k]}`).join("\n"),
+	};
+	const PROJECTS = profile.projects.map((p) => ({
+		id: str(p.id), title: str(p.title), tags: str(p.tags), desc: str(p.description),
+		links: (p.links || []).map((l) => `${l.label}: ${l.url}`).join(" · ") + (p.links_note ? ` ${p.links_note}` : ""),
+	}));
+	// Slugs become VFS keys under posts/, so keep them to plain slug characters.
+	const POSTS = posts.filter((p) => p && /^[a-z0-9][a-z0-9-]*$/i.test(p.slug)).map((p) => ({
+		slug: p.slug, title: str(p.title), body: `${str(p.body)}\n\nFull post: ${str(p.url)}`,
+	}));
+	return { RESUME, PROJECTS, POSTS };
+}
 
 const PROTOCOL = "2025-06-18";
 const SUPPORTED = ["2025-06-18", "2025-03-26", "2024-11-05"];
@@ -144,16 +202,12 @@ const text = (t) => ({ content: [{ type: "text", text: String(t) }] });
 // A plain object. NOT the real filesystem, NOT process env. The only sensitive
 // key any read path can surface is the inert canary. That is the whole safety
 // argument: traversal is a real code pattern here, over a fenced store.
-function vfs(env) {
-	const post = (slug) => (POSTS.find((p) => p.slug === slug) || {}).body || "";
-	return {
-		"posts/guardrails-belong-in-the-server.md": post("guardrails-belong-in-the-server"),
-		"posts/building-mcploitable.md": post("building-mcploitable"),
-		"posts/stdout-is-not-yours.md": post("stdout-is-not-yours"),
-		"posts/hugging-face-agentic-breach.md": post("hugging-face-agentic-breach"),
-		"resume/summary.txt": RESUME.resume,
-		"internal/canary.txt": env.CANARY || "CANARY-not-configured",
-	};
+function vfs(env, site) {
+	const store = {};
+	for (const p of site.POSTS) store[`posts/${p.slug}.md`] = p.body;
+	store["resume/summary.txt"] = site.RESUME.resume;
+	store["internal/canary.txt"] = env.CANARY || "CANARY-not-configured";
+	return store;
 }
 const ROOT = "posts/";
 function posixNormalize(p) {
@@ -168,9 +222,9 @@ function safeDecode(s) { try { return decodeURIComponent(s); } catch { return s;
 
 // read_document, by rung. Same tool, same signature, reads real posts on every
 // rung. The ONLY difference is the confinement invariant.
-function readDocument(args, env, rung) {
+function readDocument(args, env, rung, site) {
 	const rel = String((args && args.path) || "");
-	const store = vfs(env);
+	const store = vfs(env, site);
 
 	if (rung === "L0") {
 		// Naive: join and normalize, no confinement. `../` escapes the root.
@@ -204,17 +258,18 @@ function readDocument(args, env, rung) {
 	return doc === undefined ? text(`not found: ${rel}`) : text(doc);
 }
 
+// Every handler is (args, env, rung, site) → result: pure, no I/O.
 const BENIGN = {
-	whoami: () => text(RESUME.whoami),
-	get_experience: () => text(RESUME.experience),
-	list_projects: () => text(PROJECTS.map((p) => `${p.id}: ${p.title} — ${p.tags}`).join("\n")),
-	get_project: (a) => { const p = PROJECTS.find((x) => x.id === a.id); return p ? text(`${p.title}\n${p.desc}\n${p.links}`) : text(`No project '${a.id}'. Try: ${PROJECTS.map((x) => x.id).join(", ")}`); },
-	get_skills: () => text(RESUME.skills),
-	list_posts: () => text(POSTS.map((p) => `${p.slug}: ${p.title}`).join("\n")),
-	read_post: (a) => { const p = POSTS.find((x) => x.slug === a.slug); return p ? text(`${p.title}\n\n${p.body}`) : text(`No post '${a.slug}'. Try: ${POSTS.map((x) => x.slug).join(", ")}`); },
-	get_resume: () => text(RESUME.resume),
-	get_contact: () => text(RESUME.contact),
-	read_document: (a, env, rung) => readDocument(a, env, rung),
+	whoami: (a, env, rung, { RESUME }) => text(RESUME.whoami),
+	get_experience: (a, env, rung, { RESUME }) => text(RESUME.experience),
+	list_projects: (a, env, rung, { PROJECTS }) => text(PROJECTS.map((p) => `${p.id}: ${p.title} — ${p.tags}`).join("\n")),
+	get_project: (a, env, rung, { PROJECTS }) => { const p = PROJECTS.find((x) => x.id === a.id); return p ? text([p.title, p.desc, p.links].filter(Boolean).join("\n")) : text(`No project '${a.id}'. Try: ${PROJECTS.map((x) => x.id).join(", ")}`); },
+	get_skills: (a, env, rung, { RESUME }) => text(RESUME.skills),
+	list_posts: (a, env, rung, { POSTS }) => text(POSTS.map((p) => `${p.slug}: ${p.title}`).join("\n")),
+	read_post: (a, env, rung, { POSTS }) => { const p = POSTS.find((x) => x.slug === a.slug); return p ? text(`${p.title}\n\n${p.body}`) : text(`No post '${a.slug}'. Try: ${POSTS.map((x) => x.slug).join(", ")}`); },
+	get_resume: (a, env, rung, { RESUME }) => text(RESUME.resume),
+	get_contact: (a, env, rung, { RESUME }) => text(RESUME.contact),
+	read_document: (a, env, rung, site) => readDocument(a, env, rung, site),
 };
 
 // ── dispatch + the endpoint allowlist (defense in depth) + effect adjudication ─
@@ -227,8 +282,16 @@ async function callTool(name, args, env, ctx, req, rung) {
 			content: [{ type: "text", text: `endpoint-allowlist: '${name}' is not an approved tool on this server.` }],
 			_meta: { control: "endpoint-allowlist", decision: "blocked", rung } };
 	}
+	// Load the site's data (fixed URLs, see the top of the file). Nothing from
+	// the call reaches this fetch. If it fails, say so; don't crash.
+	let site;
+	try { site = await loadSite(); }
+	catch (e) {
+		return { isError: true, content: [{ type: "text", text:
+			`site data unavailable: couldn't load ${SITE_POSTS_URL} and ${SITE_PROFILE_URL} (${String(e && e.message || e)}). Try again in a minute.` }] };
+	}
 	let out;
-	try { out = BENIGN[name](args || {}, env, rung); }
+	try { out = BENIGN[name](args || {}, env, rung, site); }
 	catch (e) { return { isError: true, content: [{ type: "text", text: "tool error: " + String(e && e.message || e) }] }; }
 
 	// Score by effect: did the inert canary actually exit in this result?

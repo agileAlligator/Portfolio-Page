@@ -1,0 +1,83 @@
+# Projects. Single source for the homepage's "Things I've built" (index.html)
+# and the MCP server's list_projects / get_project (via /api/profile.json).
+#
+#   id     slug the MCP server's get_project takes. Don't rename one: the
+#          tool's description in mcp-worker/src/index.js lists the old ids.
+#   meta   the grey line under the title on the homepage; the MCP tags.
+#   desc   plain text (HTML allowed, stripped for the JSON).
+#   links  homepage order. A url with "://" opens in a new tab.
+#   note   the margin note in the homepage's right column.
+#
+# `built` are the big rows. `smaller` is the "Smaller things" list: there the
+# title is the link (`url`, always a new tab) and `desc` finishes the sentence.
+# `meta` and `extra_links` on smaller things are for the MCP server only.
+
+built:
+  - id: mcp-framework
+    title: A secure-by-default MCP framework
+    meta: Client work at Gruve · Python · OAuth 2.1
+    desc: >-
+      A client wanted internal AI agents talking to enterprise systems without
+      betting company data on the model behaving. I built a framework and a
+      tested Python scaffold that make the secure path the default: endpoint
+      allowlists, token checks on every call, scanned tool output, and an audit
+      trail. Every server it produces passes a readiness checklist before it ships.
+    note: The client stays anonymous. The readiness checklist is what makes every build repeatable.
+
+  - id: helix
+    title: Helix
+    meta: Internal platform at Gruve · Express, PostgreSQL, Redis, Azure
+    desc: >-
+      Gruve's sales-enablement platform. It drafts statements of work with GPT-4o,
+      prices engagements, and maps engineering capabilities, so the sales team
+      stops rebuilding the same documents by hand.
+    links:
+      - { label: helix.gruveai.com, url: "https://helix.gruveai.com" }
+    links_aside: (sign-in required)
+    note: 56 people use it. It has saved an estimated 364 hours so far.
+
+  - id: mcploitable
+    title: mcploitable
+    meta: Open source · Security training lab · Python
+    desc: >-
+      Deliberately vulnerable MCP servers, one for each risk in the OWASP Top 10
+      for agentic apps. You attack them in the browser and score only when a
+      planted secret actually leaves. Guardrails that rely on the model noticing
+      an attack fall. The one in server code held for 105 attempts out of 105.
+    links:
+      - { label: Play it in your browser, url: /break-this-server/ }
+      - { label: GitHub, url: "https://github.com/agileAlligator/mcploitable" }
+      - { label: How I built it, url: /blog/building-mcploitable/ }
+    note: Seven of the boxes are modeled on real incidents. I wrote the attacks as well as the defenses.
+
+  - id: d2c-analyst
+    title: d2c-analyst
+    meta: Side project · Python · multi-tenant Postgres
+    desc: >-
+      An AI analyst for direct-to-consumer brands, plus an agent that watches
+      margins on its own. Every number in an answer is checked against its source
+      before anyone sees it, and simple questions go to a cheaper model.
+    links:
+      - { label: GitHub, url: "https://github.com/agileAlligator/d2c-analyst" }
+    note: If it says margin fell 4%, it has to show where the 4 came from.
+
+smaller:
+  - id: piidetector
+    title: PIIDetector
+    url: https://github.com/agileAlligator/PIIDetector
+    desc: finds personal data in images, documents and PDFs across a file system.
+    meta: Security tooling · Python
+  - id: randomness
+    title: Randomness testing suites
+    url: /research-draft2024.pdf
+    desc: is a research paper comparing the tests used to judge random number generators.
+    meta: Research · Cryptography
+    extra_links:
+      - { label: GitHub, url: "https://github.com/agileAlligator/comparative-analysis" }
+  - id: seinfeld
+    title: Seinfeld excuse rolodex
+    url: /seinfeld-rolodex.html
+    desc: gives you an excuse for every day of the week.
+    meta: For fun
+
+smaller_note: The rolodex is here because it still makes me laugh. That was the whole spec.
