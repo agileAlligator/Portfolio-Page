@@ -15,6 +15,21 @@ tags: [incident, agentic, least-privilege, egress]
 reading_time: "6 min read"
 short_title: "Eval agent in a Medicare portal"
 exhibits: [/break-this-server/, /allowlist-bypass/, /you-are-the-model/]
+facts:
+  as_of: 2026-10-17
+  sourced:
+    - "On September 24 the Prime Minister [said](https://www.pm.gov.au/media/press-conference-new-york) an OpenAI agent gained unauthorised access to the Medicare Statistics Reporting Portal."
+    - "OpenAI [found it](https://openai.com/index/how-we-will-do-better-for-australia/) in mid-August while reviewing old training and evaluation runs."
+    - "OpenAI emailed a public Services Australia mailbox on September 10, and the agency reported it to ASD on September 15 ([ABC](https://www.abc.net.au/news/2026-09-24/ai-agent-accessed-australian-government-site-pm-says/107189078))."
+    - "OpenAI's [review to date](https://openai.com/index/how-we-will-do-better-for-australia/) found no evidence that anyone's medical records were accessed."
+    - "The agent [wrote files to an internal server](https://www.pm.gov.au/media/press-conference-new-york), which is still under investigation."
+  inferred:
+    - "The sandbox had a live connection to the internet. OpenAI now blocks live access, which would be unnecessary otherwise."
+    - "The agent's traffic looked like an ordinary crawler in the portal's logs."
+  unknown:
+    - "How the agent got from blocked to inside. No CVE or technique has been published."
+    - "What the access control was, and how a read-only statistics site accepted writes."
+    - "The exact date in August that OpenAI found it."
 ---
 On September 24, Prime Minister Anthony Albanese [told a press conference](https://www.pm.gov.au/media/press-conference-new-york) that an OpenAI agent had gained unauthorised access to Services Australia's Medicare Statistics Reporting Portal. The portal publishes aggregate figures, things like spending and bulk-billing statistics. It is separate from the systems that hold Medicare claims and personal records.
 
@@ -22,12 +37,16 @@ So why did an agent with a research task end up somewhere it wasn't allowed to b
 
 ## What is known
 
-The timeline, per the [ABC](https://www.abc.net.au/news/2026-09-24/ai-agent-accessed-australian-government-site-pm-says/107189078) and the Prime Minister:
+The timeline, per the [ABC](https://www.abc.net.au/news/2026-09-24/ai-agent-accessed-australian-government-site-pm-says/107189078), the Prime Minister and OpenAI:
 
-- **June 18.** An OpenAI model, in an internal training or evaluation run, is researching public medicines spending. The portal doesn't give it what it wants. The Prime Minister says the agent "found a way around those blocks."
-- **Mid-August.** OpenAI [finds it](https://openai.com/index/how-we-will-do-better-for-australia/) while reviewing old training and evaluation runs, a review it started only after the Hugging Face incident in July. (Some write-ups give August 11. OpenAI and the government say only "August".)
-- **September 10.** OpenAI emails a public Services Australia mailbox. Services Australia sees it the next day and reports it to the Australian Signals Directorate on September 15.
-- **September 24.** Albanese phones Sam Altman and announces the incident.
+| Date | Event | Source |
+|------|-------|--------|
+| Jun 18 | An OpenAI model, in an internal training or evaluation run, is researching public medicines spending. The portal doesn't give it what it wants. The Prime Minister says the agent "found a way around those blocks." | [ABC](https://www.abc.net.au/news/2026-09-24/ai-agent-accessed-australian-government-site-pm-says/107189078), [PM](https://www.pm.gov.au/media/press-conference-new-york) |
+| Mid-Aug | OpenAI finds it while reviewing old training and evaluation runs, a review it started only after the Hugging Face incident in July. Some write-ups give August 11. OpenAI and the government say only "August". | [OpenAI](https://openai.com/index/how-we-will-do-better-for-australia/) |
+| Sep 10 | OpenAI emails a public Services Australia mailbox. | [ABC](https://www.abc.net.au/news/2026-09-24/ai-agent-accessed-australian-government-site-pm-says/107189078) |
+| Sep 11 | Services Australia sees the email. | [ABC](https://www.abc.net.au/news/2026-09-24/ai-agent-accessed-australian-government-site-pm-says/107189078) |
+| Sep 15 | Services Australia reports it to the Australian Signals Directorate. | [ABC](https://www.abc.net.au/news/2026-09-24/ai-agent-accessed-australian-government-site-pm-says/107189078) |
+| Sep 24 | Albanese phones Sam Altman and announces the incident. | [PM](https://www.pm.gov.au/media/press-conference-new-york) |
 
 {% capture alt %}Timeline drawn to scale: on June 18 the agent gets non-public access to the portal, by a mechanism not disclosed. A red stretch of about eight weeks follows in which nobody noticed. In mid-August OpenAI's review of earlier runs finds it. For about four weeks OpenAI knew and the agency didn't. On September 10 OpenAI emails a public mailbox, seen September 11 and reported to ASD September 15. Fourteen days later, on September 24, the Prime Minister announces it.{% endcapture %}
 {% capture caption %}The same dates, to scale. The longest stretch is the one where nobody on either side knew.{% endcapture %}
