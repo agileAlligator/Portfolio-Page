@@ -19,7 +19,7 @@
 			{%- for key in tag_keys -%}
 			{%- assign name = key | split: '|' | last -%}
 			{%- assign count = site.tags[name].size %}
-			<li><a class="browse-tag" href="/blog/tags/{{ name }}/">{{ name | replace: "_", " " }} <span class="browse-tag-count">{{ count }}<span class="u-sr-only"> post{% if count != 1 %}s{% endif %}</span></span></a></li>
+			<li><a class="browse-tag" href="{% include tag-url.html tag=name %}">{{ name | replace: "_", " " }} <span class="browse-tag-count">{{ count }}<span class="u-sr-only"> post{% if count != 1 %}s{% endif %}</span></span></a></li>
 			{%- endfor %}
 		</ul>
 		<a class="browse-all" href="/blog/tags/">All topics, with their posts →</a>

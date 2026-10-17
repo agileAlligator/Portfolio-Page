@@ -5,6 +5,10 @@ description: >-
   prompt injection, tool misuse, and privilege abuse. Field notes on MCP
   security, agentic safety, and shipping AI platforms.
 url: "https://avneeshk.me"
+# Source repo, for "Suggest a fix" links.
+repository: agileAlligator/Portfolio-Page
+# The model the lab exhibits run on. Must match MODEL in mcp-worker/src/index.js.
+lab_model: llama-3.3-70b
 lang: en
 
 # Identity. The single source for the job title and employer: index.html's

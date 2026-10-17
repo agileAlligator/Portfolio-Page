@@ -1,0 +1,7 @@
+{%- comment -%}
+  URL for a tag: its own page if a stub exists in blog/tags/ (those have feeds),
+  otherwise its section on /blog/tags/. A new tag works before anyone adds a stub.
+  Usage: {% include tag-url.html tag=name %}
+{%- endcomment -%}
+{%- assign tag_page = site.pages | where: "tag", include.tag | first -%}
+{%- if tag_page -%}{{ tag_page.url }}{%- else -%}/blog/tags/#{{ include.tag }}{%- endif -%}

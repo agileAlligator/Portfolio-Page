@@ -10,6 +10,8 @@
 	var API = "https://mcp.apkasture02.workers.dev";
 	var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 	var $ = function (id) { return document.getElementById(id); };
+	// The model name comes from _config.yml (lab_model) via <meta name="lab-model">.
+	function labModel() { var m = document.querySelector('meta[name="lab-model"]'); return m ? m.content : "the model"; }
 
 	// ── current rung state ─────────────────────────────────────────────────
 	var currentRung = "L0"; // L0 | L3
@@ -192,7 +194,7 @@
 			})
 			.then(function () {
 				if (agentRun) agentRun.disabled = false;
-				if (agentStatus) agentStatus.textContent = "llama-3.3-70b · no judgment on defense · the rung decides";
+				if (agentStatus) agentStatus.textContent = labModel() + " · no judgment on defense · the rung decides";
 			});
 	}
 

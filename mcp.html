@@ -171,7 +171,7 @@ breadcrumb:
 		</div>
 		<div class="term-body well mcp-log" id="mcp-agent-log" tabindex="0" aria-label="Agent session output" aria-live="polite">
 			<p class="mcp-line mcp-line-hint"><span class="c-dim"># pick a preset or write your own jailbreak, then run.</span></p>
-			<p class="mcp-line mcp-line-hint"><span class="c-dim"># a real model (llama-3.3-70b) reads it and decides to call the tool.</span></p>
+			<p class="mcp-line mcp-line-hint"><span class="c-dim"># a real model ({{ site.lab_model }}) reads it and decides to call the tool.</span></p>
 		</div>
 	</div>
 
@@ -184,7 +184,7 @@ breadcrumb:
 		<div class="mcp-attack-actions">
 			<button class="btn btn-primary" type="submit" id="mcp-agent-run">run agent</button>
 			<button class="btn" type="button" id="mcp-agent-clear">clear</button>
-			<span class="mcp-attack-hint" id="mcp-agent-status" aria-live="polite">llama-3.3-70b · no judgment on defense · the rung decides</span>
+			<span class="mcp-attack-hint" id="mcp-agent-status" aria-live="polite">{{ site.lab_model }} · no judgment on defense · the rung decides</span>
 		</div>
 	</form>
 </section>

@@ -83,6 +83,8 @@ function buildSite(posts, profile) {
 	return { RESUME, PROJECTS, POSTS };
 }
 
+// The Workers AI model every exhibit runs on. If you change it, change lab_model in _config.yml too.
+const MODEL = "@cf/meta/llama-3.3-70b-instruct-fp8-fast";
 const PROTOCOL = "2025-06-18";
 const SUPPORTED = ["2025-06-18", "2025-03-26", "2024-11-05"];
 const RUNGS = ["L0", "L2", "L3"];
@@ -187,7 +189,7 @@ const TOOL_SCHEMAS = [
 	{ name: "whoami", description: "Who is Avneesh Kasture? Identity + current role.", inputSchema: { type: "object", properties: {} } },
 	{ name: "get_experience", description: "Work history timeline.", inputSchema: { type: "object", properties: {} } },
 	{ name: "list_projects", description: "Selected work / projects.", inputSchema: { type: "object", properties: {} } },
-	{ name: "get_project", description: "One project by id (mcploitable, d2c-analyst, helix, piidetector, randomness, seinfeld).", inputSchema: { type: "object", properties: { id: { type: "string" } }, required: ["id"] } },
+	{ name: "get_project", description: "One project by id (list_projects gives the ids).", inputSchema: { type: "object", properties: { id: { type: "string" } }, required: ["id"] } },
 	{ name: "get_skills", description: "Toolkit, certifications, education.", inputSchema: { type: "object", properties: {} } },
 	{ name: "list_posts", description: "Blog posts.", inputSchema: { type: "object", properties: {} } },
 	{ name: "read_post", description: "One blog post by slug.", inputSchema: { type: "object", properties: { slug: { type: "string" } }, required: ["slug"] } },
@@ -388,7 +390,7 @@ async function handleConsole(req, env, ctx) {
 	const transcript = [];
 	try {
 		for (let turn = 0; turn < 3; turn++) {
-			const r = await env.AI.run("@cf/meta/llama-3.3-70b-instruct-fp8-fast", { messages, max_tokens: 512, temperature: 0.3 });
+			const r = await env.AI.run(MODEL, { messages, max_tokens: 512, temperature: 0.3 });
 			const raw = r && r.response;
 			const call = (raw && typeof raw === "object") ? raw : tryParse(raw);
 			if (call && call.tool) {
@@ -488,7 +490,7 @@ async function handleDesk(req, env, ctx) {
 	const transcript = [];
 	try {
 		for (let turn = 0; turn < 4; turn++) {
-			const r = await env.AI.run("@cf/meta/llama-3.3-70b-instruct-fp8-fast", { messages, max_tokens: 512, temperature: 0.3 });
+			const r = await env.AI.run(MODEL, { messages, max_tokens: 512, temperature: 0.3 });
 			const raw = r && r.response;
 			const call = (raw && typeof raw === "object") ? raw : tryParse(raw);
 			if (call && call.tool) {
@@ -594,7 +596,7 @@ async function handleToolpoison(req, env, ctx) {
 	let leaked = false;
 	try {
 		for (let turn = 0; turn < 3; turn++) {
-			const r = await env.AI.run("@cf/meta/llama-3.3-70b-instruct-fp8-fast", { messages, max_tokens: 512, temperature: 0.2 });
+			const r = await env.AI.run(MODEL, { messages, max_tokens: 512, temperature: 0.2 });
 			const raw = r && r.response;
 			const call = (raw && typeof raw === "object") ? raw : tryParse(raw);
 			if (call && call.tool) {
@@ -639,7 +641,7 @@ async function recordTp(env, rung, leaked, req, description) {
 //  comply/refuse against a server-known label. The generated text is fictional,
 //  bounded to a "Northwind" scenario, and never leaves the request.
 // ══════════════════════════════════════════════════════════════════════════
-const YATM_MODEL = "@cf/meta/llama-3.3-70b-instruct-fp8-fast";
+const YATM_MODEL = MODEL;
 const YATM_MAL = [
 	{ technique: "routine-register", tool: "post_status", kind: "ticket",
 		control: "output-canary/DLP on tool args: post_status body matched the signing-key canary pattern -> refused",

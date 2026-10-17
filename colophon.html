@@ -17,7 +17,7 @@ breadcrumb:
 	<div class="post-body">
 		<h2 id="build">How it is built</h2>
 		<p>The site is static. It is a Jekyll project built by GitHub Pages, with kramdown for Markdown and Rouge for code highlighting. The styles are Sass compiled by Jekyll. The source is a plain repository: pages, posts, a few scripts under <code>assets/</code>, and nothing that runs on the server for the pages themselves.</p>
-		<p>The lab exhibits are the one exception. Their browser code calls a separate Cloudflare Worker at <code>mcp.apkasture02.workers.dev</code>. That Worker is also the MCP server behind <a href="/mcp/">/mcp/</a>. Some exhibits use a Workers AI model, Llama 3.3 70B, as the agent you attack.</p>
+		<p>The lab exhibits are the one exception. Their browser code calls a separate Cloudflare Worker at <code>mcp.apkasture02.workers.dev</code>. That Worker is also the MCP server behind <a href="/mcp/">/mcp/</a>. Some exhibits use a Workers AI model, {{ site.lab_model }}, as the agent you attack.</p>
 		<p>The site loads no analytics, no tracking scripts and no third-party fonts or images, and it sets no cookies. A few exhibits keep your own scores in your browser's local storage. That data stays in your browser.</p>
 
 		<h2 id="type">Typefaces</h2>

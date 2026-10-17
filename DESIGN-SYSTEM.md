@@ -115,7 +115,8 @@ After changing either JSON template, parse the built files with node
   ```
 
   `_layouts/tag.html` filters `site.tags`, and `/blog/tags/` lists every tag on its own.
-  Without the stub the tag still shows on the index but its link 404s.
+  Without a stub, tag links go to the tag's section on `/blog/tags/` (`_includes/tag-url.html`),
+  so nothing 404s; the stub only adds a page of its own and a feed link.
 - **Tag feeds:** `feed: tags:` in `_config.yml` makes jekyll-feed 0.17 write
   `/feed/by_tag/<tag>.xml`. It only builds feeds for tags made of letters, digits and
   underscores, which is why tags use underscores. `tag.html` still skips the feed link
@@ -291,10 +292,13 @@ scheduled rebuild keeps build-time values fresh.
 - **Identity** lives in `_config.yml`: `title`, `tagline`, `description`, `author.name`,
   `author.email`, `author.job_title`, `author.employer`, `author.location`, `social.links`.
   `index.html`'s `<head>` and JSON-LD, `llms.txt`, the footer index, the colophon and
-  `security.txt` read them. A job change is an edit to `_config.yml` (plus the
-  homepage body and the résumé, which are prose).
+  `security.txt` read them. A job change is an edit to `_config.yml` and
+  `_data/career.yml` (the homepage and the MCP server both read those), plus the résumé PDF.
 - **`llms.txt`** is a Liquid template: Writing comes from `site.posts` (title, URL,
   `description`), the lab list from `_data/exhibits.yml` (`summary`). The intro, About
   and Contact sections are static text.
 - **`.well-known/security.txt`** has front matter so Jekyll renders it; `Expires` is build
   time plus 180 days. Keep `include: [".well-known"]` in `_config.yml`.
+- **Lab model name**: `lab_model` in `_config.yml` for pages; JS reads it from
+  `<meta name="lab-model">` (default layout). The Worker's `MODEL` constant must match.
+- **Repo URL** for "Suggest a fix" links: `repository` in `_config.yml`.

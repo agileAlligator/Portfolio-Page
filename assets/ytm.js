@@ -13,6 +13,8 @@
 
 	var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 	var $ = function (id) { return document.getElementById(id); };
+	// The model name comes from _config.yml (lab_model) via <meta name="lab-model">.
+	function labModel() { var m = document.querySelector('meta[name="lab-model"]'); return m ? m.content : "the model"; }
 	var el = {
 		stage: $("stage"), brief: $("brief"), startWrap: $("start-wrap"), start: $("start"),
 		untimedStart: $("untimed-start"), untimed: $("untimed"),
@@ -76,7 +78,7 @@
 	// reassurance line so the wait doesn't read as "broken". Subsequent rounds keep the short copy.
 	function showGenerating() {
 		el.artKind.textContent = "LIVE";
-		el.artFrom.textContent = "llama-3.3-70b";
+		el.artFrom.textContent = labModel();
 		el.artSubject.textContent = "";
 		clearNode(el.artBody);
 		var wrap = document.createElement("span");

@@ -4,4 +4,4 @@
   its "+" for a space is swapped for %20 because mailto: wants that.
 {%- endcomment -%}
 {%- assign subject = 'Re: ' | append: page.title | cgi_escape | replace: '+', '%20' -%}
-<p class="post-foot"><a href="mailto:{{ site.author.email }}?subject={{ subject }}">Reply by email</a> <span aria-hidden="true">·</span> <a href="https://github.com/agileAlligator/Portfolio-Page/blob/master/{{ page.path }}">Suggest a fix</a></p>
+<p class="post-foot"><a href="mailto:{{ site.author.email }}?subject={{ subject }}">Reply by email</a> <span aria-hidden="true">·</span> <a href="https://github.com/{{ site.repository }}/blob/master/{{ page.path }}">Suggest a fix</a></p>
