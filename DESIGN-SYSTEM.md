@@ -55,7 +55,7 @@ write a raw colour in a component: add or reuse a token so both themes get it.
 
 ## Wayfinding (how buried pages surface)
 
-- **Footer index** (`_includes/site-index.html`) on every page except the homepage (which lists the lab and writing itself and ends on contact): all six exhibits,
+- **Footer index** (`_includes/site-index.html`) on every page except the homepage (which lists the lab and writing itself and ends on contact): every exhibit,
   the five latest posts, contact. Every page is one click from anywhere.
 - **Exhibits** get a breadcrumb back to the lab and previous/next exhibit links,
   driven by `_data/exhibits.yml` (order, title, one-line description).
@@ -63,8 +63,13 @@ write a raw colour in a component: add or reuse a token so both themes get it.
   and link to the older/newer post. `short_title:` is used in compact lists.
 - The homepage lab and writing lists render from the same data.
 
-To add an exhibit: add it to `_data/exhibits.yml` and `scripts/check-lab-layout.mjs`.
-To add a post: give it `short_title:` and, where one fits, `exhibits:`.
+To add an exhibit: add one entry to `_data/exhibits.yml` (fields are listed at the
+top of that file: `url`, `title`, `short`, `summary`, `tags`, `desc`, `links`, `lock`,
+optional `live` and `feature`). That is all. The lab card (numbered by position), the
+footer index, the homepage list, previous/next links, `llms.txt`, every spelled-out
+exhibit count and `scripts/check-lab-layout.mjs` all read it.
+To add a post: give it `short_title:`, a `description:` (used by `llms.txt`) and, where
+one fits, `exhibits:`. Don't add a reading time; it is computed.
 Share cards (default, lab, every exhibit, every post) regenerate on their own
 after you push; see Automation. `python3 scripts/make_og.py` still works locally
 for a preview.
@@ -240,7 +245,7 @@ All three live in includes, so posts need no markers. Styles are in `assets/blog
   or keyboard focus on desktop, and sits at 40% opacity on touch screens (`hover: none`).
   It exists only in layout output, so the feed and SEO tags never see it.
 - **Contents** (same include, `.post-toc`): a native `<details>` listing the h2s. Shown when
-  `reading_time` is 7 minutes or more, or the post sets `toc: true`, and there are two or
+  computed reading time is 7 minutes or more, or the post sets `toc: true`, and there are two or
   more h2s. Open in the HTML; `assets/post-toc.js` closes it at 40rem and under. Boxed
   on phones, plain on desktop.
 - **Post footer** (`_includes/post-footer.html`, `.post-foot`): one line before the older/newer
@@ -248,3 +253,25 @@ All three live in includes, so posts need no markers. Styles are in `assets/blog
   encoded with `cgi_escape` and `+` swapped for `%20`) and "Suggest a fix" (the post's
   source on GitHub via `page.path`).
 - Post dates in the layout use the short form, `Oct 14, 2026`.
+
+## Generated, not typed
+
+Anything that goes stale is computed at build time with plain Liquid. The weekly
+scheduled rebuild keeps build-time values fresh.
+
+- **Reading time** (`_includes/reading-time.html`): `{% include reading-time.html post=post %}`
+  prints "N min read" from the post's rendered words at 230 per minute (rounded,
+  minimum 1). `minutes=true` prints the bare number. Never put `reading_time:` in front matter.
+- **Counts as words** (`_includes/number-word.html`): `{% include number-word.html n=site.data.exhibits.size cap=true %}`
+  prints "Six". Never type a count of exhibits or posts in a page body. (Front-matter
+  `description:` can't run Liquid, so keep counts out of it.)
+- **Identity** lives in `_config.yml`: `title`, `tagline`, `description`, `author.name`,
+  `author.email`, `author.job_title`, `author.employer`, `author.location`, `social.links`.
+  `index.html`'s `<head>` and JSON-LD, `llms.txt`, the footer index, the colophon and
+  `security.txt` read them. A job change is an edit to `_config.yml` (plus the
+  homepage body and the résumé, which are prose).
+- **`llms.txt`** is a Liquid template: Writing comes from `site.posts` (title, URL,
+  `description`), the lab list from `_data/exhibits.yml` (`summary`). The intro, About
+  and Contact sections are static text.
+- **`.well-known/security.txt`** has front matter so Jekyll renders it; `Expires` is build
+  time plus 180 days. Keep `include: [".well-known"]` in `_config.yml`.

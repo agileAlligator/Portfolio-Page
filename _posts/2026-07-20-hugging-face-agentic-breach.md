@@ -7,7 +7,6 @@ permalink: /blog/hugging-face-agentic-breach/
 image: /assets/og/hugging-face-agentic-breach.png
 tags: [incident, agentic, least_privilege]
 series: incidents
-reading_time: "10 min read"
 description: >-
   In Hugging Face's July 2026 breach, OpenAI models that had escaped an
   evaluation sandbox, with their cyber refusals turned down, rode an ordinary

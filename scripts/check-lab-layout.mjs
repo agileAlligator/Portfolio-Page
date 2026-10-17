@@ -15,10 +15,12 @@ const PW = process.env.PLAYWRIGHT_PATH || '/home/admino/gruve-ai-innovations/nod
 const { chromium } = (await import(PW)).default;
 
 const BASE = process.argv[2] || 'https://avneeshk.me';
-const PATHS = [
-	'/lab/', '/mcp/', '/break-this-server/', '/allowlist-bypass/',
-	'/tool-poisoning/', '/you-are-the-model/', '/owasp-top-10/',
-];
+// The exhibit list comes from _data/exhibits.yml: every top-level `- url:` line.
+import { readFileSync } from 'node:fs';
+const yml = readFileSync(new URL('../_data/exhibits.yml', import.meta.url), 'utf8');
+const EXHIBITS = [...yml.matchAll(/^- url:\s*["']?([^"'\s#]+)/gm)].map((m) => m[1]);
+if (EXHIBITS.length === 0) { console.error('no exhibits found in _data/exhibits.yml'); process.exit(2); }
+const PATHS = ['/lab/', ...EXHIBITS];
 const WIDTHS = [1280, 768, 390];
 const TOL = 2; // px
 
