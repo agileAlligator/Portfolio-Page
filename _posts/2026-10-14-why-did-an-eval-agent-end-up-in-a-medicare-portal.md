@@ -11,7 +11,8 @@ description: >-
 date: 2026-10-14
 permalink: /blog/why-did-an-eval-agent-end-up-in-a-medicare-portal/
 image: /assets/og/why-did-an-eval-agent-end-up-in-a-medicare-portal.png
-tags: [incident, agentic, least-privilege, egress]
+tags: [incident, agentic, least-privilege, guardrails]
+series: incidents
 reading_time: "6 min read"
 short_title: "Eval agent in a Medicare portal"
 exhibits: [/break-this-server/, /allowlist-bypass/, /you-are-the-model/]

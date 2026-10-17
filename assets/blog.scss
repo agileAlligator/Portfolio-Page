@@ -128,3 +128,35 @@
 .post-try-desc { display: block; color: var(--ink-faint); font-size: 1rem; }
 
 .wayfind-post { max-width: calc(40rem + 2 * var(--gutter)); }
+
+/* ── Tags, series, start here ── */
+.post-meta .post-tags { display: block; margin-top: 0.4rem; }
+.post-tags-label { margin-right: 0.15rem; }
+.post-tag { color: var(--blue); text-decoration: none; margin-right: 0.35rem; }
+.post-tag:hover { color: var(--blue-deep); text-decoration: underline; text-underline-offset: 0.18em; }
+
+.pli-part { font-family: var(--grotesk); font-size: 0.95rem; font-weight: 600; color: var(--ink-faint); margin-right: 0.25rem; }
+
+.series-note {
+	margin: 0 0 2rem;
+	padding: 1rem 1.25rem;
+	background: var(--panel-2);
+	border-radius: 4px;
+	font-family: var(--grotesk);
+	font-size: 0.95rem;
+}
+.series-note-title { font-weight: 700; color: var(--ink); }
+.series-note-list { margin-top: 0.5rem; padding-left: 1.35rem; }
+.series-note-list li { margin-top: 0.25rem; line-height: 1.4; }
+.series-note-here { font-weight: 600; color: var(--ink); }
+
+.start-here { margin: 0 0 2rem; padding: 1.2rem 1.4rem; background: var(--panel-2); border-radius: 4px; }
+.start-here-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem; }
+.start-here-list { list-style: none; }
+.start-here-list li { margin-top: 0.4rem; line-height: 1.45; }
+.start-here-list a { font-family: var(--grotesk); font-weight: 600; }
+.start-here-meta { font-family: var(--grotesk); font-size: 0.95rem; color: var(--ink-faint); margin-left: 0.4rem; }
+.blog-browse { font-family: var(--grotesk); font-size: 1rem; color: var(--ink-faint); margin-bottom: 2rem; }
+
+.tag-group-title { font-size: 1.3rem; font-weight: 700; letter-spacing: -0.015em; margin: 2.25rem 0 0.75rem; }
+.tag-group-count { font-family: var(--grotesk); font-size: 0.95rem; font-weight: 500; color: var(--ink-faint); margin-left: 0.3rem; }

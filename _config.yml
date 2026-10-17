@@ -34,6 +34,9 @@ plugins:
 
 feed:
   path: /feed.xml
+  # One Atom feed per tag at /feed/by_tag/<tag>.xml. jekyll-feed 0.17 skips
+  # any tag containing a hyphen, so those tags get no feed.
+  tags: {}
 
 # ── Keep non-page assets OUT of sitemap.xml ─────────────────────────────────
 # The sitemap should list indexable *content pages* only (home, /blog, posts).

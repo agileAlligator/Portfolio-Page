@@ -1,0 +1,11 @@
+{% assign s = site.data.series | where: "slug", page.series | first %}
+{% if s %}
+{% assign parts = site.posts | where: "series", s.slug | reverse %}
+<aside class="series-note" aria-labelledby="series-note-title">
+	{% for p in parts %}{% if p.url == page.url %}<p class="series-note-title" id="series-note-title">Part {{ forloop.index }} of {{ parts.size }} in <a href="/blog/series/{{ s.slug }}/">{{ s.title }}</a></p>{% endif %}{% endfor %}
+	<ol class="series-note-list">
+		{% for p in parts %}<li>{% if p.url == page.url %}<span class="series-note-here" aria-current="page">{{ p.short_title | default: p.title }}</span>{% else %}<a href="{{ p.url }}">{{ p.short_title | default: p.title }}</a>{% endif %}</li>
+		{% endfor %}
+	</ol>
+</aside>
+{% endif %}

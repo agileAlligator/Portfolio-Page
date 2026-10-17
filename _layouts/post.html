@@ -19,8 +19,11 @@ layout: default
 		{% if page.subtitle %}<p class="post-subtitle">{{ page.subtitle }}</p>{% endif %}
 		<p class="post-meta">
 			<time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %-d, %Y" }}</time>{% if page.reading_time %}, {{ page.reading_time }}{% endif %}
+			{% include post-tags.html post=page %}
 		</p>
 	</header>
+
+	{% include series-note.html %}
 
 	<div class="post-body">
 		{{ content }}

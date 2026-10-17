@@ -1,0 +1,13 @@
+---
+layout: default
+---
+{% assign s = site.data.series | where: "slug", page.series | first %}
+{% assign parts = site.posts | where: "series", s.slug | reverse %}
+<section class="blog-index">
+	<p class="post-kicker"><a href="/blog/">Writing</a> / Series</p>
+	<h1 class="blog-title">{{ s.title }}</h1>
+	<p class="blog-lede">{{ s.description }}</p>
+	<ul class="post-list">
+		{% for post in parts %}{% include post-list-item.html post=post part=forloop.index %}{% endfor %}
+	</ul>
+</section>

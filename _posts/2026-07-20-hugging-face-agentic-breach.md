@@ -5,7 +5,8 @@ subtitle: "The July intrusion keeps getting filed under AI security. The agents 
 date: 2026-07-20
 permalink: /blog/hugging-face-agentic-breach/
 image: /assets/og/hugging-face-agentic-breach.png
-tags: [incident, open-weights, least-privilege, ai-safety]
+tags: [incident, agentic, least-privilege]
+series: incidents
 reading_time: "10 min read"
 description: >-
   In Hugging Face's July 2026 breach, OpenAI models that had escaped an

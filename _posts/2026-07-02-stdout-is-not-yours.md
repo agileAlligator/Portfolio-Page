@@ -11,6 +11,7 @@ date: 2026-07-02 14:00:00 +0000
 permalink: /blog/stdout-is-not-yours/
 image: /assets/og/stdout-is-not-yours.png
 tags: [mcp, debugging]
+featured: true
 reading_time: "3 min read"
 short_title: "Stdout belongs to the protocol"
 exhibits: [/mcp/]
