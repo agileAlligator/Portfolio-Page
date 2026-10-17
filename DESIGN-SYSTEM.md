@@ -74,6 +74,29 @@ Share cards (default, lab, every exhibit, every post) regenerate on their own
 after you push; see Automation. `python3 scripts/make_og.py` still works locally
 for a preview.
 
+## Résumé data and the MCP server
+
+The homepage and the MCP server both read `_data/*.yml`; the Worker reads `/api/*.json`.
+
+| File | Homepage | MCP tool |
+|------|----------|----------|
+| `_data/projects.yml` | "Things I've built" (`built`, `smaller`) | `list_projects`, `get_project` (by `id`) |
+| `_data/career.yml` | "How I got here" | `get_experience` |
+| `_data/credentials.yml` | the line under the career path | `get_skills` |
+| `_data/skills.yml` | not shown | `get_skills` |
+| `_config.yml` title, tagline, description, author, social | | `whoami`, `get_resume`, `get_contact` |
+| `_posts/` | Writing list | `list_posts`, `read_post`, `read_document` (`posts/<slug>.md`) |
+
+`api/profile.json` and `api/posts.json` are Liquid templates that turn those into JSON
+(`jsonify`; post bodies are `content | strip_html` with block ends kept as blank lines).
+`mcp-worker/src/index.js` fetches the two fixed URLs through Cloudflare's edge cache
+(10 minutes) and memoizes them per isolate; its tool handlers are pure functions over that
+data. So: edit the YAML or the post, push, and the homepage and the MCP server both change.
+Never copy résumé text into the Worker. Don't rename a project `id`: `get_project`'s
+description lists them. `/api/` is excluded from the sitemap in `_config.yml`.
+After changing either JSON template, parse the built files with node
+(`node -e 'require("./_site/api/posts.json")'`) before pushing.
+
 ## Tags, series and Start here
 
 - **Tags** are lowercase, with underscores between words (never hyphens; see feeds below), set in each post's `tags:` front matter. The

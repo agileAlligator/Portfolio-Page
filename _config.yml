@@ -71,6 +71,9 @@ defaults:
     values: { sitemap: false }
   - scope: { path: "seinfeld-rolodex.html" }
     values: { sitemap: false }
+  # JSON read server-side by the MCP Worker (mcp-worker/), not pages.
+  - scope: { path: "api" }
+    values: { sitemap: false }
 
 markdown: kramdown
 highlighter: rouge

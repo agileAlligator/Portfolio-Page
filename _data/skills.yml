@@ -1,0 +1,10 @@
+# Toolkit groups. The homepage doesn't show these; the MCP server's get_skills
+# does (via /api/profile.json). Kept here so every résumé fact lives in _data.
+- group: Secure MCP & Agentic
+  items: [MCP server design, OWASP Agentic Top 10, prompt-injection defense, tool scoping & sandboxing, client delivery]
+- group: AI & Automation
+  items: [LLM workflow orchestration, document-generation pipelines, citation/provenance validation, tool-use / function calling, SOAR / playbook automation]
+- group: Build & Ship
+  items: [Python, Docker, internal app development, REST & API integration]
+- group: Security Foundations
+  items: [threat hunting, detection engineering, Splunk, CrowdStrike Falcon, Windows forensics, malware analysis]

@@ -39,6 +39,7 @@ breadcrumb:
 		</ul>
 		<p>The Worker does not store full request bodies, full prompts, your IP address beyond the rate-limit key above, or your user agent. What you type is sent to the Workers AI model to produce a reply, and the Worker keeps nothing of it beyond the 120-character snippet described above. Cloudflare and GitHub keep their own server logs under their own policies.</p>
 		<p>The canary tokens in the lab are inert. They are random strings held in a sandboxed in-memory document store. They unlock nothing, belong to no real account, and the exhibits count how many times one leaks as the score. No tool on the Worker reads the real filesystem or makes an outbound request.</p>
+		<p>The MCP server's résumé and posts come from this site. Jekyll builds two JSON files, <code>/api/posts.json</code> and <code>/api/profile.json</code>, from the same posts and data files the homepage uses. The Worker fetches those two fixed URLs, caches them for ten minutes, and its tools answer from that copy. Those two requests are the only ones the Worker makes for the MCP server, and nothing a caller sends changes where they go.</p>
 
 		<h2 id="security">Security measures on the site</h2>
 		<ul>

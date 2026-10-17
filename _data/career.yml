@@ -1,0 +1,21 @@
+# Career path, oldest first. Single source for the homepage's "How I got here"
+# (index.html) and the MCP server's get_experience (via /api/profile.json).
+# `desc` is plain text: it goes into the HTML and the JSON as is.
+- role: Digital forensics intern
+  org: Deloitte
+  start: Jul 2024
+  end: Feb 2025
+  location: Mumbai
+  desc: Acquired and analysed digital evidence. Automated scanning and documentation in Python, which cut processing time by 80%.
+- role: SOC analyst
+  org: Gruve
+  start: Apr 2025
+  end: Apr 2026
+  location: Pune
+  desc: Investigated alerts across network, endpoint and identity data in Splunk and CrowdStrike Falcon. A threat hunt of mine turned into a customer-wide advisory.
+- role: Associate Solutions Engineer
+  org: Gruve
+  start: Apr 2026
+  end: now
+  location: Pune
+  desc: Design and deliver secure MCP servers for clients, and build internal tools like Helix.

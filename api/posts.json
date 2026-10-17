@@ -1,0 +1,39 @@
+---
+# Every published post as JSON. Read server-side by the MCP Worker
+# (mcp-worker/src/index.js: list_posts, read_post, read_document), so its
+# posts are always the site's posts. `body` is the rendered post as plain
+# text: block ends become blank lines, other whitespace collapses to one space.
+layout: null
+permalink: /api/posts.json
+---
+{%- capture para %}
+
+{% endcapture -%}
+{%- assign n = 0 -%}
+[
+{%- for post in site.posts -%}
+{%- unless post.published == false -%}
+{%- assign slug = post.url | split: "/" | last -%}
+{%- assign body = post.content
+	| replace: "</p>", "</p> ¶¶ " | replace: "</li>", "</li> ¶¶ " | replace: "</pre>", "</pre> ¶¶ "
+	| replace: "</h2>", "</h2> ¶¶ " | replace: "</h3>", "</h3> ¶¶ " | replace: "</h4>", "</h4> ¶¶ "
+	| replace: "</tr>", "</tr> ¶¶ " | replace: "</summary>", "</summary> ¶¶ " | replace: "</figcaption>", "</figcaption> ¶¶ "
+	| strip_html
+	| replace: "&lt;", "<" | replace: "&gt;", ">" | replace: "&quot;", '"' | replace: "&#39;", "'" | replace: "&amp;", "&"
+	| split: " " | join: " "
+	| replace: "¶¶ ¶¶", "¶¶" | replace: "¶¶ ¶¶", "¶¶" | replace: "¶¶ ¶¶", "¶¶"
+	| replace: " ¶¶ ", para | remove: "¶¶" | strip -%}
+{%- assign description = post.description | default: post.excerpt | strip_html | split: " " | join: " " -%}
+{%- if n > 0 %},{% endif %}{% assign n = n | plus: 1 %}
+  {
+    "slug": {{ slug | jsonify }},
+    "title": {{ post.title | jsonify }},
+    "url": {{ post.url | absolute_url | jsonify }},
+    "date": {{ post.date | date: "%Y-%m-%d" | jsonify }},
+    "description": {{ description | jsonify }},
+    "tags": {{ post.tags | jsonify }},
+    "body": {{ body | jsonify }}
+  }
+{%- endunless -%}
+{%- endfor %}
+]
