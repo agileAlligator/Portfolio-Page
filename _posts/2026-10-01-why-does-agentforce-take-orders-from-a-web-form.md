@@ -28,7 +28,7 @@ sizes to the attacker over DNS.
 
 Why would a sales agent take orders from a stranger's form submission?
 
-![Numbered flowchart of SalesBleed, top to bottom: a stranger submits a web form, the lead sits in the CRM, an employee later asks the agent about leads, the lead text lands in the same context window as the prompt and question, the model follows it, reads Accounts, writes a link with the data in the hostname, the URL redactor misses it, the chat or Slack fetches it, and the DNS lookup carries the data to the attacker's name server.](/assets/blog/why-does-agentforce-take-orders-from-a-web-form/salesbleed-path.svg)
+![Numbered flowchart of SalesBleed. 1: a stranger submits a web form. 2: it becomes a lead in the CRM. 3: an employee later asks the agent about leads. The question, the system prompt and the stranger's lead text share one context window. 4: the model follows the injected text. 5: it reads Accounts. 6: it writes a link with the data in the hostname. 7: the URL redactor misses it. 8: the chat or Slack fetches it. 9: the DNS lookup carries the data. 10: it reaches the attacker's name server.](/assets/blog/why-does-agentforce-take-orders-from-a-web-form/salesbleed-path.svg)
 *SalesBleed end to end. Solid steps are from Zenity's write-up; dashed ones are undisclosed or my inference.*
 
 ## The model sees one stream of text
