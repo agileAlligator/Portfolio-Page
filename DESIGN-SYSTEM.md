@@ -98,6 +98,12 @@ lab, every exhibit, every post) in the v3 look.
   `_includes/series-note.html`.
 - **Start here:** `featured: true` on a post lists it at the top of `/blog/`.
   Keep it to three or four.
+- **Browse block** (`_includes/blog-browse.html`, `.blog-browse`, `.browse-*`): on `/blog/`,
+  between Start here and "All posts". Topics are chips built from `site.tags`, ordered by
+  post count then name. Series come from `_data/series.yml` in `order`, each with its
+  description and a part count computed from the posts. Nothing in it is hardcoded, and
+  descriptions shouldn't hardcode counts either. "All topics" goes to `/blog/tags/`, and
+  "All series" goes to `/blog/series/` (`blog/series/index.html`, same data).
 - Post rows on every list come from `_includes/post-list-item.html` (exact dates).
 
 ## Exercise answers

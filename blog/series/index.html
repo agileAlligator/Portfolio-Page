@@ -1,0 +1,20 @@
+---
+layout: default
+title: Series
+description: Posts that are meant to be read in order.
+permalink: /blog/series/
+---
+{% assign all_series = site.data.series | sort: "order" %}
+<section class="blog-index">
+	<p class="post-kicker"><a href="/blog/">Writing</a></p>
+	<h1 class="blog-title">Series</h1>
+	<p class="blog-lede">Posts that are meant to be read in order. Each series lists its parts oldest first.</p>
+	{% for s in all_series %}
+	{% assign parts = site.posts | where: "series", s.slug | reverse %}
+	<h2 class="tag-group-title" id="{{ s.slug }}"><a href="/blog/series/{{ s.slug }}/">{{ s.title }}</a> <span class="tag-group-count">{{ parts.size }} part{% if parts.size != 1 %}s{% endif %}</span></h2>
+	<p class="browse-series-desc">{{ s.description }}</p>
+	<ul class="post-list">
+		{% for post in parts %}{% include post-list-item.html post=post part=forloop.index %}{% endfor %}
+	</ul>
+	{% endfor %}
+</section>

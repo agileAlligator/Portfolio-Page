@@ -19,9 +19,10 @@ permalink: /blog/
 	</section>
 	{% endif %}
 
-	<p class="blog-browse">Browse by <a href="/blog/tags/">tag</a>{% for s in site.data.series %}{% if forloop.first %} or by series: {% elsif forloop.last %} and {% else %}, {% endif %}<a href="/blog/series/{{ s.slug }}/">{{ s.title }}</a>{% endfor %}.</p>
+	{% include blog-browse.html %}
 
 	{% if site.posts.size > 0 %}
+	<h2 class="blog-section-title" id="all-posts">All posts</h2>
 	<ul class="post-list">
 		{% for post in site.posts %}{% include post-list-item.html post=post %}{% endfor %}
 	</ul>

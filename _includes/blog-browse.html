@@ -1,0 +1,44 @@
+{%- comment -%}
+  The "Browse" block on /blog/: every topic (from site.tags) and every series
+  (from _data/series.yml). Nothing here is hardcoded: a new tag or series
+  appears on its own once it exists. Tags are ordered by post count, then name.
+{%- endcomment -%}
+{%- assign tag_keys = '' | split: '' -%}
+{%- for entry in site.tags -%}
+	{%- assign rank = 1000 | minus: entry[1].size -%}
+	{%- capture key -%}{{ rank }}|{{ entry[0] }}{%- endcapture -%}
+	{%- assign tag_keys = tag_keys | push: key -%}
+{%- endfor -%}
+{%- assign tag_keys = tag_keys | sort -%}
+{%- assign all_series = site.data.series | sort: "order" -%}
+<nav class="blog-browse" aria-label="Browse writing">
+	{%- if tag_keys.size > 0 %}
+	<section class="blog-browse-group" aria-labelledby="browse-topics">
+		<h2 class="blog-browse-title" id="browse-topics">Topics</h2>
+		<ul class="browse-tags">
+			{%- for key in tag_keys -%}
+			{%- assign name = key | split: '|' | last -%}
+			{%- assign count = site.tags[name].size %}
+			<li><a class="browse-tag" href="/blog/tags/{{ name }}/">{{ name | replace: "_", " " }} <span class="browse-tag-count">{{ count }}<span class="u-sr-only"> post{% if count != 1 %}s{% endif %}</span></span></a></li>
+			{%- endfor %}
+		</ul>
+		<a class="browse-all" href="/blog/tags/">All topics, with their posts →</a>
+	</section>
+	{%- endif %}
+	{%- if all_series.size > 0 %}
+	<section class="blog-browse-group" aria-labelledby="browse-series">
+		<h2 class="blog-browse-title" id="browse-series">Series</h2>
+		<ul class="browse-series">
+			{%- for s in all_series -%}
+			{%- assign parts = site.posts | where: "series", s.slug %}
+			<li class="browse-series-item">
+				<a class="browse-series-name" href="/blog/series/{{ s.slug }}/">{{ s.title }}</a>
+				<span class="browse-series-meta">{{ parts.size }} part{% if parts.size != 1 %}s{% endif %}</span>
+				<p class="browse-series-desc">{{ s.description }}</p>
+			</li>
+			{%- endfor %}
+		</ul>
+		<a class="browse-all" href="/blog/series/">All series →</a>
+	</section>
+	{%- endif %}
+</nav>

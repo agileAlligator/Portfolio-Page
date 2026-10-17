@@ -7,5 +7,5 @@
   order: 1
 - slug: incidents
   title: Incident writeups
-  description: Three 2026 incidents where an AI agent was involved, and the ordinary controls that would have limited each one.
+  description: Incidents where an AI agent was involved, and the ordinary controls that would have limited each one.
   order: 2
