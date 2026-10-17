@@ -128,3 +128,33 @@
 .post-try-desc { display: block; color: var(--ink-faint); font-size: 1rem; }
 
 .wayfind-post { max-width: calc(40rem + 2 * var(--gutter)); }
+
+/* ── Reading aids: heading anchors, contents list, post footer ── */
+.heading-anchor {
+	margin-left: 0.4em;
+	font-weight: 400;
+	text-decoration: none;
+	color: var(--ink-faint);
+	opacity: 0;
+}
+.post-body h2:hover .heading-anchor, .post-body h3:hover .heading-anchor,
+.heading-anchor:focus-visible { opacity: 1; }
+.heading-anchor:hover { color: var(--blue); }
+@media (hover: none) {
+	.heading-anchor { opacity: 0.4; }
+}
+.post-toc { margin: 0 0 2rem; font-family: var(--grotesk); }
+.post-toc-title { cursor: pointer; font-size: 1rem; font-weight: 700; color: var(--ink-soft); }
+.post-toc-list { margin-top: 0.5rem; padding-left: 1.35rem; font-size: 1rem; line-height: 1.4; }
+.post-toc-list li + li { margin-top: 0.3rem; }
+@media (max-width: 40rem) {
+	.post-toc { border: 1px solid var(--rule); border-radius: 6px; padding: 0.75rem 1rem; }
+}
+.post-foot {
+	max-width: calc(40rem + 2 * var(--gutter));
+	margin: 2.5rem auto 0;
+	padding: 0 var(--gutter);
+	font-family: var(--grotesk);
+	font-size: 1rem;
+	color: var(--ink-soft);
+}

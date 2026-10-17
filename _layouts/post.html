@@ -18,12 +18,12 @@ layout: default
 		<h1 class="post-title">{{ page.title }}</h1>
 		{% if page.subtitle %}<p class="post-subtitle">{{ page.subtitle }}</p>{% endif %}
 		<p class="post-meta">
-			<time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %-d, %Y" }}</time>{% if page.reading_time %}, {{ page.reading_time }}{% endif %}
+			<time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%b %-d, %Y" }}</time>{% if page.reading_time %}, {{ page.reading_time }}{% endif %}
 		</p>
 	</header>
 
 	<div class="post-body">
-		{{ content }}
+		{% include post-body.html %}
 	</div>
 
 	{% if page.exhibits %}
@@ -37,6 +37,8 @@ layout: default
 	</aside>
 	{% endif %}
 </article>
+
+{% include post-footer.html %}
 
 <nav class="wayfind wayfind-post" aria-label="More writing">
 	{% if page.previous %}<a class="wayfind-link wayfind-prev" href="{{ page.previous.url }}"><span class="wayfind-dir">Older post</span><span class="wayfind-title">{{ page.previous.short_title | default: page.previous.title }}</span></a>{% endif %}

@@ -1,0 +1,7 @@
+{%- comment -%}
+  One quiet line under a post: reply by email (subject "Re: <title>") and a
+  link to the post's source on GitHub. cgi_escape encodes quotes, ? and &;
+  its "+" for a space is swapped for %20 because mailto: wants that.
+{%- endcomment -%}
+{%- assign subject = 'Re: ' | append: page.title | cgi_escape | replace: '+', '%20' -%}
+<p class="post-foot"><a href="mailto:{{ site.author.email }}?subject={{ subject }}">Reply by email</a> <span aria-hidden="true">·</span> <a href="https://github.com/agileAlligator/Portfolio-Page/blob/master/{{ page.path }}">Suggest a fix</a></p>

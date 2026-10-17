@@ -124,3 +124,22 @@ minimal and is gated behind `prefers-reduced-motion`.
 
 `node scripts/check-lab-layout.mjs [baseUrl]` renders every exhibit at
 1280/768/390 and fails on horizontal overflow or text left of the masthead.
+
+## Reading aids and post footer
+
+All three live in includes, so posts need no markers. Styles are in `assets/blog.scss`.
+
+- **Heading anchors** (`_includes/post-body.html`, `.heading-anchor`): a `#` link inside every
+  `h2` and `h3` of a post body, added in Liquid by splitting the rendered `content` on
+  `<h2 id="` / `<h3 id="`. It has `aria-label="Link to this section"`, is hidden until hover
+  or keyboard focus on desktop, and sits at 40% opacity on touch screens (`hover: none`).
+  It exists only in layout output, so the feed and SEO tags never see it.
+- **Contents** (same include, `.post-toc`): a native `<details>` listing the h2s. Shown when
+  `reading_time` is 7 minutes or more, or the post sets `toc: true`, and there are two or
+  more h2s. Open in the HTML; `assets/post-toc.js` closes it at 40rem and under. Boxed
+  on phones, plain on desktop.
+- **Post footer** (`_includes/post-footer.html`, `.post-foot`): one line before the older/newer
+  navigation: "Reply by email" (`mailto:` to `site.author.email`, subject `Re: <title>`,
+  encoded with `cgi_escape` and `+` swapped for `%20`) and "Suggest a fix" (the post's
+  source on GitHub via `page.path`).
+- Post dates in the layout use the short form, `Oct 14, 2026`.
