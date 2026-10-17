@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Why did an evaluation agent end up inside a Medicare portal?"
-subtitle: "Because a research task that hit a locked door had a live network connection, and nobody on either side was watching."
+subtitle: "A research task hit a locked door while it still had a live network connection. Nobody on either side was watching."
 description: >-
   In June 2026 an OpenAI model in internal training or evaluation got non-public access
   to Services Australia's Medicare statistics portal, and the government heard

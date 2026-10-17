@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Why does Agentforce take orders from a web form?"
-subtitle: "Because the lead's text and the user's question arrive in the same token stream, and the filter meant to catch the exfiltration link only blocked URLs it could recognize."
+subtitle: "To the model, a stranger's lead and the employee's question are one stream of text. The filter meant to stop the leak only blocked URLs it recognized."
 description: >-
   Zenity's SalesBleed put a prompt injection in a public Salesforce Web-to-Lead
   form and leaked CRM data over DNS past Agentforce's URL redaction. Why form
