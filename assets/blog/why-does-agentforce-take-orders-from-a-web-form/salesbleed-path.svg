@@ -76,7 +76,7 @@
   <rect class="box" x="400" y="276" width="300" height="56" rx="6"/>
   <text class="label" x="416" y="299">Stranger submits a web form</text>
   <text class="soft" x="416" y="319">public Web-to-Lead; no login, no click</text>
-  <line class="dasharrow" x1="430" y1="276" x2="430" y2="229" marker-end="url(#ahs)"/>
+  <line class="arrow" x1="430" y1="276" x2="430" y2="229" marker-end="url(#ah)"/>
   <text class="note" x="442" y="257">which field carried it: not disclosed</text>
 
   <!-- Model acts -->

@@ -17,6 +17,7 @@
     .dur { font-size: 15px; font-weight: 700; }
     .dur-red { font-size: 15px; font-weight: 700; fill: #c8372d; }
     @media (prefers-color-scheme: dark) {
+      .seg-gap { stroke: #ff6b5e; }
       .bg, .dot { fill: #16171a; }
       .dot { stroke: #e8e8e3; }
       .tick { stroke: #34353a; }
@@ -24,7 +25,7 @@
       .seg-late { stroke: #a3a4a9; }
       text { fill: #e8e8e3; }
       .cap, .s14, .nd { fill: #a3a4a9; }
-      .dur-red { fill: #c8372d; }
+      .dur-red { fill: #ff6b5e; }
     }
   </style>
 
@@ -65,8 +66,8 @@
   <text class="t14" x="435" y="244" text-anchor="middle">misaligned activity</text>
   <text class="t14" x="435" y="263" text-anchor="middle">finds it</text>
 
-  <text class="date" x="650" y="205" text-anchor="middle">Sep 10</text>
-  <text class="t14" x="650" y="225" text-anchor="middle">OpenAI emails a</text>
-  <text class="t14" x="650" y="244" text-anchor="middle">public mailbox</text>
-  <text class="s14" x="650" y="263" text-anchor="middle">seen Sep 11, ASD Sep 15</text>
+  <text class="date" x="643" y="205" text-anchor="middle">Sep 10</text>
+  <text class="t14" x="643" y="225" text-anchor="middle">OpenAI emails a</text>
+  <text class="t14" x="643" y="244" text-anchor="middle">public mailbox</text>
+  <text class="s14" x="643" y="263" text-anchor="middle">seen Sep 11, ASD Sep 15</text>
 </svg>
