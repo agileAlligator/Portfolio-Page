@@ -68,6 +68,16 @@ To add a post: give it `short_title:` and, where one fits, `exhibits:`.
 Then run `python3 scripts/make_og.py` to regenerate the share cards (default,
 lab, every exhibit, every post) in the v3 look.
 
+## Exercise answers
+
+A post that ends with an **Exercise** gets a collapsed answer under it, through
+`_includes/answer.html` (a native `<details class="post-answer">`, closed by default):
+
+```liquid
+{% capture answer %}Markdown answer, `code` and [links](https://…) allowed.{% endcapture %}
+{% include answer.html body=answer %}
+```
+
 ## Images in posts
 
 Every post image goes through `_includes/figure.html`, which renders a

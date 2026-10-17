@@ -1,0 +1,12 @@
+{%- comment -%}
+  A collapsed answer under a post's Exercise. Native <details>, so it works
+  without JavaScript and is keyboard- and screen-reader-accessible.
+
+  Usage (capture the answer so it can hold markdown, quotes and code):
+    {% capture answer %}Markdown answer, `code` and [links](https://…) allowed.{% endcapture %}
+    {% include answer.html body=answer %}
+{%- endcomment -%}
+<details class="post-answer">
+  <summary>Show an answer</summary>
+  {{ include.body | markdownify }}
+</details>

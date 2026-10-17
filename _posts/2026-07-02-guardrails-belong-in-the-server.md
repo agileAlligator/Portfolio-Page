@@ -219,3 +219,14 @@ bypassed and then fixed.
 **Exercise:** The compiled allowlist patterns are anchored with both `^` and
 `$`. Which of the two anchors is the one that stops `GET /files/{id}/content`
 from matching the approved route `GET /files/{id}`?
+
+{% capture answer %}
+The `$`.
+
+The route `GET /files/{id}` compiles to `^GET /files/[^/]+$`. `pat.match` already pins the match to the start of the string, so the `^` is doing nothing there. Without the `$`, the pattern matches the prefix `GET /files/42` and doesn't care about the `/content` hanging off the end: `match` promises the pattern fits at the start, not that it uses up the whole string.
+
+With the `$`, the regex has to end where the path ends. `/content` is left over, so the match fails and the request is blocked.
+
+If you'd rather not think about anchors at all, `pat.fullmatch(key)` does the same job and says what it means.
+{% endcapture %}
+{% include answer.html body=answer %}

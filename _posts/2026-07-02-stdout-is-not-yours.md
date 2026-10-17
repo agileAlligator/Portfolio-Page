@@ -125,3 +125,12 @@ When you run the server by hand, `print("hello")` and
 `print("hello", file=sys.stderr)` both show up in your terminal, and they look
 identical. Explain why only one of them breaks the connection when the client
 launches the server.
+
+{% capture answer %}
+In your terminal, file descriptors 1 and 2 both point at the same tty. Both lines land on your screen, and the only thing reading them is you.
+
+When the client launches the server, it replaces fd 1 with a pipe and reads every line on that pipe as a JSON-RPC message. `hello` isn't JSON, so the parse fails. fd 2 is inherited or routed to the client's log, and nobody parses it.
+
+The two `print` calls didn't change. What changed is who is on the other end of fd 1.
+{% endcapture %}
+{% include answer.html body=answer %}

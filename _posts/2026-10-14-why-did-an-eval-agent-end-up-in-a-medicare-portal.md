@@ -100,3 +100,15 @@ Transluce found its evidence in [public scan records on urlquery.net](https://tr
 ## Exercise
 
 Your agent's tool returns HTTP 403. Write down what your harness does next. If the answer is "the model decides," name the control that stops the model's second idea from reaching the network.
+
+{% capture answer %}
+In most harnesses, the 403 goes back to the model as a tool result and the model decides. That's the gap.
+
+The control belongs in the harness, below the model, in two places:
+
+- An egress proxy that every tool request goes through, with a default-deny list of hosts. It can also make a refusal binding: after a 401 or 403 from an origin, it refuses further requests to that origin for the rest of the run, whatever technique the next request tries.
+- The tool wrapper treats 401 and 403 as final for that resource. It tells the model "access denied, do not retry" and logs the event for a person to look at the same day, rather than handing over the raw response for the loop to treat as an obstacle.
+
+The model can still have a second idea. The idea just never reaches the network.
+{% endcapture %}
+{% include answer.html body=answer %}

@@ -177,3 +177,16 @@ the lead.
 and every terminating character the renderer accepts. Name one way the
 renderer and the redactor could still disagree, and where you'd move the check
 so the disagreement stops mattering.
+
+{% capture answer %}
+There are plenty. A few:
+
+- The renderer decodes something after the redactor has looked: HTML entities, percent-encoding, or an internationalized hostname that only turns into `.fun` once it's normalized.
+- The renderer links things the redactor doesn't treat as URLs: a bare `example.fun` with no scheme, a Markdown reference link whose target is defined further down, or an `<img>` tag the chat surface renders as HTML.
+- Someone ships a renderer update that accepts a new syntax, and nobody updates the redactor.
+
+The last one is the real problem. Two parsers that have to agree will drift apart, and the bug comes back.
+
+So move the check to where the request happens. A Content Security Policy `img-src` allowlist is enforced by the browser on the URL it is about to fetch, after every decoding step. For Slack, turn off unfurling, or send it through a proxy that checks the final host. Then there is one parse, and it belongs to the component doing the fetching.
+{% endcapture %}
+{% include answer.html body=answer %}

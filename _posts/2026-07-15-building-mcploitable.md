@@ -160,3 +160,10 @@ show the failure and its fix. They're in the same `./play` menu.
 **Exercise:** An L2 control for the plugin box might reject any plugin whose
 publisher string doesn't match an allowlist. Why does that still leave a gap,
 and why does dropping the credential at the sink close it?
+
+{% capture answer %}
+The publisher string is written by whoever publishes the plugin, which in this attack is the attacker. An allowlist on that field checks that the attacker typed an approved name, and they will. It's the self-declared identity bug from the section above, with a list in front of it. A signature over the plugin would fix the check, because then the identity is something the attacker can't write.
+
+Dropping the credential at the sink doesn't ask who the plugin claims to be. Whatever the agent was talked into, the call that would hand over the credential strips it in code before anything leaves. The plugin can be trusted, untrusted or lying about its name, and it still gets nothing, because the decision doesn't depend on anything the attacker controls.
+{% endcapture %}
+{% include answer.html body=answer %}

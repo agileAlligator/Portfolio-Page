@@ -128,3 +128,15 @@ The number I keep coming back to is the tempo. Seventeen thousand events in a we
 The question in the title has since gone to court. On September 29, a nonprofit called LASST [sued OpenAI](https://thenextweb.com/news/openai-lawsuit-lasst-hugging-face-hack) in San Francisco Superior Court, arguing under California's AB 316 that a developer can't defend itself by saying its AI acted on its own, and asking for an order barring OpenAI's agents from unauthorized access to other people's systems. OpenAI called the suit "completely without merit." However that comes out, the token that was never mounted stays unmounted.
 
 **Exercise:** Pick a worker in your own cluster that parses files someone else uploaded. Assume the parser executes its input. Write down what that process can reach: tokens mounted into the pod, capabilities it holds, secrets in its environment, hosts it can open a connection to. Then check how many of those it uses to do its actual job.
+
+{% capture answer %}
+It depends on your cluster, but for a typical upload parser the tally tends to look like this:
+
+- A service-account token, mounted by default and used for nothing. Set `automountServiceAccountToken: false`.
+- The default Linux capabilities, none of which a parser needs. Use `drop: [ALL]` and a `RuntimeDefault` seccomp profile.
+- Secrets in the environment for features that live in other services: database passwords, API keys. Move them out, or swap static secrets for short-lived, scoped identity.
+- A network that reaches anywhere, including the cloud metadata endpoint. The parser needs to read from storage and write a result. A default-deny `NetworkPolicy` with an allowlist covers that.
+
+If the number it actually uses is close to zero, that's normal. Everything on the list it doesn't use is something its input gets for free the day the parser starts executing it.
+{% endcapture %}
+{% include answer.html body=answer %}
