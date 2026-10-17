@@ -5,7 +5,7 @@ subtitle: "The July intrusion keeps getting filed under AI security. The agents 
 date: 2026-07-20
 permalink: /blog/hugging-face-agentic-breach/
 image: /assets/og/hugging-face-agentic-breach.png
-tags: [incident, agentic, least-privilege]
+tags: [incident, agentic, least_privilege]
 series: incidents
 reading_time: "10 min read"
 description: >-

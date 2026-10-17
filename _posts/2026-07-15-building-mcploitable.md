@@ -10,7 +10,7 @@ description: >-
 date: 2026-07-15
 permalink: /blog/building-mcploitable/
 image: /assets/og/building-mcploitable.png
-tags: [mcp, guardrails, prompt-injection]
+tags: [mcp, guardrails, prompt_injection]
 series: guardrails
 reading_time: "5 min read"
 short_title: "Why a refusal isn't a control"

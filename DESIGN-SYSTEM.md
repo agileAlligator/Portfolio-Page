@@ -70,10 +70,10 @@ lab, every exhibit, every post) in the v3 look.
 
 ## Tags, series and Start here
 
-- **Tags** are lowercase and hyphenated, set in each post's `tags:` front matter. The
-  current set: `incident`, `mcp`, `agentic`, `guardrails`, `prompt-injection`,
-  `least-privilege`, `debugging`. Reuse one before inventing another. Post pages show
-  them in the meta line (`_includes/post-tags.html`).
+- **Tags** are lowercase, with underscores between words (never hyphens; see feeds below), set in each post's `tags:` front matter. The
+  current set: `incident`, `mcp`, `agentic`, `guardrails`, `prompt_injection`,
+  `least_privilege`, `debugging`. Reuse one before inventing another. Post pages show
+  them in the meta line (`_includes/post-tags.html`), with underscores shown as spaces.
 - **To add a tag:** tag a post, then add a stub page `blog/tags/<tag>.html`:
 
   ```yaml
@@ -88,8 +88,9 @@ lab, every exhibit, every post) in the v3 look.
   `_layouts/tag.html` filters `site.tags`, and `/blog/tags/` lists every tag on its own.
   Without the stub the tag still shows on the index but its link 404s.
 - **Tag feeds:** `feed: tags:` in `_config.yml` makes jekyll-feed 0.17 write
-  `/feed/by_tag/<tag>.xml`. It skips any tag containing a hyphen, so those tags get
-  no feed, and `tag.html` only links a feed for tags without one.
+  `/feed/by_tag/<tag>.xml`. It only builds feeds for tags made of letters, digits and
+  underscores, which is why tags use underscores. `tag.html` still skips the feed link
+  for any tag containing a hyphen, as a guard.
 - **Series:** add the series to `_data/series.yml` (slug, title, description, order),
   put `series: <slug>` in each member post, and add `blog/series/<slug>.html` with
   `layout: series`, `series: <slug>` and `permalink: /blog/series/<slug>/`. Part

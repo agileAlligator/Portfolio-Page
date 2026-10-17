@@ -4,8 +4,8 @@ layout: default
 {% assign posts = site.tags[page.tag] %}
 <section class="blog-index">
 	<p class="post-kicker"><a href="/blog/">Writing</a> / <a href="/blog/tags/">Tags</a></p>
-	<h1 class="blog-title">{{ page.tag }}</h1>
-	<p class="blog-lede">{{ posts.size }} post{% if posts.size != 1 %}s{% endif %} tagged {{ page.tag }}.{% unless page.tag contains "-" %} <a href="/feed/by_tag/{{ page.tag }}.xml">Atom feed for this tag</a>.{% endunless %}</p>
+	<h1 class="blog-title">{{ page.tag | replace: "_", " " }}</h1>
+	<p class="blog-lede">{{ posts.size }} post{% if posts.size != 1 %}s{% endif %} tagged {{ page.tag | replace: "_", " " }}.{% unless page.tag contains "-" %} <a href="/feed/by_tag/{{ page.tag }}.xml">Atom feed for this tag</a>.{% endunless %}</p>
 	<ul class="post-list">
 		{% for post in posts %}{% include post-list-item.html post=post %}{% endfor %}
 	</ul>

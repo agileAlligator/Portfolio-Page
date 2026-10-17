@@ -11,7 +11,7 @@ description: >-
 date: 2026-07-02 09:00:00 +0000
 permalink: /blog/guardrails-belong-in-the-server/
 image: /assets/og/guardrails-belong-in-the-server.png
-tags: [mcp, guardrails, prompt-injection]
+tags: [mcp, guardrails, prompt_injection]
 series: guardrails
 featured: true
 reading_time: "6 min read"

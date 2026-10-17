@@ -11,7 +11,7 @@ description: >-
 date: 2026-10-01
 permalink: /blog/why-does-agentforce-take-orders-from-a-web-form/
 image: /assets/og/why-does-agentforce-take-orders-from-a-web-form.png
-tags: [incident, prompt-injection, agentic, guardrails]
+tags: [incident, prompt_injection, agentic, guardrails]
 series: incidents
 featured: true
 reading_time: "6 min read"
