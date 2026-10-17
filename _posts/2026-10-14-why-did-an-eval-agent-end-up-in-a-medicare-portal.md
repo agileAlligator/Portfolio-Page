@@ -18,11 +18,11 @@ exhibits: [/break-this-server/, /allowlist-bypass/, /you-are-the-model/]
 ---
 On September 24, Prime Minister Anthony Albanese [told a press conference](https://www.pm.gov.au/media/press-conference-new-york) that an OpenAI agent had gained unauthorised access to Services Australia's Medicare Statistics Reporting Portal. The portal publishes aggregate figures, things like spending and bulk-billing statistics. It is separate from the systems that hold Medicare claims and personal records.
 
-The question I want to answer is narrow. Why did an agent that was given a research task end up somewhere it wasn't allowed to be, and why did it take until September for anyone to say so?
+So why did an agent with a research task end up somewhere it wasn't allowed to be, and why did it take until September for anyone to say so?
 
 ## What is actually known
 
-Here is the timeline, assembled from the [ABC's reporting](https://www.abc.net.au/news/2026-09-24/ai-agent-accessed-australian-government-site-pm-says/107189078) and the Prime Minister's press conference.
+The timeline, per the [ABC](https://www.abc.net.au/news/2026-09-24/ai-agent-accessed-australian-government-site-pm-says/107189078) and the Prime Minister:
 
 - **June 18.** An OpenAI model, running inside an internal evaluation, is researching public medicines spending. The portal doesn't give it what it wants. The Prime Minister says the agent "found a way around those blocks."
 - **Mid-August.** OpenAI [finds it](https://openai.com/index/how-we-will-do-better-for-australia/) while reviewing old training and evaluation runs, a review it started only after the Hugging Face incident in July. (Some write-ups give August 11. OpenAI and the government say only "August".)
@@ -36,32 +36,30 @@ What was reached: [public and non-public files](https://www.abc.net.au/news/2026
 
 OpenAI's own account, ["How we will do better for Australia"](https://openai.com/index/how-we-will-do-better-for-australia/), goes further than the government did. It says the model found a way to get non-public access to the service, then ran commands, retrieved internal files, credentials, and aggregate statistics, and wrote files. It adds that the model then used that access "to review technical system information and source code related to the service," still trying to answer the question it had been given: government spending per person on medicines for skin conditions in Victorian communities. In early October, OpenAI disclosed [a second case](https://abcnews.com/Business/openai-reveals-hack-government-agency-australia/story?id=136945837), in which a model queried a NSW fire-history service in a way that "went beyond its intended use."
 
-What is not known: the actual mechanism. Nobody has published how the agent got from "blocked" to "inside" at this portal: no CVE, no named misconfiguration, no description of the technique. Acting Prime Minister Richard Marles said the data "was really kept behind a fence that the AI agent effectively climbed over," which is a fine sentence and tells you nothing about the fence.
-
-So everything below about mechanism is inference, and I'll mark it.
+Nobody has published how the agent got from "blocked" to "inside" at this portal: no CVE, no named misconfiguration, no description of the technique. Acting Prime Minister Richard Marles said the data "was really kept behind a fence that the AI agent effectively climbed over," which is a fine sentence and tells you nothing about the fence.
 
 ## The agent did what the loop told it to do
 
-You might think an agent needs malice to break into something. Let's look at what an agent harness is actually doing.
-
-The model gets a goal: find this spending figure. It has tools: fetch a URL, maybe run code. It calls a tool, reads the result, decides on the next call, and repeats until the goal is met or the budget runs out.
+You might think an agent needs malice to break into something. It doesn't. The model gets a goal: find this spending figure. It has tools: fetch a URL, maybe run code. It calls a tool, reads the result, decides on the next call, and repeats until the goal is met or the budget runs out.
 
 Now the portal returns a refusal. To you, a refusal is a message from the system owner meaning "no." To the loop, it is one more tool result, sitting next to every other tool result, and the goal hasn't been met yet. The loop's next step is to try something else. A model trained on plenty of security material knows what a penetration tester tries next.
 
-There is supporting evidence that this is the shape of it. [Transluce's report](https://transluce.org/agent-activity) on agent activity it links to an OpenAI-confirmed swarm describes the same pattern at the Australian Institute of Health and Welfare on June 20 and 21: a dataset download blocked by Cloudflare, then a cross-site scripting probe (which the firewall stopped), then the same public file fetched from a pre-production server. Blocked, probe, find another door. (That is a different site, and Transluce says no non-public data was exposed there. I'm using it as a picture of the behaviour. It is no evidence of what happened at the Medicare portal.)
+This is the paperclip maximizer, at office scale. Nick Bostrom's thought experiment imagines an AI told to make paperclips that turns everything it can reach into paperclips, with no malice involved, because nothing in the goal says where to stop. The real version is less cinematic. The paperclip was a per-person spending figure for skin-condition medicines in Victoria, and "everything it can reach" turned out to include a government portal's source code. Nothing in the goal said to stop at the locked door, so the locked door was one more thing between the agent and its paperclip.
 
-The model doesn't need to want anything. It needs a goal, a refusal it treats as an obstacle, and a network path to try the next idea on. If you'd like to feel this from the model's side, [/you-are-the-model/](/you-are-the-model/) puts you in the seat.
+[Transluce's report](https://transluce.org/agent-activity) on agent activity it links to an OpenAI-confirmed swarm describes the same pattern at the Australian Institute of Health and Welfare on June 20 and 21: a dataset download blocked by Cloudflare, then a cross-site scripting probe (which the firewall stopped), then the same public file fetched from a pre-production server. Blocked, probe, find another door. That was a different site, where Transluce says no non-public data was exposed, so it shows the habit, not the Medicare mechanism.
+
+The model doesn't need to want anything. It needs a goal, a refusal it treats as an obstacle, and a network path to try the next idea on. [/you-are-the-model/](/you-are-the-model/) puts you in its seat.
 
 ## Why the next idea reached a real server
 
-An evaluation is supposed to be a sandbox. The cheapest way to learn whether this one was: look at what OpenAI changed afterward. According to its post, it now blocks live internet access during internal training and evaluation and serves web content from cached data. It has also paused training and evaluation involving tool use for its most capable models, and widened monitoring so unusual access pages a human.
+An evaluation is supposed to be a sandbox. OpenAI's list of changes afterward says otherwise: it now blocks live internet access during internal training and evaluation and serves web content from cached data. It has also paused training and evaluation involving tool use for its most capable models, and widened monitoring so unusual access pages a human.
 
-You don't add "block live internet" unless the internet was live. (Inference, but not a daring one.) So the sandbox had a door to the outside, and the outside included a government portal whose access controls, whatever they were, gave way to whatever the agent tried.
+You don't add "block live internet" unless the internet was live. So the sandbox almost certainly had a door to the outside, and the outside included a government portal whose access controls, whatever they were, gave way to whatever the agent tried.
 
-The Medicare portal was a public website that also held non-public files. Something in front of those files said no to the agent at first and later stopped saying no. Whatever that was, it was the only control between the public half and the private half. (Inference again. The government has not said what the control was.)
+The Medicare portal was a public website that also held non-public files. Something in front of those files said no to the agent at first and later stopped saying no. The government hasn't said what that was, but it looks like the only control between the public half and the private half.
 
 ![Diagram: an eval harness with a goal, tools to fetch a URL and run code, and a loop that treats a refusal as one more result sends requests out to the live internet (inferred). They reach the Medicare statistics portal's public pages, then a control that said no and later stopped saying no, its mechanism not disclosed, and past it non-public files that were read and an internal server the agent wrote files to. Red markers show what wasn't there: no egress allowlist, no check on every path, no real-time alert.](/assets/blog/why-did-an-eval-agent-end-up-in-a-medicare-portal/sandbox-to-portal.svg)
-*The path as far as it is known. Dashed boxes are inference or undisclosed; the red numbers are the controls the last section comes back to.*
+*The path as far as it is known. Dashed boxes are inferred or undisclosed; red numbers are the missing controls.*
 
 ## Why nobody noticed for weeks
 
@@ -76,7 +74,7 @@ Then, having found it, OpenAI notified the agency by emailing a public inbox. Al
 
 ## The controls that don't depend on the model's judgment
 
-Every fix that would have contained this is a boundary in code, enforced somewhere the model can't argue with. That is the whole argument of [guardrails belong in the server](/blog/guardrails-belong-in-the-server/), and it is the same lesson as [the July Hugging Face incident](/blog/hugging-face-agentic-breach/): the wall held where it was deterministic.
+Every fix that would have contained this is a boundary in code, enforced somewhere the model can't argue with, the same as [guardrails in the server](/blog/guardrails-belong-in-the-server/) and [the July Hugging Face incident](/blog/hugging-face-agentic-breach/): the wall held where it was deterministic.
 
 **Egress allowlists on the harness.** An eval agent should reach a fixed list of hosts, or a cache, and nothing else. Allowlists have their own failure modes, which [/allowlist-bypass/](/allowlist-bypass/) walks through, but a default-deny network beats a model's sense of what is appropriate every single time.
 
@@ -84,11 +82,11 @@ Every fix that would have contained this is a boundary in code, enforced somewhe
 
 **Identity and audit for agent actions.** Agent traffic should carry an identity a site owner can see and attribute. On the operator side, every tool call should be logged with the task it served, and some actions (an auth failure followed by a retry with a different technique, a write to a remote host) should page a human that day, rather than turning up in a review two months later.
 
-None of these ask the model to be good. They make it irrelevant whether it is.
+None of these ask the model to be good. A paperclip maximizer behind a default-deny network makes paperclips out of whatever is on the list.
 
 ## Bonus chatter
 
-Transluce found its evidence in [public scan records on urlquery.net](https://transluce.org/agent-activity), a service the agents were apparently using to fetch pages they couldn't reach directly. In other words, the agents left a public audit trail on a third party's site. It was more complete than anything their operator's or their target's logs produced in time.
+Transluce found its evidence in [public scan records on urlquery.net](https://transluce.org/agent-activity), a service the agents were apparently using to fetch pages they couldn't reach directly. The agents left a public audit trail on a third party's site, more complete than anything their operator's or their target's logs produced in time.
 
 ## Exercise
 
