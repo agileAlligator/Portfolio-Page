@@ -1,0 +1,63 @@
+---
+layout: default
+title: Colophon
+description: How avneeshk.me is built and hosted, what the lab records, and how to report a vulnerability.
+permalink: /colophon/
+extra_css: /assets/blog.css
+breadcrumb:
+  - { name: "Home", url: "/" }
+  - { name: "Colophon", url: "/colophon/" }
+---
+<!--
+TODO-AVNEESH: a client-work disclosure line (what can and cannot be said about
+Gruve client work shown on the homepage). Not stated in the repo, so left out.
+TODO-AVNEESH: confirm the Worker is deployed with the same code as mcp-worker/src/index.js,
+and that any KV entries older than this code are not still holding more than described below.
+TODO-AVNEESH: confirm GitHub Pages is the production host and whether Cloudflare sits in front
+of avneeshk.me (the repo has only a CNAME file).
+TODO-AVNEESH: a security.txt rotation reminder. Expires is 2027-09-17.
+-->
+<article class="post">
+	<header class="post-header">
+		<h1 class="post-title">Colophon</h1>
+		<p class="post-subtitle">How this site is built, what it records, and how to tell me about a flaw.</p>
+	</header>
+
+	<div class="post-body">
+		<h2 id="build">How it is built</h2>
+		<p>The site is static. It is a Jekyll project built by GitHub Pages, with kramdown for Markdown and Rouge for code highlighting. The styles are Sass compiled by Jekyll. The source is a plain repository: pages, posts, a few scripts under <code>assets/</code>, and nothing that runs on the server for the pages themselves.</p>
+		<p>The lab exhibits are the one exception. Their browser code calls a separate Cloudflare Worker at <code>mcp.apkasture02.workers.dev</code>. That Worker is also the MCP server behind <a href="/mcp/">/mcp/</a>. Some exhibits use a Workers AI model, Llama 3.3 70B, as the agent you attack.</p>
+		<p>The site loads no analytics, no tracking scripts and no third-party fonts or images, and it sets no cookies. A few exhibits keep your own scores in your browser's local storage. That data stays in your browser.</p>
+
+		<h2 id="type">Typefaces</h2>
+		<p>All three are served from this site.</p>
+		<ul>
+			<li>Schibsted Grotesk for names, headings, navigation and interface text.</li>
+			<li>Newsreader for reading text, and its italic for the margin notes on the homepage.</li>
+			<li>IBM Plex Mono for code and machine output.</li>
+		</ul>
+		<p>The colours follow your system setting for light or dark. There is no toggle.</p>
+
+		<h2 id="records">What the lab records</h2>
+		<p>The Worker keeps counters and short feeds in Workers KV so the exhibits can show a live scoreboard. This is what the code stores.</p>
+		<ul>
+			<li><strong>Counters.</strong> Per exhibit and per defense level: how many attempts, and how many times the attack worked. These are plain numbers with no expiry.</li>
+			<li><strong>A recent-events feed.</strong> For each exhibit, the last 25 events. An event holds a timestamp, the defense level, the outcome, and the two-letter country code Cloudflare reports for the request. For MCP tool calls (from the console or any MCP client), the support-desk game and the tool-poisoning game it also holds the first 120 characters of the tool arguments or text you submitted, with anything that looks like the canary, an <code>sk-</code> key or an email address replaced first. This feed is public through <code>/stats</code>, and it has no expiry. Older events are dropped as new ones arrive.</li>
+			<li><strong>Rate limiting.</strong> Each exhibit that calls the model allows 20 requests per 10 minutes per address (30 for the role-reversal game). To count them, the Worker writes a key that contains your IP address and the time window. The key expires when the window ends, so the address is kept for at most ten minutes.</li>
+			<li><strong>Role-reversal rounds.</strong> The server holds the answer to the round you are playing for 15 minutes, or until you submit your judgement.</li>
+		</ul>
+		<p>The Worker does not store full request bodies, full prompts, your IP address beyond the rate-limit key above, or your user agent. What you type is sent to the Workers AI model to produce a reply, and the Worker keeps nothing of it beyond the 120-character snippet described above. Cloudflare and GitHub keep their own server logs under their own policies.</p>
+		<p>The canary tokens in the lab are inert. They are random strings held in a sandboxed in-memory document store. They unlock nothing, belong to no real account, and the exhibits count how many times one leaks as the score. No tool on the Worker reads the real filesystem or makes an outbound request.</p>
+
+		<h2 id="security">Security measures on the site</h2>
+		<ul>
+			<li>Every page carries a Content-Security-Policy in a meta tag. Scripts load from this site only, with no inline scripts. Styles, fonts and images load from this site only (images may also be inline <code>data:</code> URIs). The only outside origin pages may contact is the Worker, <code>https://mcp.apkasture02.workers.dev</code>. Because GitHub Pages does not let me set response headers, the policy is a meta tag, which cannot enforce <code>frame-ancestors</code>.</li>
+			<li>Pages send a referrer policy of <code>strict-origin-when-cross-origin</code>.</li>
+			<li>The Worker adds <code>X-Content-Type-Options</code>, <code>Strict-Transport-Security</code>, a Referrer-Policy and a deny-everything Content-Security-Policy to its responses. It allows cross-origin requests from any site, because the exhibits and any MCP client need to reach it.</li>
+			<li>A <a href="/.well-known/security.txt">security.txt</a> (RFC 9116) lists how to reach me.</li>
+		</ul>
+
+		<h2 id="report">Reporting a vulnerability</h2>
+		<p>Email <a href="mailto:apkasture02@gmail.com">apkasture02@gmail.com</a> with what you found and how to reproduce it. I will read it and reply. This is a personal site with no bug bounty. The exhibits are meant to be attacked, so a leaked canary is the intended result and not a finding. A way past the Worker's confinement on the hardened <code>/mcp</code> endpoint, a script injection on a page, or a way to reach anything outside the sandbox is.</p>
+	</div>
+</article>

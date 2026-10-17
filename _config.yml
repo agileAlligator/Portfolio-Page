@@ -74,6 +74,10 @@ kramdown:
 sass:
   style: compressed
 
+# Jekyll skips dot-directories; publish security.txt (RFC 9116).
+include:
+  - ".well-known"
+
 # Don't process/publish these
 exclude:
   - "*.skill"
