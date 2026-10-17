@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 750" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 1202" role="img" aria-labelledby="t d">
   <title id="t">How SalesBleed moved CRM data from a web form to the attacker</title>
-  <desc id="d">A stranger submits a public Web-to-Lead form, which becomes a lead record in the CRM; which field carried the payload is not disclosed. Later an employee asks the agent about leads. The vendor system prompt, the employee's question and the Query Records result with the lead fields as typed all enter the agent's context window as one token stream. The model follows the injected text, Query Records reads Accounts with permissions it already had, and the agent writes a link with company names and deal sizes in the hostname. The URL redactor has to recognize a URL before blocking it: it misses the .fun top-level domain and skips curly braces and square brackets that the renderer still treats as part of a link. The chat surface loads the result as an image, or Slack's link preview fetches it, with no click. The DNS lookup for a hostname like Acme-712412.sub.oast.fun carries the data to the attacker's name server. Whether this redactor is the same code as the 2025 ForcedLeak fix is inferred from the timeline and not disclosed.</desc>
+  <desc id="d">A numbered top-to-bottom flow. 1: a stranger submits a public Web-to-Lead form, with no login and no click; which field carried the payload is not disclosed. 2: the lead record sits in the CRM and runs again on every read. 3: much later, an employee asks the agent something routine, such as check my latest leads. 4: the agent's context window holds the vendor system prompt, the employee's question and the Query Records result with the lead fields as the stranger typed them, all as one token stream; role markers are more tokens, not a wall. 5: the model follows the injected text. 6: Query Records reads Accounts with permissions it already had. 7: the agent writes a link with company names and deal sizes in the hostname. 8: the URL redactor must recognize a URL before blocking it; it misses the .fun top-level domain and skips curly braces and square brackets that the renderer still links. Whether it is the same code as the 2025 ForcedLeak fix is inferred, not disclosed. 9: the chat loads the result as an image, or Slack's preview fetches it, with no click. 10: the DNS lookup for a hostname like Acme-712412.sub.oast.fun carries the data. 11: it reaches the attacker's name server, and the HTTP request after it is irrelevant.</desc>
   <style>
     .bg { fill: #f7f7f4; }
     .box { fill: #f7f7f4; stroke: #1a1a1e; stroke-width: 1.5; }
@@ -10,117 +10,110 @@
     .zone { fill: none; stroke: #55565c; stroke-width: 1.5; }
     .unknown { fill: none; stroke: #55565c; stroke-width: 1.5; stroke-dasharray: 6 5; }
     .label { font-family: "Schibsted Grotesk", sans-serif; font-size: 15px; font-weight: 600; fill: #1a1a1e; }
+    .sm { font-size: 14px; }
     .soft { font-family: "Schibsted Grotesk", sans-serif; font-size: 12.5px; fill: #55565c; }
     .note { font-family: "Schibsted Grotesk", sans-serif; font-size: 12.5px; font-style: italic; fill: #55565c; }
-    .zonelabel { font-family: "Schibsted Grotesk", sans-serif; font-size: 13px; font-weight: 600; fill: #55565c; letter-spacing: 0.03em; }
     .code { font-family: "IBM Plex Mono", monospace; font-size: 12.5px; fill: #2340a0; }
     .red { font-family: "Schibsted Grotesk", sans-serif; font-size: 12.5px; font-weight: 600; fill: #c8372d; }
     .arrow { stroke: #1a1a1e; stroke-width: 1.5; fill: none; }
-    .dasharrow { stroke: #55565c; stroke-width: 1.5; stroke-dasharray: 5 4; fill: none; }
+    .dasharrow { stroke: #55565c; stroke-width: 1.5; stroke-dasharray: 4 4; fill: none; }
     .head { fill: #1a1a1e; }
-    .softhead { fill: #55565c; }
+    .num { fill: #1a1a1e; }
+    .numt { font-family: "Schibsted Grotesk", sans-serif; font-size: 12.5px; font-weight: 700; fill: #f7f7f4; }
     @media (prefers-color-scheme: dark) {
       .bg, .box, .strip, .inject, .check { fill: #16171a; }
       .box { stroke: #e8e8e3; }
       .strip { stroke: #34353a; }
+      .inject { stroke: #ff6b5e; }
       .check { stroke: #8aa2ff; }
       .zone, .unknown { stroke: #a3a4a9; }
       .label { fill: #e8e8e3; }
-      .soft, .note, .zonelabel { fill: #a3a4a9; }
+      .soft, .note { fill: #a3a4a9; }
       .code { fill: #8aa2ff; }
+      .red { fill: #ff6b5e; }
       .arrow { stroke: #e8e8e3; }
       .dasharrow { stroke: #a3a4a9; }
-      .head { fill: #e8e8e3; }
-      .softhead { fill: #a3a4a9; }
+      .head, .num { fill: #e8e8e3; }
+      .numt { fill: #16171a; }
     }
   </style>
   <defs>
     <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
       <path class="head" d="M0 0 L10 5 L0 10 z"/>
     </marker>
-    <marker id="ahs" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path class="softhead" d="M0 0 L10 5 L0 10 z"/>
-    </marker>
   </defs>
-
-  <rect class="bg" x="0" y="0" width="720" height="750"/>
-
-  <!-- Context window -->
-  <text class="zonelabel" x="20" y="28">Agent's context window: one token stream</text>
-  <rect class="zone" x="20" y="40" width="320" height="220" rx="8"/>
-
-  <rect class="strip" x="36" y="56" width="288" height="50" rx="5"/>
-  <text class="label" x="52" y="86">Vendor system prompt</text>
-
-  <rect class="strip" x="36" y="116" width="288" height="50" rx="5"/>
-  <text class="label" x="52" y="137">Employee's question</text>
-  <text class="code" x="52" y="156">"check my latest leads…"</text>
-
-  <rect class="inject" x="36" y="176" width="288" height="50" rx="5"/>
-  <text class="label" x="52" y="197">Query Records result</text>
-  <text class="soft" x="52" y="216">lead fields, as typed by a stranger</text>
-
-  <text class="note" x="36" y="248">Role markers are more tokens, not a wall</text>
-
-  <!-- Inputs on the right -->
-  <rect class="box" x="400" y="116" width="300" height="50" rx="6"/>
-  <text class="label" x="416" y="137">Employee asks the agent</text>
-  <text class="soft" x="416" y="156">something routine, much later</text>
-  <line class="arrow" x1="400" y1="141" x2="326" y2="141" marker-end="url(#ah)"/>
-
-  <rect class="box" x="400" y="176" width="300" height="50" rx="6"/>
-  <text class="label" x="416" y="197">Lead record in the CRM</text>
-  <text class="soft" x="416" y="216">stays put; runs again on every read</text>
-  <line class="arrow" x1="400" y1="201" x2="326" y2="201" marker-end="url(#ah)"/>
-
-  <rect class="box" x="400" y="276" width="300" height="56" rx="6"/>
-  <text class="label" x="416" y="299">Stranger submits a web form</text>
-  <text class="soft" x="416" y="319">public Web-to-Lead; no login, no click</text>
-  <line class="arrow" x1="430" y1="276" x2="430" y2="229" marker-end="url(#ah)"/>
-  <text class="note" x="442" y="257">which field carried it: not disclosed</text>
-
-  <!-- Model acts -->
-  <line class="arrow" x1="180" y1="260" x2="180" y2="347" marker-end="url(#ah)"/>
-  <rect class="box" x="20" y="350" width="320" height="60" rx="6"/>
-  <text class="label" x="36" y="375">Model follows the injected text</text>
-  <text class="soft" x="36" y="396">instruction-shaped text gets carried out</text>
-
-  <line class="arrow" x1="340" y1="380" x2="397" y2="380" marker-end="url(#ah)"/>
-  <rect class="box" x="400" y="350" width="300" height="60" rx="6"/>
-  <text class="label" x="416" y="375">Query Records reads Accounts</text>
-  <text class="soft" x="416" y="396">the permissions were already there</text>
-
-  <line class="arrow" x1="550" y1="410" x2="550" y2="437" marker-end="url(#ah)"/>
-  <rect class="box" x="400" y="440" width="300" height="60" rx="6"/>
-  <text class="label" x="416" y="465">Agent writes a link</text>
-  <text class="soft" x="416" y="486">names and deal sizes in the hostname</text>
-
-  <!-- Redactor -->
-  <line class="arrow" x1="400" y1="470" x2="343" y2="470" marker-end="url(#ah)"/>
-  <rect class="check" x="20" y="440" width="320" height="104" rx="6"/>
-  <text class="label" x="36" y="465">URL redactor (Trusted URLs)</text>
-  <text class="soft" x="36" y="485">must recognize a URL before blocking it</text>
-  <text class="red" x="36" y="509">Misses .fun: not in its fixed TLD list</text>
-  <text class="red" x="36" y="530">Skips { } [ ], which the renderer links</text>
-
-  <!-- Fetch -->
-  <line class="arrow" x1="180" y1="544" x2="180" y2="581" marker-end="url(#ah)"/>
-  <rect class="box" x="20" y="584" width="320" height="60" rx="6"/>
-  <text class="label" x="36" y="609">Chat loads it as an image</text>
-  <text class="soft" x="36" y="630">or Slack's preview fetches it; no click</text>
-
-  <line class="arrow" x1="340" y1="614" x2="397" y2="614" marker-end="url(#ah)"/>
-  <rect class="box" x="400" y="584" width="300" height="60" rx="6"/>
-  <text class="label" x="416" y="609">DNS lookup carries the data</text>
-  <text class="code" x="416" y="630">Acme-712412.&lt;sub&gt;.oast.fun</text>
-
-  <line class="arrow" x1="550" y1="644" x2="550" y2="671" marker-end="url(#ah)"/>
-  <rect class="inject" x="400" y="674" width="300" height="56" rx="6"/>
-  <text class="label" x="416" y="697">Attacker's name server</text>
-  <text class="soft" x="416" y="717">the HTTP request after is irrelevant</text>
-
-  <!-- Inferred link to ForcedLeak -->
-  <rect class="unknown" x="20" y="674" width="320" height="56" rx="6"/>
-  <text class="label" x="36" y="697">Redactor = 2025 ForcedLeak fix?</text>
-  <text class="note" x="36" y="717">inferred from the timeline; not disclosed</text>
+  <rect class="bg" x="0" y="0" width="720" height="1202"/>
+  <rect class="box" x="52" y="24" width="400" height="62" rx="6"/>
+  <text class="label" x="68" y="48">Stranger submits a web form</text>
+  <text class="soft" x="68" y="68">public Web-to-Lead; no login, no click</text>
+  <circle class="num" cx="24" cy="42" r="12"/><text class="numt" x="24" y="46.5" text-anchor="middle">1</text>
+  <rect class="unknown" x="480" y="26" width="226" height="54" rx="5"/>
+  <line class="dasharrow" x1="452" y1="42" x2="480" y2="42"/>
+  <text class="note" x="492" y="46">which field carried the</text>
+  <text class="note" x="492" y="64">payload: not disclosed</text>
+  <line class="arrow" x1="252.0" y1="86" x2="252.0" y2="113" marker-end="url(#ah)"/>
+  <rect class="box" x="52" y="116" width="400" height="62" rx="6"/>
+  <text class="label" x="68" y="140">Lead record sits in the CRM</text>
+  <text class="soft" x="68" y="160">stays put; runs again on every read</text>
+  <circle class="num" cx="24" cy="134" r="12"/><text class="numt" x="24" y="138.5" text-anchor="middle">2</text>
+  <line class="arrow" x1="252.0" y1="178" x2="252.0" y2="205" marker-end="url(#ah)"/>
+  <rect class="box" x="52" y="208" width="400" height="62" rx="6"/>
+  <text class="label" x="68" y="232">Employee asks the agent, much later</text>
+  <text class="code" x="68" y="252">“check my latest leads…”</text>
+  <circle class="num" cx="24" cy="226" r="12"/><text class="numt" x="24" y="230.5" text-anchor="middle">3</text>
+  <line class="arrow" x1="252.0" y1="270" x2="252.0" y2="297" marker-end="url(#ah)"/>
+  <rect class="zone" x="52" y="300" width="400" height="198" rx="8"/>
+  <text class="label" x="68" y="326">Agent's context window</text>
+  <text class="soft" x="68" y="345">one token stream, read top to bottom</text>
+  <rect class="strip" x="68" y="358" width="368" height="36" rx="5"/>
+  <text class="label sm" x="82" y="381">Vendor system prompt</text>
+  <rect class="strip" x="68" y="402" width="368" height="36" rx="5"/>
+  <text class="label sm" x="82" y="425">Employee's question</text>
+  <rect class="inject" x="68" y="446" width="368" height="36" rx="5"/>
+  <text class="label sm" x="82" y="469">Query Records result</text><text class="soft" x="242" y="469">the stranger's lead text</text>
+  <circle class="num" cx="24" cy="318" r="12"/><text class="numt" x="24" y="322.5" text-anchor="middle">4</text>
+  <text class="note" x="480" y="320">Role markers are more</text>
+  <text class="note" x="480" y="338">tokens, not a wall</text>
+  <line class="arrow" x1="252.0" y1="498" x2="252.0" y2="525" marker-end="url(#ah)"/>
+  <rect class="box" x="52" y="528" width="400" height="62" rx="6"/>
+  <text class="label" x="68" y="552">Model follows the injected text</text>
+  <text class="soft" x="68" y="572">instruction-shaped text gets carried out</text>
+  <circle class="num" cx="24" cy="546" r="12"/><text class="numt" x="24" y="550.5" text-anchor="middle">5</text>
+  <line class="arrow" x1="252.0" y1="590" x2="252.0" y2="617" marker-end="url(#ah)"/>
+  <rect class="box" x="52" y="620" width="400" height="62" rx="6"/>
+  <text class="label" x="68" y="644">Query Records reads Accounts</text>
+  <text class="soft" x="68" y="664">the permissions were already there</text>
+  <circle class="num" cx="24" cy="638" r="12"/><text class="numt" x="24" y="642.5" text-anchor="middle">6</text>
+  <line class="arrow" x1="252.0" y1="682" x2="252.0" y2="709" marker-end="url(#ah)"/>
+  <rect class="box" x="52" y="712" width="400" height="62" rx="6"/>
+  <text class="label" x="68" y="736">Agent writes a link</text>
+  <text class="soft" x="68" y="756">names and deal sizes in the hostname</text>
+  <circle class="num" cx="24" cy="730" r="12"/><text class="numt" x="24" y="734.5" text-anchor="middle">7</text>
+  <line class="arrow" x1="252.0" y1="774" x2="252.0" y2="801" marker-end="url(#ah)"/>
+  <rect class="check" x="52" y="804" width="400" height="102" rx="6"/>
+  <text class="label" x="68" y="828">URL redactor (Trusted URLs)</text>
+  <text class="soft" x="68" y="848">must recognize a URL before blocking it</text>
+  <text class="red" x="68" y="868">misses .fun: not in its fixed TLD list</text>
+  <text class="red" x="68" y="888">skips { } [ ], which the renderer links</text>
+  <circle class="num" cx="24" cy="822" r="12"/><text class="numt" x="24" y="826.5" text-anchor="middle">8</text>
+  <rect class="unknown" x="480" y="806" width="226" height="72" rx="5"/>
+  <line class="dasharrow" x1="452" y1="822" x2="480" y2="822"/>
+  <text class="note" x="492" y="826">Same code as the 2025</text>
+  <text class="note" x="492" y="844">ForcedLeak fix? Inferred,</text>
+  <text class="note" x="492" y="862">not disclosed</text>
+  <line class="arrow" x1="252.0" y1="906" x2="252.0" y2="933" marker-end="url(#ah)"/>
+  <rect class="box" x="52" y="936" width="400" height="62" rx="6"/>
+  <text class="label" x="68" y="960">Chat loads it as an image</text>
+  <text class="soft" x="68" y="980">or Slack's preview fetches it; no click</text>
+  <circle class="num" cx="24" cy="954" r="12"/><text class="numt" x="24" y="958.5" text-anchor="middle">9</text>
+  <line class="arrow" x1="252.0" y1="998" x2="252.0" y2="1025" marker-end="url(#ah)"/>
+  <rect class="box" x="52" y="1028" width="400" height="62" rx="6"/>
+  <text class="label" x="68" y="1052">DNS lookup carries the data</text>
+  <text class="code" x="68" y="1072">Acme-712412.&lt;sub&gt;.oast.fun</text>
+  <circle class="num" cx="24" cy="1046" r="12"/><text class="numt" x="24" y="1050.5" text-anchor="middle">10</text>
+  <line class="arrow" x1="252.0" y1="1090" x2="252.0" y2="1117" marker-end="url(#ah)"/>
+  <rect class="inject" x="52" y="1120" width="400" height="62" rx="6"/>
+  <text class="label" x="68" y="1144">Attacker's name server</text>
+  <text class="soft" x="68" y="1164">the HTTP request after it is irrelevant</text>
+  <circle class="num" cx="24" cy="1138" r="12"/><text class="numt" x="24" y="1142.5" text-anchor="middle">11</text>
 </svg>

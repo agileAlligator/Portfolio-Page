@@ -28,7 +28,7 @@ sizes to the attacker over DNS.
 
 Why would a sales agent take orders from a stranger's form submission?
 
-![Diagram of the SalesBleed path. A stranger submits a public Web-to-Lead form, which becomes a lead record; which field carried the payload is not disclosed. Later an employee asks the agent about leads. The vendor system prompt, the employee's question and the Query Records result with the lead fields all enter the agent's context window as one token stream. The model follows the injected text, Query Records reads Accounts, and the agent writes a link with company names and deal sizes in the hostname. The URL redactor misses the .fun TLD and skips curly braces and square brackets that the renderer still links. The chat surface loads it as an image, or Slack's preview fetches it, and the DNS lookup carries the data to the attacker's name server. A dashed box notes that whether this redactor is the ForcedLeak fix is inferred, not disclosed.](/assets/blog/why-does-agentforce-take-orders-from-a-web-form/salesbleed-path.svg)
+![Numbered flowchart of SalesBleed, top to bottom: a stranger submits a web form, the lead sits in the CRM, an employee later asks the agent about leads, the lead text lands in the same context window as the prompt and question, the model follows it, reads Accounts, writes a link with the data in the hostname, the URL redactor misses it, the chat or Slack fetches it, and the DNS lookup carries the data to the attacker's name server.](/assets/blog/why-does-agentforce-take-orders-from-a-web-form/salesbleed-path.svg)
 *SalesBleed end to end. Solid steps are from Zenity's write-up; dashed ones are undisclosed or my inference.*
 
 ## The model sees one stream of text
