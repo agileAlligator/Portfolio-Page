@@ -160,3 +160,27 @@
 
 .tag-group-title { font-size: 1.3rem; font-weight: 700; letter-spacing: -0.015em; margin: 2.25rem 0 0.75rem; }
 .tag-group-count { font-family: var(--grotesk); font-size: 0.95rem; font-weight: 500; color: var(--ink-faint); margin-left: 0.3rem; }
+
+/* ── Corrections page ── */
+.corrections-policy { font-size: 1.1875rem; color: var(--ink-dim); margin-bottom: 2.5rem; }
+.corrections-kind {
+	font-size: 1.3rem;
+	font-weight: 700;
+	letter-spacing: -0.015em;
+	margin: 2.5rem 0 0.75rem;
+}
+.corrections-list { list-style: none; }
+.corrections-item {
+	border-top: 1px solid var(--rule);
+	padding: 1.25rem 0;
+	scroll-margin-top: 1.5rem;
+}
+.corrections-item:last-child { border-bottom: 1px solid var(--rule); }
+.corrections-item:target { border-left: 2px solid var(--ink); padding-left: 1rem; }
+.corrections-head { font-family: var(--grotesk); font-size: 1.0625rem; line-height: 1.4; }
+.corrections-head a { font-weight: 650; }
+.corrections-date { color: var(--ink-faint); font-size: 0.95rem; margin-right: 0.6rem; white-space: nowrap; }
+.corrections-text { margin-top: 0.4rem; font-size: 1.125rem; line-height: 1.6; }
+
+.post-corrected { color: var(--ink-faint); text-decoration: underline; text-underline-offset: 0.18em; }
+.post-corrected:hover { color: var(--blue); }
