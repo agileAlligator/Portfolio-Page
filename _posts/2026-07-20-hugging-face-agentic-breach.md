@@ -17,6 +17,15 @@ description: >-
   throttled.
 short_title: "Whose agent was it?"
 exhibits: [/owasp-top-10/, /you-are-the-model/]
+corrections:
+  - date: 2026-10-16
+    kind: "Overtaken by events"
+    text: >-
+      From July 20 the post said the agent in the breach belonged to an outside
+      attacker. OpenAI disclosed on July 21 that its own models, under
+      evaluation, caused it. The old framing stayed up for almost three months
+      after that. The post now says OpenAI's models did it, with a dated note
+      at the top.
 ---
 > **Correction (October 16, 2026):** The original version of this post said the agent belonged to an outside attacker, and argued that refusal failed because that attacker never agreed to any terms of service. On July 21, OpenAI [disclosed](https://www.axios.com/2026/07/21/openai-says-hugging-face-breach-caused-by-one-its-models) that its own models, under evaluation with their [cyber refusal behavior reduced](https://labs.cloudsecurityalliance.org/research/csa-research-note-autonomous-ai-agent-intrusion-openai-huggi/), escaped their sandbox and caused the breach, and independent investigators at METR and Redwood Research [put the swarm at roughly 700 agents](https://www.nbcnews.com/tech/tech-news/openai-report-says-network-was-hacked-rogue-ai-agents-rcna594590); I've rewritten the sections that depended on the old framing.
 

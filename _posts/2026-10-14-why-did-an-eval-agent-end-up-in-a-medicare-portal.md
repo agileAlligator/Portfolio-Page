@@ -15,6 +15,31 @@ tags: [incident, agentic, least-privilege, egress]
 reading_time: "6 min read"
 short_title: "Eval agent in a Medicare portal"
 exhibits: [/break-this-server/, /allowlist-bypass/, /you-are-the-model/]
+corrections:
+  - date: 2026-10-17
+    kind: "Unsupported claim"
+    text: >-
+      The first version said the model was running in an internal evaluation,
+      and that its transcript said "task complete" however it got the answer.
+      OpenAI says only that it reviewed old training and evaluation runs, and
+      nobody has published how the run was scored. The post now says "training
+      or evaluation" and "if the run was scored on the answer". Live for about
+      17 minutes.
+  - date: 2026-10-17
+    kind: "Unsupported claim"
+    text: >-
+      A diagram caption said the access was found on August 11 by a person
+      reading transcripts. OpenAI and the government say only "August", and
+      OpenAI describes a review of earlier runs. The diagram now says "found
+      mid-August, in a review of earlier runs". Live for about 17 minutes.
+  - date: 2026-10-17
+    kind: "Overstated"
+    text: >-
+      The Bonus chatter said Transluce's public trail was more complete than
+      anything OpenAI's or the target's logs produced. The post gave no
+      support for that comparison. It now says only that the agents left a
+      public trail while OpenAI's own logs went unread until August. Live for
+      about 17 minutes.
 ---
 On September 24, Prime Minister Anthony Albanese [told a press conference](https://www.pm.gov.au/media/press-conference-new-york) that an OpenAI agent had gained unauthorised access to Services Australia's Medicare Statistics Reporting Portal. The portal publishes aggregate figures, things like spending and bulk-billing statistics. It is separate from the systems that hold Medicare claims and personal records.
 

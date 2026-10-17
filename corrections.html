@@ -1,0 +1,29 @@
+---
+layout: default
+title: Corrections
+description: Errors in published posts, grouped by kind, with the date and what was wrong.
+permalink: /blog/corrections/
+---
+{% assign kinds = "" | split: "" %}
+{% for post in site.posts %}{% for c in post.corrections %}{% assign kinds = kinds | push: c.kind %}{% endfor %}{% endfor %}
+{% assign kinds = kinds | uniq | sort %}
+<section class="blog-index corrections-page">
+	<h1 class="blog-title">Corrections</h1>
+	<p class="corrections-policy">When a published post turns out to be wrong, I fix it, the post says so, and this page lists it. Each entry gives the date I corrected it, the post, and what was wrong. Some of these were live for minutes. I list them anyway.</p>
+
+	{% if kinds.size > 0 %}
+	{% for kind in kinds %}
+	<h2 class="corrections-kind">{{ kind }}</h2>
+	<ul class="corrections-list">
+		{% for post in site.posts %}{% for c in post.corrections %}{% if c.kind == kind %}
+		<li class="corrections-item" id="c-{{ post.slug }}-{{ forloop.index }}">
+			<p class="corrections-head"><time class="corrections-date" datetime="{{ c.date | date: '%Y-%m-%d' }}">{{ c.date | date: "%b %-d, %Y" }}</time><a href="{{ post.url }}">{{ post.short_title | default: post.title }}</a></p>
+			<p class="corrections-text">{{ c.text | markdownify | remove: "<p>" | remove: "</p>" | strip }}</p>
+		</li>
+		{% endif %}{% endfor %}{% endfor %}
+	</ul>
+	{% endfor %}
+	{% else %}
+	<p class="blog-empty">Nothing to correct yet.</p>
+	{% endif %}
+</section>

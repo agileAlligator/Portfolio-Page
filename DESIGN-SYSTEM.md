@@ -124,3 +124,30 @@ minimal and is gated behind `prefers-reduced-motion`.
 
 `node scripts/check-lab-layout.mjs [baseUrl]` renders every exhibit at
 1280/768/390 and fails on horizontal overflow or text left of the masthead.
+
+## Corrections
+
+Standing policy: when a published post turns out to be wrong, fix it, say so
+on the post, and log it on `/blog/corrections/` (`corrections.html`). Only text
+that was live and later changed for accuracy counts. Copy-edits, voice
+rewrites and image changes don't. Compare the published versions in the
+history of `_posts/` with the push times in the reflog of `origin/master`
+before logging, and say how long the wrong version was live when it was short.
+
+Log it in the affected post's front matter, one entry per error:
+
+```yaml
+corrections:
+  - date: 2026-10-17          # when corrected
+    kind: "Overstated"        # groups the page: "Overtaken by events", "Overstated", "Wrong attribution", "Unsupported claim", "Wrong detail", or a new plain label
+    text: >-
+      One or two plain sentences: what the post said, what it says now.
+```
+
+The page groups entries by `kind` and gives each an anchor,
+`#c-<post slug>-<n>` (n is the entry's position in that post's list).
+`_includes/post-corrected.html` (one line in `_layouts/post.html`) adds
+"Corrected <latest date>" to the post meta, linking to the post's first entry.
+A dated blockquote at the top of the post is optional and is for corrections
+that change the post's main claim. Classes: `corrections-*` and
+`post-corrected`, in `assets/blog.scss`.

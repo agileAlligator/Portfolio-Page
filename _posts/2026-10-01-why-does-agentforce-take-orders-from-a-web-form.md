@@ -15,6 +15,39 @@ tags: [incident, prompt-injection, agentic, security]
 reading_time: "6 min read"
 short_title: "Why the web form gives orders"
 exhibits: [/break-this-server/, /allowlist-bypass/, /you-are-the-model/]
+corrections:
+  - date: 2026-10-17
+    kind: "Overstated"
+    text: >-
+      The first version said an attacker could adjust the payload until the
+      redactor stopped catching it. Zenity saw the raw and redacted responses
+      in an org of its own, and an outside attacker could not. The post now
+      says that tuning happens in your own org before the finished lead is
+      sent. The first version was live for about 17 minutes.
+  - date: 2026-10-17
+    kind: "Overstated"
+    text: >-
+      The first version introduced the ForcedLeak comparison as "what can be
+      verified" and then called it "my inference". Only the same entry point
+      and goal are established. The post now says SalesBleed bypassed a
+      control with the same name as the ForcedLeak fix, and that nobody has
+      said whether it is the same code. Live for about 17 minutes.
+  - date: 2026-10-17
+    kind: "Wrong attribution"
+    text: >-
+      The first version presented a third SalesBleed bug, agent-sent phishing
+      messages in Slack, alongside Zenity's two, and said the agent sent them
+      "under its own trusted identity". The bug is reported by SecurityWeek,
+      not in Zenity's post. The post now credits SecurityWeek and drops the
+      "trusted identity" wording. Live for about 17 minutes.
+  - date: 2026-10-17
+    kind: "Wrong detail"
+    text: >-
+      The first version said the expired ForcedLeak domain was still on
+      "Salesforce's allowlist", in a section about the Trusted URLs list.
+      That domain was on the chat's Content Security Policy `img-src`
+      allowlist, and Trusted URLs Enforcement was the fix. The post now says
+      so. Live for about 17 minutes.
 ---
 On September 24, 2026, Zenity Labs published
 [SalesBleed](https://labs.zenity.io/post/salesbleed-0-click-data-exfiltration-on-agentforce),
