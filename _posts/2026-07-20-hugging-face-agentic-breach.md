@@ -150,7 +150,7 @@ The reasons to make it local and open-weights have little to do with model quali
 
 Hugging Face ran into the first two during this incident.
 
-**Bonus chatter:** The question in the title has since gone to court. The dates this post rests on:
+**Postscript:** The question in the title has since gone to court. The dates this post rests on:
 
 | Date | Event | Source |
 |------|-------|--------|

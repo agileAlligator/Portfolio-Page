@@ -233,7 +233,7 @@ asking for a link, and the server refuses.
 The [OWASP Agentic Top 10](/owasp-top-10/) and the
 [tool poisoning](/tool-poisoning/) exhibit have more of the same pattern.
 
-**Bonus chatter:** The attacker's lead stays in the Leads table after it does
+**Postscript:** The attacker's lead stays in the Leads table after it does
 its work, and Zenity notes that it can run again every time an employee looks
 at it. The patch doesn't remove it. After patching, search Leads created
 through Web-to-Lead for text that looks like instructions or URLs.

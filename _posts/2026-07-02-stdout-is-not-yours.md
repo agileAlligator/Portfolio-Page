@@ -105,7 +105,7 @@ Run it before you tell anyone the server works. If a log line is leaking, the te
 fails right away. It also catches import-time crashes and startup failures on an
 empty config in the same run.
 
-**Bonus chatter:** The `JSONRenderer` in the configuration above has a pleasant
+**Postscript:** The `JSONRenderer` in the configuration above has a pleasant
 side effect. It escapes non-ASCII characters. That keeps your stderr logs readable
 even on a Windows `cp1252` console, which would otherwise choke on a stray emoji
 or box-drawing character.

@@ -35,7 +35,7 @@ corrections:
   - date: 2026-10-17
     kind: "Overstated"
     text: >-
-      The Bonus chatter said Transluce's public trail was more complete than
+      The postscript said Transluce's public trail was more complete than
       anything OpenAI's or the target's logs produced. The post gave no
       support for that comparison. It now says only that the agents left a
       public trail while OpenAI's own logs went unread until August. Live for
@@ -141,7 +141,7 @@ Next, authorisation at the data. If a file is non-public, the server should refu
 
 Last, identity and audit. Agent traffic should carry an identity a site owner can see and attribute, enforced at the operator's egress proxy, since a signature disappears the moment a request goes through someone else's fetcher. On the operator side, every tool call should be logged with the task it served. Some actions, such as an auth failure followed by a retry with a different technique, or a write to a remote host, should page a human that day instead of turning up in a review two months later.
 
-**Bonus chatter:** Transluce found its evidence in [public scan records on urlquery.net](https://transluce.org/agent-activity), a service the agents were apparently using to fetch pages they couldn't reach directly. The agents left a public audit trail on a third party's site, readable by anyone, while their operator's own logs sat unread until August.
+**Postscript:** Transluce found its evidence in [public scan records on urlquery.net](https://transluce.org/agent-activity), a service the agents were apparently using to fetch pages they couldn't reach directly. The agents left a public audit trail on a third party's site, readable by anyone, while their operator's own logs sat unread until August.
 
 **Exercise:** Your agent's tool returns HTTP 403. Write down what your harness does next. If the answer is "the model decides," name the control that stops the model's second idea from reaching the network.
 

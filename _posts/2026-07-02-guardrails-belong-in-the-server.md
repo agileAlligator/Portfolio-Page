@@ -213,7 +213,7 @@ def scan(text: str, policy: str) -> str:
 Under the block policy, any finding raises `DlpBlock` with the entity types it
 found. Otherwise the text comes back redacted.
 
-**Bonus chatter:** If you'd rather watch these failures happen than take my
+**Postscript:** If you'd rather watch these failures happen than take my
 word for it, [mcploitable](https://github.com/agileAlligator/mcploitable) is a
 deliberately vulnerable MCP lab I built for that. Each of these controls gets
 bypassed there and then fixed.

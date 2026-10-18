@@ -129,7 +129,7 @@ it. The guardrails post asked you to take my word that the model can't police
 itself. This one lets you check:
 [github.com/agileAlligator/mcploitable](https://github.com/agileAlligator/mcploitable).
 
-**Bonus chatter:** You may have counted and noticed that the OWASP list has
+**Postscript:** You may have counted and noticed that the OWASP list has
 ten classes and I listed only seven incidents. The other three (cascading
 failures, human-agent trust exploitation, and rogue agents) have no secret to
 capture. They are a fault spreading down an agent chain, a human over-trusting

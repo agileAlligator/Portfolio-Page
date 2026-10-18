@@ -104,7 +104,7 @@ call. A workflow step that runs outside the model's turn works too. When the
 grant is there, the tool fires exactly as it did before. When it isn't, no
 wording of any ticket can put it there.
 
-**Bonus chatter:** You can watch both versions run against a live model on
+**Postscript:** You can watch both versions run against a live model on
 [Break this server](/break-this-server/). The approval-code rung falls to a
 ticket that quotes the code. The capability-gate rung gets the same ticket,
 and the model still tries to fire the tool. The tool refuses.

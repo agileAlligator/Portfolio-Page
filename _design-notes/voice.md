@@ -83,7 +83,7 @@ that the symptom was misnamed.
 
 ### 5. Psychic debugging: the simplest theory that fits
 
-State the theory as a confident guess ("My psychic powers tell me…"), give the
+State the theory as a confident guess ("My guess is…"; Chen's "My psychic powers tell me" is his, not ours), give the
 one-step reasoning that got you there, and then say whether it was confirmed. If
 nobody wrote back, say that too. The point is to show the reasoning, not to look
 clever.
@@ -94,7 +94,7 @@ clever.
 > "I didn't, but it was the simplest theory that fit the (extremely limited) data."
 > https://devblogs.microsoft.com/oldnewthing/20110210-00/?p=11533
 
-- **Do:** "My psychic powers tell me the server is fine and the client is launching a different Python. `uv run` in your shell picks up the project venv; the client's `command` field says `python`."
+- **Do:** "My guess is that the server is fine and the client is launching a different Python. `uv run` in your shell picks up the project venv; the client's `command` field says `python`."
 - **Don't:** "After extensive analysis of multiple potential root causes, we identified the most likely explanation."
 
 ### 6. For security claims, ask who the attacker is, who the victim is, and what was gained
@@ -146,7 +146,7 @@ normal. No semicolon chains, no stacked subordinate clauses.
 
 ### 9. Dry humor, in the margins
 
-The jokes go in analogies, parentheticals, footnotes and Bonus chatter. They are
+The jokes go in analogies, parentheticals, footnotes and the Postscript. They are
 understated and usually take an absurd idea to its literal conclusion. Never joke
 in the diagnosis itself, and never about real people's harm.
 
@@ -195,7 +195,7 @@ version before the good one.
 
 In the 54 posts read, Chen used **no section headings at all**. He moves on with
 transitions ("Okay, so…", "Now…", "But…", "Okay, next question:"). Asides go in
-numbered footnotes (¹ ²). "Bonus chatter:" and "Exercise:" are bold inline
+numbered footnotes (¹ ²). "Postscript:" and "Exercise:" are bold inline
 labels, not headings.
 
 > "I'm going to answer the questions in the wrong order."
@@ -216,7 +216,7 @@ never a summary paragraph and never a moral to finish on. A TL;DR shows up once 
 > "I thought you might appreciate me pointing out the trick, that's all."
 > https://devblogs.microsoft.com/oldnewthing/20260914-00/?p=112696
 
-- **Do:** End on "Re-enabling the egress proxy fixed it." Then Bonus chatter and Exercise, if any.
+- **Do:** End on "Re-enabling the egress proxy fixed it." Then Postscript and Exercise, if any.
 - **Don't:** "In the end, MCP security isn't about tools. It's about trust." / "The lesson is clear: …"
 
 ### 14. Series posts link with one sentence
@@ -241,8 +241,8 @@ isn't finished says so ("Next time, …", "We'll take up this issue next time.")
    the command, the error, what the person expected. Then the puzzle in one
    sentence ("Nothing crashed. So why won't it connect?"). For an incident post,
    the sourced fact comes first and the question second.
-3. **Answer or theory.** One or two sentences: "No, …", "My psychic powers tell
-   me …", or "The short version is that the client is reading stdout."
+3. **Answer or theory.** One or two sentences: "No, …", "My guess is
+   that …", or "The short version is that the client is reading stdout."
 4. **Middle.** Look at what actually happens, in order. Evidence, then what it
    means, one step per paragraph or two. Quote the reader's wrong theory and
    correct it there. For security claims, go through attacker, victim and gain.
@@ -251,10 +251,10 @@ isn't finished says so ("Next time, …", "We'll take up this issue next time.")
 5. **Fix or rule.** Stated flatly. The good version of the code, if there is one.
    Say what is still unknown.
 6. **Stop.** Last fact, short kicker, or "Next time".
-7. **Bonus chatter (optional, about 1 post in 5 for Chen).** One to three
-   paragraphs on a related oddity: history, an ironic detail, a second meaning,
-   a correction. It must add a fact, not restate the post. "Bonus bonus chatter"
-   is allowed once in a while.
+7. **Postscript (optional).** One to three paragraphs on a related oddity:
+   history, an ironic detail, a second meaning, a correction. It must add a
+   fact, not restate the post. (Chen calls his "Bonus chatter". That label is
+   his calling card; this site never uses it.)
 8. **Exercise (house rule: every post).** One question, one to three sentences,
    that makes the reader apply the mechanism to a nearby case. Not a quiz on the
    post's text. The answer goes in the collapsed spoiler
@@ -267,6 +267,11 @@ when the point is small.
 
 ## 4. Signature phrases, and how often to use them
 
+Borrow the moves, not the trademarks. Phrases that identify Chen by name, such as
+"Bonus chatter", "My psychic powers tell me" and "airtight hatchway", stay out
+of this site's posts. Use the plain equivalent: "Postscript:", "My guess is…",
+"Who is the attacker here, and what did they gain?"
+
 Frequencies are from the 54 posts read. Going much over these rates turns the
 voice into parody.
 
@@ -274,7 +279,7 @@ voice into parody.
 |---|---|---|
 | "A customer reported that…" / "A security vulnerability report arrived…" | most debugging and security posts | Opening only, and only when there was a real report. For composites use "Suppose…" |
 | "Suppose…" / "Say you have…" | about 1 in 4 | Fine for hypotheticals |
-| "My psychic powers tell me…" | about 1 in 5, almost all in debugging posts | At most once per post, and only for a real guess you then check |
+| "My guess is…" (Chen: "My psychic powers tell me…", never used here) | about 1 in 5, almost all in debugging posts | At most once per post, and only for a real guess you then check |
 | "Okay, so…" / "Okay, that's nice. But…" / "Okay, next question:" | about 1 in 5 | Once or twice per post |
 | "Well, …" / "Now, …" / "Of course, …" / "In other words, …" | each about 1 in 7 | Freely, but not two in a row |
 | "Let's look at…" / "Let's see…" / "Let's practice." | about 1 in 8 | Once per post, to start the evidence |
@@ -282,10 +287,10 @@ voice into parody.
 | "Do you see the problem?" | rare | Once in a while, right before the reveal |
 | "Last time…" / "Next time…" | series posts | Series posts only |
 | "Remember that…" / "Recall that…" | rare | Only to point back to an earlier post |
-| "Bonus chatter:" | about 1 in 5 | Optional, only with a real extra fact |
+| "Postscript:" (Chen's equivalent: "Bonus chatter", never used here) | about 1 in 5 | Optional, only with a real extra fact |
 | "Exercise:" | 3 in 54 | Every post (house rule) |
 | Footnotes ¹ ² | about 1 in 4 | For asides that would break the flow |
-| "It rather involved being on the other side of this airtight hatchway" | a whole series | Allusion at most; don't copy the title formula |
+| "It rather involved being on the other side of this airtight hatchway" | a whole series | Never used here; ask "who is the attacker, and what did they gain?" in plain words |
 | "It's not X, it's Y" | 0 in 54 | Avoid |
 | Em dash | 5 in 54 posts in total | At most one per post |
 
@@ -323,11 +328,11 @@ reading ("Look at those key names."), "Stderr." as a one-word answer, and the
 wrong-assumption paragraph ("You might think of stdout as…") are all on voice.
 Drift:
 
-- **Five `##` headings** ("Who is reading stdout?", "So where should the logs go?", "Why didn't the tests catch this?", plus Bonus chatter and Exercise). Chen would use none. Fold the first three into transitions ("So where should the logs go? Stderr."). Make Bonus chatter and Exercise bold inline labels unless the layout needs them as headings.
+- **Five `##` headings** ("Who is reading stdout?", "So where should the logs go?", "Why didn't the tests catch this?", plus the postscript and Exercise). Chen would use none. Fold the first three into transitions ("So where should the logs go? Stderr."). Make Postscript and Exercise bold inline labels unless the layout needs them as headings.
 - **"Let's look at what the client is actually doing."** as a paragraph of its own is a signpost. Chen does the look straight away, or puts the "Let's" in front of the evidence.
 - **"Two rules follow, and there's no wiggle room in either of them."** announces how firm the rules are. Just state them.
 - **"Same program and the same output, but a different reader."** and the spoiler's last line, **"What changed is who is on the other end of fd 1."**, are closing aphorisms in the not-X-but-Y shape. End the answer on the fd 1 pipe fact.
-- **"It's one less platform surprise to debug."** restates the Bonus chatter's point. Cut it and stop on the `cp1252` fact.
+- **"It's one less platform surprise to debug."** restates the postscript's point. Cut it and stop on the `cp1252` fact.
 - **Photo figure** (Teletype). Chen almost never uses decorative images. Diagrams that prove something are fine. Decoration is a house choice, not the voice.
 
 ### `_posts/2026-10-14-why-did-an-eval-agent-end-up-in-a-medicare-portal.md`
@@ -354,13 +359,13 @@ Run through these on the finished draft.
 2. Is the question answered (or the theory stated) within the first few paragraphs?
 3. Is the reader's wrong theory said out loud and answered with mechanism?
 4. Is there real evidence (error text, log, config, code) and does the prose read it?
-5. For any security claim: are attacker, victim and gain stated? Is a hatchway crossed?
+5. For any security claim: are attacker, victim and gain stated? Is a real boundary crossed?
 6. Is every guess marked once, in a plain clause, at the point where it's made? Are rules stated without qualifiers? Is anything stated as fact that isn't sourced?
 7. Search for `!`. There should be none.
 8. Search for `—`. One at most.
 9. Search for: worth noting, delve, here's the thing, crucial, robust, landscape, leverage, in conclusion, key takeaways, importantly, interestingly.
 10. Any three-item list or three-sentence parallel run? Make it two, or the true number.
-11. Read the last sentence of the body, of the Bonus chatter, and of the spoiler. Is any of them an aphorism or a restatement? End on a fact instead.
+11. Read the last sentence of the body, of the Postscript, and of the spoiler. Is any of them an aphorism or a restatement? End on a fact instead.
 12. Count headings. Is each one really needed? (Chen: zero.)
 13. Do the humor lines sit in analogies, parentheticals or footnotes, and is none of them aimed at a person or at harm?
 14. Is every code block introduced in one sentence and explained right after?

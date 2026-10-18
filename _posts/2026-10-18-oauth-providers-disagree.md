@@ -75,7 +75,7 @@ and tell them about the limits you find. "This works on the free plan, but the
 AI endpoint is rate-capped there, and SSO needs the Business plan" is a much
 better sentence to say before deployment than after.
 
-**Bonus chatter:** The spec does have an opinion on the port question. RFC 8252,
+**Postscript:** The spec does have an opinion on the port question. RFC 8252,
 the Best Current Practice for OAuth in native apps, says an authorization server
 MUST allow any port on a loopback IP redirect URI, because a native app can't
 count on a particular port being free. It also recommends the literal
