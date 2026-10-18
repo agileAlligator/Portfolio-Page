@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Why did OpenCode need a different model halfway through its incident?"
+title: "Why did the models stop helping halfway through OpenCode's incident?"
 subtitle: "The frontier models helping with the investigation started refusing. The fix was a vetted-access tier from the vendor, which works, but only once someone approves you."
 description: >-
   During the October 2026 OpenCode Console breach, the frontier models helping
@@ -44,7 +44,7 @@ safeguards on frontier models were getting in the way. He said they were.
 {% capture caption %}The [post](https://x.com/thdxr/status/2111790511409258796) and the [reply](https://x.com/thdxr/status/2111831348336091179), October 18.{% endcapture %}
 {% include figure.html src="/assets/blog/opencode-console-breach/dax-thread.jpg" alt=alt caption=caption %}
 
-So why did the investigation need a different tier of model halfway through?
+So why did the models stop helping halfway through?
 Because the defender didn't own the setting that mattered. The model's vendor
 decides how much security work it will do, and OpenCode's request to change
 that setting was still being processed when the attack began.
