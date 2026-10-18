@@ -149,8 +149,8 @@ prioritises, which would cover a team like OpenCode's.
 secrets. Fireworks AI's [bulletin](https://fireworks.ai/security/bulletins/october-2026-security-incident)
 says that someone using internal Fireworks credentials reached the environment
 variables of some customers' evaluation jobs, and captured the API keys and
-tokens stored there as secrets. Fireworks spotted it on October 6 and told
-customers on October 9.
+tokens stored there as secrets. Fireworks spotted it on October 6, started
+notifying customers on October 7, and published the bulletin on October 9.
 
 **Exercise:** A Console user reads the email, opens their workspace and deletes
 the saved Anthropic key. A day later, their Anthropic usage is still climbing.
@@ -159,6 +159,6 @@ What did they miss?
 {% capture answer %}
 Deleting the key in the Console removed OpenCode's copy. The attacker has their own copy, and a key stays valid at the provider until it's revoked there.
 
-The fix is in the Anthropic console: revoke the old key, create a new one, put the new one wherever it's needed, and check usage for the period the old key was exposed. Anthropic revoked the keys it *believed* were affected, so an affected key it missed is still live until the owner revokes it.
+The fix is in the Anthropic console: revoke the old key, create a new one, put the new one wherever it's needed, and check usage for the period the old key was exposed. Anthropic revoked the keys it *believed* were affected, so an affected key it missed is still live until the owner revokes it. Fireworks' bulletin gives its own customers the same warning: "Removing a stored secret alone does not invalidate the underlying credential."
 {% endcapture %}
 {% include answer.html body=answer %}
