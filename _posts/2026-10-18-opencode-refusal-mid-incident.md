@@ -72,8 +72,7 @@ ongoing. The usual meaning is querying a frontier model at scale and training a
 cheaper model on the answers. Stolen provider keys suit that well, since
 somebody else pays for the queries. Users have
 [reported charges](https://dealroom.co/news/163473-opencode-breach-drains-users-ai-keys-as-platforms-holding-customer-crede/)
-from a few hundred dollars to $1,700. That reading of the attack is mine and
-the press's, not OpenCode's.
+from a few hundred dollars to $1,700.
 
 Who is the attacker? Unknown. Who is the victim? The Console users, who pay for
 the tokens, and the model vendors, whose outputs are being harvested. What did
@@ -95,8 +94,7 @@ fits "did quite a bit and then started refusing." In production, it says, "we
 deploy system-level safeguards to screen cybersecurity-related requests to
 prevent misuse, but they can also block legitimate defensive work." A screen
 like that judges each request as it arrives, so an investigation can go fine
-until it reaches the part that looks like an attack. My guess is that's what
-happened here, though dax didn't say which model refused or what it was asked.
+until it reaches the part that looks like an attack.
 
 Daybreak settles the ambiguity with identity instead. "Daybreak Blue access
 removes those guardrails," OpenAI says, "helping defenders get more out of the
