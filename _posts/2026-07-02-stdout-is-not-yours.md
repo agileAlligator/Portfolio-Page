@@ -23,9 +23,7 @@ of schema errors and marks the server as failed.
 
 Nothing crashed. So why won't it connect?
 
-Let's look at what the client is actually doing.
-
-## Who is reading stdout?
+The short version is that the client is reading stdout, and so is your logger.
 
 A stdio MCP server talks to its client over two pipes. It reads requests from
 stdin, and it writes responses to stdout. That is the whole transport. The client
@@ -42,9 +40,9 @@ what a line should contain.
 {% include figure.html src="/assets/blog/stdout-is-not-yours/teletype-asr-33.jpg" alt=alt caption=caption %}
 
 Now trace what happens when your server logs something. Maybe it's a `structlog`
-line, or a stray `print()`, or a dependency announcing "loaded model
-successfully." The line goes to stdout. The client receives it, tries to parse it
-as protocol, and rejects the exchange:
+line, or a dependency announcing "loaded model successfully." The line goes to
+stdout. The client receives it, tries to parse it as protocol, and rejects the
+exchange:
 
 ```
 unrecognized_keys: ["warning", "event", "timestamp", "level"]
@@ -59,19 +57,16 @@ errors from a server that starts perfectly in a shell, this is the first thing t
 check.
 
 {% capture alt %}Diagram: the client writes a tools/list request to the server's stdin and parses every line of the server's stdout as JSON-RPC. A JSON-RPC result frame is accepted; a structlog line with event and level keys is rejected. The same log line sent to stderr lands in the client log or your terminal, where nobody parses it.{% endcapture %}
-{% capture caption %}Three pipes, one parser. Only stdout is read as protocol, so a log line there is a malformed reply.{% endcapture %}
+{% capture caption %}Only stdout is read as protocol, so a log line there arrives as a malformed reply.{% endcapture %}
 {% include figure.html src="/assets/blog/stdout-is-not-yours/stdio-pipes.svg" alt=alt caption=caption %}
 
 This is one of those cases where running the program by hand actively misleads
 you. In the terminal, the log line lands on your screen and looks harmless. Under
-the client, the same bytes land in the protocol stream and break it. Same
-program and the same output, but a different reader.
+the client, the same bytes land in the protocol stream and break it.
 
-## So where should the logs go?
-
-Stderr. The client doesn't parse it, which makes it the right destination for
-every diagnostic byte your server produces. If you use `structlog`, point its
-logger factory at `sys.stderr`:
+So where should the logs go? Stderr. The client doesn't parse it, which makes it
+the right destination for every diagnostic byte your server produces. If you use
+`structlog`, point its logger factory at `sys.stderr`:
 
 ```python
 import sys
@@ -83,45 +78,39 @@ structlog.configure(
         structlog.processors.TimeStamper(fmt="iso"),
         structlog.processors.JSONRenderer(),
     ],
-    logger_factory=structlog.PrintLoggerFactory(file=sys.stderr),
+    logger_factory=structlog.PrintLoggerFactory(file=sys.stderr),  # ← not stdout
 )
 ```
 
-Two rules follow, and there's no wiggle room in either of them.
+The last line is the fix. Everything the logger emits now goes to fd 2.
 
-1. Don't call `print()` in any runtime path. A bare `print()` writes to stdout by
-   definition. The one you left in an error branch you rarely hit will corrupt
-   the protocol on the day that branch finally runs. If you really need it, write
-   `print(..., file=sys.stderr)`, though the logger is the better choice.
-2. Your dependencies count too. A library that prints a banner or a progress bar
-   to stdout poisons the channel just as well as your own code does. Import such
-   libraries with that in mind, and silence the chatty ones.
+Don't call `print()` in any runtime path. A bare `print()` writes to stdout by
+definition. The one you left in an error branch you rarely hit will corrupt the
+protocol on the day that branch finally runs. If you really need it, write
+`print(..., file=sys.stderr)`, though the logger is the better choice.
 
-## Why didn't the tests catch this?
+Your dependencies count too. A library that prints a banner or a progress bar to
+stdout poisons the channel just as well as your own code does. Import such
+libraries with that in mind, and silence the chatty ones.
 
-Because the tests never looked. A typical unit test imports a function and checks
-its return value. It doesn't launch the server as a subprocess and read stdout
-the way a real client does. The bug lives entirely in the integration, and that's
-the one place the suite doesn't go.
+Okay, so why didn't the tests catch this? The tests never looked. A typical unit
+test imports a function and checks its return value. It doesn't launch the server
+as a subprocess and read stdout the way a real client does. The bug lives entirely
+in the integration, and that's the one place the suite doesn't go.
 
 The remedy is a small stdio smoke test. Spawn the server as a subprocess, send an
 `initialize` request followed by a `tools/list` request, and assert that what
 comes back on stdout is clean, parseable JSON-RPC listing the tools you expect.
-If a log line is leaking, the test fails right away. As a bonus, it also catches
-a couple of related failures in the same run, such as import-time crashes and
-startup failures on an empty config. Run it before you tell anyone the server
-works.
+Run it before you tell anyone the server works. If a log line is leaking, the test
+fails right away. It also catches import-time crashes and startup failures on an
+empty config in the same run.
 
-## Bonus chatter
+**Bonus chatter:** The `JSONRenderer` in the configuration above has a pleasant
+side effect. It escapes non-ASCII characters. That keeps your stderr logs readable
+even on a Windows `cp1252` console, which would otherwise choke on a stray emoji
+or box-drawing character.
 
-The `JSONRenderer` in the configuration above has a pleasant side effect: it
-escapes non-ASCII characters. That keeps your stderr logs readable even on a
-Windows `cp1252` console, which would otherwise choke on a stray emoji or
-box-drawing character. It's one less platform surprise to debug.
-
-## Exercise
-
-When you run the server by hand, `print("hello")` and
+**Exercise:** When you run the server by hand, `print("hello")` and
 `print("hello", file=sys.stderr)` both show up in your terminal, and they look
 identical. Explain why only one of them breaks the connection when the client
 launches the server.
@@ -129,8 +118,6 @@ launches the server.
 {% capture answer %}
 In your terminal, file descriptors 1 and 2 both point at the same tty. Both lines land on your screen, and the only thing reading them is you.
 
-When the client launches the server, it replaces fd 1 with a pipe and reads every line on that pipe as a JSON-RPC message. `hello` isn't JSON, so the parse fails. fd 2 is inherited or routed to the client's log, and nobody parses it.
-
-The two `print` calls didn't change. What changed is who is on the other end of fd 1.
+When the client launches the server, fd 2 is inherited or routed to the client's log, and nobody parses it. fd 1 is different. The client replaces it with a pipe and reads every line on that pipe as a JSON-RPC message. `hello` isn't JSON, so the parse fails.
 {% endcapture %}
 {% include answer.html body=answer %}
