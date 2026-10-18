@@ -77,19 +77,18 @@ the press's, not OpenCode's.
 
 Who is the attacker? Unknown. Who is the victim? The Console users, who pay for
 the tokens, and the model vendors, whose outputs are being harvested. What did
-the attacker gain? Frontier model output on someone else's bill. OpenCode is
-where the keys were stored, which is why it spent two days under attack.
+the attacker gain? Frontier model output on someone else's bill. OpenCode was
+just where the keys were kept.
 
-## Who holds the dial
+## The refusals
 
-Now to the refusals. You might say the models were being sensible. A stranger
-asking how an attacker got into a system, and what the attacker did next, looks
-a lot like an attacker asking the same thing. That's the problem in one
-sentence. AWS's write-up of Daybreak puts it this way: cybersecurity is
-"inherently dual use," and "general-purpose models resolve that ambiguity by
-declining the request." An investigation is about as dual-use as security work
-gets. You read the attacker's tooling, reconstruct the steps, and check whether
-they still work.
+You might say the models were being sensible. A stranger asking how an
+attacker got into a system, and what the attacker did next, looks a lot like an
+attacker asking the same thing. AWS's write-up of Daybreak puts it this way:
+cybersecurity is "inherently dual use," and "general-purpose models resolve
+that ambiguity by declining the request." An investigation is about as
+dual-use as security work gets. You read the attacker's tooling and replay
+their steps to see whether they still work.
 
 OpenAI's [own explanation](https://openai.com/index/expanding-daybreak-as-the-cyber-defense-window-narrows/)
 fits "did quite a bit and then started refusing." In production, it says, "we
@@ -153,9 +152,7 @@ secrets. Fireworks AI's [bulletin](https://fireworks.ai/security/bulletins/octob
 says that someone using internal Fireworks credentials reached the environment
 variables of some customers' evaluation jobs, and captured the API keys and
 tokens stored there as secrets. Fireworks spotted it on October 6 and told
-customers on October 9. A platform that stores customers' keys for them holds
-many customers' keys in one place, so it's worth breaking into even if
-nothing else on it is.
+customers on October 9.
 
 **Exercise:** A Console user reads the email, opens their workspace and deletes
 the saved Anthropic key. A day later, their Anthropic usage is still climbing.
