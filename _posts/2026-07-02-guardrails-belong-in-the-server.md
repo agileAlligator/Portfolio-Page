@@ -16,6 +16,35 @@ series: guardrails
 featured: true
 short_title: "Why the model ignores your rules"
 exhibits: [/break-this-server/, /mcp/, /allowlist-bypass/]
+corrections:
+  - date: 2026-10-18
+    kind: "Wrong detail"
+    text: >-
+      The output-scanning code said Presidio's default AnalyzerEngine finds
+      "keys, tokens" alongside emails, phones, cards and SSNs. Presidio's [list of
+      supported entities](https://presidio.dataprivacystack.org/supported_entities/)
+      has no API-key, secret or token type, and a test run of the default
+      analyzer did not flag sample AWS, GitHub or JWT tokens as secrets. The
+      comment now says the default covers no secrets, and the text says
+      credentials need custom recognizers.
+  - date: 2026-10-18
+    kind: "Overstated"
+    text: >-
+      The post said researchers like Pliny the Liberator "reliably jailbreak
+      frontier models within hours of release." TIME's 2025 [TIME100 AI
+      profile](https://time.com/collections/time100-ai-2025/7305870/pliny-the-liberator/)
+      says Pliny has made models misbehave "mere hours after their release," but
+      no source supports "reliably." The post now quotes TIME's wording and links
+      the profile.
+  - date: 2026-10-18
+    kind: "Overstated"
+    text: >-
+      The Postscript said each of the post's controls gets bypassed and then
+      fixed in mcploitable. The lab's
+      [README](https://github.com/agileAlligator/mcploitable) describes breakable servers
+      with levels from no control up to a "correct-control wall," but it has no
+      JWT caller check or typed-return exercise matching this post. The
+      Postscript now describes the level ladder instead.
 ---
 
 Suppose someone reports a bug in their MCP server. The system prompt says "You
@@ -43,12 +72,13 @@ Who is the attacker? Whoever wrote the ticket body, the web page or the
 message. Who is the victim? The person whose data the server can reach. What did the attacker gain? Everything the tools can do,
 because the only thing in the way was a sentence in the same context the
 attacker just wrote into. Researchers like
-[Pliny the Liberator](https://pliny.gg) reliably jailbreak frontier models
-within hours of release, so assume yours is next. A rule in the prompt is a
+[Pliny the Liberator](https://pliny.gg) have made models misbehave
+["mere hours after their release"](https://time.com/collections/time100-ai-2025/7305870/pliny-the-liberator/),
+so assume yours is next. A rule in the prompt is a
 note taped to the door of an unlocked room. (The note says "please don't come
 in." It is very polite.)
 
-{% capture alt %}A massive round steel bank vault door, swung open on its hinge behind a brass railing{% endcapture %}
+{% capture alt %}A massive round steel bank vault door, swung open on its hinge behind a metal railing{% endcapture %}
 {% capture caption %}A check that does not depend on cooperation. "[Cleveland FRB Vault Door - brightened](https://commons.wikimedia.org/wiki/File:Cleveland_FRB_Vault_Door_-_brightened.jpg)" by Spamguy, [CC BY 2.5](https://creativecommons.org/licenses/by/2.5/), via Wikimedia Commons, resized.{% endcapture %}
 {% include figure.html src="/assets/blog/guardrails-belong-in-the-server/vault-door.jpg" alt=alt caption=caption %}
 
@@ -198,7 +228,7 @@ gets a hard block.
 ```python
 from presidio_analyzer import AnalyzerEngine
 
-analyzer = AnalyzerEngine()   # emails, phones, cards, SSNs, keys, tokens…
+analyzer = AnalyzerEngine()   # emails, phones, cards, SSNs… (no secrets by default)
 
 def scan(text: str, policy: str) -> str:
     findings = analyzer.analyze(text=text, language="en")
@@ -211,12 +241,17 @@ def scan(text: str, policy: str) -> str:
 ```
 
 Under the block policy, any finding raises `DlpBlock` with the entity types it
-found. Otherwise the text comes back redacted.
+found. Otherwise the text comes back redacted. Presidio's built-in
+recognizers look for PII, not credentials. None of its
+[supported entities](https://presidio.dataprivacystack.org/supported_entities/)
+is an API key or token, so the secrets half of the scan needs custom
+recognizers added to the analyzer.
 
 **Postscript:** If you'd rather watch these failures happen than take my
 word for it, [mcploitable](https://github.com/agileAlligator/mcploitable) is a
-deliberately vulnerable MCP lab I built for that. Each of these controls gets
-bypassed there and then fixed.
+deliberately vulnerable MCP lab I built for that. Each of its breakable
+servers has levels that run from no control at all up to one where the
+correct control holds.
 
 **Exercise:** The compiled allowlist patterns are anchored with both `^` and
 `$`. Which of the two anchors is the one that stops `GET /files/{id}/content`

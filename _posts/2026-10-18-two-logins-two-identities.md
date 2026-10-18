@@ -14,6 +14,24 @@ image: /assets/og/two-logins-two-identities.png
 tags: [mcp, identity, oauth]
 short_title: "Two logins, maybe two people"
 exhibits: [/mcp/]
+corrections:
+  - date: 2026-10-18
+    kind: "Overstated"
+    text: >-
+      The post said that with federation the second login asks the user nothing
+      new and that Conditional Access and MFA policies cover the downstream. In
+      Microsoft Entra, a Conditional Access policy applies to an app's sign-in
+      only when the policy targets that app or all resources, and such a policy
+      can itself prompt for MFA. The post now says the policies apply to the
+      downstream sign-in when they target the app.
+  - date: 2026-10-18
+    kind: "Overstated"
+    text: >-
+      The post treated a configured federation as enough to tie the downstream
+      login to the verified user. Some services let admins configure SSO
+      without requiring it; Slack's SSO can be required, partially required or
+      optional, and owners can bypass it with a password. The post now says to
+      check that SSO is required, not just available.
 ---
 
 Suppose an agent acts on a downstream API for the user. The user signs in to
@@ -28,11 +46,13 @@ Only if the downstream's single sign-on is federated to your identity provider.
 Without federation, the user signed in twice to two unrelated accounts, and the
 log can name the wrong person.
 
-Okay, so what does federation do here? The second login doesn't ask the user
-anything new. The downstream sends them back to your identity provider, which
-already knows it's Alice, and Alice's account at the downstream is the one that
-gets the token. Your Conditional Access and MFA policies cover the downstream
-too. The identity you verified is the identity that acts.
+Okay, so what does federation do here? The second login doesn't use a
+downstream password. The downstream sends the user back to your identity
+provider, which already knows it's Alice, and Alice's account at the downstream
+is the one that gets the token. Your Conditional Access and MFA policies apply
+to that sign-in too, as long as they
+[target the downstream app](https://learn.microsoft.com/en-us/entra/identity/conditional-access/concept-conditional-access-cloud-apps)
+or all resources. The identity you verified is the identity that acts.
 
 Now take federation away. The second login is a separate login, and the user
 types whatever credentials they like into the downstream's own sign-in page.
@@ -64,7 +84,11 @@ person. That's worse than having no log, because people will believe this one.
 So don't write "the downstream is federated to your identity provider" in a
 design doc until you've seen the SSO configuration on the downstream side.
 Check that the customer's plan supports SSO at all, because many plans don't.
-Then it's one of these cases.
+Check that SSO is required, not just available: Slack, for example, lets an
+admin make it
+[required, partially required or optional](https://slack.com/help/articles/203772216-SAML-single-sign-on),
+and lets workspace owners bypass it with an email and password. Then it's one
+of these cases.
 
 - **Federation is there.** Keep both legs. You get your access policies on the
   downstream and one verified person across the whole chain.

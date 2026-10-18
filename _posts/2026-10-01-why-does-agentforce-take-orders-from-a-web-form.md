@@ -49,19 +49,45 @@ corrections:
       That domain was on the chat's Content Security Policy `img-src`
       allowlist, and Trusted URLs Enforcement was the fix. The post now says
       so. Live for about 17 minutes.
+  - date: 2026-10-18
+    kind: "Wrong attribution"
+    text: >-
+      The post said the third SalesBleed bug, phishing messages sent by the
+      agent in Slack, came from SecurityWeek and was not in Zenity's write-up,
+      and the 2026-10-17 correction above repeated that. Zenity published it
+      the same day in a second post, which says the agent posted the links
+      "using the agent's own identity". The post now credits and links that
+      Zenity post.
+  - date: 2026-10-18
+    kind: "Wrong detail"
+    text: >-
+      The timeline cited SecurityWeek saying all three bugs were fixed by
+      August 19, 2026. Zenity's Slack post says the attribution fix was
+      confirmed on August 20 and that all fixes, including user confirmation
+      for Reply to a Slack Thread, were confirmed and tested on September 21.
+      The timeline now follows Zenity's two posts.
+  - date: 2026-10-18
+    kind: "Wrong detail"
+    text: >-
+      The post said nobody had said whether the redactor SalesBleed beat was
+      the fix that shipped after ForcedLeak, and that it couldn't find a CVE.
+      Dark Reading reported on September 24, 2026 that Zenity worked around
+      the URL filtering Salesforce added after ForcedLeak, that Salesforce
+      called that earlier response a quick fix, and that the flaws have no
+      CVE numbers. The post, facts box and diagram now say so.
 facts:
-  as_of: 2026-10-17
+  as_of: 2026-10-18
   sourced:
     - "Zenity Labs [published SalesBleed](https://labs.zenity.io/post/salesbleed-0-click-data-exfiltration-on-agentforce) on September 24, 2026."
     - "The redactor \"only recognized a fixed set of top level domains as valid hosts,\" and `.fun` was not among them ([Zenity](https://labs.zenity.io/post/salesbleed-0-click-data-exfiltration-on-agentforce))."
     - "The default General CRM subagent could already read Leads and Accounts ([Zenity](https://labs.zenity.io/post/salesbleed-0-click-data-exfiltration-on-agentforce))."
     - "Zenity's timeline has Salesforce confirming fixes on August 18 and Zenity confirming the Trusted URLs fix on August 19."
+    - "Zenity's [Slack post](https://labs.zenity.io/post/salesbleed-hijacking-agentforce-in-slack-for-anonymous-phishing) says all fixes, including user confirmation for Reply to a Slack Thread, were confirmed and tested on September 21, 2026."
+    - "[Dark Reading](https://www.darkreading.com/application-security/salesbleed-exploits-salesforce-agents-slack-phishing) reports that SalesBleed worked around the URL filtering Salesforce added after ForcedLeak, that Salesforce called that earlier response a quick fix, and that the flaws have no CVE numbers."
     - "Salesforce says it has [no evidence of exploitation](https://www.securityweek.com/salesbleed-flaws-in-salesforce-agentforce-enabled-zero-click-data-exfiltration/) against any customer."
   inferred:
     - "In practice the redactor was a blacklist of URL shapes, because it only blocked strings it first recognized as URLs. My reading."
   unknown:
-    - "Whether the redactor is the code that shipped after ForcedLeak in September 2025."
-    - "A CVE. I couldn't find one in any source."
     - "The details of the new redaction logic."
     - "Which form field carried the payload."
 ---
@@ -175,20 +201,26 @@ URLs Enforcement for Agentforce on September 8, 2025, and
 reported the same date.
 
 So SalesBleed has the same entry point and the same goal, and it bypassed a
-control with the same name as the ForcedLeak fix. Zenity's post doesn't
-mention ForcedLeak, and nobody has said whether the redactor it beat is the
-code that shipped in September 2025.
+control with the same name as the ForcedLeak fix. Neither Zenity post
+mentions ForcedLeak, but
+[Dark Reading](https://www.darkreading.com/application-security/salesbleed-exploits-salesforce-agents-slack-phishing)
+reports that Zenity worked around the URL filtering rules Salesforce added in
+response to ForcedLeak, and that Salesforce acknowledged its earlier response
+was a quick fix rather than a comprehensive one. Salesforce hasn't said so in
+an advisory of its own.
 
 ## Timeline
 
-Zenity's timeline, with SecurityWeek's note on the third bug:
+Zenity's timelines, from its two SalesBleed posts:
 
 | Date | Event | Source |
 |------|-------|--------|
-| Jun 1, 2026 | Zenity reports the issue to Salesforce. | [Zenity](https://labs.zenity.io/post/salesbleed-0-click-data-exfiltration-on-agentforce) |
+| Jun 1, 2026 | Zenity reports the issues to Salesforce. | [Zenity](https://labs.zenity.io/post/salesbleed-0-click-data-exfiltration-on-agentforce) |
 | Aug 18, 2026 | Salesforce confirms the fixes. | [Zenity](https://labs.zenity.io/post/salesbleed-0-click-data-exfiltration-on-agentforce) |
-| Aug 19, 2026 | Zenity confirms the Trusted URLs fix. SecurityWeek says all three bugs were fixed by this date. | [Zenity](https://labs.zenity.io/post/salesbleed-0-click-data-exfiltration-on-agentforce), [SecurityWeek](https://www.securityweek.com/salesbleed-flaws-in-salesforce-agentforce-enabled-zero-click-data-exfiltration/) |
-| Sep 24, 2026 | Zenity publishes SalesBleed. | [Zenity](https://labs.zenity.io/post/salesbleed-0-click-data-exfiltration-on-agentforce) |
+| Aug 19, 2026 | Zenity confirms the Trusted URLs fix. | [Zenity](https://labs.zenity.io/post/salesbleed-0-click-data-exfiltration-on-agentforce) |
+| Aug 20, 2026 | Zenity confirms Reply to a Slack Thread now names the user who invoked it. | [Zenity](https://labs.zenity.io/post/salesbleed-hijacking-agentforce-in-slack-for-anonymous-phishing) |
+| Sep 21, 2026 | All fixes, including user confirmation for Reply to a Slack Thread, are confirmed and tested. | [Zenity](https://labs.zenity.io/post/salesbleed-hijacking-agentforce-in-slack-for-anonymous-phishing) |
+| Sep 24, 2026 | Zenity publishes both SalesBleed posts. | [Zenity](https://labs.zenity.io/post/salesbleed-0-click-data-exfiltration-on-agentforce), [Zenity](https://labs.zenity.io/post/salesbleed-hijacking-agentforce-in-slack-for-anonymous-phishing) |
 {: .timeline-table}
 
 Zenity says Salesforce hardened "the Trusted URLs mechanism to prevent similar
@@ -196,13 +228,17 @@ attacks." Salesforce told
 [SecurityWeek](https://www.securityweek.com/salesbleed-flaws-in-salesforce-agentforce-enabled-zero-click-data-exfiltration/)
 it had "no evidence at this time that the reported issue was exploited
 against any customer." It also said it had changed the defaults for certain
-Agentforce actions in Slack to require user confirmation. SecurityWeek
-describes a third bug, not in Zenity's post, that let an attacker use the
-agent to send phishing messages through the Slack integration.
+Agentforce actions in Slack to require user confirmation. That change fixes
+the third bug, which Zenity covers in a
+[second post](https://labs.zenity.io/post/salesbleed-hijacking-agentforce-in-slack-for-anonymous-phishing):
+the Reply to a Slack Thread action in the default Slack Knowledge subagent
+asked for no confirmation and didn't name the user who triggered it, so a
+poisoned lead could make the agent post phishing links into Slack under the
+agent's own identity.
 
-I couldn't find a CVE in any source, and nobody has published the details of
-the new redaction logic. Zenity doesn't name the form field that carried the
-payload.
+Dark Reading reports that the flaws have no CVE numbers, and nobody has
+published the details of the new redaction logic. Zenity doesn't name the
+form field that carried the payload.
 
 ## Fixes
 

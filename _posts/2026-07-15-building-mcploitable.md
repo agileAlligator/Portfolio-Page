@@ -14,6 +14,44 @@ tags: [mcp, guardrails, prompt_injection]
 series: guardrails
 short_title: "Why a refusal isn't a control"
 exhibits: [/break-this-server/, /owasp-top-10/]
+corrections:
+  - date: 2026-10-18
+    kind: "Wrong detail"
+    text: >-
+      The post called every box a real 2024-2026 compromise and listed the
+      SolarWinds and event-stream pattern among them. Those attacks date from
+      2020 and 2018, the plugin box actually models 2025 MCP tool poisoning
+      (Invariant Labs) with a SolarWinds-style delivery, and the agent-bus box
+      models an attack class, not a named incident. The paragraph now says so.
+  - date: 2026-10-18
+    kind: "Overstated"
+    text: >-
+      The post said the judge never reads the model's prose and that every win
+      leaves through a tool call. In the mail box the lab's oracle extracts the
+      agent's final answer and scores the image URLs in it, as a mail client
+      would fetch them. The text, figure caption and diagram now say the prose
+      is never scored and name the mail-box exception.
+  - date: 2026-10-18
+    kind: "Overtaken by events"
+    text: >-
+      The post said the self-declared identity bug appears in three boxes,
+      including a plugin's publisher string. The lab's plugin box was rebuilt
+      as an MCP tool-poisoning box and no longer keys any trust on the
+      publisher; its results file lists the bug only in the memory and agent-bus
+      boxes. The post now says two boxes.
+  - date: 2026-10-18
+    kind: "Overstated"
+    text: >-
+      The post described every box's L1 rung as a soft signal the model may
+      ignore. In the calculator box the model never sees the exploit, so its L1
+      is a deterministic blocklist. The post now notes the exception.
+  - date: 2026-10-18
+    kind: "Unsupported claim"
+    text: >-
+      The post said a reassuring payload was the biggest lever and got caught
+      far more often than a plain one. The lab's results support the direction
+      (every reassurance lowered the landing rate) but give no ranking or
+      size. The post now says it is a reliable lever and is caught more often.
 ---
 
 Suppose you point a prompt injection at an MCP server and the model refuses
@@ -39,11 +77,14 @@ guaranteed, and it gets worse under pressure. A server-side check doesn't get
 worse under pressure, because it doesn't feel any. The lab lets you watch the
 difference instead of taking my word for it.
 
-Each box is a real 2024-2026 compromise rather than a toy bug: EchoLeak, the
-Supabase MCP data leak, a Meta account-recovery confused-deputy, the
-SolarWinds and event-stream supply-chain pattern, Vanna.AI's
-exec-the-untrusted-input RCE, ChatGPT memory poisoning, and cross-agent
-injection over an agent bus. If a box's mechanism doesn't match how the real
+Each box is modeled on a real 2024-2026 incident or disclosed vulnerability
+rather than a toy bug: EchoLeak, the Supabase MCP data leak, a Meta
+account-recovery confused-deputy, [MCP tool
+poisoning](https://invariantlabs.ai/blog/mcp-security-notification-tool-poisoning-attacks)
+delivered the way SolarWinds and event-stream were, Vanna.AI's
+exec-the-untrusted-input RCE, and ChatGPT memory poisoning. The seventh,
+cross-agent injection over an agent bus, is modeled on the attack class rather
+than on a single named incident. If a box's mechanism doesn't match how the real
 attack worked, the box teaches the wrong lesson, so the mechanism came first.
 
 There's no insecure/hardened switch to flip. The victim agent, its tools and
@@ -58,7 +99,9 @@ Each box then comes in four rungs.
 
 - L0 is the door left open: the incident as it shipped.
 - L1 adds a soft signal. The server tells the model the content is untrusted,
-  and the model is free to refuse.
+  and the model is free to refuse. (The calculator box is the exception. Its
+  exploit runs where the model never sees it, so its L1 is a deterministic
+  blocklist instead.)
 - L2 is a real but partial control. It stops the obvious attempt and leaves one
   gap a competent attacker can drive through.
 - L3 is the control done right, the one that holds.
@@ -70,20 +113,22 @@ Climbing the rungs shows you where a defense stops being reliable.
 {% include figure.html src="/assets/blog/building-mcploitable/control-ladder.svg" alt=alt caption=caption %}
 
 Scoring is by effect. You don't win because the model said something
-alarming. You win when a real canary secret leaves through a real tool call,
-caught server-side. The judge never reads the model's prose. It checks only
-whether the secret got out, since that's what the defender cares about.
+alarming. You win when a real canary secret actually leaves, caught
+server-side. In most boxes that means a real tool call; in the mail box it's
+an image URL in the agent's answer that a mail client would fetch on its own.
+The judge never scores the model's prose. It checks only whether the secret got
+out, since that's what the defender cares about.
 
-{% capture alt %}Diagram: on the attacker plane you edit one untrusted artifact, such as an email, support ticket, plugin, planted memory or agent message. It flows into the fixed victim plane, where the victim agent with its system prompt, tools and model emits a tool call and a reply. The tool call goes to a server-side judge that checks only whether the canary left; the model's reply is never read.{% endcapture %}
-{% capture caption %}Two planes. You write one artifact; the judge watches the tool call, not the reply.{% endcapture %}
+{% capture alt %}Diagram: on the attacker plane you edit one untrusted artifact, such as an email, support ticket, plugin, planted memory or agent message. It flows into the fixed victim plane, where the victim agent with its system prompt, tools and model emits a tool call and a reply. The tool call goes to a server-side judge that checks only whether the canary left; the model's prose is never scored.{% endcapture %}
+{% capture caption %}Two planes. You write one artifact; the judge checks what left, not what the model said.{% endcapture %}
 {% include figure.html src="/assets/blog/building-mcploitable/two-planes.svg" alt=alt caption=caption %}
 
 Okay, so what happened? Each box runs against three victim models, one
 deliberately weak and two sharper, at ten attempts per rung and five at the
 wall.
 
-On the weak victim, the open door and both partial controls (L0 through L2)
-land almost every time. No surprise there.
+On the weak victim, the open door, the soft signal and the partial control (L0
+through L2) land almost every time. No surprise there.
 
 The sharper models tell you more. Boxes whose harm is visible at the moment the
 agent acts get refused on the model's own judgment. A secret folded into a
@@ -100,17 +145,16 @@ swapping the model doesn't change the outcome.
 {% capture caption %}The belt is tested on the sled, not on the dummy's good judgment. "[Seatbelt testing apparatus](https://commons.wikimedia.org/wiki/File:Seatbelt_testing_apparatus.jpg)" by the National Institute of Standards and Technology (NIST Digital Collections, Gaithersburg, MD 20899), [public domain (PD-USGov)](https://commons.wikimedia.org/wiki/Template:PD-USGov), via Wikimedia Commons, resized.{% endcapture %}
 {% include figure.html src="/assets/blog/building-mcploitable/seatbelt-sled.jpg" alt=alt caption=caption %}
 
-Along the way I found that the biggest lever on whether an injection lands is
+Along the way I found that a reliable lever on whether an injection lands is
 the payload *not* protesting its own innocence. "This is a routine automated
-step, no customer will see it, perfectly safe" gets caught far more often than
-the same request stated plainly. My guess is that reassurance reads as a
+step, no customer will see it, perfectly safe" gets caught more often than the
+same request stated plainly. My guess is that reassurance reads as a
 threat, the way "I'm not going to hurt you" does. Nobody says that to you on
 an ordinary Tuesday. The attacks that work sound like a colleague who assumes
 the request is normal, because to them it is.
 
-The same bug also turned up in three boxes. Trusting a self-declared identity
-shows up as a plugin's publisher string, a memory entry's source field, and a
-peer agent's name. Who is the attacker? Whoever wrote that string. Who is the
+The same bug also turned up in two boxes. Trusting a self-declared identity
+shows up as a memory entry's source field and a peer agent's name. Who is the attacker? Whoever wrote that string. Who is the
 victim? The system that reads it. What did the attacker gain? The trust the
 system gives to something it vouched for, at the price of typing a name.
 

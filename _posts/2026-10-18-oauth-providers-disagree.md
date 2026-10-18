@@ -14,6 +14,19 @@ image: /assets/og/oauth-providers-disagree.png
 tags: [mcp, oauth]
 short_title: "OAuth is a spec; providers pick"
 exhibits: [/mcp/]
+corrections:
+  - date: 2026-10-18
+    kind: "Overstated"
+    text: >-
+      The post said plenty of other providers compare the redirect URI character
+      by character and that an unregistered port fails with redirect_uri_mismatch.
+      Several large providers accept any loopback port for native clients
+      ([GitHub](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps),
+      [Google desktop clients](https://developers.google.com/identity/protocols/oauth2/native-app)),
+      and `redirect_uri_mismatch` is a provider-specific error name, not an RFC 6749 code.
+      It now says exact matching depends on the provider and client type, and cites
+      [Google's web application client](https://developers.google.com/identity/protocols/oauth2/web-server),
+      which requires an exact match and returns `redirect_uri_mismatch`.
 ---
 
 Suppose someone reports the following. They wrote an MCP server that connects
@@ -51,9 +64,11 @@ server usually catches the OAuth callback on a loopback address, and it's
 convenient to grab whatever port is free and put it in the redirect URI.
 
 Some providers accept that. Microsoft Entra, for example, ignores the port when
-it matches a `http://localhost` redirect URI, so an ephemeral port works. Plenty
-of other providers compare the redirect URI to the registered one character by
-character. An unregistered port fails with `redirect_uri_mismatch`.
+it matches a `http://localhost` redirect URI, so an ephemeral port works. Other
+providers, or other client types at the same provider, compare the redirect URI
+to the registered one exactly. Google does this for a web application client
+(its desktop client takes any loopback port), and an unregistered port fails
+with `redirect_uri_mismatch`.
 
 For the exact-match providers, don't float the port. Pick a fixed loopback port
 and make it configurable. Then register `http://localhost:<port>/callback`

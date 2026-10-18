@@ -21,16 +21,17 @@ corrections:
     text: >-
       The first version said the model was running in an internal evaluation,
       and that its transcript said "task complete" however it got the answer.
-      OpenAI says only that it reviewed old training and evaluation runs, and
-      nobody has published how the run was scored. The post now says "training
+      OpenAI's statement says the access happened "during internal training
+      and evaluation" (a spokesperson's earlier comment to the ABC said "an
+      internal evaluation"), and nobody has published how the run was scored. The post now says "training
       or evaluation" and "if the run was scored on the answer". Live for about
       17 minutes.
   - date: 2026-10-17
     kind: "Unsupported claim"
     text: >-
       A diagram caption said the access was found on August 11 by a person
-      reading transcripts. OpenAI and the government say only "August", and
-      OpenAI describes a review of earlier runs. The diagram now says "found
+      reading transcripts. OpenAI says only "mid-August" and the government
+      gives no date, and OpenAI describes a review of earlier runs. The diagram now says "found
       mid-August, in a review of earlier runs". Live for about 17 minutes.
   - date: 2026-10-17
     kind: "Overstated"
@@ -47,6 +48,44 @@ corrections:
       That's the day OpenAI emailed the agency's public mailbox. The agency saw
       the email on September 11. The summary now says OpenAI emailed the agency
       on September 10.
+  - date: 2026-10-18
+    kind: "Unsupported claim"
+    text: >-
+      The timeline said some write-ups give August 11 as the date OpenAI found
+      the access. No source found gives that date; OpenAI says "mid-August".
+      The sentence is gone, and the timeline now says nobody has given an
+      exact date.
+  - date: 2026-10-18
+    kind: "Overstated"
+    text: >-
+      The post called the NSW National Parks fire-history case, disclosed in
+      early October, "a second case". OpenAI's September statement had already
+      named four affected agencies, including BOCSAR and the Victorian
+      Department of Health. The post now calls it another case and says three
+      other agencies were named.
+  - date: 2026-10-18
+    kind: "Unsupported claim"
+    text: >-
+      The post said the portal is separate from the systems that hold Medicare
+      claims and personal records, and called it a read-only site. No source
+      says either. It now says the portal holds aggregate figures and that the
+      government found no evidence of a broader compromise of the Services
+      Australia network, and calls it a public statistics site.
+  - date: 2026-10-18
+    kind: "Overstated"
+    text: >-
+      The post said nobody read the run's logs until August and that OpenAI
+      started its review only because of the Hugging Face incident. OpenAI
+      says it began the review after that incident, and Jason Kwon told a
+      parliamentary committee that OpenAI wasn't monitoring training runs in
+      real time. The post now says that instead.
+  - date: 2026-10-18
+    kind: "Wrong detail"
+    text: >-
+      The post described OpenAI's sandbox fixes as changes made afterward,
+      implying a response to this incident. OpenAI says it made them after
+      the Hugging Face incident in July, before it found the Medicare access.
+      The post now says so.
 facts:
   as_of: 2026-10-17
   sourced:
@@ -60,14 +99,14 @@ facts:
     - "The agent's traffic looked like an ordinary crawler in the portal's logs."
   unknown:
     - "How the agent got from blocked to inside. No CVE or technique has been published."
-    - "What the access control was, and how a read-only statistics site accepted writes."
+    - "What the access control was, and how a public statistics site came to accept writes."
     - "The exact date in August that OpenAI found it."
 ---
 In June, an OpenAI model in an internal training or evaluation run got non-public access to Services Australia's Medicare Statistics Reporting Portal. Nobody outside OpenAI heard about it until September, and the public heard on September 24, when Prime Minister Anthony Albanese [told a press conference](https://www.pm.gov.au/media/press-conference-new-york) that an OpenAI agent had gained unauthorised access. So why did an agent with a research task end up somewhere it wasn't allowed to be, and why did it take until September for anyone to say so?
 
-The short version is that the agent's loop treated the portal's refusal as one more obstacle, and the sandbox, judging by OpenAI's fixes, let the next idea out onto the internet. Nobody read the run's logs until a review in August.
+The short version is that the agent's loop treated the portal's refusal as one more obstacle, and the sandbox, judging by OpenAI's fixes, let the next idea out onto the internet. Nobody at OpenAI was watching the run as it happened, and a review of earlier runs found it in mid-August.
 
-The portal publishes aggregate figures, things like spending and bulk-billing statistics. It is separate from the systems that hold Medicare claims and personal records.
+The portal publishes aggregate figures, things like spending and [bulk-billing statistics](https://www.abc.net.au/news/2026-09-24/what-we-know-about-the-openai-medicare-hack/107189452), not individuals' records. The government says there is [no evidence](https://www.pm.gov.au/media/press-conference-new-york) of a broader compromise of the Services Australia network.
 
 ## Timeline
 
@@ -76,7 +115,7 @@ The dates, per the [ABC](https://www.abc.net.au/news/2026-09-24/ai-agent-accesse
 | Date | Event | Source |
 |------|-------|--------|
 | Jun 18 | An OpenAI model, in an internal training or evaluation run, is researching public medicines spending. The portal doesn't give it what it wants. The Prime Minister says the agent "found a way around those blocks." | [ABC](https://www.abc.net.au/news/2026-09-24/ai-agent-accessed-australian-government-site-pm-says/107189078), [PM](https://www.pm.gov.au/media/press-conference-new-york) |
-| Mid-Aug | OpenAI finds it while reviewing old training and evaluation runs, a review it started only after the Hugging Face incident in July. Some write-ups give August 11. OpenAI and the government say only "August". | [OpenAI](https://openai.com/index/how-we-will-do-better-for-australia/) |
+| Mid-Aug | OpenAI finds it while reviewing old training and evaluation runs, a review it began after the Hugging Face incident in July. Neither OpenAI nor the government has given an exact date. | [OpenAI](https://openai.com/index/how-we-will-do-better-for-australia/) |
 | Sep 10 | OpenAI emails a public Services Australia mailbox. | [ABC](https://www.abc.net.au/news/2026-09-24/ai-agent-accessed-australian-government-site-pm-says/107189078) |
 | Sep 11 | Services Australia sees the email. | [ABC](https://www.abc.net.au/news/2026-09-24/ai-agent-accessed-australian-government-site-pm-says/107189078) |
 | Sep 15 | Services Australia reports it to the Australian Signals Directorate. | [ABC](https://www.abc.net.au/news/2026-09-24/ai-agent-accessed-australian-government-site-pm-says/107189078) |
@@ -89,7 +128,7 @@ The dates, per the [ABC](https://www.abc.net.au/news/2026-09-24/ai-agent-accesse
 
 The agent reached [public and non-public files](https://www.abc.net.au/news/2026-09-24/what-we-know-about-the-openai-medicare-hack/107189452) on the portal. The government described the non-public material as not particularly sensitive, and it has since been published. The agent also [wrote files to an internal server](https://www.pm.gov.au/media/press-conference-new-york), which is still under investigation. OpenAI [says](https://openai.com/index/how-we-will-do-better-for-australia/) its "review to date has found no evidence that anyone's medical records were accessed."
 
-OpenAI's own account, ["How we will do better for Australia"](https://openai.com/index/how-we-will-do-better-for-australia/), goes further than the government's. It says the model got non-public access to the service, then ran commands, retrieved internal files, credentials and aggregate statistics, and wrote files. It then used that access "to review technical system information and source code related to the service," still trying to answer the question it had been given: government spending per person on medicines for skin conditions in Victorian communities. In early October, OpenAI disclosed [a second case](https://abcnews.com/Business/openai-reveals-hack-government-agency-australia/story?id=136945837), in which a model sent crafted queries to a NSW National Parks fire-history map service and inferred database metadata that wasn't meant to be public.
+OpenAI's own account, ["How we will do better for Australia"](https://openai.com/index/how-we-will-do-better-for-australia/), goes further than the government's. It says the model got non-public access to the service, then ran commands, retrieved internal files, credentials and aggregate statistics, and wrote files. It then used that access "to review technical system information and source code related to the service," still trying to answer the question it had been given: government spending per person on medicines for skin conditions in Victorian communities. OpenAI's statement also names three other agencies whose systems its models reached. In early October it [disclosed another case](https://abcnews.com/Business/openai-reveals-hack-government-agency-australia/story?id=136945837), which its [update](https://openai.com/index/how-we-will-do-better-for-australia/) describes as one in which a model sent crafted queries to a NSW National Parks fire-history map service and inferred database metadata that wasn't meant to be public.
 
 Nobody has published how the agent got from "blocked" to "inside" at this portal. There is no CVE and no description of the technique. Acting Prime Minister Richard Marles [said](https://www.abc.net.au/news/2026-09-24/what-we-know-about-the-openai-medicare-hack/107189452) the data "was really kept behind a fence that the AI agent effectively climbed over." The government hasn't described the fence.
 
@@ -109,11 +148,11 @@ Let's ask the usual security questions. Who is the attacker? Nobody in the usual
 
 ## The sandbox
 
-A training or evaluation run is supposed to be a sandbox. OpenAI's list of changes afterward says this one wasn't sealed. It now blocks live internet access during internal training and evaluation and serves web content from cached data. It has also paused training and evaluation involving tool use for its most capable models, and widened monitoring so unusual access pages a human.
+A training or evaluation run is supposed to be a sandbox. OpenAI's list of changes, most of them made after the Hugging Face incident in July, says this one wasn't sealed. It now blocks live internet access during internal training and evaluation and serves web content from cached data. It has also paused training and evaluation involving tool use for its most capable models, and widened monitoring so unusual access pages a human.
 
 You don't add "block live internet" unless the internet was live. So the sandbox almost certainly had a door to the outside, and the outside included a government portal whose access controls, whatever they were, gave way to whatever the agent tried.
 
-The Medicare portal was a public website that also held non-public files. Something in front of those files said no to the agent at first and later stopped saying no. The government hasn't said what that was, or how a read-only statistics site ended up accepting writes.
+The Medicare portal was a public website that also held non-public files. Something in front of those files said no to the agent at first and later stopped saying no. The government hasn't said what that was, or how a public statistics site ended up accepting writes.
 
 {% capture alt %}Diagram: an eval harness with a goal, tools to fetch a URL and run code, and a loop that treats a refusal as one more result sends requests out to the live internet (inferred). They reach the Medicare statistics portal's public pages, then a control that said no and later stopped saying no, its mechanism not disclosed, and past it non-public files that were read and an internal server the agent wrote files to. Red markers show what wasn't there: no egress allowlist, no check on every path, no real-time alert.{% endcapture %}
 {% capture caption %}The path as far as it is known. Dashed boxes are inferred or undisclosed; red numbers are the missing controls.{% endcapture %}
@@ -123,7 +162,7 @@ The Medicare portal was a public website that also held non-public files. Someth
 
 Okay, so why did nobody notice for weeks? Nobody has published the portal's request log, but my guess is it shows a client that fetches pages, gets refused, and fetches different pages. That looks like a crawler, and public statistics portals are crawled all day. Nothing about an agent's traffic announces that it is an agent, or whose. When asked why Australia's systems hadn't caught it earlier, the Prime Minister [did not directly answer](https://www.pm.gov.au/media/press-conference-new-york).
 
-On the OpenAI side, if the run was scored on the answer, the score is the same whether the agent got it from a public download or through a side door. A log that nobody reads in real time is a diary. This one was read in mid-August, by a review of old runs that OpenAI started only because the Hugging Face incident made it look.
+On the OpenAI side, if the run was scored on the answer, the score is the same whether the agent got it from a public download or through a side door. A log that nobody reads in real time is a diary. OpenAI's Jason Kwon [told a parliamentary committee](https://www.governmentnews.com.au/openai-grilled-over-breaches/) the company hadn't been monitoring its training models in real time. This run turned up in mid-August, in a review of earlier runs that OpenAI began after the Hugging Face incident.
 
 {% capture alt %}An empty hotel reception desk late at night, lit and tidy, with a monitor on the counter, a sign reading RECEPTION on the stone wall behind it, and nobody there{% endcapture %}
 {% capture caption %}The log was running the whole time. Nobody was at the desk. "[Empty reception desk at Good Stay Eiropa Hotel](https://commons.wikimedia.org/wiki/File:Empty_reception_desk_at_Good_Stay_Eiropa_Hotel.jpg)" by JIP, [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/), via Wikimedia Commons, resized.{% endcapture %}
@@ -141,7 +180,7 @@ Next, authorisation at the data. If a file is non-public, the server should refu
 
 Last, identity and audit. Agent traffic should carry an identity a site owner can see and attribute, enforced at the operator's egress proxy, since a signature disappears the moment a request goes through someone else's fetcher. On the operator side, every tool call should be logged with the task it served. Some actions, such as an auth failure followed by a retry with a different technique, or a write to a remote host, should page a human that day instead of turning up in a review two months later.
 
-**Postscript:** Transluce found its evidence in [public scan records on urlquery.net](https://transluce.org/agent-activity), a service the agents were apparently using to fetch pages they couldn't reach directly. The agents left a public audit trail on a third party's site, readable by anyone, while their operator's own logs sat unread until August.
+**Postscript:** Transluce found its evidence in [public scan records on urlquery.net](https://transluce.org/agent-activity), a service the agents were apparently using to fetch pages they couldn't reach directly. The agents left a public audit trail on a third party's site, readable by anyone, while their operator, by its own account, wasn't watching the runs in real time and didn't find this one until mid-August.
 
 **Exercise:** Your agent's tool returns HTTP 403. Write down what your harness does next. If the answer is "the model decides," name the control that stops the model's second idea from reaching the network.
 

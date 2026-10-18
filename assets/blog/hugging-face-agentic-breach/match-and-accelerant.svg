@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 590" role="img" aria-labelledby="t d">
   <title id="t">Match and accelerant: how one malicious dataset became a multi-cluster intrusion</title>
-  <desc id="d">A malicious dataset triggers code execution on a dataset-processing worker, through a remote-code dataset loader or a template injection in the dataset config. From there the worker's ambient authority carries the attack: an auto-mounted service-account token it never used, an open fsspec loader, and long-lived static secrets. Each path leads to node-level access, harvested cloud and cluster credentials, and lateral movement across internal clusters. Red walls mark the fixes: PR 3368 turns off the token and drops capabilities, PR 3367 allowlists fsspec backends, PR 3375 replaces the static database password with IAM auth. A fourth, dashed path labelled inferred covers wider reach through cloud metadata, the control plane, and open egress, which Hugging Face did not state.</desc>
+  <desc id="d">A malicious dataset triggers code execution on a dataset-processing worker, after an HDF5 local-file read and through a template injection in the dataset config. From there the worker's ambient authority carries the attack: an auto-mounted service-account token it never used, a loose fsspec loader, and long-lived static secrets. Each path leads to node-level access, harvested cloud and cluster credentials, and lateral movement across internal clusters. Red walls mark the fixes: PR 3368 turns off the token and drops capabilities, PR 3367 allowlists fsspec backends, PR 3375 replaces the static database password with IAM auth. A fourth, dashed path covers wider reach through cloud metadata and an internal connector. It began as the author's inference, Hugging Face's technical timeline later confirmed it, and its fix was blocking pod access to the metadata service.</desc>
   <style>
     .bg { fill: #f7f7f4; }
     .box { fill: #f7f7f4; stroke: #1a1a1e; stroke-width: 1.5; }
@@ -53,8 +53,8 @@
   <line class="flow" x1="260" y1="68" x2="260" y2="90" marker-end="url(#arr)"/>
   <rect class="box" x="40" y="92" width="440" height="84" rx="4"/>
   <text class="b16" x="260" y="119" text-anchor="middle">Code execution on a processing worker</text>
-  <text class="s14" x="260" y="143" text-anchor="middle">via the remote-code dataset loader</text>
-  <text class="s14" x="260" y="163" text-anchor="middle">or a template injection in the dataset config</text>
+  <text class="s14" x="260" y="143" text-anchor="middle">after an HDF5 local-file read leaked env</text>
+  <text class="s14" x="260" y="163" text-anchor="middle">via a template injection in the dataset config</text>
 
   <path class="rule" d="M500 20 H510 V176 H500"/>
   <text class="cap-red" x="526" y="84">THE MATCH</text>
@@ -74,16 +74,16 @@
   <text class="s13" x="52" y="316">API token it never used</text>
 
   <rect class="box" x="40" y="344" width="280" height="60" rx="4"/>
-  <text class="b15" x="52" y="368">Open <tspan class="mono">fsspec</tspan> loader</text>
-  <text class="s13" x="52" y="390">fetches from nearly anywhere</text>
+  <text class="b15" x="52" y="368">Loose <tspan class="mono">fsspec</tspan> loader</text>
+  <text class="s13" x="52" y="390">still accepted reference:// specs</text>
 
   <rect class="box" x="40" y="418" width="280" height="60" rx="4"/>
   <text class="b15" x="52" y="442">Long-lived static secrets</text>
   <text class="s13" x="52" y="464">e.g. the production DB password</text>
 
   <rect class="dash" x="40" y="492" width="280" height="60" rx="4"/>
-  <text class="b15" x="52" y="516">Wider reach <tspan class="inf">(inferred)</tspan></text>
-  <text class="s13" x="52" y="538">metadata, control plane, egress</text>
+  <text class="b15" x="52" y="516">Wider reach <tspan class="inf">(confirmed later)</tspan></text>
+  <text class="s13" x="52" y="538">cloud metadata, internal connector</text>
 
   <!-- Paths and walls -->
   <text class="cap" x="362" y="234">WALLS (FIX PRS)</text>
@@ -104,7 +104,7 @@
   <text class="s13" x="366" y="468">IAM auth replaces password</text>
 
   <line class="flow-inf" x1="320" y1="522" x2="578" y2="522" marker-end="url(#arr-inf)"/>
-  <text class="inf" x="366" y="514">inferred</text>
+  <text class="inf" x="366" y="514">IMDS blocked (no PR)</text>
 
   <!-- The result -->
   <text class="cap" x="580" y="234">THE RESULT</text>

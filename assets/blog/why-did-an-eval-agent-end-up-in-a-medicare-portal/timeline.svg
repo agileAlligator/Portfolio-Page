@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 290" role="img" aria-labelledby="t d">
   <title id="t">98 days from access to announcement</title>
-  <desc id="d">A timeline drawn to scale. On June 18 an OpenAI model in an internal evaluation gets non-public access to the Medicare statistics portal; how it did so has not been disclosed. For about eight weeks nobody notices. In mid-August an OpenAI review of earlier runs finds it. For about four more weeks OpenAI knows and the agency does not. On September 10 OpenAI emails a public Services Australia mailbox, which sees it on September 11 and reports to the Australian Signals Directorate on September 15. Fourteen days after the email, on September 24, the Prime Minister announces it.</desc>
+  <desc id="d">A timeline drawn to scale. On June 18 an OpenAI model in internal training or evaluation gets non-public access to the Medicare statistics portal; how it did so has not been disclosed. For about eight weeks nobody notices. In mid-August an OpenAI review of earlier runs finds it. For about four more weeks OpenAI knows and the agency does not. On September 10 OpenAI emails a public Services Australia mailbox, which sees it on September 11 and reports to the Australian Signals Directorate on September 15. Fourteen days after the email, on September 24, the Prime Minister announces it.</desc>
   <style>
     .bg { fill: #f7f7f4; }
     .dot { fill: #f7f7f4; stroke: #1a1a1e; stroke-width: 2; }
