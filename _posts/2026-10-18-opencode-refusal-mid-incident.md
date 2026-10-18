@@ -21,13 +21,15 @@ facts:
     - "OpenCode [said on X](https://x.com/opencode/status/2111519637049319818) the breach was \"related to a large scale distillation attack\", hit 1.4% of Console users, and is ongoing."
     - "Anthropic's Lydia Hallie [said](https://x.com/lydiahallie/status/2111563956666110287) Anthropic has \"revoked Claude API keys we believe were affected.\""
     - "Dax Raad [wrote](https://x.com/thdxr/status/2111790511409258796) that the attacks had run non-stop for 48 hours, and [replied](https://x.com/thdxr/status/2111831348336091179) that frontier models \"did quite a bit and then started refusing\" before the team got Daybreak Blue access."
+    - "Dax [said](https://x.com/thdxr/status/2111838044940550257) OpenCode had \"coincidentally applied for it a few days ago\" and was approved \"yesterday\", which is October 17."
     - "OpenAI [says](https://openai.com/index/expanding-daybreak-as-the-cyber-defense-window-narrows/) Daybreak Blue removes the system-level safeguards that screen cybersecurity requests in production, for approved defenders doing work that includes incident response."
   inferred:
-    - "That the models that refused were OpenAI's. Dax didn't name them; the fix was an OpenAI programme."
+    - "That the models that refused included OpenAI's standard ones. Dax didn't name them, but Daybreak Blue only changes OpenAI's models."
+    - "That the refusals came before the approval. Dax describes them in that order."
     - "That the stolen keys were used to query models at scale. That's the usual meaning of distillation, and users reported large charges, but OpenCode hasn't said."
   unknown:
     - "How the attackers got into the legacy system. OpenCode hasn't said, and [Cyera](https://www.cyera.com/research/opencode-breach-what-happened-and-how-to-rotate-exposed-ai-api-keys) lists it as unknown."
-    - "How long OpenCode's Daybreak approval took. OpenAI doesn't publish approval times."
+    - "Which models refused, and what they were asked to do."
 ---
 
 On October 17, OpenCode emailed about 1.4% of the people who use its Console.
@@ -44,8 +46,8 @@ safeguards on frontier models were getting in the way. He said they were.
 
 So why did the investigation need a different tier of model halfway through?
 Because the defender didn't own the setting that mattered. The model's vendor
-decides how much security work it will do, and OpenCode had to ask the vendor
-to change it.
+decides how much security work it will do, and OpenCode's request to change
+that setting was still being processed when the attack began.
 
 ## What happened
 
@@ -53,6 +55,7 @@ to change it.
 |---|---|
 | Night of Oct 16 | The breach, which OpenCode later described as happening "last night". |
 | Oct 17, morning | OpenCode emails affected Console users to revoke and replace their provider keys. |
+| Oct 17 | OpenAI approves OpenCode for Daybreak Blue, a few days after it applied. |
 | Oct 17, 18:08 | OpenCode [on X](https://x.com/opencode/status/2111519637049319818): "a large scale distillation attack", 1.4% of Console users, incident ongoing. |
 | Oct 17, 18:41 | Dax [posts](https://x.com/thdxr/status/2111528031072461114): "my personal accounts are being attacked now too." |
 | Oct 17, 21:04 | Anthropic's Lydia Hallie [says](https://x.com/lydiahallie/status/2111563956666110287) it has revoked the Claude keys it believes were affected. |
@@ -123,16 +126,19 @@ did.
 
 Both approaches work. The difference is when they're available. An open-weight
 model is yours as soon as it's downloaded. Vetted access is yours once someone
-approves it, and OpenCode was approved partway through, after the refusals had
-already cost it time. OpenAI doesn't publish how long approval takes, and its
-[documentation](https://developers.openai.com/codex/cyber-safety) warns that
-"submitting an application or completing identity verification doesn't
-guarantee approval." A founder with a large following may not be a typical
-applicant either.
+approves it. OpenCode, as it happens, had applied before anyone attacked it.
+Dax [says](https://x.com/thdxr/status/2111838044940550257) they "coincidentally
+applied for it a few days ago and it got approved yesterday." That's a few days
+from application to approval, and the approval still landed the day after the
+breach, with refusals in between. OpenAI doesn't publish approval times, and
+its [documentation](https://developers.openai.com/codex/cyber-safety) warns
+that "submitting an application or completing identity verification doesn't
+guarantee approval."
 
 So treat model access like any other incident-response dependency, and arrange
-it before you need it. Apply for your vendor's vetted tier while nothing is on
-fire, keep an open-weight model ready on hardware you control, or do both.
+it well before you need it. A few days early was almost early enough. Apply for
+your vendor's vetted tier while nothing is on fire, keep an open-weight model
+ready on hardware you control, or do both.
 OpenAI takes applications from
 [individuals](https://chatgpt.com/cyber) and
 [organizations](https://openai.com/form/enterprise-trusted-access-for-cyber/).
