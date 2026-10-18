@@ -18,16 +18,16 @@ facts:
   as_of: 2026-10-18
   sourced:
     - "OpenCode [emailed affected users](https://dev.to/gabrielanhaia/opencode-told-14-of-console-users-to-revoke-their-openai-and-anthropic-keys-561) that it found \"unauthorized access to a legacy system that we were in the process of decommissioning\" and that provider keys saved in Console workspaces \"may have been exposed.\""
-    - "OpenCode [said on X](https://officechai.com/ai/opencode-discloses-security-breach-says-attackers-may-have-accessed-users-openai-anthropic-and-google-api-keys/) the breach was \"related to a large scale distillation attack\", hit 1.4% of Console users, and is ongoing."
-    - "Anthropic [said](https://dealroom.co/news/163473-opencode-breach-drains-users-ai-keys-as-platforms-holding-customer-crede/) it revoked the Claude API keys it believed were affected."
-    - "Dax Raad [wrote](https://x.com/thdxr/status/2111790511409258796) that the attacks had run non-stop for 48 hours, that frontier models \"did quite a bit and then started refusing\", and that the team then got Daybreak Blue access."
-    - "Daybreak Blue gives approved defenders GPT-5.6 Sol with [safeguards calibrated for defensive work](https://aws.amazon.com/blogs/machine-learning/accelerate-cyber-defense-with-openai-and-aws-daybreak-red-daybreak-blue-now-available-to-eligible-customers-on-amazon-bedrock/), including incident response."
+    - "OpenCode [said on X](https://x.com/opencode/status/2111519637049319818) the breach was \"related to a large scale distillation attack\", hit 1.4% of Console users, and is ongoing."
+    - "Anthropic's Lydia Hallie [said](https://x.com/lydiahallie/status/2111563956666110287) Anthropic has \"revoked Claude API keys we believe were affected.\""
+    - "Dax Raad [wrote](https://x.com/thdxr/status/2111790511409258796) that the attacks had run non-stop for 48 hours, and [replied](https://x.com/thdxr/status/2111831348336091179) that frontier models \"did quite a bit and then started refusing\" before the team got Daybreak Blue access."
+    - "OpenAI [says](https://openai.com/index/expanding-daybreak-as-the-cyber-defense-window-narrows/) Daybreak Blue removes the system-level safeguards that screen cybersecurity requests in production, for approved defenders doing work that includes incident response."
   inferred:
     - "That the models that refused were OpenAI's. Dax didn't name them; the fix was an OpenAI programme."
     - "That the stolen keys were used to query models at scale. That's the usual meaning of distillation, and users reported large charges, but OpenCode hasn't said."
   unknown:
-    - "How the attackers got into the legacy system."
-    - "How long OpenCode's Daybreak approval took."
+    - "How the attackers got into the legacy system. OpenCode hasn't said, and [Cyera](https://www.cyera.com/research/opencode-breach-what-happened-and-how-to-rotate-exposed-ai-api-keys) lists it as unknown."
+    - "How long OpenCode's Daybreak approval took. OpenAI doesn't publish approval times."
 ---
 
 On October 17, OpenCode emailed about 1.4% of the people who use its Console.
@@ -39,7 +39,7 @@ attack our systems for the past 48 hours." Someone asked whether the cyber
 safeguards on frontier models were getting in the way. He said they were.
 
 {% capture alt %}Screenshot of an X thread. Dax (@thdxr) writes: "they've been non stop trying to attack our systems for the past 48 hours. a side effect is everything is getting hardened but damn we basically need agents going 24/7 because that's what they have." Rhys (@RhysSullivan) replies: "Are you getting blocked by cyber safe guards at all with frontier models?" Dax answers: "yes that was a bit frustrating mid incident when trying to investigate. they did quite a bit and then started refusing. we got access to daybreak blue now so it's better." Dated 18 Oct 26.{% endcapture %}
-{% capture caption %}The [thread](https://x.com/thdxr/status/2111790511409258796), October 18.{% endcapture %}
+{% capture caption %}The [post](https://x.com/thdxr/status/2111790511409258796) and the [reply](https://x.com/thdxr/status/2111831348336091179), October 18.{% endcapture %}
 {% include figure.html src="/assets/blog/opencode-console-breach/dax-thread.jpg" alt=alt caption=caption %}
 
 So why did the investigation need a different tier of model halfway through?
@@ -53,10 +53,11 @@ to change it.
 |---|---|
 | Night of Oct 16 | The breach, which OpenCode later described as happening "last night". |
 | Oct 17, morning | OpenCode emails affected Console users to revoke and replace their provider keys. |
-| Oct 17, 18:08 | OpenCode [on X](https://dev.to/gabrielanhaia/opencode-told-14-of-console-users-to-revoke-their-openai-and-anthropic-keys-561): "a large scale distillation attack", 1.4% of Console users, incident ongoing. |
-| Oct 17, 18:41 | Dax: "my personal accounts are being attacked now too." |
-| Oct 17 | Anthropic says it has revoked the Claude keys it believes were affected. |
-| Oct 18 | Dax: 48 hours of attacks, models refusing mid-investigation, Daybreak Blue access granted. |
+| Oct 17, 18:08 | OpenCode [on X](https://x.com/opencode/status/2111519637049319818): "a large scale distillation attack", 1.4% of Console users, incident ongoing. |
+| Oct 17, 18:41 | Dax [posts](https://x.com/thdxr/status/2111528031072461114): "my personal accounts are being attacked now too." |
+| Oct 17, 21:04 | Anthropic's Lydia Hallie [says](https://x.com/lydiahallie/status/2111563956666110287) it has revoked the Claude keys it believes were affected. |
+| Oct 18, 12:04 | Dax [posts](https://x.com/thdxr/status/2111790511409258796) about 48 hours of non-stop attacks. |
+| Oct 18, 14:46 | Dax [replies](https://x.com/thdxr/status/2111831348336091179) that the models started refusing mid-investigation, and that the team now has Daybreak Blue. |
 {: .timeline-table}
 
 The breach was in the Console, OpenCode's hosted service, not in the
@@ -87,20 +88,31 @@ declining the request." An investigation is about as dual-use as security work
 gets. You read the attacker's tooling, reconstruct the steps, and check whether
 they still work.
 
-Daybreak settles the ambiguity with identity instead. Blue gives approved
-defenders GPT-5.6 Sol, and OpenAI
-[says](https://thehackernews.com/2026/08/openai-launches-gpt-56-cyber-with.html)
-the access "removes those guardrails, helping defenders get more out of the
-model in real-world security tasks, including incident detection and response,
-investigations, vulnerability management, and security assessments." Getting
-it requires enrolling in OpenAI's Trusted Access for Cyber.
+OpenAI's [own explanation](https://openai.com/index/expanding-daybreak-as-the-cyber-defense-window-narrows/)
+fits "did quite a bit and then started refusing." In production, it says, "we
+deploy system-level safeguards to screen cybersecurity-related requests to
+prevent misuse, but they can also block legitimate defensive work." A screen
+like that judges each request as it arrives, so an investigation can go fine
+until it reaches the part that looks like an attack. My guess is that's what
+happened here, though dax didn't say which model refused or what it was asked.
 
-Blue doesn't loosen everything. On OpenAI's internal Advanced Cybersecurity
-Completion Rate eval, which asks for exploit chains, authentication bypasses
-and privilege escalation, GPT-5.6 Sol completes 1.5% of requests and Blue
-completes 2.0%. GPT-5.6-Cyber, on the separately approved Red tier, completes
-95.0%. So Blue loosens the defensive work and leaves the offensive refusals
-roughly where they were. For an investigation, that's the right shape.
+Daybreak settles the ambiguity with identity instead. "Daybreak Blue access
+removes those guardrails," OpenAI says, "helping defenders get more out of the
+model in real-world security tasks, including incident detection and response,
+investigations, vulnerability management, and security assessments." In
+exchange, OpenAI controls access "through identity verification, account
+security, monitoring, approved-use restrictions, and legal attestations," and
+it has required hardware security keys on individual Daybreak accounts since
+September 1.
+
+Blue doesn't loosen everything. OpenAI says that even without the screens,
+GPT-5.6 Sol still refuses "highly dual-use" prompts such as pentesting
+production systems. On its internal Advanced Cybersecurity Completion Rate
+eval, which asks for exploit chains, authentication bypasses and privilege
+escalation, GPT-5.6 Sol completes 1.5% of requests and Blue completes 2.0%.
+GPT-5.6-Cyber, on the separately approved Red tier, completes 95.0%. So Blue
+loosens the defensive work and leaves the offensive refusals roughly where they
+were. For an investigation, that's the right shape.
 
 This is the same dial as in the [Hugging Face breach](/blog/hugging-face-agentic-breach/),
 with a different hand on it. There, OpenAI's own models ran with their cyber
@@ -112,22 +124,32 @@ did.
 Both approaches work. The difference is when they're available. An open-weight
 model is yours as soon as it's downloaded. Vetted access is yours once someone
 approves it, and OpenCode was approved partway through, after the refusals had
-already cost it time. OpenAI hasn't published how long approval takes, and a
-founder with a large following may not be a typical applicant.
+already cost it time. OpenAI doesn't publish how long approval takes, and its
+[documentation](https://developers.openai.com/codex/cyber-safety) warns that
+"submitting an application or completing identity verification doesn't
+guarantee approval." A founder with a large following may not be a typical
+applicant either.
 
 So treat model access like any other incident-response dependency, and arrange
 it before you need it. Apply for your vendor's vetted tier while nothing is on
 fire, keep an open-weight model ready on hardware you control, or do both.
-OpenAI's enrollment goes through its
-[Trusted Access for Cyber form](https://openai.com/form/enterprise-trusted-access-for-cyber/).
-On Amazon Bedrock, there's a second approval step through your AWS account team.
+OpenAI takes applications from
+[individuals](https://chatgpt.com/cyber) and
+[organizations](https://openai.com/form/enterprise-trusted-access-for-cyber/).
+On [Amazon Bedrock](https://aws.amazon.com/blogs/machine-learning/accelerate-cyber-defense-with-openai-and-aws-daybreak-red-daybreak-blue-now-available-to-eligible-customers-on-amazon-bedrock/),
+there's a second step through your AWS account team. OpenAI's
+[$1 billion subsidy](https://openai.com/index/daybreak-for-frontline-defenders/)
+for Daybreak access names open-source maintainers among the groups it
+prioritises, which would cover a team like OpenCode's.
 
 **Postscript:** OpenCode isn't the first platform this month to lose customers'
-model keys. [Dealroom reports](https://dealroom.co/news/163473-opencode-breach-drains-users-ai-keys-as-platforms-holding-customer-crede/)
-that Fireworks AI found a similar incident on October 6 and published a
-bulletin on October 9. A service that stores other people's provider keys
-holds many bills in one place, so it's worth stealing from even when the
-service itself has nothing else of value.
+secrets. Fireworks AI's [bulletin](https://fireworks.ai/security/bulletins/october-2026-security-incident)
+says that someone using internal Fireworks credentials reached the environment
+variables of some customers' evaluation jobs, and captured the API keys and
+tokens stored there as secrets. Fireworks spotted it on October 6 and told
+customers on October 9. A platform that stores customers' keys for them holds
+many customers' keys in one place, so it's worth breaking into even if
+nothing else on it is.
 
 **Exercise:** A Console user reads the email, opens their workspace and deletes
 the saved Anthropic key. A day later, their Anthropic usage is still climbing.
